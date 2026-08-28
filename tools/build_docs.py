@@ -24,7 +24,7 @@ FAVICON = (
 FAVICON_HREF = "data:image/svg+xml," + urllib.parse.quote(FAVICON)
 
 PAGES = [
-    ("identitas_samarinda2045.html", "identitas.html",
+    ("fia_samarinda2045.html", "identitas.html",
      "Eksplorasi identitas visual SAMARINDA 2045: lima arah konsep, matriks penilaian, "
      "arah terpilih, dan uji penerapannya."),
     ("peta_pengerjaan.html", "peta-pengerjaan.html",
