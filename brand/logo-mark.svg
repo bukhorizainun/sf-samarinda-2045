@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Futures in Action">
+  <title>Futures in Action — Decision Delta</title>
+  <desc>Satu titik kini bercabang menjadi tiga simpul masa depan; satu simpul terisi sebagai pilihan yang diambil.</desc>
+  <circle cx="11" cy="24" r="3.1" fill="currentColor"/>
+  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <path d="M14.6 22.6C20.4 21.8 22.6 15.4 32.4 12.4"/>
+    <path d="M14.7 24C21 23 26.6 25.1 32.9 24"/>
+    <path d="M14.6 25.4C20.4 26.2 22.6 32.6 32.4 35.6"/>
+    <circle cx="36.4" cy="24" r="3.4" stroke-width="2.2"/>
+    <circle cx="35.8" cy="37.2" r="3.4" stroke-width="2.2"/>
+  </g>
+  <circle cx="35.8" cy="10.8" r="3.9" fill="var(--logo-accent, currentColor)"/>
+</svg>

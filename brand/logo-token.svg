@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Futures in Action token">
+  <title>Futures in Action — tanda permainan</title>
+  <desc>Tanda dalam lingkaran, untuk token, pion, dan koin.</desc>
+  <circle cx="24" cy="24" r="21.5" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".45"/>
+  <g transform="translate(24 24) scale(.74) translate(-24 -24)">
+    <circle cx="11" cy="24" r="3.4" fill="currentColor"/>
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+      <path d="M14.8 22.5C20.5 21.8 22.7 15.4 32.4 12.4"/>
+      <path d="M14.8 24C21 23 26.6 25.1 32.9 24"/>
+      <path d="M14.8 25.5C20.5 26.2 22.7 32.6 32.4 35.6"/>
+      <circle cx="36.4" cy="24" r="3.4" stroke-width="2.6"/>
+      <circle cx="35.8" cy="37.2" r="3.4" stroke-width="2.6"/>
+    </g>
+    <circle cx="35.8" cy="10.8" r="4.1" fill="var(--logo-accent, currentColor)"/>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+# hasil bangun & lingkungan
+node_modules/
+.next/
+out/
+dist/
+.env
+.env.local
+.DS_Store
+Thumbs.db
+*.log
+
+# dokumen komersial — jangan pernah masuk repositori publik
+Ruwet_Labs_Samarinda2045_Shelly.html
+Ruwet_Labs_Samarinda2045_RencanaEksekusi_Tier2.html
+rencana_eksekusi_tier2.html
+
+# materi milik klien — hak ciptanya bukan milik studio
+*.pdf

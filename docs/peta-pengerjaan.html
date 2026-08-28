@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Urutan tujuh langkah pengerjaan website dan pendamping AI SAMARINDA 2045.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2048%2048%22%3E%3Crect%20width%3D%2248%22%20height%3D%2248%22%20rx%3D%228%22%20fill%3D%22%2312171a%22/%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2224%22%20r%3D%223.6%22%20fill%3D%22%23f7f5f0%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f7f5f0%22%20stroke-width%3D%223%22%3E%3Cpath%20d%3D%22M16%2022.4L28%2015.4%22/%3E%3Cpath%20d%3D%22M16.5%2024H29%22/%3E%3Cpath%20d%3D%22M16%2025.6L28%2032.6%22/%3E%3Ccircle%20cx%3D%2234%22%20cy%3D%2224%22%20r%3D%223.8%22%20stroke-width%3D%222.8%22/%3E%3Ccircle%20cx%3D%2233%22%20cy%3D%2235.6%22%20r%3D%223.8%22%20stroke-width%3D%222.8%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2233%22%20cy%3D%2212.4%22%20r%3D%224.4%22%20fill%3D%22%23c08a2e%22/%3E%3C/svg%3E">
+<title>Peta Pengerjaan Samarinda 2045</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground: #f5f7fa;
+    --surface: #ffffff;
+    --surface-2: #eef2f7;
+    --line: #dde5ee;
+    --line-soft: #e9eef4;
+
+    --ink: #16233a;
+    --ink-soft: #4a5a72;
+    --ink-faint: #6b7c94;
+
+    --brand-ink: #0f2b5c;
+    --brand-fill: #0f2b5c;
+    --brand-tint: #eaf0fa;
+    --on-fill: #ffffff;
+
+    --go-ink: #04785c;
+    --go-fill: #059669;
+    --go-tint: #e7f7f0;
+    --go-line: #a7e0c9;
+
+    --wait-ink: #b8430c;
+    --wait-fill: #ea580c;
+    --wait-tint: #fdeee4;
+    --wait-line: #f6c6a6;
+
+    --shadow-sm: 0 1px 2px rgba(15, 43, 92, .06);
+    --shadow-md: 0 12px 28px -14px rgba(15, 43, 92, .28);
+
+    --r-md: 12px;
+    --r-lg: 18px;
+
+    --sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  }
+
+  :root:not([data-theme="light"]) { color-scheme: light; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0a111f; --surface: #121c2e; --surface-2: #17233a;
+      --line: #26344c; --line-soft: #1d2a40;
+      --ink: #e6edf7; --ink-soft: #adbdd2; --ink-faint: #8698b1;
+      --brand-ink: #9cc0f7; --brand-fill: #24467f; --brand-tint: #16233d; --on-fill: #ffffff;
+      --go-ink: #5fd3ac; --go-fill: #0b8a66; --go-tint: #102a26; --go-line: #1f5548;
+      --wait-ink: #fb9b60; --wait-fill: #c2500f; --wait-tint: #2a1a12; --wait-line: #5c3320;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow-md: 0 14px 30px -16px rgba(0,0,0,.7);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0a111f; --surface: #121c2e; --surface-2: #17233a;
+    --line: #26344c; --line-soft: #1d2a40;
+    --ink: #e6edf7; --ink-soft: #adbdd2; --ink-faint: #8698b1;
+    --brand-ink: #9cc0f7; --brand-fill: #24467f; --brand-tint: #16233d; --on-fill: #ffffff;
+    --go-ink: #5fd3ac; --go-fill: #0b8a66; --go-tint: #102a26; --go-line: #1f5548;
+    --wait-ink: #fb9b60; --wait-fill: #c2500f; --wait-tint: #2a1a12; --wait-line: #5c3320;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow-md: 0 14px 30px -16px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  svg, img { max-width: 100%; }
+  body {
+    overflow-wrap: break-word;
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 44px 22px 70px; display: flex; flex-direction: column; gap: 40px; }
+  h1, h2, h3, h4 { margin: 0; text-wrap: balance; letter-spacing: -.015em; }
+  p { margin: 0; }
+  ul { margin: 0; padding: 0; list-style: none; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: .73rem; font-weight: 700;
+    letter-spacing: .09em; text-transform: uppercase; color: var(--ink-faint);
+  }
+
+  .masthead {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r-lg); box-shadow: var(--shadow-sm); overflow: hidden;
+  }
+  .masthead-strip { height: 5px; background: linear-gradient(90deg, var(--brand-fill), var(--go-fill) 55%, var(--wait-fill)); }
+  .masthead-inner { padding: 30px 30px 30px; display: flex; flex-direction: column; gap: 14px; }
+  .masthead-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding-bottom: 15px; border-bottom: 1px solid var(--line-soft); }
+  .docref {
+    font-family: var(--mono); font-size: .75rem; font-weight: 700;
+    background: var(--surface-2); color: var(--brand-ink); padding: 5px 11px; border-radius: 6px;
+  }
+  .masthead h1 { font-size: clamp(1.55rem, 3.3vw, 2rem); font-weight: 800; color: var(--brand-ink); line-height: 1.22; }
+  .masthead .sub { font-size: 1.02rem; color: var(--ink-soft); max-width: 64ch; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: .8rem; font-weight: 700; border-radius: 999px;
+    padding: 4px 12px; border: 1px solid transparent; white-space: nowrap;
+  }
+  .pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+  .pill-wait { background: var(--wait-tint); color: var(--wait-ink); border-color: var(--wait-line); }
+  .pill-todo { background: var(--surface-2); color: var(--ink-faint); border-color: var(--line); }
+  .pill-done { background: var(--go-tint); color: var(--go-ink); border-color: var(--go-line); }
+
+  .section { display: flex; flex-direction: column; gap: 16px; }
+  .section-head { display: flex; flex-direction: column; gap: 5px; }
+  .section-head h2 { font-size: 1.26rem; font-weight: 800; color: var(--brand-ink); }
+  .section-head p { font-size: .95rem; color: var(--ink-soft); max-width: 68ch; }
+
+  .track { display: flex; flex-direction: column; gap: 13px; }
+
+  .step {
+    display: grid; grid-template-columns: 58px 1fr;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r-lg); box-shadow: var(--shadow-sm); overflow: hidden;
+  }
+  .step.is-active { border-color: var(--wait-line); box-shadow: var(--shadow-md); }
+
+  .rail { position: relative; background: var(--surface-2); border-right: 1px solid var(--line); padding-top: 24px; }
+  .rail::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); background: var(--line); }
+  .step:first-child .rail::before { top: 24px; }
+  .step:last-child .rail::before { bottom: calc(100% - 24px); }
+  .node {
+    position: relative; width: 32px; height: 32px; margin: 0 auto; border-radius: 50%;
+    display: grid; place-items: center; font-family: var(--mono); font-size: .8rem; font-weight: 700;
+    background: var(--brand-fill); color: var(--on-fill); box-shadow: 0 0 0 4px var(--surface-2);
+  }
+  .step.is-active .node { background: var(--wait-fill); }
+
+  .step-body { padding: 21px 24px 22px; display: flex; flex-direction: column; gap: 13px; min-width: 0; }
+  .step-top { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 12px; }
+  .step-top h3 { font-size: 1.09rem; font-weight: 800; color: var(--brand-ink); }
+  .effort {
+    margin-left: auto; font-family: var(--mono); font-size: .74rem; font-weight: 700; color: var(--ink-soft);
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; white-space: nowrap;
+  }
+  .goal { font-size: .94rem; color: var(--ink-soft); max-width: 66ch; }
+
+  .work li {
+    font-size: .9rem; color: var(--ink-soft); padding-left: 17px; position: relative; margin-bottom: 4px;
+  }
+  .work li::before {
+    content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 6px;
+    border-radius: 2px; background: var(--brand-ink); opacity: .5;
+  }
+
+  .review {
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 13px 16px; display: flex; flex-direction: column; gap: 5px;
+  }
+  .review dt { font-family: var(--mono); font-size: .69rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .review dd { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+  .review dd.ask { color: var(--ink); font-weight: 600; }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: 24px 26px;
+  }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .flow-item { display: flex; flex-direction: column; gap: 5px; }
+  .flow-item .n { font-family: var(--mono); font-size: .75rem; font-weight: 700; color: var(--go-ink); }
+  .flow-item h4 { font-size: .96rem; color: var(--brand-ink); }
+  .flow-item p { font-size: .87rem; color: var(--ink-soft); }
+
+  .notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .note {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 17px 19px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .note h4 { font-size: .95rem; color: var(--brand-ink); }
+  .note p { font-size: .88rem; color: var(--ink-soft); }
+
+  .closing {
+    background: var(--brand-fill); color: var(--on-fill); border-radius: var(--r-lg);
+    padding: 34px 30px; text-align: center; display: flex; flex-direction: column;
+    align-items: center; gap: 12px; box-shadow: var(--shadow-md);
+  }
+  .closing h3 { font-size: 1.32rem; font-weight: 800; color: var(--on-fill); }
+  .closing p { color: #cdd9ec; font-size: .95rem; max-width: 56ch; }
+  .sign { font-size: .83rem; color: #93a7c4; }
+  .sign a { color: #7fc8f5; text-decoration: none; font-weight: 600; }
+  a:focus-visible { outline: 3px solid var(--wait-fill); outline-offset: 3px; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 26px 14px 46px; gap: 32px; }
+    .masthead-inner { padding: 22px 18px 22px; }
+    .panel { padding: 19px 17px; }
+    .step { grid-template-columns: 40px 1fr; }
+    .step-body { padding: 16px 14px 18px; gap: 11px; }
+    .node { width: 26px; height: 26px; font-size: .68rem; }
+    .effort { margin-left: 0; }
+    .step-top { gap: 7px 10px; }
+    .step-top h3 { font-size: 1.02rem; flex-basis: 100%; }
+    .review { padding: 12px 13px; }
+    .flow { gap: 14px; }
+    .legend { gap: 7px; }
+    .pill { font-size: .74rem; padding: 3px 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  @media print {
+    :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {
+      --ground: #fff; --surface: #fff; --surface-2: #f1f5f9; --line: #dde5ee; --line-soft: #e9eef4;
+      --ink: #16233a; --ink-soft: #4a5a72; --ink-faint: #6b7c94;
+      --brand-ink: #0f2b5c; --brand-fill: #0f2b5c; --brand-tint: #eaf0fa; --on-fill: #fff;
+      --go-ink: #04785c; --go-fill: #059669; --go-tint: #e7f7f0; --go-line: #a7e0c9;
+      --wait-ink: #b8430c; --wait-fill: #ea580c; --wait-tint: #fdeee4; --wait-line: #f6c6a6;
+      --shadow-sm: none; --shadow-md: none;
+    }
+    body { background: #fff; }
+    .wrap { padding: 0; gap: 24px; max-width: none; }
+    .step, .panel, .note, .masthead { break-inside: avoid; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="masthead-strip"></div>
+    <div class="masthead-inner">
+      <div class="masthead-meta">
+        <span class="docref">SMR2045-PETA-V1</span>
+        <span class="eyebrow">Dokumen pengerjaan</span>
+        <span class="eyebrow" style="margin-left:auto;">Ruwet Labs</span>
+      </div>
+      <h1>Peta Pengerjaan Website &amp; AI Companion</h1>
+      <p class="sub">
+        Urutan langkah pembuatan platform digital board game <em>Samarinda 2045: Futures Lab</em>.
+        Tujuh langkah, dikerjakan berurutan. Setiap langkah punya satu hasil yang bisa dilihat
+        dan satu pertanyaan persetujuan sebelum lanjut ke langkah berikutnya.
+      </p>
+      <div class="legend">
+        <span class="pill pill-done">Selesai</span>
+        <span class="pill pill-wait">Menunggu tanggapan Anda</span>
+        <span class="pill pill-todo">Belum mulai</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Cara kerjanya</span>
+      <h2>Empat gerakan yang berulang di setiap langkah</h2>
+      <p>
+        Tidak ada tanggal mati di dokumen ini. Yang mengikat adalah urutannya, dan langkah berikutnya
+        baru berjalan setelah Anda menyatakan hasil langkah sebelumnya sudah cocok.
+      </p>
+    </div>
+    <div class="panel">
+      <div class="flow">
+        <div class="flow-item">
+          <span class="n">01</span>
+          <h4>Dikerjakan</h4>
+          <p>Ruwet Labs menggarap satu langkah sampai ada wujud yang bisa dilihat, bukan sekadar laporan teks.</p>
+        </div>
+        <div class="flow-item">
+          <span class="n">02</span>
+          <h4>Dikirim</h4>
+          <p>Anda menerima tautan hasilnya lewat WhatsApp, bisa dibuka dari ponsel tanpa aplikasi tambahan.</p>
+        </div>
+        <div class="flow-item">
+          <span class="n">03</span>
+          <h4>Ditanggapi</h4>
+          <p>Cukup dijawab cocok atau belum, beserta catatan bebas. Tidak perlu istilah teknis.</p>
+        </div>
+        <div class="flow-item">
+          <span class="n">04</span>
+          <h4>Dirapikan lalu lanjut</h4>
+          <p>Catatan Anda dibereskan di tempat, baru langkah berikutnya dimulai.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Urutan pengerjaan</span>
+      <h2>Tujuh langkah, dari fondasi ke peluncuran</h2>
+      <p>
+        Angka perkiraan waktu di tiap langkah adalah lama pengerjaannya saja, bukan tanggal.
+        Penjadwalan kalendernya menyusul sesuai kesiapan kedua pihak.
+      </p>
+    </div>
+
+    <div class="track">
+
+      <article class="step is-active">
+        <div class="rail"><span class="node">00</span></div>
+        <div class="step-body">
+          <div class="step-top">
+            <h3>Fondasi &amp; Peta Halaman</h3>
+            <span class="pill pill-wait">Menunggu tanggapan Anda</span>
+            <span class="effort">± 2 hari</span>
+          </div>
+          <p class="goal">Menetapkan halaman apa saja yang dibuat dan apa isi tiap halaman, sebelum ada yang dibangun.</p>
+          <ul class="work">
+            <li>Peta halaman: daftar halaman beserta isi dan urutan bacanya</li>
+            <li>Ringkasan pesan utama situs dan siapa yang dituju</li>
+            <li>Penyiapan ruang kerja proyek dan alamat pratinjau</li>
+          </ul>
+          <dl class="review">
+            <dt>Yang Anda lihat</dt>
+            <dd>Dokumen peta halaman berisi lima halaman beserta rincian isinya.</dd>
+            <dt>Pertanyaan untuk Anda</dt>
+            <dd class="ask">Apakah daftar halaman dan isinya sudah mewakili board game Anda?</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="step is-active">
+        <div class="rail"><span class="node">01</span></div>
+        <div class="step-body">
+          <div class="step-top">
+            <h3>Logo &amp; Arah Visual</h3>
+            <span class="pill pill-wait">Menunggu tanggapan Anda</span>
+            <span class="effort">± 3 hari</span>
+          </div>
+          <p class="goal">Menentukan wajah board game di layar: logo, warna, dan huruf. Ini yang akan dipakai seluruh halaman berikutnya.</p>
+          <ul class="work">
+            <li>Logo board game beserta versi pendek untuk ikon dan media sosial</li>
+            <li>Dua arah visual yang berbeda, lengkap dengan contoh tampilan halaman depan</li>
+            <li>Susunan warna dan huruf untuk seluruh situs</li>
+            <li>Kerangka kasar lima halaman agar terbayang tata letaknya</li>
+          </ul>
+          <dl class="review">
+            <dt>Yang Anda lihat</dt>
+            <dd>Halaman pratinjau berisi dua arah visual yang bisa dibandingkan berdampingan.</dd>
+            <dt>Pertanyaan untuk Anda</dt>
+            <dd class="ask">Arah visual mana yang lebih mewakili Samarinda 2045, dan apakah logonya sudah cocok?</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="rail"><span class="node">02</span></div>
+        <div class="step-body">
+          <div class="step-top">
+            <h3>Halaman Inti &amp; Isi</h3>
+            <span class="pill pill-todo">Belum mulai</span>
+            <span class="effort">± 4 hari</span>
+          </div>
+          <p class="goal">Membangun seluruh halaman etalase dengan isi sebenarnya, bukan teks contoh.</p>
+          <ul class="work">
+            <li>Halaman depan dengan visual board game dan ajakan memesan</li>
+            <li>Halaman Tentang Board Game: cara bermain, komponen, dan nilai edukasinya</li>
+            <li>Katalog kartu digital yang bisa disaring per kategori</li>
+            <li>Halaman Samarinda &amp; Sungai Mahakam berformat cerita</li>
+            <li>Galeri dokumentasi komponen dan proses pembuatan</li>
+            <li>Tampilan menyesuaikan ponsel, tablet, dan komputer; tombol pemesanan langsung ke WhatsApp</li>
+          </ul>
+          <dl class="review">
+            <dt>Yang Anda lihat</dt>
+            <dd>Tautan situs versi uji coba, sudah bisa dibuka dan diklik seperti situs sungguhan.</dd>
+            <dt>Pertanyaan untuk Anda</dt>
+            <dd class="ask">Apakah teks dan foto di tiap halaman sudah benar dan sesuai maksud Anda?</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="rail"><span class="node">03</span></div>
+        <div class="step-body">
+          <div class="step-top">
+            <h3>Dashboard 4 Pilar</h3>
+            <span class="pill pill-todo">Belum mulai</span>
+            <span class="effort">± 3 hari</span>
+          </div>
+          <p class="goal">Memindahkan mekanisme keseimbangan board game ke layar, supaya pengunjung bisa mencobanya sendiri.</p>
+          <ul class="work">
+            <li>Tampilan empat pilar: Lingkungan, Masyarakat, Ekonomi, Masa Depan</li>
+            <li>Pengunjung memilih kebijakan, nilai tiap pilar bergerak mengikuti pilihannya</li>
+            <li>Aturan hitung disamakan dengan aturan skoring board game</li>
+            <li>Penjelasan singkat di tiap konsekuensi agar terasa mendidik</li>
+          </ul>
+          <dl class="review">
+            <dt>Yang Anda lihat</dt>
+            <dd>Dashboard yang bisa digeser dan dicoba langsung di situs uji coba.</dd>
+            <dt>Pertanyaan untuk Anda</dt>
+            <dd class="ask">Apakah efek tiap pilihan sudah sejalan dengan aturan main versi cetak?</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="rail"><span class="node">04</span></div>
+        <div class="step-body">
+          <div class="step-top">
+            <h3>GenAI Futures Lab Companion</h3>
+            <span class="pill pill-todo">Belum mulai</span>
+            <span class="effort">± 4 hari</span>
+          </div>
+          <p class="goal">Bagian utama paket ini: asisten yang menanggapi keputusan pemain dan menawarkan skenario lain.</p>
+          <ul class="work">
+            <li>Watak asisten sebagai penasihat Futures Lab yang paham aturan main dan konteks Samarinda</li>
+            <li>Kemampuan menilai keputusan pemain serta menyusun kemungkinan lain</li>
+            <li>Pembatas pemakaian agar biaya percakapan tetap terkendali</li>
+            <li>Kunci layanan AI disimpan di sisi server, tidak bisa diambil dari halaman</li>
+            <li>Penalaan jawaban lewat pengujian berulang</li>
+          </ul>
+          <dl class="review">
+            <dt>Yang Anda lihat</dt>
+            <dd>Chatbot aktif di situs uji coba, siap dicoba bersama dalam satu sesi pendek.</dd>
+            <dt>Pertanyaan untuk Anda</dt>
+            <dd class="ask">Apakah gaya bicara dan kualitas jawabannya sudah pantas mewakili board game Anda?</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="rail"><span class="node">05</span></div>
+        <div class="step-body">
+          <div class="step-top">
+            <h3>Panel Admin</h3>
+            <span class="pill pill-todo">Belum mulai</span>
+            <span class="effort">± 2 hari</span>
+          </div>
+          <p class="goal">Memastikan Anda bisa memperbarui isi situs sendiri tanpa memanggil developer.</p>
+          <ul class="work">
+            <li>Panel untuk mengubah teks, menambah kartu, dan mengunggah foto galeri</li>
+            <li>Penyuntingan watak chatbot tanpa menyentuh kode</li>
+            <li>Akun admin dan pengaturan hak akses</li>
+            <li>Panduan singkat bergambar</li>
+          </ul>
+          <dl class="review">
+            <dt>Yang Anda lihat</dt>
+            <dd>Panel admin beserta panduannya, dicoba langsung dengan akun Anda sendiri.</dd>
+            <dt>Pertanyaan untuk Anda</dt>
+            <dd class="ask">Apakah Anda merasa cukup nyaman menambah satu kartu baru sendiri?</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="rail"><span class="node">06</span></div>
+        <div class="step-body">
+          <div class="step-top">
+            <h3>Uji Akhir, Peluncuran, Serah Terima</h3>
+            <span class="pill pill-todo">Belum mulai</span>
+            <span class="effort">± 2 hari</span>
+          </div>
+          <p class="goal">Memindahkan situs ke alamat resmi dan menyerahkan seluruh kepemilikan kepada Anda.</p>
+          <ul class="work">
+            <li>Pengujian di berbagai perangkat dan peramban, termasuk kecepatan muat</li>
+            <li>Pemasangan alamat resmi beserta pengaman HTTPS</li>
+            <li>Perapian tampilan tautan saat dibagikan di WhatsApp dan media sosial</li>
+            <li>Penyerahan kode program, dokumentasi, dan seluruh akun</li>
+            <li>Sesi pendampingan untuk tim Anda</li>
+          </ul>
+          <dl class="review">
+            <dt>Yang Anda lihat</dt>
+            <dd>Situs hidup di alamat resmi, beserta berkas serah terima.</dd>
+            <dt>Pertanyaan untuk Anda</dt>
+            <dd class="ask">Apakah semuanya sudah sesuai dan siap diumumkan ke publik?</dd>
+          </dl>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Catatan pengerjaan</span>
+      <h2>Hal yang perlu diketahui sejak awal</h2>
+    </div>
+    <div class="notes">
+      <div class="note">
+        <h4>Alamat situs bertahap</h4>
+        <p>Selama pengerjaan, situs tinggal di alamat uji coba gratis supaya Anda bisa memantau dari langkah pertama. Alamat resmi berbayar dipasang di langkah terakhir, tanpa membangun ulang apa pun.</p>
+      </div>
+      <div class="note">
+        <h4>Fondasi untuk edisi kota lain</h4>
+        <p>Isi situs dipisahkan dari tampilannya sejak awal. Edisi Samarinda berdiri sendiri sekarang, dan struktur yang sama bisa dipakai ulang bila nanti muncul edisi kota atau negara lain.</p>
+      </div>
+      <div class="note">
+        <h4>Bahan dari Anda</h4>
+        <p>Yang paling menentukan kecepatan adalah foto komponen, daftar kartu, dan aturan main. Selama itu belum ada, pengerjaan tetap jalan memakai isi sementara yang ditandai jelas.</p>
+      </div>
+      <div class="note">
+        <h4>Kepemilikan</h4>
+        <p>Alamat situs, hosting, dan akun layanan AI terdaftar atas nama Anda. Kode program dan seluruh desain menjadi milik Anda setelah serah terima.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="closing">
+    <h3>Langkah 00 dan 01 sudah dikerjakan</h3>
+    <p>
+      Peta halaman dan dua arah visual beserta logonya sudah siap dilihat. Tanggapan Anda pada
+      keduanya yang menentukan kapan langkah 02 dimulai.
+    </p>
+    <p class="sign">Ruwet Labs — Platform Development &amp; AI Integration</p>
+  </footer>
+
+</div>
+</body>
+</html>

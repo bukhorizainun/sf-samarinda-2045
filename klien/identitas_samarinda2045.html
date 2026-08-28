@@ -1,0 +1,1179 @@
+<title>Identitas Futures in Action</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════ token ═══════════ */
+  :root {
+    --paper:      #f4f5f3;
+    --plate:      #ffffff;
+    --plate-2:    #ebedea;
+    --hair:       #d8ddd9;
+    --hair-soft:  #e6eae7;
+
+    --ink:        #12171a;
+    --ink-2:      #4c5a5c;
+    --ink-3:      #7d8a8a;
+
+    --teal:       #0f5c58;
+    --teal-soft:  #e3efec;
+    --brass:      #c08a2e;
+
+    --lift:       0 1px 2px rgba(18,23,26,.05);
+    --lift-2:     0 18px 40px -26px rgba(18,23,26,.35);
+
+    --display: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --body:    'Karla', system-ui, -apple-system, sans-serif;
+    --mono:    'JetBrains Mono', ui-monospace, Consolas, monospace;
+  }
+  :root:not([data-theme="light"]) { color-scheme: light; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #0b0e0f; --plate: #14191a; --plate-2: #1b2223;
+      --hair: #2a3334; --hair-soft: #212a2b;
+      --ink: #e9eeea; --ink-2: #a8b6b5; --ink-3: #7a8887;
+      --teal: #5fc4b4; --teal-soft: #10312e; --brass: #d9a854;
+      --lift: 0 1px 2px rgba(0,0,0,.5); --lift-2: 0 20px 44px -28px rgba(0,0,0,.85);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #0b0e0f; --plate: #14191a; --plate-2: #1b2223;
+    --hair: #2a3334; --hair-soft: #212a2b;
+    --ink: #e9eeea; --ink-2: #a8b6b5; --ink-3: #7a8887;
+    --teal: #5fc4b4; --teal-soft: #10312e; --brass: #d9a854;
+    --lift: 0 1px 2px rgba(0,0,0,.5); --lift-2: 0 20px 44px -28px rgba(0,0,0,.85);
+  }
+
+  /* ═══════════ dwibahasa ═══════════ */
+  :root[data-lang="en"] [lang="id"] { display: none !important; }
+  :root:not([data-lang="en"]) [lang="en"] { display: none !important; }
+
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--body); font-size: 16px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-wrap: break-word;
+  }
+  svg, img { max-width: 100%; }
+  .sheet { max-width: 1060px; margin: 0 auto; padding: 56px 24px 90px; display: flex; flex-direction: column; gap: 64px; }
+  /* anak flex bawaannya min-width:auto, sehingga isi lebar (tabel, mock) memaksa
+     seluruh halaman melebar dan terpotong di layar sempit */
+  .sheet > *, .sec > *, .top > *, .c-body > *, .concept > * { min-width: 0; }
+  h1,h2,h3,h4,h5 { margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+  svg { display: block; }
+
+  .lbl {
+    font-family: var(--mono); font-size: .69rem; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3);
+  }
+
+  /* pengalih bahasa */
+  .lang-switch { display: inline-flex; border: 1px solid var(--hair); border-radius: 2px; overflow: hidden; }
+  .lang-switch button {
+    font-family: var(--mono); font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+    padding: 5px 11px; background: transparent; color: var(--ink-3);
+    border: none; cursor: pointer; line-height: 1.6;
+  }
+  .lang-switch button + button { border-left: 1px solid var(--hair); }
+  .lang-switch button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .lang-switch button:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
+
+  /* ═══════════ masthead ═══════════ */
+  .top { display: flex; flex-direction: column; gap: 26px; }
+  .top-rule { height: 1px; background: var(--hair); }
+  .top h1 {
+    font-family: var(--display); font-weight: 200;
+    font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.02; letter-spacing: -.02em; color: var(--ink);
+  }
+  .top h1 em { font-style: normal; font-weight: 500; }
+  .top .lede { font-size: 1.05rem; color: var(--ink-2); max-width: 60ch; }
+  .top-meta { display: flex; flex-wrap: wrap; gap: 12px 26px; align-items: center; }
+
+  /* ═══════════ hirarki merek ═══════════ */
+  .rel { display: grid; grid-template-columns: 1.4fr auto 1fr; gap: 22px; align-items: stretch; }
+  .rel-card { background: var(--plate); border: 1px solid var(--hair); border-radius: 3px; padding: 26px 28px; display: flex; flex-direction: column; gap: 10px; }
+  .rel-card.primary { border-color: var(--ink); box-shadow: var(--lift-2); }
+  .rel-card h3 { font-family: var(--display); font-weight: 500; font-size: 1.35rem; letter-spacing: .01em; }
+  .rel-card.primary h3 { font-size: 1.7rem; letter-spacing: .04em; }
+  .rel-card p { font-size: .9rem; color: var(--ink-2); }
+  .rel-card .edline { margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--hair); font-family: var(--display); font-weight: 400; letter-spacing: .08em; color: var(--ink); text-transform: uppercase; font-size: .8rem; display: flex; flex-direction: column; gap: 4px; }
+  .rel-div { display: grid; place-items: center; }
+  .rel-div span { font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; color: var(--ink-3); writing-mode: vertical-rl; }
+
+  /* ═══════════ diagram gagasan inti ═══════════ */
+  .idea { background: var(--plate); border: 1px solid var(--hair); border-radius: 3px; padding: 34px 30px; }
+  .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; }
+  .chain .node-word { font-family: var(--display); font-weight: 300; font-size: clamp(1.05rem, 2.6vw, 1.5rem); letter-spacing: .02em; }
+  .chain .node-word.on { font-weight: 500; color: var(--teal); }
+  .chain .arw { width: 34px; height: 1px; background: var(--hair); position: relative; }
+  .chain .arw::after { content: ""; position: absolute; right: 0; top: -2.5px; border: 3px solid transparent; border-left-color: var(--hair); }
+
+  /* ═══════════ seksi ═══════════ */
+  .sec { display: flex; flex-direction: column; gap: 26px; }
+  .sec-head { display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--ink); padding-top: 14px; }
+  .sec-head h2 { font-family: var(--display); font-weight: 300; font-size: clamp(1.5rem, 3.4vw, 2.1rem); letter-spacing: -.01em; }
+  .sec-head p { font-size: .97rem; color: var(--ink-2); max-width: 66ch; }
+
+  /* ═══════════ konsep ═══════════ */
+  .concept { display: grid; grid-template-columns: 300px 1fr; gap: 30px; padding: 30px 0; border-top: 1px solid var(--hair); }
+  .concept:first-of-type { border-top: none; }
+
+  .plate {
+    aspect-ratio: 1 / 1; border-radius: 3px; display: grid; place-items: center;
+    border: 1px solid var(--hair); position: relative; overflow: hidden;
+  }
+  .plate > svg { width: 54%; height: 54%; }
+  .plate .idx {
+    position: absolute; top: 13px; left: 15px;
+    font-family: var(--mono); font-size: .66rem; letter-spacing: .12em; opacity: .55;
+  }
+  .p1 { background: #f7f5f0; color: #12171a; --logo-accent: #c08a2e; }
+  .p2 { background: #14181b; color: #f2efe8; --logo-accent: #e0793c; }
+  .p3 { background: #eef2f0; color: #0f5c58; --logo-accent: #c08a2e; }
+  .p4 { background: #101a2c; color: #eaf0f6; --logo-accent: #f0b33c; }
+  .p5 { background: #f2f1ee; color: #1a1c22; --logo-accent: #2f6d63; }
+
+  .c-body { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .c-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; }
+  .c-title h3 { font-family: var(--display); font-weight: 500; font-size: 1.4rem; letter-spacing: -.01em; }
+  .c-title .en { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px 26px; }
+  .fact { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: baseline; }
+  .fact dt { font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .fact dd { margin: 0; font-size: .89rem; color: var(--ink-2); }
+
+  .scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 9px 20px; padding-top: 16px; border-top: 1px dotted var(--hair); }
+  .score { display: grid; grid-template-columns: 1fr auto; gap: 3px 8px; align-items: center; }
+  .score .k { font-family: var(--mono); font-size: .63rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); }
+  .score .v { font-family: var(--mono); font-size: .78rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .meter { grid-column: 1 / -1; height: 3px; background: var(--hair-soft); border-radius: 2px; overflow: hidden; }
+  .meter i { display: block; height: 100%; background: var(--teal); }
+
+  /* ═══════════ matriks ═══════════ */
+  .matrix-scroll { overflow-x: auto; overscroll-behavior-x: contain; min-width: 0; max-width: 100%; border: 1px solid var(--hair); border-radius: 3px; background: var(--plate); }
+  table.matrix { width: 100%; border-collapse: collapse; font-size: .87rem; min-width: 660px; }
+  table.matrix th, table.matrix td { padding: 12px 14px; text-align: center; border-bottom: 1px solid var(--hair-soft); }
+  table.matrix th { font-family: var(--mono); font-size: .63rem; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+  table.matrix td { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  table.matrix th:first-child, table.matrix td:first-child { text-align: left; font-family: var(--body); color: var(--ink); white-space: nowrap; }
+  table.matrix td.tot { font-weight: 700; color: var(--ink); }
+  table.matrix tr.win td { background: var(--teal-soft); color: var(--ink); }
+  table.matrix tr.win td:first-child { font-weight: 700; }
+  table.matrix tr:last-child td { border-bottom: none; }
+
+  /* ═══════════ sistem logo ═══════════ */
+  .sys { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 18px; }
+  .unit { border: 1px solid var(--hair); border-radius: 3px; overflow: hidden; background: var(--plate); display: flex; flex-direction: column; }
+  .unit .stage { flex: 1; min-height: 148px; display: grid; place-items: center; padding: 24px 18px; }
+  .unit .cap { border-top: 1px solid var(--hair); padding: 10px 14px; display: flex; flex-direction: column; gap: 1px; }
+  .unit .cap b { font-size: .82rem; font-weight: 700; }
+  .unit .cap span { font-size: .76rem; color: var(--ink-3); }
+
+  .on-light { background: #f7f5f0; color: #12171a; --logo-accent: #c08a2e; }
+  .on-dark  { background: #12171a; color: #f7f5f0; --logo-accent: #d9a04a; }
+  .on-teal  { background: #0f5c58; color: #f2f6f3; --logo-accent: #eab657; }
+  .on-mono  { background: var(--plate-2); color: var(--ink); --logo-accent: currentColor; }
+
+  /* kunci logo — nama permainan tetap, baris edisi yang berganti */
+  .lockup { display: flex; align-items: center; gap: 13px; }
+  .lockup > svg { width: 42px; height: 42px; flex: none; }
+  .lockup .wm { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .brand {
+    font-family: var(--display); font-weight: 500; font-size: .8rem;
+    letter-spacing: .12em; line-height: 1; text-transform: uppercase; white-space: nowrap;
+  }
+  .edition {
+    font-family: var(--display); font-weight: 200; font-size: .5rem;
+    letter-spacing: .2em; line-height: 1; text-transform: uppercase;
+    opacity: .78; white-space: nowrap;
+  }
+  .lockup.sm > svg { width: 25px; height: 25px; }
+  .lockup.sm .brand { font-size: .62rem; letter-spacing: .1em; }
+  .lockup.sm .edition { font-size: .42rem; letter-spacing: .15em; }
+
+  .stacked { display: flex; flex-direction: column; align-items: center; gap: 11px; text-align: center; max-width: 100%; }
+  .stacked > svg { width: 58px; height: 58px; }
+  .stacked .brand { font-size: .82rem; letter-spacing: .11em; }
+  .stacked .edition { font-size: .5rem; letter-spacing: .17em; }
+
+  /* konstruksi */
+  .build { display: grid; grid-template-columns: minmax(200px, 260px) 1fr; gap: 30px; align-items: center; }
+  .build-plate { background: var(--plate); border: 1px solid var(--hair); border-radius: 3px; padding: 26px; color: var(--ink); --logo-accent: var(--brass); }
+  .build-plate svg { width: 100%; max-width: 230px; height: auto; margin: 0 auto; }
+  .build-notes li { font-size: .9rem; color: var(--ink-2); padding-left: 22px; position: relative; margin-bottom: 9px; }
+  .build-notes li::before { content: ""; position: absolute; left: 0; top: .68em; width: 10px; height: 1px; background: var(--teal); }
+  .build-notes li b { color: var(--ink); font-weight: 700; }
+
+  /* keluarga kota */
+  .cities { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .city-unit { border: 1px solid var(--hair); border-radius: 3px; padding: 24px 20px; background: var(--plate); display: grid; place-items: center; color: var(--ink); --logo-accent: var(--brass); }
+  .city-unit.now { border-color: var(--ink); box-shadow: var(--lift-2); }
+
+  /* ═══════════ penerapan ═══════════ */
+  .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+  .app { border: 1px solid var(--hair); border-radius: 3px; overflow: hidden; background: var(--plate); display: flex; flex-direction: column; }
+  .app.wide { grid-column: span 2; }
+  .app .frame { padding: 20px; display: grid; place-items: center; background: var(--plate-2); min-height: 190px; }
+  .app .cap { border-top: 1px solid var(--hair); padding: 9px 13px; font-size: .76rem; color: var(--ink-3); }
+
+  .box3d { width: 132px; aspect-ratio: 3 / 4; background: #0f5c58; color: #f4f7f4; --logo-accent: #eab657;
+           border-radius: 2px; padding: 16px 13px; display: flex; flex-direction: column; box-shadow: var(--lift-2); }
+  .box3d .top-mark { display: flex; justify-content: center; margin-bottom: 12px; }
+  .box3d .top-mark svg { width: 42px; height: 42px; }
+  .box3d .nm { font-family: var(--display); font-weight: 500; font-size: .7rem; letter-spacing: .13em; text-align: center; line-height: 1.4; }
+  .box3d .yr { font-family: var(--display); font-weight: 200; font-size: .42rem; letter-spacing: .18em; text-align: center; margin-top: 5px; }
+  .box3d .foot { margin-top: auto; border-top: 1px solid rgba(244,247,244,.3); padding-top: 7px; font-family: var(--mono); font-size: .46rem; letter-spacing: .1em; text-align: center; opacity: .85; }
+
+  .board { width: 100%; max-width: 200px; aspect-ratio: 1 / 1; background: #f7f5f0; border: 1px solid #dcd7cb; border-radius: 2px; position: relative; overflow: hidden; }
+  .board svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .card-g { width: 118px; aspect-ratio: 5 / 7; background: #f7f5f0; border: 1px solid #ddd8cc; border-radius: 4px;
+            padding: 11px 11px 9px; display: flex; flex-direction: column; gap: 8px; color: #12171a; --logo-accent: #c08a2e; box-shadow: var(--lift); }
+  .card-g .hd { display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #ddd8cc; padding-bottom: 6px; }
+  .card-g .hd svg { width: 16px; height: 16px; flex: none; }
+  .card-g .hd span { font-family: var(--mono); font-size: .43rem; letter-spacing: .12em; text-transform: uppercase; color: #6a736b; }
+  .card-g .ttl { font-family: var(--display); font-weight: 500; font-size: .68rem; line-height: 1.25; }
+  .card-g .lines { display: flex; flex-direction: column; gap: 4px; }
+  .card-g .lines i { display: block; height: 2.5px; background: #e0dbcf; border-radius: 2px; }
+  .card-g .pills { margin-top: auto; display: flex; gap: 4px; }
+  .card-g .pills i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+
+  .token { width: 88px; height: 88px; border-radius: 50%; background: #12171a; color: #f7f5f0; --logo-accent: #d9a04a;
+           display: grid; place-items: center; box-shadow: var(--lift-2); border: 2px solid #2b3234; }
+  .token svg { width: 46px; height: 46px; }
+
+  .browser { width: 100%; border: 1px solid var(--hair); border-radius: 3px; overflow: hidden; background: #f7f5f0; }
+  .browser .bar { display: flex; gap: 5px; padding: 7px 9px; background: #e8e4da; border-bottom: 1px solid #dcd7cb; }
+  .browser .bar i { width: 6px; height: 6px; border-radius: 50%; background: #c6c0b2; display: block; }
+  .browser .body { padding: 12px 14px 18px; color: #12171a; --logo-accent: #c08a2e; }
+  .browser .navrow { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid #e2ddd1; }
+  .browser .navrow ul { display: flex; gap: 9px; margin-left: auto; }
+  .browser .navrow li { font-size: .48rem; color: #5c6660; }
+  .browser h5 { font-family: var(--display); font-weight: 300; font-size: .98rem; line-height: 1.15; margin: 14px 0 7px; letter-spacing: -.01em; }
+  .browser h5 b { font-weight: 500; }
+  .browser p { font-size: .53rem; color: #5c6660; max-width: 34ch; }
+  .browser .btn { display: inline-block; margin-top: 10px; background: #0f5c58; color: #f4f7f4; font-size: .5rem; letter-spacing: .06em; padding: 6px 12px; border-radius: 99px; }
+
+  .navbar { width: 100%; background: #12171a; color: #f7f5f0; --logo-accent: #d9a04a; padding: 12px 16px; border-radius: 3px; display: flex; align-items: center; gap: 14px; }
+  .navbar ul { display: flex; gap: 12px; margin-left: auto; }
+  .navbar li { font-size: .55rem; opacity: .75; }
+
+  .phone { width: 116px; aspect-ratio: 9 / 18; background: #f7f5f0; border: 5px solid #12171a; border-radius: 16px; padding: 12px 10px; color: #12171a; --logo-accent: #c08a2e; display: flex; flex-direction: column; gap: 9px; box-shadow: var(--lift-2); }
+  .phone .notch { width: 34px; height: 3px; border-radius: 9px; background: #d5d0c4; margin: 0 auto 3px; }
+  .phone h5 { font-family: var(--display); font-weight: 400; font-size: .58rem; line-height: 1.25; }
+  .phone .bars { display: flex; flex-direction: column; gap: 4px; margin-top: auto; }
+  .phone .bars i { display: block; height: 3px; border-radius: 2px; background: #e0dbcf; }
+  .phone .btn { background: #0f5c58; color: #f4f7f4; font-size: .43rem; text-align: center; padding: 5px; border-radius: 99px; letter-spacing: .05em; }
+
+  .fav-row { display: flex; align-items: flex-end; gap: 18px; }
+  .fav { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .fav .sq { background: #12171a; color: #f7f5f0; --logo-accent: #d9a04a; border-radius: 4px; display: grid; place-items: center; }
+  .fav .sq.s16 { width: 16px; height: 16px; border-radius: 2px; }
+  .fav .sq.s32 { width: 32px; height: 32px; border-radius: 3px; }
+  .fav .sq.s64 { width: 64px; height: 64px; border-radius: 6px; }
+  .fav .sq svg { width: 74%; height: 74%; }
+  .fav span { font-family: var(--mono); font-size: .56rem; color: var(--ink-3); }
+
+  .slide { width: 100%; aspect-ratio: 16 / 9; background: #12171a; color: #f7f5f0; --logo-accent: #d9a04a;
+           border-radius: 3px; padding: 16px 18px; display: flex; flex-direction: column; }
+  .slide .mid { margin: auto 0; }
+  .slide .mid h5 { font-family: var(--display); font-weight: 300; font-size: .95rem; letter-spacing: -.01em; }
+  .slide .foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid rgba(247,245,240,.18); padding-top: 8px; }
+  .slide .foot span { font-family: var(--mono); font-size: .46rem; letter-spacing: .1em; opacity: .68; }
+
+  .poster { width: 128px; aspect-ratio: 2 / 3; background: #f7f5f0; color: #12171a; --logo-accent: #c08a2e;
+            border: 1px solid #ddd8cc; border-radius: 2px; padding: 16px 13px; display: flex; flex-direction: column; box-shadow: var(--lift); }
+  .poster .big { margin: auto 0 14px; }
+  .poster .big svg { width: 62px; height: 62px; }
+  .poster .ttl { font-family: var(--display); font-weight: 500; font-size: .66rem; letter-spacing: .12em; line-height: 1.45; }
+  .poster .yr { font-family: var(--display); font-weight: 200; font-size: .42rem; letter-spacing: .18em; margin-top: 4px; }
+  .poster .rule { height: 1px; background: #d5d0c4; margin: 9px 0 7px; }
+  .poster .credit { font-family: var(--mono); font-size: .4rem; letter-spacing: .1em; color: #6a736b; }
+
+  .social { width: 150px; aspect-ratio: 1 / 1; background: #0f5c58; color: #f4f7f4; --logo-accent: #eab657;
+            border-radius: 3px; display: grid; place-items: center; box-shadow: var(--lift-2); }
+
+  /* ═══════════ penutup ═══════════ */
+  .ask { border: 1px solid var(--ink); border-radius: 3px; padding: 30px 32px; background: var(--plate); display: flex; flex-direction: column; gap: 14px; }
+  .ask h3 { font-family: var(--display); font-weight: 400; font-size: 1.3rem; }
+  .ask ol { counter-reset: q; display: flex; flex-direction: column; gap: 11px; }
+  .ask li { counter-increment: q; position: relative; padding-left: 34px; font-size: .95rem; color: var(--ink-2); }
+  .ask li::before {
+    content: counter(q, decimal-leading-zero); position: absolute; left: 0; top: .1em;
+    font-family: var(--mono); font-size: .72rem; color: var(--teal); letter-spacing: .05em;
+  }
+  .ask li b { color: var(--ink); font-weight: 700; }
+
+  .colophon { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; border-top: 1px solid var(--hair); padding-top: 18px; }
+  .colophon .studio { font-family: var(--display); font-weight: 500; font-size: .9rem; letter-spacing: .1em; }
+
+  @media (max-width: 820px) {
+    .rel { grid-template-columns: 1fr; }
+    .rel-div span { writing-mode: horizontal-tb; }
+    .concept { grid-template-columns: 1fr; gap: 22px; }
+    .plate { max-width: 260px; }
+    .build { grid-template-columns: 1fr; gap: 22px; }
+  }
+
+  @media (max-width: 700px) {
+    .facts { grid-template-columns: 1fr; gap: 14px; }
+    .fact { grid-template-columns: 1fr; gap: 2px; }
+    .fact dt { letter-spacing: .12em; }
+    .scores { grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+    .sys { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+    .cities { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .apps { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+  }
+
+  @media (max-width: 560px) {
+    .sheet { padding: 30px 15px 56px; gap: 40px; }
+    .sec { gap: 20px; }
+    .idea, .ask, .rel-card { padding: 20px 17px; }
+    .build-plate { padding: 18px; }
+
+    .top-meta { gap: 8px 14px; }
+    .lang-switch { margin-left: 0 !important; }
+    .top .lede { font-size: .98rem; }
+    .sec-head h2 { font-size: 1.35rem; }
+
+    .concept { padding: 22px 0; }
+    .plate { max-width: 100%; }
+    .plate > svg { width: 46%; height: 46%; }
+
+    .scores { grid-template-columns: 1fr; }
+    .sys, .apps, .cities { grid-template-columns: 1fr; }
+    .app.wide { grid-column: span 1; }
+    .app .frame { min-height: 0; padding: 16px; }
+
+    .unit .stage { min-height: 120px; padding: 20px 14px; }
+    .lockup { gap: 11px; }
+    .lockup > svg { width: 38px; height: 38px; }
+    .lockup .wm .city { font-size: .92rem; letter-spacing: .16em; }
+    .lockup .wm .yr { font-size: .66rem; letter-spacing: .3em; }
+    .stacked .city { font-size: .95rem; letter-spacing: .16em; }
+    .stacked .yr { font-size: .7rem; letter-spacing: .3em; }
+    .city-unit { padding: 20px 14px; }
+
+    .browser .body { padding: 11px 12px 15px; }
+    .browser .navrow ul { flex-wrap: wrap; gap: 6px; }
+    .slide { padding: 13px 14px; }
+    .slide .mid h5 { font-size: .82rem; }
+    .slide .foot span { font-size: .42rem; }
+
+    .ask li { padding-left: 28px; font-size: .92rem; }
+    .colophon { gap: 6px 12px; }
+    .colophon .lbl { margin-left: 0 !important; }
+  }
+
+  @media (max-width: 380px) {
+    .stacked .city { font-size: .84rem; letter-spacing: .12em; }
+    .lockup .wm .city { font-size: .84rem; letter-spacing: .13em; }
+    .fav-row { gap: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="mk" viewBox="0 0 48 48">
+      <circle cx="11" cy="24" r="3.1" fill="currentColor"/>
+      <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M14.6 22.6C20.4 21.8 22.6 15.4 32.4 12.4"/>
+        <path d="M14.7 24C21 23 26.6 25.1 32.9 24"/>
+        <path d="M14.6 25.4C20.4 26.2 22.6 32.6 32.4 35.6"/>
+        <circle cx="36.4" cy="24" r="3.4" stroke-width="2.2"/>
+        <circle cx="35.8" cy="37.2" r="3.4" stroke-width="2.2"/>
+      </g>
+      <circle cx="35.8" cy="10.8" r="3.9" fill="var(--logo-accent, currentColor)"/>
+    </symbol>
+
+    <symbol id="mk-min" viewBox="0 0 48 48">
+      <circle cx="12" cy="24" r="3.6" fill="currentColor"/>
+      <g fill="none" stroke="currentColor" stroke-width="3">
+        <path d="M16 22.4L28 15.4"/>
+        <path d="M16.5 24H29"/>
+        <path d="M16 25.6L28 32.6"/>
+        <circle cx="34" cy="24" r="3.8" stroke-width="2.8"/>
+        <circle cx="33" cy="35.6" r="3.8" stroke-width="2.8"/>
+      </g>
+      <circle cx="33" cy="12.4" r="4.4" fill="var(--logo-accent, currentColor)"/>
+    </symbol>
+
+    <symbol id="mk-token" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="21.5" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".45"/>
+      <g transform="translate(24 24) scale(.74) translate(-24 -24)">
+        <circle cx="11" cy="24" r="3.4" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+          <path d="M14.8 22.5C20.5 21.8 22.7 15.4 32.4 12.4"/>
+          <path d="M14.8 24C21 23 26.6 25.1 32.9 24"/>
+          <path d="M14.8 25.5C20.5 26.2 22.7 32.6 32.4 35.6"/>
+          <circle cx="36.4" cy="24" r="3.4" stroke-width="2.6"/>
+          <circle cx="35.8" cy="37.2" r="3.4" stroke-width="2.6"/>
+        </g>
+        <circle cx="35.8" cy="10.8" r="4.1" fill="var(--logo-accent, currentColor)"/>
+      </g>
+    </symbol>
+
+    <symbol id="c2" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">
+        <path d="M24 7L41 24L24 41L7 24Z"/>
+        <path d="M24 7v34M7 24h34" stroke-width="1.4" opacity=".55"/>
+      </g>
+      <path d="M24 10.5L37.5 24H24Z" fill="var(--logo-accent, currentColor)"/>
+    </symbol>
+
+    <symbol id="c3" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+        <circle cx="24" cy="24" r="18" stroke-dasharray="21.8 6.5" transform="rotate(-45 24 24)"/>
+        <path d="M11 28c4.5-5 6.8 3 11.3-1.5S30 21 36 16.5" stroke-width="2.4"/>
+      </g>
+      <circle cx="37" cy="15.6" r="3.2" fill="var(--logo-accent, currentColor)"/>
+    </symbol>
+
+    <symbol id="c4" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+        <path d="M5 32C14 21 34 21 43 32"/>
+        <path d="M9 38.5C16 32 32 32 39 38.5" stroke-width="1.4" opacity=".45"/>
+        <path d="M24 26.5V15"/>
+      </g>
+      <circle cx="24" cy="11" r="3.6" fill="var(--logo-accent, currentColor)"/>
+    </symbol>
+
+    <symbol id="c5o" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="3.4"><circle cx="24" cy="24" r="13"/></g>
+      <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" opacity=".85">
+        <path d="M24 11V4M35 31l6 3.5M13 31l-6 3.5"/>
+      </g>
+      <circle cx="24" cy="4" r="3.2" fill="var(--logo-accent, currentColor)"/>
+    </symbol>
+
+    <symbol id="mk-build" viewBox="0 0 48 48">
+      <g stroke="var(--hair)" stroke-width=".4" fill="none">
+        <path d="M0 12h48M0 24h48M0 36h48M12 0v48M24 0v48M36 0v48"/>
+        <circle cx="24" cy="24" r="18" stroke-dasharray="2 2"/>
+      </g>
+      <g stroke="currentColor" stroke-width=".4" fill="none" opacity=".5">
+        <path d="M11 24h25M35.8 10.8L11 24l24.8 13.2"/>
+      </g>
+      <circle cx="11" cy="24" r="3.1" fill="currentColor"/>
+      <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M14.6 22.6C20.4 21.8 22.6 15.4 32.4 12.4"/>
+        <path d="M14.7 24C21 23 26.6 25.1 32.9 24"/>
+        <path d="M14.6 25.4C20.4 26.2 22.6 32.6 32.4 35.6"/>
+        <circle cx="36.4" cy="24" r="3.4" stroke-width="2.2"/>
+        <circle cx="35.8" cy="37.2" r="3.4" stroke-width="2.2"/>
+      </g>
+      <circle cx="35.8" cy="10.8" r="3.9" fill="var(--logo-accent, currentColor)"/>
+    </symbol>
+
+    <symbol id="boardart" viewBox="0 0 100 100">
+      <g stroke="#e0dbcf" stroke-width=".6" fill="none">
+        <path d="M0 20h100M0 40h100M0 60h100M0 80h100M20 0v100M40 0v100M60 0v100M80 0v100"/>
+      </g>
+      <path d="M12 78C30 74 34 58 50 52S74 40 88 24" fill="none" stroke="#0f5c58" stroke-width="1.6" opacity=".8"/>
+      <path d="M12 78C28 68 40 70 52 58S72 46 86 46" fill="none" stroke="#c08a2e" stroke-width="1.6" opacity=".75"/>
+      <g fill="#0f5c58"><circle cx="12" cy="78" r="3.4"/><circle cx="50" cy="52" r="2.6"/><circle cx="88" cy="24" r="3"/></g>
+      <g fill="none" stroke="#c08a2e" stroke-width="1.6"><circle cx="52" cy="58" r="2.6"/><circle cx="86" cy="46" r="3"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="sheet">
+
+  <!-- ═════════ masthead ═════════ -->
+  <header class="top">
+    <div class="top-rule"></div>
+    <div class="top-meta">
+      <span class="lbl" lang="id">Eksplorasi Identitas Visual</span>
+      <span class="lbl" lang="en">Visual Identity Exploration</span>
+      <span class="lbl">SMR2045-ID-V2</span>
+      <span class="lang-switch" style="margin-left:auto;">
+        <button type="button" data-lang-btn="id" aria-pressed="true">ID</button>
+        <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+      </span>
+    </div>
+    <h1>Futures in <em>Action</em></h1>
+    <p class="lede" lang="id">
+      Identitas untuk <em>Futures in Action</em>, edisi Samarinda 2045. Lima arah konsep,
+      satu penilaian terbuka, dan satu identitas terpilih beserta sistem penerapannya
+      di papan permainan maupun layar.
+    </p>
+    <p class="lede" lang="en">
+      An identity for <em>Futures in Action</em>, Samarinda 2045 Edition. Five concept
+      directions, one open scoring pass, and one selected identity with the system that
+      carries it across the board and the screen.
+    </p>
+  </header>
+
+  <!-- ═════════ hierarki merek ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Ketetapan awal</span>
+      <span class="lbl" lang="en">Ground rule</span>
+      <h2 lang="id">Siapa merek utamanya</h2>
+      <h2 lang="en">Which brand this belongs to</h2>
+      <p lang="id">
+        Identitas ini milik produknya, bukan milik studionya. Nama studio hanya muncul sebagai
+        kredit teknis, dengan bobot rupa yang jelas lebih rendah.
+      </p>
+      <p lang="en">
+        This identity belongs to the product, not to the studio. The studio name appears only as
+        a technical credit, and always at a visibly lower weight.
+      </p>
+    </div>
+    <div class="rel">
+      <div class="rel-card primary">
+        <span class="lbl" lang="id">Merek permainan</span>
+        <span class="lbl" lang="en">Game brand</span>
+        <h3>FUTURES IN ACTION</h3>
+        <p lang="id">Nama permainan, tetap di semua edisi. Seluruh identitas dalam dokumen ini dibangun untuk nama ini.</p>
+        <p lang="en">The game name, constant across every edition. Everything in this document is built for this name.</p>
+        <p class="edline" lang="id"><span class="lbl">Edisi berjalan</span> Samarinda 2045 Edition</p>
+        <p class="edline" lang="en"><span class="lbl">Current edition</span> Samarinda 2045 Edition</p>
+      </div>
+      <div class="rel-div">
+        <span lang="id">dikembangkan oleh</span>
+        <span lang="en">developed by</span>
+      </div>
+      <div class="rel-card">
+        <span class="lbl" lang="id">Studio pengembang</span>
+        <span class="lbl" lang="en">Development studio</span>
+        <h3>RDL Labs</h3>
+        <p lang="id">Platform Development &amp; AI Integration. Muncul sebagai baris kredit di kaki halaman, kemasan, dan slide. Tidak pernah berbagi ruang dengan tanda utama.</p>
+        <p lang="en">Platform Development &amp; AI Integration. Appears as a credit line on the footer, the box, and the slide. It never shares space with the primary mark.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ gagasan inti ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Gagasan inti</span>
+      <span class="lbl" lang="en">Core idea</span>
+      <h2 lang="id">Masa depan Samarinda dibentuk oleh pilihan</h2>
+      <h2 lang="en">Samarinda's future is shaped by choices</h2>
+      <p lang="id">Satu kalimat itu harus terbaca sebagai gambar, bukan sebagai slogan yang ditempel di bawah logo.</p>
+      <p lang="en">That sentence has to read as a shape, not as a tagline parked under the logo.</p>
+    </div>
+    <div class="idea">
+      <div class="chain">
+        <span class="node-word" lang="id">KOTA</span><span class="node-word" lang="en">CITY</span>
+        <span class="arw"></span>
+        <span class="node-word on" lang="id">PILIHAN</span><span class="node-word on" lang="en">CHOICES</span>
+        <span class="arw"></span>
+        <span class="node-word on" lang="id">KONSEKUENSI</span><span class="node-word on" lang="en">CONSEQUENCES</span>
+        <span class="arw"></span>
+        <span class="node-word" lang="id">MASA DEPAN</span><span class="node-word" lang="en">FUTURE</span>
+      </div>
+      <p lang="id" style="margin-top:20px; font-size:.95rem; color:var(--ink-2); max-width:64ch;">
+        Rantai ini yang dicari bentuknya. Bukan penggabungan daun, bola dunia, dan gedung —
+        pendekatan itu sudah dipakai ribuan lembaga dan tidak menceritakan apa pun tentang
+        permainan yang mekanismenya justru tentang menimbang akibat.
+      </p>
+      <p lang="en" style="margin-top:20px; font-size:.95rem; color:var(--ink-2); max-width:64ch;">
+        This chain is what the mark has to draw. Not a leaf stacked on a globe stacked on a
+        skyline. Thousands of organisations already use that, and it says nothing about a game
+        whose whole mechanism is weighing consequences.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═════════ lima konsep ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian satu</span>
+      <span class="lbl" lang="en">Part one</span>
+      <h2 lang="id">Lima arah konsep</h2>
+      <h2 lang="en">Five concept directions</h2>
+      <p lang="id">Tiap arah dinilai apa adanya, termasuk kelemahannya. Penilaian penuh ada di matriks setelah bagian ini.</p>
+      <p lang="en">Each direction is judged honestly, weaknesses included. The full scoring sits in the matrix after this part.</p>
+    </div>
+
+    <!-- 01 -->
+    <article class="concept">
+      <div class="plate p1"><span class="idx">01</span><svg viewBox="0 0 48 48" role="img" aria-label="Decision Delta concept mark"><use href="#mk"/></svg></div>
+      <div class="c-body">
+        <div class="c-title">
+          <h3 lang="id">Delta Keputusan</h3><h3 lang="en">Decision Delta</h3>
+          <span class="en" lang="id">Decision Delta</span><span class="en" lang="en">Delta Keputusan</span>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt><span lang="id">Konsep</span><span lang="en">Concept</span></dt><dd><span lang="id">Satu titik kini bercabang menjadi tiga kemungkinan masa depan. Satu simpul terisi: pilihan yang diambil. Ini bukan kiasan — Fase 2 memang menghasilkan tepat tiga skenario, Fase 3 memilih satu.</span><span lang="en">One present point branches into three possible futures. One node is filled: the choice taken. This is not a metaphor — Phase 2 produces exactly three scenarios and Phase 3 picks one.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Simbol</span><span lang="en">Symbolism</span></dt><dd><span lang="id">Percabangan jalur, simpul keputusan, dan delta sungai — tiga bacaan pada satu bentuk yang sama.</span><span lang="en">Branching routes, decision nodes, and a river delta — three readings of one shape.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Huruf</span><span lang="en">Typography</span></dt><dd><span lang="id">Outfit, geometrik dan tenang. Nama kota dilebarkan jaraknya, tahun disetel lebih ringan sebagai jangkar.</span><span lang="en">Outfit, geometric and calm. The city name is tracked wide; the year sits lighter beneath it as the anchor.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Warna</span><span lang="en">Color</span></dt><dd><span lang="id">Tinta gelap dan kertas hangat, hijau sungai sebagai warna utama, kuningan sebagai satu-satunya aksen.</span><span lang="en">Dark ink on warm paper, river green as the primary, brass as the only accent.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Samarinda</span><span lang="en">Samarinda</span></dt><dd><span lang="id">Delta Mahakam memang berbentuk kaki burung yang bercabang. Kotanya dibaca lewat bentuk airnya, bukan lewat siluet gedung.</span><span lang="en">The Mahakam delta really is a branching bird's foot. The city is read through its water, not through a skyline.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Permainan</span><span lang="en">Board game</span></dt><dd><span lang="id">Percabangan sudah berupa jalur papan, simpulnya sudah berupa token. Sistemnya tinggal diteruskan.</span><span lang="en">The branches are already board paths and the nodes are already tokens. The system just continues.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Keberlanjutan</span><span lang="en">Sustainability</span></dt><dd><span lang="id">Diucapkan lewat konsekuensi, bukan lewat lambang daur ulang. Satu jalur dipilih berarti dua lainnya ditinggalkan.</span><span lang="en">Said through consequence, not through a recycling symbol. Choosing one route means leaving two behind.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Kota lain</span><span lang="en">Other cities</span></dt><dd><span lang="id">Tanda dan nama permainan tidak berubah. Hanya baris edisi yang berganti.</span><span lang="en">The mark and the game name never change. Only the edition line does.</span></dd></div>
+        </dl>
+        <div class="scores">
+          <div class="score"><span class="k"><span lang="id">Mudah diingat</span><span lang="en">Memorability</span></span><span class="v">9</span><span class="meter"><i style="width:90%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Identitas lokal</span><span lang="en">Local identity</span></span><span class="v">8</span><span class="meter"><i style="width:80%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok board game</span><span lang="en">Board game fit</span></span><span class="v">9</span><span class="meter"><i style="width:90%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok digital</span><span lang="en">Digital fit</span></span><span class="v">9</span><span class="meter"><i style="width:90%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Skala kota lain</span><span lang="en">Scalability</span></span><span class="v">9</span><span class="meter"><i style="width:90%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Kekhasan</span><span lang="en">Distinctiveness</span></span><span class="v">8</span><span class="meter"><i style="width:80%"></i></span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 02 -->
+    <article class="concept">
+      <div class="plate p2"><span class="idx">02</span><svg viewBox="0 0 48 48" role="img" aria-label="Modular Tile concept mark"><use href="#c2"/></svg></div>
+      <div class="c-body">
+        <div class="c-title">
+          <h3 lang="id">Petak Modular</h3><h3 lang="en">Modular Tile</h3>
+          <span class="en" lang="id">Modular Tile</span><span class="en" lang="en">Petak Modular</span>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt><span lang="id">Konsep</span><span lang="en">Concept</span></dt><dd><span lang="id">Satu petak isometrik yang sekaligus berarti blok kota dan ubin permainan, terbagi empat, satu bagian terisi.</span><span lang="en">An isometric tile that reads as both a city block and a game tile, split in four, one quarter filled.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Simbol</span><span lang="en">Symbolism</span></dt><dd><span lang="id">Geometri modular, empat pilar sebagai empat kuadran, kota yang disusun sepotong demi sepotong.</span><span lang="en">Modular geometry, four pillars as four quadrants, a city assembled piece by piece.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Huruf</span><span lang="en">Typography</span></dt><dd><span lang="id">Grotesk teknis berjarak lebar, mengingatkan pada legenda peta perencanaan.</span><span lang="en">A technical grotesque, widely tracked, close to a planning-map legend.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Warna</span><span lang="en">Color</span></dt><dd><span lang="id">Tinta pekat dengan satu oranye bata, tegas di atas kemasan gelap.</span><span lang="en">Dense ink with a single brick orange, sharp on a dark box.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Samarinda</span><span lang="en">Samarinda</span></dt><dd><span lang="id">Lemah. Petak ini bisa jadi milik kota mana pun, dan itu memang kekuatan sekaligus kelemahannya.</span><span lang="en">Weak. The tile could belong to any city, which is both its strength and its flaw.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Permainan</span><span lang="en">Board game</span></dt><dd><span lang="id">Paling langsung. Bentuknya sudah berupa ubin, tinggal dicetak.</span><span lang="en">The most direct of the five. The shape is already a tile; it only needs printing.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Keberlanjutan</span><span lang="en">Sustainability</span></dt><dd><span lang="id">Terbaca sebagai penataan ruang, bukan sebagai pelestarian. Sisi ekologisnya harus dititipkan ke warna.</span><span lang="en">Reads as spatial planning rather than stewardship. The ecological side has to be carried by color.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Kota lain</span><span lang="en">Other cities</span></dt><dd><span lang="id">Sempurna. Tidak ada satu pun elemen yang terikat Samarinda.</span><span lang="en">Perfect. Nothing in it is tied to Samarinda.</span></dd></div>
+        </dl>
+        <div class="scores">
+          <div class="score"><span class="k"><span lang="id">Mudah diingat</span><span lang="en">Memorability</span></span><span class="v">7</span><span class="meter"><i style="width:70%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Identitas lokal</span><span lang="en">Local identity</span></span><span class="v">4</span><span class="meter"><i style="width:40%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok board game</span><span lang="en">Board game fit</span></span><span class="v">9</span><span class="meter"><i style="width:90%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok digital</span><span lang="en">Digital fit</span></span><span class="v">8</span><span class="meter"><i style="width:80%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Skala kota lain</span><span lang="en">Scalability</span></span><span class="v">10</span><span class="meter"><i style="width:100%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Kekhasan</span><span lang="en">Distinctiveness</span></span><span class="v">6</span><span class="meter"><i style="width:60%"></i></span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 03 -->
+    <article class="concept">
+      <div class="plate p3"><span class="idx">03</span><svg viewBox="0 0 48 48" role="img" aria-label="Systems Ring concept mark"><use href="#c3"/></svg></div>
+      <div class="c-body">
+        <div class="c-title">
+          <h3 lang="id">Cakra Empat Pilar</h3><h3 lang="en">Systems Ring</h3>
+          <span class="en" lang="id">Systems Ring</span><span class="en" lang="en">Cakra Empat Pilar</span>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt><span lang="id">Konsep</span><span lang="en">Concept</span></dt><dd><span lang="id">Cincin terputus empat sebagai sistem tertutup, dengan meander sungai memotong di tengahnya.</span><span lang="en">A ring broken into four arcs as a closed system, with a river meander cutting through it.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Simbol</span><span lang="en">Symbolism</span></dt><dd><span lang="id">Empat pilar yang terpisah dan bisa timpang, sungai sebagai sumbu yang menghubungkan.</span><span lang="en">Four pillars that stand apart and can fall out of balance, the river as the axis joining them.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Huruf</span><span lang="en">Typography</span></dt><dd><span lang="id">Serif berkontras rendah untuk kehangatan, dipadu label mono pada data.</span><span lang="en">A low-contrast serif for warmth, paired with mono labels on data.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Warna</span><span lang="en">Color</span></dt><dd><span lang="id">Kertas terang, hijau sungai, dan kuningan endapan.</span><span lang="en">Bright paper, river green, and silt brass.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Samarinda</span><span lang="en">Samarinda</span></dt><dd><span lang="id">Paling kuat di antara kelimanya. Meandernya langsung terbaca sebagai Mahakam.</span><span lang="en">The strongest of the five. The meander reads as the Mahakam immediately.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Permainan</span><span lang="en">Board game</span></dt><dd><span lang="id">Cukup baik sebagai token, tetapi cincin tertutup tidak menyiratkan pergerakan atau pilihan.</span><span lang="en">Fine as a token, but a closed ring implies no movement and no choice.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Keberlanjutan</span><span lang="en">Sustainability</span></dt><dd><span lang="id">Kuat. Sistem melingkar adalah bahasa keseimbangan yang sudah dikenal.</span><span lang="en">Strong. A circular system is already understood as the language of balance.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Kota lain</span><span lang="en">Other cities</span></dt><dd><span lang="id">Bermasalah. Tiap kota menuntut garis air baru, sehingga tanda tidak pernah benar-benar tetap.</span><span lang="en">Problematic. Every city demands a new water line, so the mark is never truly fixed.</span></dd></div>
+        </dl>
+        <div class="scores">
+          <div class="score"><span class="k"><span lang="id">Mudah diingat</span><span lang="en">Memorability</span></span><span class="v">8</span><span class="meter"><i style="width:80%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Identitas lokal</span><span lang="en">Local identity</span></span><span class="v">9</span><span class="meter"><i style="width:90%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok board game</span><span lang="en">Board game fit</span></span><span class="v">7</span><span class="meter"><i style="width:70%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok digital</span><span lang="en">Digital fit</span></span><span class="v">8</span><span class="meter"><i style="width:80%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Skala kota lain</span><span lang="en">Scalability</span></span><span class="v">6</span><span class="meter"><i style="width:60%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Kekhasan</span><span lang="en">Distinctiveness</span></span><span class="v">7</span><span class="meter"><i style="width:70%"></i></span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 04 -->
+    <article class="concept">
+      <div class="plate p4"><span class="idx">04</span><svg viewBox="0 0 48 48" role="img" aria-label="Horizon concept mark"><use href="#c4"/></svg></div>
+      <div class="c-body">
+        <div class="c-title">
+          <h3 lang="id">Ambang</h3><h3 lang="en">Horizon</h3>
+          <span class="en" lang="id">Horizon</span><span class="en" lang="en">Ambang</span>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt><span lang="id">Konsep</span><span lang="en">Concept</span></dt><dd><span lang="id">Garis cakrawala yang melengkung naik, dengan satu tiang dan simpul terbit di atasnya.</span><span lang="en">A horizon line curving upward, with a single mast and a rising node above it.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Simbol</span><span lang="en">Symbolism</span></dt><dd><span lang="id">Batas antara hari ini dan 2045. Riak di bawahnya membaca sebagai permukaan air.</span><span lang="en">The threshold between today and 2045. The ripple below reads as water.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Huruf</span><span lang="en">Typography</span></dt><dd><span lang="id">Sans ringan berjarak sangat lebar, nyaris seperti sampul majalah arsitektur.</span><span lang="en">A light sans, very widely tracked, close to an architecture magazine cover.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Warna</span><span lang="en">Color</span></dt><dd><span lang="id">Biru malam dengan kuning terbit tunggal.</span><span lang="en">Night blue with a single sunrise yellow.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Samarinda</span><span lang="en">Samarinda</span></dt><dd><span lang="id">Sedang. Airnya terasa, kotanya tidak.</span><span lang="en">Moderate. The water comes through; the city does not.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Permainan</span><span lang="en">Board game</span></dt><dd><span lang="id">Paling lemah. Bentuknya indah tetapi tidak mengandung mekanisme apa pun yang bisa dipindah ke papan.</span><span lang="en">The weakest here. Beautiful, but it holds no mechanism that can move onto a board.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Keberlanjutan</span><span lang="en">Sustainability</span></dt><dd><span lang="id">Terbaca optimistis, tetapi optimisme tanpa konsekuensi justru menjauh dari inti permainan.</span><span lang="en">Reads optimistic, but optimism without consequence drifts away from what the game is about.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Kota lain</span><span lang="en">Other cities</span></dt><dd><span lang="id">Baik. Cakrawala milik semua kota.</span><span lang="en">Good. Every city owns a horizon.</span></dd></div>
+        </dl>
+        <div class="scores">
+          <div class="score"><span class="k"><span lang="id">Mudah diingat</span><span lang="en">Memorability</span></span><span class="v">8</span><span class="meter"><i style="width:80%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Identitas lokal</span><span lang="en">Local identity</span></span><span class="v">6</span><span class="meter"><i style="width:60%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok board game</span><span lang="en">Board game fit</span></span><span class="v">5</span><span class="meter"><i style="width:50%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok digital</span><span lang="en">Digital fit</span></span><span class="v">9</span><span class="meter"><i style="width:90%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Skala kota lain</span><span lang="en">Scalability</span></span><span class="v">8</span><span class="meter"><i style="width:80%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Kekhasan</span><span lang="en">Distinctiveness</span></span><span class="v">8</span><span class="meter"><i style="width:80%"></i></span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 05 -->
+    <article class="concept">
+      <div class="plate p5"><span class="idx">05</span>
+        <div style="display:flex; align-items:center; gap:2px; font-family:var(--display); font-weight:300; font-size:2.6rem; letter-spacing:.06em; color:#1a1c22;">
+          <span>2</span>
+          <svg viewBox="0 0 48 48" style="width:.78em; height:.78em;" role="img" aria-label="Zero as a junction node"><use href="#c5o"/></svg>
+          <span>4</span><span>5</span>
+        </div>
+      </div>
+      <div class="c-body">
+        <div class="c-title">
+          <h3 lang="id">Angka Sebagai Sistem</h3><h3 lang="en">The Numeral Node</h3>
+          <span class="en" lang="id">The Numeral Node</span><span class="en" lang="en">Angka Sebagai Sistem</span>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt><span lang="id">Konsep</span><span lang="en">Concept</span></dt><dd><span lang="id">Angka tahun itu sendiri menjadi tanda. Nolnya diganti simpul persimpangan berjalur.</span><span lang="en">The year itself becomes the mark. Its zero is replaced by a junction node with routes.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Simbol</span><span lang="en">Symbolism</span></dt><dd><span lang="id">Yang tetap di seluruh edisi bukan kotanya, melainkan tahunnya. Maka tahun yang dijadikan jangkar.</span><span lang="en">Across editions the constant is not the city but the year. So the year becomes the anchor.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Huruf</span><span lang="en">Typography</span></dt><dd><span lang="id">Identitasnya murni tipografi. Satu jenis huruf memikul seluruh merek.</span><span lang="en">The identity is purely typographic. One typeface carries the whole brand.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Warna</span><span lang="en">Color</span></dt><dd><span lang="id">Nyaris monokrom, dengan satu hijau tua pada simpul.</span><span lang="en">Near monochrome, with one deep green on the node.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Samarinda</span><span lang="en">Samarinda</span></dt><dd><span lang="id">Paling lemah. Tidak ada apa pun yang menunjuk kota ini.</span><span lang="en">The weakest. Nothing points to this city.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Permainan</span><span lang="en">Board game</span></dt><dd><span lang="id">Sulit dijadikan token. Angka di atas pion kayu tidak pernah terbaca baik.</span><span lang="en">Hard to turn into a token. Numerals on a wooden pawn never read well.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Keberlanjutan</span><span lang="en">Sustainability</span></dt><dd><span lang="id">Netral. Tidak menolak, tidak juga menyampaikan.</span><span lang="en">Neutral. It neither denies the theme nor carries it.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Kota lain</span><span lang="en">Other cities</span></dt><dd><span lang="id">Terbaik secara sistem, dan gagasan jangkar ini tetap dipakai pada arah terpilih lewat baris edisi.</span><span lang="en">Best as a system, and its anchoring idea survives in the selected direction as the edition line.</span></dd></div>
+        </dl>
+        <div class="scores">
+          <div class="score"><span class="k"><span lang="id">Mudah diingat</span><span lang="en">Memorability</span></span><span class="v">7</span><span class="meter"><i style="width:70%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Identitas lokal</span><span lang="en">Local identity</span></span><span class="v">3</span><span class="meter"><i style="width:30%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok board game</span><span lang="en">Board game fit</span></span><span class="v">5</span><span class="meter"><i style="width:50%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Cocok digital</span><span lang="en">Digital fit</span></span><span class="v">9</span><span class="meter"><i style="width:90%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Skala kota lain</span><span lang="en">Scalability</span></span><span class="v">10</span><span class="meter"><i style="width:100%"></i></span></div>
+          <div class="score"><span class="k"><span lang="id">Kekhasan</span><span lang="en">Distinctiveness</span></span><span class="v">8</span><span class="meter"><i style="width:80%"></i></span></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═════════ matriks ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian dua</span><span class="lbl" lang="en">Part two</span>
+      <h2 lang="id">Matriks penilaian</h2><h2 lang="en">Scoring matrix</h2>
+      <p lang="id">Skala 1–10 pada enam kriteria yang diminta. Nilai tertinggi tidak otomatis menang; yang menentukan adalah pola kekuatannya.</p>
+      <p lang="en">A 1–10 scale across the six requested criteria. The highest total does not automatically win; the pattern of strengths decides.</p>
+    </div>
+    <div class="matrix-scroll">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th><span lang="id">Konsep</span><span lang="en">Concept</span></th>
+            <th><span lang="id">Ingat</span><span lang="en">Memory</span></th>
+            <th><span lang="id">Lokal</span><span lang="en">Local</span></th>
+            <th><span lang="id">Board game</span><span lang="en">Board game</span></th>
+            <th><span lang="id">Digital</span><span lang="en">Digital</span></th>
+            <th><span lang="id">Skala</span><span lang="en">Scale</span></th>
+            <th><span lang="id">Khas</span><span lang="en">Distinct</span></th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="win"><td>01 · <span lang="id">Delta Keputusan</span><span lang="en">Decision Delta</span></td><td>9</td><td>8</td><td>9</td><td>9</td><td>9</td><td>8</td><td class="tot">52</td></tr>
+          <tr><td>02 · <span lang="id">Petak Modular</span><span lang="en">Modular Tile</span></td><td>7</td><td>4</td><td>9</td><td>8</td><td>10</td><td>6</td><td class="tot">44</td></tr>
+          <tr><td>03 · <span lang="id">Cakra Empat Pilar</span><span lang="en">Systems Ring</span></td><td>8</td><td>9</td><td>7</td><td>8</td><td>6</td><td>7</td><td class="tot">45</td></tr>
+          <tr><td>04 · <span lang="id">Ambang</span><span lang="en">Horizon</span></td><td>8</td><td>6</td><td>5</td><td>9</td><td>8</td><td>8</td><td class="tot">44</td></tr>
+          <tr><td>05 · <span lang="id">Angka Sebagai Sistem</span><span lang="en">The Numeral Node</span></td><td>7</td><td>3</td><td>5</td><td>9</td><td>10</td><td>8</td><td class="tot">42</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p lang="id" style="font-size:.92rem; color:var(--ink-2); max-width:66ch;">
+      Konsep 02 menang telak pada skalabilitas tetapi nyaris tidak punya identitas lokal.
+      Konsep 03 kebalikannya: paling Samarinda, paling sulit dibawa ke kota lain. Konsep 01
+      satu-satunya yang tidak punya nilai di bawah delapan, karena delta sungai kebetulan
+      juga berbentuk diagram percabangan. Satu bentuk memenuhi dua tuntutan yang biasanya
+      saling meniadakan.
+    </p>
+    <p lang="en" style="font-size:.92rem; color:var(--ink-2); max-width:66ch;">
+      Concept 02 wins scalability outright but carries almost no local identity. Concept 03 is
+      the opposite: the most Samarinda, the hardest to move to another city. Concept 01 is the
+      only one with no score below eight, because a river delta happens to be shaped like a
+      branching diagram. One form answers two demands that usually cancel each other out.
+    </p>
+  </section>
+
+  <!-- ═════════ terpilih ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian tiga · terpilih</span><span class="lbl" lang="en">Part three · selected</span>
+      <h2 lang="id">Delta Keputusan</h2><h2 lang="en">Decision Delta</h2>
+      <p lang="id">Satu titik kini, tiga kemungkinan, satu yang dipilih. Bacaannya berlapis: delta Mahakam, pohon keputusan, dan jalur papan permainan sekaligus.</p>
+      <p lang="en">One present point, three possibilities, one taken. It reads three ways at once: the Mahakam delta, a decision tree, and a path on a game board.</p>
+    </div>
+
+    <div class="build">
+      <div class="build-plate">
+        <svg viewBox="0 0 48 48" role="img" aria-label="Mark construction diagram"><use href="#mk-build"/></svg>
+      </div>
+      <ul class="build-notes">
+        <li lang="id"><b>Titik pangkal</b> berada tepat di sepertiga kiri bidang. Isinya penuh, karena hari ini adalah satu-satunya hal yang pasti.</li>
+        <li lang="en"><b>The origin point</b> sits on the left third of the field. It is solid, because today is the only certain thing.</li>
+        <li lang="id"><b>Tiga jalur</b> berangkat dari titik yang sama dan berakhir pada satu garis tegak. Ketiganya sama panjang: tidak ada masa depan yang lebih murah.</li>
+        <li lang="en"><b>Three routes</b> leave the same point and end on one vertical line. All three are equal in length: no future comes cheaper.</li>
+        <li lang="id"><b>Dua simpul kosong</b> adalah kemungkinan yang tidak diambil. Keduanya sengaja dibiarkan terbuka.</li>
+        <li lang="en"><b>Two open nodes</b> are the possibilities not taken. They stay deliberately unfilled.</li>
+        <li lang="id"><b>Satu simpul terisi</b> adalah satu-satunya tempat warna aksen muncul di seluruh sistem. Itu yang membuat mata berhenti dan mengingat.</li>
+        <li lang="en"><b>One filled node</b> is the only place the accent color appears anywhere in the system. That is what makes the eye stop and remember.</li>
+        <li lang="id"><b>Ruang kosong</b> di sekeliling tanda minimal setinggi satu simpul, diukur dari titik terluar.</li>
+        <li lang="en"><b>Clear space</b> around the mark is at least one node in height, measured from the outermost point.</li>
+        <li lang="id"><b>Ketiga simpul boleh diwarnai</b> mengikuti tiga skenario di lembar permainan: biru untuk Expected, ungu untuk Alternative, hijau untuk Transformative. Versi ini dipakai pada bahan ajar, bukan pada logo resmi.</li>
+        <li lang="en"><b>The three nodes may be colored</b> after the game's own scenario sheet: blue for Expected, purple for Alternative, green for Transformative. That version belongs on teaching material, not on the official logo.</li>
+      </ul>
+    </div>
+
+    <div class="sys">
+      <div class="unit">
+        <div class="stage on-light">
+          <div class="lockup">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg>
+            <span class="wm"><span class="brand">Futures in Action</span><span class="edition">Samarinda 2045 Edition</span></span>
+          </div>
+        </div>
+        <div class="cap">
+          <b lang="id">Logo utama</b><b lang="en">Primary logo</b>
+          <span lang="id">Mendatar, latar terang</span><span lang="en">Horizontal, light ground</span>
+        </div>
+      </div>
+
+      <div class="unit">
+        <div class="stage on-dark">
+          <div class="lockup">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg>
+            <span class="wm"><span class="brand">Futures in Action</span><span class="edition">Samarinda 2045 Edition</span></span>
+          </div>
+        </div>
+        <div class="cap">
+          <b lang="id">Versi gelap</b><b lang="en">Dark version</b>
+          <span lang="id">Kemasan dan slide</span><span lang="en">Packaging and slides</span>
+        </div>
+      </div>
+
+      <div class="unit">
+        <div class="stage on-light">
+          <div class="stacked">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg>
+            <span class="brand">Futures in Action</span><span class="edition">Samarinda 2045 Edition</span>
+          </div>
+        </div>
+        <div class="cap">
+          <b lang="id">Versi bertumpuk</b><b lang="en">Stacked version</b>
+          <span lang="id">Kemasan kotak dan poster</span><span lang="en">Box and poster</span>
+        </div>
+      </div>
+
+      <div class="unit">
+        <div class="stage on-light"><svg viewBox="0 0 48 48" style="width:72px;height:72px" aria-hidden="true"><use href="#mk"/></svg></div>
+        <div class="cap">
+          <b lang="id">Tanda padat</b><b lang="en">Compact mark</b>
+          <span lang="id">Berdiri tanpa nama</span><span lang="en">Works without the wordmark</span>
+        </div>
+      </div>
+
+      <div class="unit">
+        <div class="stage on-dark"><span class="token"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk-token"/></svg></span></div>
+        <div class="cap">
+          <b lang="id">Tanda permainan</b><b lang="en">Board game mark</b>
+          <span lang="id">Token, pion, koin</span><span lang="en">Tokens, pawns, coins</span>
+        </div>
+      </div>
+
+      <div class="unit">
+        <div class="stage on-mono"><svg viewBox="0 0 48 48" style="width:72px;height:72px" aria-hidden="true"><use href="#mk"/></svg></div>
+        <div class="cap">
+          <b lang="id">Satu warna</b><b lang="en">Monochrome</b>
+          <span lang="id">Sablon, emboss, faks</span><span lang="en">Screen print, emboss, fax</span>
+        </div>
+      </div>
+
+      <div class="unit">
+        <div class="stage on-teal">
+          <div class="lockup sm">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg>
+            <span class="wm"><span class="brand">Futures in Action</span><span class="edition">Samarinda 2045 Edition</span></span>
+          </div>
+        </div>
+        <div class="cap">
+          <b lang="id">Ukuran kecil</b><b lang="en">Digital small</b>
+          <span lang="id">Navbar dan ponsel</span><span lang="en">Navbar and mobile</span>
+        </div>
+      </div>
+
+      <div class="unit">
+        <div class="stage on-light">
+          <div class="fav-row">
+            <div class="fav"><span class="sq s64"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk-min"/></svg></span><span>64</span></div>
+            <div class="fav"><span class="sq s32"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk-min"/></svg></span><span>32</span></div>
+            <div class="fav"><span class="sq s16"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk-min"/></svg></span><span>16</span></div>
+          </div>
+        </div>
+        <div class="cap">
+          <b>Favicon</b>
+          <span lang="id">Jalur dipendekkan agar tetap terbaca</span><span lang="en">Routes shortened so it still reads</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ keluarga kota ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian empat</span><span class="lbl" lang="en">Part four</span>
+      <h2 lang="id">Keluarga edisi</h2><h2 lang="en">The edition family</h2>
+      <p lang="id">Tanda dan nama permainan tidak pernah berubah. Yang berganti hanya baris edisi di bawahnya. Susunan ini sudah dipakai klien sendiri di kepala halaman panduan, jadi identitasnya tinggal mengikuti, bukan memaksakan hal baru.</p>
+      <p lang="en">The mark and the game name never change. Only the edition line beneath them does. The client's own guide already uses this structure in its page header, so the identity follows it rather than imposing something new.</p>
+    </div>
+    <div class="cities">
+      <div class="city-unit now">
+        <div class="stacked">
+          <svg viewBox="0 0 48 48" style="width:48px;height:48px" aria-hidden="true"><use href="#mk"/></svg>
+          <span class="brand">Futures in Action</span><span class="edition">Samarinda 2045 Edition</span>
+        </div>
+      </div>
+      <div class="city-unit">
+        <div class="stacked">
+          <svg viewBox="0 0 48 48" style="width:48px;height:48px" aria-hidden="true"><use href="#mk"/></svg>
+          <span class="brand">Futures in Action</span><span class="edition">Jakarta 2045 Edition</span>
+        </div>
+      </div>
+      <div class="city-unit">
+        <div class="stacked">
+          <svg viewBox="0 0 48 48" style="width:48px;height:48px" aria-hidden="true"><use href="#mk"/></svg>
+          <span class="brand">Futures in Action</span><span class="edition">Bandung 2045 Edition</span>
+        </div>
+      </div>
+      <div class="city-unit">
+        <div class="stacked">
+          <svg viewBox="0 0 48 48" style="width:48px;height:48px" aria-hidden="true"><use href="#mk"/></svg>
+          <span class="brand">Futures in Action</span><span class="edition">Rotterdam 2045 Edition</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ penerapan ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian lima</span><span class="lbl" lang="en">Part five</span>
+      <h2 lang="id">Uji penerapan</h2><h2 lang="en">Application test</h2>
+      <p lang="id">Identitas baru terbukti bila bertahan di kotak karton dan di layar 16 piksel dengan sama baiknya.</p>
+      <p lang="en">An identity only proves itself when it survives a cardboard box and a 16-pixel screen equally well.</p>
+    </div>
+
+    <div class="apps">
+      <div class="app">
+        <div class="frame">
+          <div class="box3d">
+            <div class="top-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg></div>
+            <div class="nm">FUTURES<br>IN ACTION</div>
+            <div class="yr">SAMARINDA 2045 EDITION</div>
+            <div class="foot">2–5 <span lang="id">PEMAIN</span><span lang="en">PLAYERS</span> · 60 <span lang="id">MENIT</span><span lang="en">MIN</span> · 12+</div>
+          </div>
+        </div>
+        <div class="cap"><span lang="id">Kotak permainan</span><span lang="en">Game box</span></div>
+      </div>
+
+      <div class="app">
+        <div class="frame"><div class="board"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#boardart"/></svg></div></div>
+        <div class="cap"><span lang="id">Papan permainan — jalur dan simpul memakai bahasa tanda yang sama</span><span lang="en">Game board — routes and nodes speak the same language as the mark</span></div>
+      </div>
+
+      <div class="app">
+        <div class="frame">
+          <div class="card-g">
+            <div class="hd"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk-min"/></svg><span lang="id">KEBIJAKAN</span><span lang="en">POLICY</span></div>
+            <div class="ttl"><span lang="id">Normalisasi Tepian Mahakam</span><span lang="en">Mahakam Riverbank Works</span></div>
+            <div class="lines"><i style="width:100%"></i><i style="width:88%"></i><i style="width:94%"></i><i style="width:52%"></i></div>
+            <div class="pills"><i style="background:#3f7a4f"></i><i style="background:#0f5c58"></i><i style="background:#c08a2e"></i><i style="background:#12171a"></i></div>
+          </div>
+        </div>
+        <div class="cap"><span lang="id">Kartu permainan</span><span lang="en">Game card</span></div>
+      </div>
+
+      <div class="app">
+        <div class="frame"><div class="token"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk-token"/></svg></div></div>
+        <div class="cap"><span lang="id">Token pemain</span><span lang="en">Player token</span></div>
+      </div>
+
+      <div class="app wide">
+        <div class="frame">
+          <div class="browser">
+            <div class="bar"><i></i><i></i><i></i></div>
+            <div class="body">
+              <div class="navrow">
+                <div class="lockup sm">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg>
+                  <span class="wm"><span class="brand">Futures in Action</span><span class="edition">Samarinda 2045 Edition</span></span>
+                </div>
+                <ul>
+                  <li lang="id">Board Game</li><li lang="en">The Game</li>
+                  <li lang="id">Kota</li><li lang="en">The City</li>
+                  <li lang="id">Pendamping AI</li><li lang="en">AI Companion</li>
+                  <li lang="id">Galeri</li><li lang="en">Gallery</li>
+                </ul>
+              </div>
+              <h5 lang="id">Tiga masa depan berangkat dari <b>satu keputusan hari ini.</b></h5>
+              <h5 lang="en">Three futures start from <b>one decision made today.</b></h5>
+              <p lang="id">Board game tentang menimbang lingkungan, masyarakat, ekonomi, dan masa depan Samarinda sekaligus.</p>
+              <p lang="en">A board game about weighing environment, society, economy, and Samarinda's future all at once.</p>
+              <span class="btn"><span lang="id">Lihat cara bermain</span><span lang="en">See how it plays</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="cap"><span lang="id">Hero situs dan navbar</span><span lang="en">Website hero and navbar</span></div>
+      </div>
+
+      <div class="app">
+        <div class="frame">
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="lockup sm" style="gap:8px">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg>
+              <span class="wm"><span class="brand" style="font-size:.44rem;letter-spacing:.05em">Futures in Action</span></span>
+            </div>
+            <h5 lang="id">Tiga masa depan, satu keputusan.</h5>
+            <h5 lang="en">Three futures, one decision.</h5>
+            <div class="bars"><i style="width:100%"></i><i style="width:80%"></i><i style="width:92%"></i></div>
+            <div class="btn"><span lang="id">Cara bermain</span><span lang="en">How to play</span></div>
+          </div>
+        </div>
+        <div class="cap"><span lang="id">Tampilan ponsel</span><span lang="en">Mobile screen</span></div>
+      </div>
+
+      <div class="app">
+        <div class="frame">
+          <div class="navbar">
+            <div class="lockup sm">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg>
+              <span class="wm"><span class="brand">Futures in Action</span><span class="edition">Samarinda 2045 Edition</span></span>
+            </div>
+            <ul>
+              <li lang="id">Board Game</li><li lang="en">The Game</li>
+              <li lang="id">Kota</li><li lang="en">The City</li>
+              <li lang="id">Galeri</li><li lang="en">Gallery</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cap"><span lang="id">Navbar versi gelap</span><span lang="en">Navbar, dark</span></div>
+      </div>
+
+      <div class="app">
+        <div class="frame">
+          <div class="slide">
+            <div class="lockup sm">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg>
+              <span class="wm"><span class="brand">Futures in Action</span><span class="edition">Samarinda 2045 Edition</span></span>
+            </div>
+            <div class="mid">
+              <h5 lang="id">Kota sebagai ruang belajar keputusan</h5>
+              <h5 lang="en">The city as a place to practise decisions</h5>
+            </div>
+            <div class="foot"><span>FUTURES IN ACTION · SAMARINDA 2045</span><span>DEVELOPED BY RDL LABS</span></div>
+          </div>
+        </div>
+        <div class="cap"><span lang="id">Slide presentasi — kredit studio di kaki halaman</span><span lang="en">Presentation slide — studio credit in the footer</span></div>
+      </div>
+
+      <div class="app">
+        <div class="frame">
+          <div class="poster">
+            <div class="big"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk"/></svg></div>
+            <div class="ttl">FUTURES<br>IN ACTION</div>
+            <div class="yr">SAMARINDA 2045 EDITION</div>
+            <div class="rule"></div>
+            <div class="credit">FUTURES LAB · BOARD GAME</div>
+          </div>
+        </div>
+        <div class="cap">Poster</div>
+      </div>
+
+      <div class="app">
+        <div class="frame">
+          <div class="social">
+            <div class="stacked">
+              <svg viewBox="0 0 48 48" style="width:44px;height:44px" aria-hidden="true"><use href="#mk"/></svg>
+              <span class="brand">Futures in Action</span><span class="edition">Samarinda 2045 Edition</span>
+            </div>
+          </div>
+        </div>
+        <div class="cap"><span lang="id">Unggahan media sosial</span><span lang="en">Social post</span></div>
+      </div>
+
+      <div class="app">
+        <div class="frame">
+          <div class="fav-row">
+            <div class="fav"><span class="sq s32"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk-min"/></svg></span><span>tab</span></div>
+            <div class="fav"><span class="sq s64"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mk-min"/></svg></span><span>app</span></div>
+          </div>
+        </div>
+        <div class="cap"><span lang="id">Favicon dan ikon aplikasi</span><span lang="en">Favicon and app icon</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ penutup ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian enam</span><span class="lbl" lang="en">Part six</span>
+      <h2 lang="id">Yang perlu diputuskan</h2><h2 lang="en">Decisions needed</h2>
+    </div>
+    <div class="ask">
+      <h3 lang="id">Tiga pertanyaan, jawabannya menentukan langkah berikutnya</h3>
+      <h3 lang="en">Three questions; the answers set the next step</h3>
+      <ol>
+        <li lang="id"><b>Susunan nama sudah benar?</b> Panduan permainan menulis <em>Futures in Action | Samarinda 2045 Edition</em>, sedangkan penawaran awal menyebut “Samarinda 2045: Futures Lab”. Dokumen ini mengikuti panduan. Mohon dipastikan mana yang resmi sebelum berkas logo dikunci.</li>
+        <li lang="en"><b>Is the name structure right?</b> The game guide writes <em>Futures in Action | Samarinda 2045 Edition</em>, while the earlier proposal said “Samarinda 2045: Futures Lab”. This document follows the guide. Please confirm which one is official before the logo files are locked.</li>
+        <li lang="id"><b>Arah Delta Keputusan disetujui?</b> Bila ada yang mengganjal, cukup sebut bagiannya: jumlah cabang, ketebalan garis, atau posisi simpul yang terisi.</li>
+        <li lang="en"><b>Is Decision Delta approved?</b> If something feels off, name the part: the number of branches, the stroke weight, or which node is filled.</li>
+        <li lang="id"><b>Simpul mana yang sebaiknya terisi?</b> Sekarang yang atas, terbaca sebagai jalur naik. Bisa juga yang tengah bila ingin terkesan seimbang, atau tanpa isian sama sekali bila ingin menyerahkan pilihan kepada pemain.</li>
+        <li lang="en"><b>Which node should be filled?</b> Right now it is the top one, which reads as the rising route. The middle one reads as balance, and leaving all three open hands the choice to the player.</li>
+        <li lang="id"><b>Warna aksen kuningan atau hijau?</b> Kuningan mengacu pada endapan Mahakam dan lebih hangat di atas karton. Hijau lebih dekat ke tema keberlanjutan tetapi berisiko terbaca umum.</li>
+        <li lang="en"><b>Brass or green as the accent?</b> Brass refers to Mahakam silt and prints warmer on cardboard. Green sits closer to the sustainability theme but risks reading as generic.</li>
+      </ol>
+      <p lang="id" style="font-size:.9rem; color:var(--ink-3); padding-top:6px; border-top:1px solid var(--hair-soft);">
+        Setelah disetujui, berkas logo dirapikan menjadi SVG dan PNG siap pakai, huruf pada
+        wordmark dijadikan kurva agar tidak bergantung pemasangan font, lalu panduan singkat
+        penggunaannya disusun.
+      </p>
+      <p lang="en" style="font-size:.9rem; color:var(--ink-3); padding-top:6px; border-top:1px solid var(--hair-soft);">
+        Once approved, the logo is packaged as ready-to-use SVG and PNG, the wordmark is converted
+        to outlines so it no longer depends on an installed font, and a short usage guide follows.
+      </p>
+    </div>
+
+    <div class="colophon">
+      <span class="lbl">Futures in Action · Samarinda 2045 Edition</span>
+      <span class="lbl" style="margin-left:auto;" lang="id">Dikembangkan oleh</span>
+      <span class="lbl" style="margin-left:auto;" lang="en">Developed by</span>
+      <span class="studio">RDL LABS</span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var KEY = 'smr2045-lang';
+
+    function apply(lang) {
+      root.setAttribute('data-lang', lang);
+      var btns = document.querySelectorAll('[data-lang-btn]');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].setAttribute('aria-pressed', String(btns[i].getAttribute('data-lang-btn') === lang));
+      }
+      try { localStorage.setItem(KEY, lang); } catch (e) {}
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    apply(saved === 'en' ? 'en' : 'id');
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('[data-lang-btn]') : null;
+      if (btn) { apply(btn.getAttribute('data-lang-btn')); }
+    });
+  })();
+</script>

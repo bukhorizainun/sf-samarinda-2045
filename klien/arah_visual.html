@@ -1,0 +1,499 @@
+<title>Arah Visual Samarinda 2045</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Karla:wght@400;600&family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ============ kerangka dokumen ============ */
+  :root {
+    --ground: #f5f7fa; --surface: #ffffff; --surface-2: #eef2f7;
+    --line: #dde5ee; --line-soft: #e9eef4;
+    --ink: #16233a; --ink-soft: #4a5a72; --ink-faint: #6b7c94;
+    --brand-ink: #0f2b5c; --brand-fill: #0f2b5c; --brand-tint: #eaf0fa; --on-fill: #ffffff;
+    --go-ink: #04785c; --go-tint: #e7f7f0; --go-line: #a7e0c9;
+    --shadow-sm: 0 1px 2px rgba(15,43,92,.06);
+    --shadow-md: 0 12px 28px -14px rgba(15,43,92,.28);
+    --r-md: 12px; --r-lg: 18px;
+    --sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  }
+  :root:not([data-theme="light"]) { color-scheme: light; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0a111f; --surface: #121c2e; --surface-2: #17233a;
+      --line: #26344c; --line-soft: #1d2a40;
+      --ink: #e6edf7; --ink-soft: #adbdd2; --ink-faint: #8698b1;
+      --brand-ink: #9cc0f7; --brand-fill: #24467f; --brand-tint: #16233d; --on-fill: #ffffff;
+      --go-ink: #5fd3ac; --go-tint: #102a26; --go-line: #1f5548;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow-md: 0 14px 30px -16px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0a111f; --surface: #121c2e; --surface-2: #17233a;
+    --line: #26344c; --line-soft: #1d2a40;
+    --ink: #e6edf7; --ink-soft: #adbdd2; --ink-faint: #8698b1;
+    --brand-ink: #9cc0f7; --brand-fill: #24467f; --brand-tint: #16233d; --on-fill: #ffffff;
+    --go-ink: #5fd3ac; --go-tint: #102a26; --go-line: #1f5548;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow-md: 0 14px 30px -16px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  svg, img { max-width: 100%; }
+  body {
+    overflow-wrap: break-word;
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.62; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 44px 22px 70px; display: flex; flex-direction: column; gap: 42px; }
+  h1, h2, h3, h4 { margin: 0; text-wrap: balance; letter-spacing: -.015em; }
+  p { margin: 0; }
+  ul { margin: 0; padding: 0; list-style: none; }
+
+  .eyebrow { font-family: var(--mono); font-size: .73rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .masthead { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+  .masthead-strip { height: 5px; background: linear-gradient(90deg, #1d5c63, #c0873a 42%, #0d2149 70%, #ff7a1a); }
+  .masthead-inner { padding: 30px; display: flex; flex-direction: column; gap: 14px; }
+  .masthead-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding-bottom: 15px; border-bottom: 1px solid var(--line-soft); }
+  .docref { font-family: var(--mono); font-size: .75rem; font-weight: 700; background: var(--surface-2); color: var(--brand-ink); padding: 5px 11px; border-radius: 6px; }
+  .masthead h1 { font-size: clamp(1.55rem, 3.3vw, 2rem); font-weight: 800; color: var(--brand-ink); line-height: 1.22; }
+  .masthead .sub { font-size: 1.02rem; color: var(--ink-soft); max-width: 64ch; }
+
+  .section { display: flex; flex-direction: column; gap: 18px; }
+  .section-head { display: flex; flex-direction: column; gap: 5px; }
+  .section-head h2 { font-size: 1.26rem; font-weight: 800; color: var(--brand-ink); }
+  .section-head p { font-size: .95rem; color: var(--ink-soft); max-width: 68ch; }
+
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: 26px 28px; }
+
+  /* ============ bagian logo ============ */
+  .logo-grid { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 30px; align-items: center; }
+  .logo-stage {
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-md);
+    display: grid; place-items: center; padding: 34px 20px; color: var(--brand-ink);
+    --logo-accent: #ea580c;
+  }
+  .logo-stage svg { width: 132px; height: 132px; }
+  .anatomy { display: flex; flex-direction: column; gap: 13px; }
+  .anatomy li { font-size: .92rem; color: var(--ink-soft); padding-left: 20px; position: relative; }
+  .anatomy li::before { content: ""; position: absolute; left: 0; top: .62em; width: 7px; height: 7px; border-radius: 2px; background: var(--brand-ink); opacity: .55; }
+  .anatomy li b { color: var(--ink); font-weight: 700; }
+
+  .variants { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-top: 20px; }
+  .variant { border: 1px solid var(--line); border-radius: var(--r-md); padding: 18px 14px; display: flex; flex-direction: column; align-items: center; gap: 11px; }
+  .variant svg { width: 54px; height: 54px; }
+  .variant .cap { font-family: var(--mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); text-align: center; }
+  .v-light { background: #f5efe2; color: #17251f; --logo-accent: #c0873a; }
+  .v-dark  { background: #0d2149; color: #e8eefc; --logo-accent: #ff7a1a; }
+  .v-mono  { background: var(--surface); color: var(--ink); --logo-accent: currentColor; }
+  .v-small { background: var(--surface-2); color: var(--brand-ink); --logo-accent: #ea580c; }
+  .v-small svg { width: 26px; height: 26px; }
+
+  .city-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-top: 18px; }
+  .city { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface-2); padding: 16px 12px; display: flex; flex-direction: column; align-items: center; gap: 9px; color: var(--brand-ink); --logo-accent: #ea580c; }
+  .city svg { width: 46px; height: 46px; }
+  .city .nm { font-family: var(--mono); font-size: .7rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-faint); }
+  .city.is-now { border-color: var(--go-line); background: var(--go-tint); }
+  .city.is-now .nm { color: var(--go-ink); font-weight: 700; }
+
+  /* ============ kartu arah ============ */
+  .dir { border-radius: var(--r-lg); border: 1px solid var(--line); box-shadow: var(--shadow-md); overflow: hidden; background: var(--surface); }
+  .dir-head { padding: 22px 26px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; border-bottom: 1px solid var(--line); background: var(--surface); }
+  .dir-head .tag { font-family: var(--mono); font-size: .74rem; font-weight: 700; color: var(--on-fill); background: var(--brand-fill); padding: 3px 10px; border-radius: 6px; }
+  .dir-head h3 { font-size: 1.2rem; font-weight: 800; color: var(--brand-ink); }
+  .dir-head .mood { font-size: .92rem; color: var(--ink-soft); flex-basis: 100%; max-width: 70ch; }
+
+  .spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; padding: 22px 26px; border-bottom: 1px solid var(--line); }
+  .spec h4 { font-family: var(--mono); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sw { width: 54px; display: flex; flex-direction: column; gap: 4px; }
+  .sw i { display: block; height: 40px; border-radius: 7px; border: 1px solid rgba(0,0,0,.12); }
+  .sw span { font-family: var(--mono); font-size: .6rem; color: var(--ink-faint); letter-spacing: .01em; }
+  .type-row { display: flex; flex-direction: column; gap: 8px; }
+  .type-row .big { font-size: 1.5rem; line-height: 1.15; color: var(--ink); }
+  .type-row .small { font-size: .9rem; color: var(--ink-soft); }
+  .type-row .lbl { font-family: var(--mono); font-size: .68rem; color: var(--ink-faint); letter-spacing: .06em; text-transform: uppercase; }
+
+  /* ============ mock halaman depan ============ */
+  .mock { padding: 0; }
+  .mock-bar { display: flex; align-items: center; gap: 7px; padding: 9px 14px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+  .mock-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); display: block; }
+  .mock-bar span { font-family: var(--mono); font-size: .68rem; color: var(--ink-faint); margin-left: 8px; }
+  .screen { padding: 26px 26px 30px; }
+
+  .nav { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 30px; }
+  .nav .lockup { display: flex; align-items: center; gap: 10px; }
+  .nav .lockup svg { width: 34px; height: 34px; }
+  .nav .lockup .wm { display: flex; flex-direction: column; line-height: 1.05; }
+  .nav .lockup .wm b { font-size: .96rem; letter-spacing: -.01em; }
+  .nav .lockup .wm small { font-size: .58rem; letter-spacing: .16em; text-transform: uppercase; opacity: .72; }
+  .nav ul { display: flex; gap: 16px; margin-left: auto; flex-wrap: wrap; }
+  .nav li { font-size: .8rem; opacity: .78; }
+
+  .hero { display: grid; grid-template-columns: 1.25fr 1fr; gap: 26px; align-items: center; }
+  .hero .kicker { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 12px; }
+  .hero h4 { font-size: clamp(1.5rem, 3.6vw, 2.15rem); line-height: 1.12; margin-bottom: 12px; }
+  .hero p { font-size: .93rem; line-height: 1.6; margin-bottom: 20px; max-width: 46ch; }
+  .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn { font-size: .84rem; font-weight: 700; padding: 10px 20px; border-radius: 999px; border: 1.5px solid transparent; }
+  .btn-ghost { background: transparent; }
+
+  .pillars { display: flex; flex-direction: column; gap: 11px; padding: 18px; border-radius: 14px; }
+  .pillar { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; }
+  .pillar .nm { font-size: .76rem; letter-spacing: .04em; }
+  .pillar .vl { font-family: var(--mono); font-size: .74rem; font-variant-numeric: tabular-nums; }
+  .bar { grid-column: 1 / -1; height: 6px; border-radius: 99px; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 99px; }
+
+  /* ---- Arah A: Delta Mahakam ---- */
+  .dir-a .screen {
+    --paper: #f5efe2; --ink-a: #17251f; --river: #1d5c63; --silt: #c0873a; --mangrove: #3f7a4f;
+    background: var(--paper); color: var(--ink-a);
+    background-image: radial-gradient(circle at 18% 12%, rgba(29,92,99,.07) 0 38%, transparent 39%),
+                      radial-gradient(circle at 82% 78%, rgba(192,135,58,.09) 0 30%, transparent 31%);
+    font-family: 'Karla', var(--sans);
+  }
+  .dir-a .lockup { color: var(--river); --logo-accent: var(--silt); }
+  .dir-a .lockup .wm b { font-family: 'Fraunces', Georgia, serif; font-weight: 800; color: var(--ink-a); }
+  .dir-a .lockup .wm small { color: var(--river); }
+  .dir-a .nav li { color: var(--ink-a); }
+  .dir-a .kicker { font-family: var(--mono); color: var(--river); }
+  .dir-a .hero h4 { font-family: 'Fraunces', Georgia, serif; font-weight: 800; color: var(--ink-a); }
+  .dir-a .hero p { color: #43514a; }
+  .dir-a .btn { background: var(--river); color: var(--paper); }
+  .dir-a .btn-ghost { background: transparent; color: var(--ink-a); border-color: rgba(23,37,31,.28); }
+  .dir-a .pillars { background: rgba(255,255,255,.62); border: 1px solid rgba(23,37,31,.13); }
+  .dir-a .pillar .nm { font-family: var(--mono); color: #43514a; }
+  .dir-a .pillar .vl { color: var(--ink-a); }
+  .dir-a .bar { background: rgba(23,37,31,.1); }
+
+  /* ---- Arah B: Cetak Biru 2045 ---- */
+  .dir-b .screen {
+    --blue: #0d2149; --grid: #24407e; --paperline: #e8eefc; --signal: #ff7a1a; --aqua: #4ec9d9;
+    background: var(--blue); color: var(--paperline);
+    background-image: linear-gradient(rgba(78,201,217,.09) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(78,201,217,.09) 1px, transparent 1px);
+    background-size: 34px 34px;
+    font-family: 'IBM Plex Sans', var(--sans);
+  }
+  .dir-b .lockup { color: var(--paperline); --logo-accent: var(--signal); }
+  .dir-b .lockup .wm b { font-family: 'Archivo', var(--sans); font-weight: 800; letter-spacing: .01em; }
+  .dir-b .lockup .wm small { color: var(--aqua); }
+  .dir-b .nav li { color: rgba(232,238,252,.8); }
+  .dir-b .kicker { font-family: var(--mono); color: var(--aqua); }
+  .dir-b .hero h4 { font-family: 'Archivo', var(--sans); font-weight: 800; color: var(--paperline); }
+  .dir-b .hero p { color: rgba(232,238,252,.76); }
+  .dir-b .btn { background: var(--signal); color: #1a0d02; }
+  .dir-b .btn-ghost { background: transparent; color: var(--paperline); border-color: rgba(232,238,252,.34); }
+  .dir-b .pillars { background: rgba(6,17,42,.6); border: 1px solid rgba(78,201,217,.24); }
+  .dir-b .pillar .nm { font-family: var(--mono); color: rgba(232,238,252,.72); }
+  .dir-b .pillar .vl { color: var(--aqua); }
+  .dir-b .bar { background: rgba(232,238,252,.14); }
+
+  .caption { font-size: .84rem; color: var(--ink-faint); padding: 14px 26px 18px; border-top: 1px solid var(--line); background: var(--surface); }
+
+  /* ============ penutup ============ */
+  .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .cmp { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 18px 20px; display: flex; flex-direction: column; gap: 7px; }
+  .cmp h4 { font-size: .96rem; color: var(--brand-ink); }
+  .cmp p { font-size: .89rem; color: var(--ink-soft); }
+  .cmp .mark { font-family: var(--mono); font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .decide { background: var(--go-tint); border: 1px solid var(--go-line); border-radius: var(--r-lg); padding: 26px 28px; display: flex; flex-direction: column; gap: 12px; }
+  .decide h3 { font-size: 1.15rem; color: var(--go-ink); }
+  .decide ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .decide li { font-size: .94rem; color: var(--ink-soft); }
+  .decide li b { color: var(--ink); }
+
+  @media (max-width: 760px) {
+    .logo-grid { grid-template-columns: 1fr; }
+    .hero { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 26px 14px 46px; gap: 32px; }
+    .masthead-inner { padding: 22px 18px; }
+    .panel { padding: 20px 18px; }
+    .spec, .screen { padding: 20px 17px; }
+    .dir-head { padding: 18px 17px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="masthead-strip"></div>
+    <div class="masthead-inner">
+      <div class="masthead-meta">
+        <span class="docref">SMR2045-VISUAL-V1</span>
+        <span class="eyebrow">Hasil Langkah 01</span>
+        <span class="eyebrow" style="margin-left:auto;">Ruwet Labs</span>
+      </div>
+      <h1>Logo dan Dua Arah Visual</h1>
+      <p class="sub">
+        Satu logo, dua kemungkinan suasana. Silakan bandingkan, lalu pilih satu arah untuk dipakai
+        seluruh halaman. Teks pada contoh tampilan masih teks sementara, bukan naskah final.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Bagian satu</span>
+      <h2>Logo: cincin empat pilar dan meander Mahakam</h2>
+      <p>Bentuknya diambil dari isi permainannya sendiri, bukan dari hiasan yang kebetulan cocok.</p>
+    </div>
+
+    <div class="panel">
+      <div class="logo-grid">
+        <div class="logo-stage">
+          <svg viewBox="0 0 64 64" role="img" aria-label="Logo Samarinda 2045">
+            <g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round">
+              <circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity="0.92" />
+              <path d="M15 37c6-7 9 4 15-2s8 3 18-7" stroke-width="4" />
+            </g>
+            <circle cx="48" cy="28" r="3.9" fill="var(--logo-accent, currentColor)" />
+          </svg>
+        </div>
+        <ul class="anatomy">
+          <li><b>Cincin terputus empat</b> — empat pilar keseimbangan: Lingkungan, Masyarakat, Ekonomi, Masa Depan. Celah di antaranya menegaskan bahwa keempatnya terpisah dan bisa timpang.</li>
+          <li><b>Garis berkelok di tengah</b> — meander Sungai Mahakam, sumbu yang menghubungkan keempat pilar.</li>
+          <li><b>Titik di ujung</b> — tahun 2045 sebagai muara. Warnanya jadi satu-satunya aksen, supaya mata punya tempat berhenti.</li>
+          <li><b>Tanpa warna bawaan</b> — logo mengambil warna dari latar tempatnya dipasang, sehingga aman di kemasan cetak, layar terang, maupun layar gelap.</li>
+        </ul>
+      </div>
+
+      <div class="variants">
+        <div class="variant v-light">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M15 37c6-7 9 4 15-2s8 3 18-7" stroke-width="4"/></g><circle cx="48" cy="28" r="3.9" fill="var(--logo-accent)"/></svg>
+          <span class="cap">Latar terang</span>
+        </div>
+        <div class="variant v-dark">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M15 37c6-7 9 4 15-2s8 3 18-7" stroke-width="4"/></g><circle cx="48" cy="28" r="3.9" fill="var(--logo-accent)"/></svg>
+          <span class="cap">Latar gelap</span>
+        </div>
+        <div class="variant v-mono">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M15 37c6-7 9 4 15-2s8 3 18-7" stroke-width="4"/></g><circle cx="48" cy="28" r="3.9" fill="currentColor"/></svg>
+          <span class="cap">Satu warna, untuk sablon</span>
+        </div>
+        <div class="variant v-small">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M15 37c6-7 9 4 15-2s8 3 18-7" stroke-width="4"/></g><circle cx="48" cy="28" r="3.9" fill="var(--logo-accent)"/></svg>
+          <span class="cap">Ukuran ikon 26 px</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h4 style="font-size:1rem; color:var(--brand-ink); margin-bottom:6px;">Disiapkan untuk edisi kota berikutnya</h4>
+      <p style="font-size:.92rem; color:var(--ink-soft); max-width:68ch;">
+        Cincin empat pilar tetap sama di semua edisi, karena mekanisme permainannya sama. Yang berganti
+        hanya garis air di tengah, mengikuti bentuk sungai atau teluk kota bersangkutan. Satu keluarga logo,
+        berapa pun kotanya.
+      </p>
+      <div class="city-row">
+        <div class="city is-now">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M15 37c6-7 9 4 15-2s8 3 18-7" stroke-width="4"/></g><circle cx="48" cy="28" r="3.9" fill="var(--logo-accent)"/></svg>
+          <span class="nm">Samarinda · sekarang</span>
+        </div>
+        <div class="city">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M16 24c10 2 14 10 12 18" stroke-width="4"/></g><circle cx="28" cy="42" r="3.9" fill="var(--logo-accent)"/></svg>
+          <span class="nm">Kota teluk</span>
+        </div>
+        <div class="city">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M16 40h14l7-13h11" stroke-width="4" stroke-linejoin="round"/></g><circle cx="48" cy="27" r="3.9" fill="var(--logo-accent)"/></svg>
+          <span class="nm">Kota kanal</span>
+        </div>
+        <div class="city">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M17 32h30" stroke-width="4"/></g><circle cx="47" cy="32" r="3.9" fill="var(--logo-accent)"/></svg>
+          <span class="nm">Kota pesisir</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Bagian dua</span>
+      <h2>Arah visual yang bisa dipilih</h2>
+      <p>Keduanya memakai logo yang sama. Yang berbeda adalah suasana, warna, dan jenis huruf.</p>
+    </div>
+
+    <article class="dir dir-a">
+      <div class="dir-head">
+        <span class="tag">ARAH A</span>
+        <h3>Delta Mahakam</h3>
+        <p class="mood">
+          Hangat, membumi, terasa seperti buku alam dan peta lama. Menonjolkan sisi edukasi dan
+          kedekatan dengan sungai. Cocok bila situs banyak dipakai di sekolah dan komunitas.
+        </p>
+      </div>
+      <div class="spec">
+        <div>
+          <h4>Warna</h4>
+          <div class="swatches">
+            <div class="sw"><i style="background:#f5efe2"></i><span>#F5EFE2</span></div>
+            <div class="sw"><i style="background:#1d5c63"></i><span>#1D5C63</span></div>
+            <div class="sw"><i style="background:#c0873a"></i><span>#C0873A</span></div>
+            <div class="sw"><i style="background:#3f7a4f"></i><span>#3F7A4F</span></div>
+            <div class="sw"><i style="background:#17251f"></i><span>#17251F</span></div>
+          </div>
+        </div>
+        <div>
+          <h4>Huruf</h4>
+          <div class="type-row">
+            <span class="lbl">Judul — Fraunces</span>
+            <span class="big" style="font-family:'Fraunces',Georgia,serif; font-weight:800;">Empat neraca kota</span>
+            <span class="lbl">Isi — Karla</span>
+            <span class="small" style="font-family:'Karla',sans-serif;">Setiap kebijakan menaikkan satu hal dan menurunkan yang lain.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mock">
+        <div class="mock-bar"><i></i><i></i><i></i><span>samarinda2045 — halaman depan</span></div>
+        <div class="screen">
+          <nav class="nav">
+            <div class="lockup">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M15 37c6-7 9 4 15-2s8 3 18-7" stroke-width="4"/></g><circle cx="48" cy="28" r="3.9" fill="var(--logo-accent)"/></svg>
+              <span class="wm"><b>Samarinda 2045</b><small>Futures Lab</small></span>
+            </div>
+            <ul>
+              <li>Board Game</li>
+              <li>Samarinda</li>
+              <li>Futures Lab</li>
+              <li>Galeri</li>
+            </ul>
+          </nav>
+          <div class="hero">
+            <div>
+              <div class="kicker">Board game keberlanjutan</div>
+              <h4>Kota ini punya empat neraca. Anda yang menimbangnya.</h4>
+              <p>
+                Permainan tentang menjaga Samarinda tetap layak huni sampai 2045: sungainya, warganya,
+                dan pilihan yang tidak pernah gratis.
+              </p>
+              <div class="cta">
+                <span class="btn">Lihat cara bermain</span>
+                <span class="btn btn-ghost">Pesan lebih dulu</span>
+              </div>
+            </div>
+            <div class="pillars">
+              <div class="pillar"><span class="nm">Lingkungan</span><span class="vl">62</span><span class="bar"><i style="width:62%; background:#3f7a4f"></i></span></div>
+              <div class="pillar"><span class="nm">Masyarakat</span><span class="vl">48</span><span class="bar"><i style="width:48%; background:#1d5c63"></i></span></div>
+              <div class="pillar"><span class="nm">Ekonomi</span><span class="vl">71</span><span class="bar"><i style="width:71%; background:#c0873a"></i></span></div>
+              <div class="pillar"><span class="nm">Masa Depan</span><span class="vl">55</span><span class="bar"><i style="width:55%; background:#17251f"></i></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="caption">Angka pada empat pilar hanya contoh tampilan. Nilai sebenarnya mengikuti aturan skoring board game.</p>
+    </article>
+
+    <article class="dir dir-b">
+      <div class="dir-head">
+        <span class="tag">ARAH B</span>
+        <h3>Cetak Biru 2045</h3>
+        <p class="mood">
+          Teknis dan berwibawa, meminjam bahasa gambar kerja perencanaan kota. Menonjolkan sisi simulasi
+          dan masa depan. Cocok bila situs banyak dipakai untuk presentasi ke pemerintah, kampus, atau mitra.
+        </p>
+      </div>
+      <div class="spec">
+        <div>
+          <h4>Warna</h4>
+          <div class="swatches">
+            <div class="sw"><i style="background:#0d2149"></i><span>#0D2149</span></div>
+            <div class="sw"><i style="background:#24407e"></i><span>#24407E</span></div>
+            <div class="sw"><i style="background:#4ec9d9"></i><span>#4EC9D9</span></div>
+            <div class="sw"><i style="background:#ff7a1a"></i><span>#FF7A1A</span></div>
+            <div class="sw"><i style="background:#e8eefc"></i><span>#E8EEFC</span></div>
+          </div>
+        </div>
+        <div>
+          <h4>Huruf</h4>
+          <div class="type-row">
+            <span class="lbl">Judul — Archivo</span>
+            <span class="big" style="font-family:'Archivo',sans-serif; font-weight:800;">Empat sistem berjalan</span>
+            <span class="lbl">Isi — IBM Plex Sans</span>
+            <span class="small" style="font-family:'IBM Plex Sans',sans-serif;">Setiap kebijakan menaikkan satu hal dan menurunkan yang lain.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mock">
+        <div class="mock-bar"><i></i><i></i><i></i><span>samarinda2045 — halaman depan</span></div>
+        <div class="screen">
+          <nav class="nav">
+            <div class="lockup">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke-dasharray="30.27 9" transform="rotate(-45 32 32)" opacity=".92"/><path d="M15 37c6-7 9 4 15-2s8 3 18-7" stroke-width="4"/></g><circle cx="48" cy="28" r="3.9" fill="var(--logo-accent)"/></svg>
+              <span class="wm"><b>SAMARINDA 2045</b><small>Futures Lab</small></span>
+            </div>
+            <ul>
+              <li>Board Game</li>
+              <li>Samarinda</li>
+              <li>Futures Lab</li>
+              <li>Galeri</li>
+            </ul>
+          </nav>
+          <div class="hero">
+            <div>
+              <div class="kicker">Simulasi kota dalam bentuk permainan</div>
+              <h4>Samarinda 2045 dimulai dari keputusan hari ini.</h4>
+              <p>
+                Empat sistem kota berjalan bersamaan. Satu kebijakan bisa menaikkan yang satu dan
+                menjatuhkan tiga sisanya. Silakan buktikan sendiri.
+              </p>
+              <div class="cta">
+                <span class="btn">Coba simulasinya</span>
+                <span class="btn btn-ghost">Pesan lebih dulu</span>
+              </div>
+            </div>
+            <div class="pillars">
+              <div class="pillar"><span class="nm">LINGKUNGAN</span><span class="vl">62</span><span class="bar"><i style="width:62%; background:#4ec9d9"></i></span></div>
+              <div class="pillar"><span class="nm">MASYARAKAT</span><span class="vl">48</span><span class="bar"><i style="width:48%; background:#7f9cf5"></i></span></div>
+              <div class="pillar"><span class="nm">EKONOMI</span><span class="vl">71</span><span class="bar"><i style="width:71%; background:#ff7a1a"></i></span></div>
+              <div class="pillar"><span class="nm">MASA DEPAN</span><span class="vl">55</span><span class="bar"><i style="width:55%; background:#e8eefc"></i></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="caption">Angka pada empat pilar hanya contoh tampilan. Nilai sebenarnya mengikuti aturan skoring board game.</p>
+    </article>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Bagian tiga</span>
+      <h2>Cara memilih tanpa pusing</h2>
+    </div>
+    <div class="compare">
+      <div class="cmp">
+        <span class="mark">Pilih Arah A bila</span>
+        <h4>Sasarannya guru, siswa, dan komunitas</h4>
+        <p>Nuansa kertas dan sungai membuat situs terasa ramah dan mudah didekati, cocok untuk bahan ajar dan kegiatan komunitas.</p>
+      </div>
+      <div class="cmp">
+        <span class="mark">Pilih Arah B bila</span>
+        <h4>Sasarannya instansi, kampus, dan mitra</h4>
+        <p>Nuansa gambar kerja membuat situs terasa serius dan terukur, cocok saat board game diperkenalkan sebagai alat simulasi kebijakan.</p>
+      </div>
+      <div class="cmp">
+        <span class="mark">Perlu diketahui</span>
+        <h4>Keduanya sama-sama bisa dipakai ulang</h4>
+        <p>Apa pun yang dipilih, warna dan huruf disimpan terpisah dari isi. Edisi kota lain nanti tinggal menukar satu berkas pengaturan.</p>
+      </div>
+    </div>
+
+    <div class="decide">
+      <h3>Yang perlu Anda jawab</h3>
+      <ol>
+        <li><b>Logonya sudah cocok atau belum?</b> Bila ada yang mengganjal, sebutkan bagiannya saja, misalnya cincinnya terlalu tebal atau kelokan sungainya kurang terbaca.</li>
+        <li><b>Arah A atau Arah B?</b> Boleh juga menyebut campurannya, misalnya warna Arah A dengan tata letak Arah B.</li>
+        <li><b>Nama resmi yang dipakai di situs.</b> Contoh sekarang memakai “Samarinda 2045 — Futures Lab”. Jika ada penulisan resmi yang berbeda, mohon dikoreksi sebelum halaman dibangun.</li>
+      </ol>
+    </div>
+  </section>
+
+</div>
