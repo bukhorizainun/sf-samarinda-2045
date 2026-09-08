@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Enam usulan tanda untuk SF (Sustainable Futures): gagasan, penilaian terbuka, usulan terpilih, dan uji penerapannya di papan permainan maupun layar.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20163.77%20163.77%22%20width%3D%2264%22%20height%3D%2264%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sfg%22%20x1%3D%220%22%20y1%3D%221%22%20x2%3D%221%22%20y2%3D%220%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2316a06f%22/%3E%3Cstop%20offset%3D%22.36%22%20stop-color%3D%22%232f7fe0%22/%3E%3Cstop%20offset%3D%22.72%22%20stop-color%3D%22%238b5cf6%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f0a92a%22/%3E%3C/linearGradient%3E%3Cmask%20id%3D%22mkfav%22%20maskUnits%3D%22userSpaceOnUse%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22163.77%22%20height%3D%22163.77%22%3E%3Crect%20width%3D%22163.77%22%20height%3D%22163.77%22%20fill%3D%22%23fff%22/%3E%3Cg%20transform%3D%22translate%285.39%2028.89%29%22%3E%3Cpath%20d%3D%22M64.36%2021.30%20A28.00%2018.50%200%201%200%2041.00%2050.00%20A28.00%2018.50%200%201%201%2017.64%2078.70%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%2226%22%20stroke-linecap%3D%22butt%22/%3E%3Cpath%20d%3D%22M92%200%20H146%20L159%2013%20L146%2026%20H118%20V100%20H92%20Z%20M118%2040%20H149%20L123%2066%20H118%20Z%22%20fill%3D%22%23000%22/%3E%3C/g%3E%3C/mask%3E%3C/defs%3E%3Cpath%20d%3D%22M39.30%200%20H163.77%20V163.77%20H0%20V39.30%20Z%22%20fill%3D%22url%28%23sfg%29%22%20mask%3D%22url%28%23mkfav%29%22/%3E%3C/svg%3E">
+<title>Identitas SF — Sustainable Futures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════ token ═══════════ */
+  :root {
+    --paper:#f6f6f3; --plate:#ffffff; --plate-2:#edeeea;
+    --hair:#dcdcd6; --hair-soft:#e7e7e2;
+    --ink:#0e1418; --ink-2:#4b555e; --ink-3:#7b858d;
+    --acc:#2f7fe0;
+    --env:#16a06f; --rdy:#2f7fe0; --soc:#8b5cf6; --eco:#f0a92a;
+    --lift:0 1px 2px rgba(14,20,24,.05);
+    --lift-2:0 20px 44px -28px rgba(14,20,24,.4);
+    --display:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --body:"Karla",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  }
+  :root:not([data-theme="light"]) { color-scheme: light; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper:#0b0f12; --plate:#12181c; --plate-2:#192026;
+      --hair:#26313a; --hair-soft:#1e262c;
+      --ink:#eceeec; --ink-2:#a9b3ba; --ink-3:#7c868e;
+      --acc:#6aa6ea;
+      --lift:0 1px 2px rgba(0,0,0,.5); --lift-2:0 22px 48px -30px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper:#0b0f12; --plate:#12181c; --plate-2:#192026;
+    --hair:#26313a; --hair-soft:#1e262c;
+    --ink:#eceeec; --ink-2:#a9b3ba; --ink-3:#7c868e;
+    --acc:#6aa6ea;
+    --lift:0 1px 2px rgba(0,0,0,.5); --lift-2:0 22px 48px -30px rgba(0,0,0,.9);
+  }
+
+  /* ═══════════ dwibahasa ═══════════ */
+  :root[data-lang="en"] [lang="id"] { display:none !important; }
+  :root:not([data-lang="en"]) [lang="en"] { display:none !important; }
+
+  * { box-sizing:border-box; }
+  html, body { max-width:100%; overflow-x:hidden; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+         font-family:var(--body); font-size:16px; line-height:1.65;
+         -webkit-font-smoothing:antialiased; overflow-wrap:break-word; }
+  svg, img { max-width:100%; }
+  svg { display:block; }
+  .sheet { max-width:1080px; margin:0 auto; padding:56px 24px 90px; display:flex; flex-direction:column; gap:66px; }
+  .sheet > *, .sec > *, .top > *, .opt > *, .o-body > * { min-width:0; }
+  h1,h2,h3,h4,h5 { margin:0; text-wrap:balance; }
+  p { margin:0; }
+  ul, ol { margin:0; padding:0; list-style:none; }
+
+  .lbl { font-family:var(--mono); font-size:.68rem; font-weight:500; letter-spacing:.16em;
+         text-transform:uppercase; color:var(--ink-3); }
+
+  .lang-switch { display:inline-flex; border:1px solid var(--hair); border-radius:2px; overflow:hidden; }
+  .lang-switch button { font-family:var(--mono); font-size:.65rem; letter-spacing:.12em; text-transform:uppercase;
+    padding:5px 11px; background:transparent; color:var(--ink-3); border:none; cursor:pointer; line-height:1.6; }
+  .lang-switch button + button { border-left:1px solid var(--hair); }
+  .lang-switch button[aria-pressed="true"] { background:var(--ink); color:var(--paper); }
+  .lang-switch button:focus-visible { outline:2px solid var(--acc); outline-offset:-2px; }
+
+  /* ═══════════ masthead ═══════════ */
+  .top { display:flex; flex-direction:column; gap:26px; }
+  .top-rule { height:1px; background:var(--hair); }
+  .top-meta { display:flex; flex-wrap:wrap; gap:12px 26px; align-items:center; }
+  .top h1 { font-family:var(--display); font-weight:200; font-size:clamp(2.3rem,6vw,3.9rem);
+            line-height:1.03; letter-spacing:-.02em; }
+  .top h1 em { font-style:normal; font-weight:600; }
+  .top .lede { font-size:1.05rem; color:var(--ink-2); max-width:62ch; }
+
+  .sec { display:flex; flex-direction:column; gap:26px; }
+  .sec-head { display:flex; flex-direction:column; gap:10px; border-top:1px solid var(--ink); padding-top:14px; }
+  .sec-head h2 { font-family:var(--display); font-weight:300; font-size:clamp(1.5rem,3.4vw,2.1rem); letter-spacing:-.01em; }
+  .sec-head p { font-size:.97rem; color:var(--ink-2); max-width:68ch; }
+
+  /* ═══════════ hirarki ═══════════ */
+  .tier { display:grid; gap:14px; }
+  .tier-row { display:grid; grid-template-columns:198px 1fr; gap:20px; align-items:start;
+              border:1px solid var(--hair); border-radius:3px; background:var(--plate); padding:20px 22px; }
+  .tier-row.primary { border-color:var(--ink); box-shadow:var(--lift-2); }
+  .tier-row h3 { font-family:var(--display); font-weight:600; font-size:1.15rem; letter-spacing:.04em; }
+  .tier-row.primary h3 { font-size:1.6rem; letter-spacing:.06em; }
+  .tier-row p { font-size:.9rem; color:var(--ink-2); }
+  .tier-row .k { display:flex; flex-direction:column; gap:3px; }
+  .note { border-left:2px solid var(--acc); padding:2px 0 2px 16px; font-size:.92rem; color:var(--ink-2); }
+  .note b { color:var(--ink); font-weight:700; }
+
+  /* ═══════════ kartu keterangan ═══════════ */
+  .rules { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+  .rule { border:1px solid var(--hair); border-radius:3px; background:var(--plate); padding:20px 20px 22px;
+          display:flex; flex-direction:column; gap:8px; }
+  .rule h4 { font-family:var(--display); font-weight:600; font-size:1rem; }
+  .rule p { font-size:.87rem; color:var(--ink-2); }
+
+  /* ═══════════ usulan ═══════════ */
+  .opt { display:grid; grid-template-columns:300px 1fr; gap:32px; padding:36px 0; border-top:1px solid var(--hair); }
+  .opt:first-of-type { border-top:none; padding-top:6px; }
+  .plates { display:flex; flex-direction:column; gap:10px; }
+  .plate { border-radius:3px; display:grid; place-items:center; position:relative; overflow:hidden;
+           padding:26px 22px; min-height:132px; }
+  .plate > svg { width:100%; height:auto; max-height:74px; }
+  .plate-white { background:#ffffff; border:1px solid var(--hair); }
+  .plate-ink { background:#0e1418; color:#ffffff; }
+  .plate-mono { background:var(--plate-2); color:var(--ink); border:1px solid var(--hair); }
+  .plate .idx { position:absolute; top:11px; left:13px; font-family:var(--mono); font-size:.62rem;
+                letter-spacing:.14em; color:var(--ink-3); }
+  .plate-ink .idx { color:rgba(255,255,255,.5); }
+  .plate-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .plate-row .plate { min-height:96px; padding:18px 14px; }
+  .plate-row .plate > svg { max-height:44px; }
+  .plate > svg[data-mk="blok"], .plate > svg[data-mk="cakram"],
+  .plate > svg[data-mk="iris"] { max-height:122px; }
+  .plate-row .plate > svg[data-mk="blok"], .plate-row .plate > svg[data-mk="cakram"],
+  .plate-row .plate > svg[data-mk="iris"] { max-height:64px; }
+  .box3d .m svg[data-mk="blok"] { height:56px; }
+  .poster .big svg[data-mk="blok"] { height:62px; }
+
+  .o-body { display:flex; flex-direction:column; gap:16px; }
+  .o-title { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 14px; }
+  .o-title h3 { font-family:var(--display); font-weight:600; font-size:1.4rem; letter-spacing:-.01em; }
+  .o-title .alt { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); }
+  .badge { font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase;
+           border:1px solid var(--acc); color:var(--acc); border-radius:99px; padding:3px 9px; }
+
+  .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px 28px; }
+  .fact { display:grid; grid-template-columns:92px 1fr; gap:12px; align-items:baseline; }
+  .fact dt { font-family:var(--mono); font-size:.63rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); }
+  .fact dd { margin:0; font-size:.89rem; color:var(--ink-2); }
+  .fact dd b { color:var(--ink); font-weight:700; }
+
+  .pros { display:grid; grid-template-columns:1fr 1fr; gap:10px 26px; padding-top:14px; border-top:1px dotted var(--hair); }
+  .pros div { display:flex; flex-direction:column; gap:5px; }
+  .pros .h { font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); }
+  .pros p { font-size:.87rem; color:var(--ink-2); }
+
+  .scores { display:grid; grid-template-columns:repeat(auto-fit,minmax(146px,1fr)); gap:9px 20px; padding-top:14px; }
+  .score { display:grid; grid-template-columns:1fr auto; gap:3px 8px; align-items:center; }
+  .score .k { font-family:var(--mono); font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); }
+  .score .v { font-family:var(--mono); font-size:.78rem; font-weight:700; font-variant-numeric:tabular-nums; }
+  .meter { grid-column:1/-1; height:3px; background:var(--hair-soft); border-radius:2px; overflow:hidden; }
+  .meter i { display:block; height:100%; background:var(--acc); }
+
+  /* ═══════════ matriks ═══════════ */
+  .matrix-scroll { overflow-x:auto; overscroll-behavior-x:contain; border:1px solid var(--hair);
+                   border-radius:3px; background:var(--plate); }
+  table.matrix { width:100%; border-collapse:collapse; font-size:.87rem; min-width:740px; }
+  table.matrix th, table.matrix td { padding:12px 13px; text-align:center; border-bottom:1px solid var(--hair-soft); }
+  table.matrix th { font-family:var(--mono); font-size:.61rem; letter-spacing:.08em; text-transform:uppercase;
+                    color:var(--ink-3); font-weight:500; }
+  table.matrix td { font-family:var(--mono); font-variant-numeric:tabular-nums; color:var(--ink-2); }
+  table.matrix th:first-child, table.matrix td:first-child { text-align:left; font-family:var(--body);
+                    color:var(--ink); white-space:nowrap; }
+  table.matrix td.tot { font-weight:700; color:var(--ink); }
+  table.matrix tr.win td { background:rgba(47,127,224,.10); color:var(--ink); }
+  table.matrix tr.win td:first-child { font-weight:700; }
+  table.matrix tr:last-child td { border-bottom:none; }
+
+  /* ═══════════ kunci logo ═══════════ */
+  .lockup { display:flex; align-items:center; gap:14px; max-width:100%; }
+  .lockup > svg { height:38px; width:auto; flex:none; min-width:0; }
+  /* kartu kunci logo dibuat lebih lebar: monogram ini dua kali lebih lebar
+     daripada tinggi, jadi baris tulisan di sebelahnya butuh ruang nyata */
+  .apps.wide { grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); }
+  .wm { display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .wm .l { font-family:var(--display); font-weight:600; font-size:.92rem; letter-spacing:.01em;
+           line-height:1.02; text-transform:uppercase; white-space:nowrap; display:flex; align-items:center; gap:7px; }
+  .wm .tick { width:.78em; height:.78em; flex:none; }
+  .wm .ed { font-family:var(--display); font-weight:300; font-size:.52rem; letter-spacing:.22em;
+            text-transform:uppercase; opacity:.66; margin-top:5px; white-space:nowrap; }
+  .stacked { display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center; }
+  .stacked > svg { height:56px; width:auto; }
+  .stacked .wm { align-items:center; }
+
+  /* ═══════════ uji ukuran ═══════════ */
+  .sizes { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px; }
+  .size-card { border:1px solid var(--hair); border-radius:3px; background:var(--plate); overflow:hidden; }
+  .size-row { display:flex; align-items:flex-end; justify-content:center; gap:18px; padding:26px 18px; background:#ffffff; }
+  .size-row .u { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .size-row .u span { font-family:var(--mono); font-size:.54rem; color:#8b939a; }
+  .size-row .u svg { width:auto; }
+  .size-card .cap { border-top:1px solid var(--hair); padding:9px 13px; font-size:.78rem; color:var(--ink-3); }
+
+  /* ═══════════ penerapan ═══════════ */
+  .apps { display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:18px; }
+  .app { border:1px solid var(--hair); border-radius:3px; overflow:hidden; background:var(--plate); display:flex; flex-direction:column; }
+  .app .frame { padding:22px; display:grid; place-items:center; background:var(--plate-2); min-height:200px; }
+  .app .frame.w { background:#ffffff; }
+  .app .frame.k { background:#0e1418; color:#ffffff; }
+  .app .cap { border-top:1px solid var(--hair); padding:9px 13px; font-size:.76rem; color:var(--ink-3); }
+
+  .box3d { width:142px; aspect-ratio:3/4; background:#0e1418; color:#ffffff; border-radius:2px;
+           padding:18px 14px; display:flex; flex-direction:column; box-shadow:var(--lift-2); }
+  .box3d .m { display:flex; justify-content:center; margin-bottom:14px; }
+  .box3d .m svg { height:40px; width:auto; }
+  .box3d .nm { font-family:var(--display); font-weight:600; font-size:.6rem; letter-spacing:.02em;
+               text-align:center; line-height:1.15; text-transform:uppercase; }
+  .box3d .tg { font-family:var(--display); font-weight:300; font-size:.44rem; letter-spacing:.2em;
+               text-align:center; margin-top:8px; text-transform:uppercase; opacity:.7; }
+  .box3d .ft { margin-top:auto; border-top:1px solid rgba(255,255,255,.2); padding-top:7px;
+               font-family:var(--mono); font-size:.45rem; letter-spacing:.1em; text-align:center; opacity:.6; }
+
+  .card-g { width:124px; aspect-ratio:5/7; background:#ffffff; border:1px solid var(--hair); border-radius:4px;
+            padding:11px; display:flex; flex-direction:column; gap:8px; color:#0e1418; box-shadow:var(--lift); }
+  .card-g .hd { display:flex; align-items:center; gap:6px; border-bottom:1px solid #e4e4de; padding-bottom:6px; }
+  .card-g .hd svg { height:13px; width:auto; flex:none; }
+  .card-g .hd span { font-family:var(--mono); font-size:.42rem; letter-spacing:.12em; text-transform:uppercase; color:#7b858d; }
+  .card-g .ttl { font-family:var(--display); font-weight:600; font-size:.7rem; line-height:1.25; }
+  .card-g .ln { display:flex; flex-direction:column; gap:4px; }
+  .card-g .ln i { display:block; height:2.5px; background:#e8e8e2; border-radius:2px; }
+  .card-g .pl { margin-top:auto; display:flex; gap:4px; }
+  .card-g .pl i { width:9px; height:9px; border-radius:50%; display:block; }
+
+  .token { width:96px; height:96px; border-radius:50%; display:grid; place-items:center;
+           box-shadow:var(--lift-2); overflow:hidden; }
+  .token svg { width:100%; height:100%; }
+
+  .browser { width:100%; border:1px solid var(--hair); border-radius:3px; overflow:hidden; background:#ffffff; }
+  .browser .bar { display:flex; gap:5px; padding:7px 9px; background:#eeeee9; border-bottom:1px solid #e0e0da; }
+  .browser .bar i { width:6px; height:6px; border-radius:50%; background:#c8c8c2; display:block; }
+  .browser .bd { padding:12px 14px 18px; color:#0e1418; }
+  .browser .nav { display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; padding-bottom:12px; border-bottom:1px solid #e6e6e0; }
+  .browser .nav ul { display:flex; flex-wrap:wrap; gap:9px; margin-left:auto; }
+  .browser .nav li { font-size:.47rem; color:#5c6660; }
+  .browser h5 { font-family:var(--display); font-weight:300; font-size:1rem; line-height:1.15; margin:14px 0 7px; }
+  .browser h5 b { font-weight:600; }
+  .browser p { font-size:.52rem; color:#5c6660; max-width:34ch; }
+  .browser .btn { display:inline-block; margin-top:10px; background:#0e1418; color:#fff; font-size:.49rem;
+                  letter-spacing:.1em; padding:6px 13px; border-radius:99px; }
+
+  .poster { width:136px; aspect-ratio:2/3; background:#ffffff; color:#0e1418; border:1px solid var(--hair);
+            border-radius:2px; padding:16px 14px; display:flex; flex-direction:column; box-shadow:var(--lift); }
+  .poster .big { margin:auto 0 16px; display:flex; justify-content:center; }
+  .poster .big svg { height:52px; width:auto; }
+  .poster .t { font-family:var(--display); font-weight:600; font-size:.58rem; letter-spacing:.02em;
+               line-height:1.2; text-transform:uppercase; }
+  .poster .s { font-family:var(--display); font-weight:300; font-size:.42rem; letter-spacing:.2em;
+               margin-top:6px; text-transform:uppercase; color:#5c6660; }
+  .poster .r { height:1px; background:#e4e4de; margin:10px 0 7px; }
+  .poster .c { font-family:var(--mono); font-size:.4rem; letter-spacing:.1em; color:#7b858d; }
+
+  .slide { width:100%; aspect-ratio:16/9; background:#0e1418; color:#ffffff; border-radius:3px;
+           padding:16px 18px; display:flex; flex-direction:column; }
+  .slide .mid { margin:auto 0; }
+  .slide .mid h5 { font-family:var(--display); font-weight:300; font-size:.98rem; }
+  .slide .ft { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:4px 10px;
+               border-top:1px solid rgba(255,255,255,.16); padding-top:8px; }
+  .slide .ft span { font-family:var(--mono); font-size:.45rem; letter-spacing:.1em; opacity:.6; }
+
+  /* ═══════════ edisi ═══════════ */
+  .cities { display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:16px; }
+  .city { border:1px solid var(--hair); border-radius:3px; padding:26px 20px; background:var(--plate);
+          display:grid; place-items:center; }
+  .city.now { border-color:var(--ink); box-shadow:var(--lift-2); }
+
+  /* ═══════════ warna ═══════════ */
+  .swatches { display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:12px; }
+  .sw { border:1px solid var(--hair); border-radius:3px; overflow:hidden; background:var(--plate); }
+  .sw .chip { height:66px; }
+  .sw .m { padding:9px 11px; display:flex; flex-direction:column; gap:1px; }
+  .sw .m b { font-size:.78rem; font-weight:700; }
+  .sw .m span { font-family:var(--mono); font-size:.63rem; color:var(--ink-3); }
+  .gradbar { height:56px; border-radius:3px;
+             background:linear-gradient(45deg,#16a06f 0%,#2f7fe0 34%,#8b5cf6 67%,#f0a92a 100%); }
+
+  /* ═══════════ penutup ═══════════ */
+  .ask { border:1px solid var(--ink); border-radius:3px; padding:30px 32px; background:var(--plate);
+         display:flex; flex-direction:column; gap:14px; }
+  .ask h3 { font-family:var(--display); font-weight:400; font-size:1.3rem; }
+  .ask ol { counter-reset:q; display:flex; flex-direction:column; gap:12px; }
+  .ask li { counter-increment:q; position:relative; padding-left:34px; font-size:.95rem; color:var(--ink-2); }
+  .ask li::before { content:counter(q,decimal-leading-zero); position:absolute; left:0; top:.1em;
+                    font-family:var(--mono); font-size:.72rem; color:var(--acc); letter-spacing:.05em; }
+  .ask li b { color:var(--ink); font-weight:700; }
+  .colophon { display:flex; flex-wrap:wrap; gap:8px 20px; align-items:center; border-top:1px solid var(--hair); padding-top:18px; }
+  .colophon .studio { font-family:var(--display); font-weight:600; font-size:.9rem; letter-spacing:.06em; }
+
+  @media (max-width:860px) {
+    .opt { grid-template-columns:1fr; gap:22px; }
+    .plates { max-width:360px; }
+    .tier-row { grid-template-columns:1fr; gap:10px; }
+  }
+  @media (max-width:700px) {
+    .facts { grid-template-columns:1fr; gap:14px; }
+    .fact { grid-template-columns:1fr; gap:2px; }
+    .pros { grid-template-columns:1fr; }
+    .scores { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:560px) {
+    .sheet { padding:30px 15px 56px; gap:44px; }
+    .sec { gap:20px; }
+    .ask, .tier-row, .rule { padding:20px 17px; }
+    .top .lede { font-size:.98rem; }
+    .sec-head h2 { font-size:1.35rem; }
+    .plates { max-width:100%; }
+    .scores { grid-template-columns:1fr; }
+    .apps, .cities, .rules, .sizes { grid-template-columns:1fr; }
+    .lockup > svg { height:38px; }
+    .wm .l { font-size:.86rem; }
+  }
+  @media (prefers-reduced-motion:reduce) { * { transition:none !important; animation:none !important; } }
+</style>
+</head>
+<body>
+<!-- SF:SYMBOLS -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <linearGradient id="sfg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#16a06f"/><stop offset=".36" stop-color="#2f7fe0"/><stop offset=".72" stop-color="#8b5cf6"/><stop offset="1" stop-color="#f0a92a"/></linearGradient>
+  <mask id="mkblok" maskUnits="userSpaceOnUse" x="0" y="0" width="178.08" height="178.08"><rect width="178.08" height="178.08" fill="#fff"/><g transform="translate(12.54 36.04)"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="#000" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="#000"/></g></mask>
+  <symbol id="sf-blok" viewBox="0 0 178.08 178.08"><path d="M46.30 0 H178.08 V178.08 H0 V46.30 Z" fill="url(#sfg)" mask="url(#mkblok)"/></symbol>
+  <mask id="mkblokk" maskUnits="userSpaceOnUse" x="0" y="0" width="178.08" height="178.08"><rect width="178.08" height="178.08" fill="#fff"/><g transform="translate(12.54 36.04)"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="#000" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="#000"/></g></mask>
+  <symbol id="sf-blok-k" viewBox="0 0 178.08 178.08"><path d="M46.30 0 H178.08 V178.08 H0 V46.30 Z" fill="currentColor" mask="url(#mkblokk)"/></symbol>
+  <symbol id="sf-mark" viewBox="0 0 159.00 100.00"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="url(#sfg)" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="url(#sfg)"/></symbol>
+  <symbol id="sf-mark-k" viewBox="0 0 159.00 100.00"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="currentColor"/></symbol>
+  <mask id="mkcakram" maskUnits="userSpaceOnUse" x="0" y="0" width="187.62" height="187.62"><rect width="187.62" height="187.62" fill="#fff"/><g transform="translate(17.31 40.81)"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="#000" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="#000"/></g></mask>
+  <symbol id="sf-cakram" viewBox="0 0 187.62 187.62"><path d="M0.00 93.81 A93.81 93.81 0 1 0 187.62 93.81 A93.81 93.81 0 1 0 0.00 93.81 Z" fill="url(#sfg)" mask="url(#mkcakram)"/></symbol>
+  <mask id="mkcakramk" maskUnits="userSpaceOnUse" x="0" y="0" width="187.62" height="187.62"><rect width="187.62" height="187.62" fill="#fff"/><g transform="translate(17.31 40.81)"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="#000" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="#000"/></g></mask>
+  <symbol id="sf-cakram-k" viewBox="0 0 187.62 187.62"><path d="M0.00 93.81 A93.81 93.81 0 1 0 187.62 93.81 A93.81 93.81 0 1 0 0.00 93.81 Z" fill="currentColor" mask="url(#mkcakramk)"/></symbol>
+  <clipPath id="cairis" clipPathUnits="userSpaceOnUse"><path d="M-900 -900 H1025.96 L-900 1025.96 Z"/></clipPath><clipPath id="cbiris" clipPathUnits="userSpaceOnUse"><path d="M900 900 H-766.964 L900 -766.964 Z"/></clipPath><mask id="mkiris" maskUnits="userSpaceOnUse" x="0" y="0" width="178.08" height="178.08"><rect width="178.08" height="178.08" fill="#fff"/><g transform="translate(12.54 36.04)"><g transform="translate(2.828 -2.828)"><g clip-path="url(#cairis)"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="#000" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="#000"/></g></g><g clip-path="url(#cbiris)"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="#000" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="#000"/></g></g></mask>
+  <symbol id="sf-iris" viewBox="0 0 178.08 178.08"><path d="M46.30 0 H178.08 V178.08 H0 V46.30 Z" fill="url(#sfg)" mask="url(#mkiris)"/></symbol>
+  <clipPath id="cairisk" clipPathUnits="userSpaceOnUse"><path d="M-900 -900 H1025.96 L-900 1025.96 Z"/></clipPath><clipPath id="cbirisk" clipPathUnits="userSpaceOnUse"><path d="M900 900 H-766.964 L900 -766.964 Z"/></clipPath><mask id="mkirisk" maskUnits="userSpaceOnUse" x="0" y="0" width="178.08" height="178.08"><rect width="178.08" height="178.08" fill="#fff"/><g transform="translate(12.54 36.04)"><g transform="translate(2.828 -2.828)"><g clip-path="url(#cairisk)"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="#000" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="#000"/></g></g><g clip-path="url(#cbirisk)"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="#000" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="#000"/></g></g></mask>
+  <symbol id="sf-iris-k" viewBox="0 0 178.08 178.08"><path d="M46.30 0 H178.08 V178.08 H0 V46.30 Z" fill="currentColor" mask="url(#mkirisk)"/></symbol>
+  <symbol id="sf-construction" viewBox="0 0 178.08 178.08"><path d="M46.30 0 H178.08 V178.08 H0 V46.30 Z" fill="none" stroke="url(#sfg)" fill="none" stroke-width="1.2" opacity=".40"/><path d="M-30.00 76.30 L76.30 -30.00" stroke="url(#sfg)" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><g transform="translate(12.54 36.04)"><g opacity=".12"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="url(#sfg)" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="url(#sfg)"/></g><ellipse cx="41" cy="31.5" rx="28" ry="18.5" stroke="url(#sfg)" fill="none" stroke-width="1.2" opacity=".40"/><ellipse cx="41" cy="68.5" rx="28" ry="18.5" stroke="url(#sfg)" fill="none" stroke-width="1.2" opacity=".40"/><path d="M0 50 H159" stroke="url(#sfg)" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><circle cx="41" cy="50" r="3.0" fill="url(#sfg)"/><path d="M64.36 21.30 l-30 30 M64.36 21.30 l30 -30" stroke="url(#sfg)" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><circle cx="64.36" cy="21.30" r="3.0" fill="url(#sfg)"/><path d="M17.64 78.70 l-30 30 M17.64 78.70 l30 -30" stroke="url(#sfg)" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><circle cx="17.64" cy="78.70" r="3.0" fill="url(#sfg)"/><path d="M159 13 l-26 -26 M159 13 l-26 26" stroke="url(#sfg)" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><path d="M92 0 V100 M118 0 V100" stroke="url(#sfg)" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/></g></symbol>
+  <symbol id="sf-construction-k" viewBox="0 0 178.08 178.08"><path d="M46.30 0 H178.08 V178.08 H0 V46.30 Z" fill="none" stroke="currentColor" fill="none" stroke-width="1.2" opacity=".40"/><path d="M-30.00 76.30 L76.30 -30.00" stroke="currentColor" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><g transform="translate(12.54 36.04)"><g opacity=".12"><path d="M64.36 21.30 A28.00 18.50 0 1 0 41.00 50.00 A28.00 18.50 0 1 1 17.64 78.70" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="butt"/><path d="M92 0 H146 L159 13 L146 26 H118 V100 H92 Z M118 40 H149 L123 66 H118 Z" fill="currentColor"/></g><ellipse cx="41" cy="31.5" rx="28" ry="18.5" stroke="currentColor" fill="none" stroke-width="1.2" opacity=".40"/><ellipse cx="41" cy="68.5" rx="28" ry="18.5" stroke="currentColor" fill="none" stroke-width="1.2" opacity=".40"/><path d="M0 50 H159" stroke="currentColor" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><circle cx="41" cy="50" r="3.0" fill="currentColor"/><path d="M64.36 21.30 l-30 30 M64.36 21.30 l30 -30" stroke="currentColor" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><circle cx="64.36" cy="21.30" r="3.0" fill="currentColor"/><path d="M17.64 78.70 l-30 30 M17.64 78.70 l30 -30" stroke="currentColor" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><circle cx="17.64" cy="78.70" r="3.0" fill="currentColor"/><path d="M159 13 l-26 -26 M159 13 l-26 26" stroke="currentColor" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/><path d="M92 0 V100 M118 0 V100" stroke="currentColor" fill="none" stroke-width="1.2" stroke-dasharray="5 4" opacity=".40"/></g></symbol>
+  <symbol id="sf-lama" viewBox="0 0 222.00 100.00"><path d="M94.60 24.91 A42.00 18.00 0 1 0 56.00 50.00 A42.00 18.00 0 1 1 17.40 75.09" fill="none" stroke="url(#sfg)" stroke-width="28" stroke-linecap="butt"/><path d="M134 0 H208 L222 14 L208 28 H162 V100 H134 Z M162 42 H208 L180 70 H162 Z" fill="url(#sfg)"/></symbol>
+  <symbol id="sf-lama-k" viewBox="0 0 222.00 100.00"><path d="M94.60 24.91 A42.00 18.00 0 1 0 56.00 50.00 A42.00 18.00 0 1 1 17.40 75.09" fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="butt"/><path d="M134 0 H208 L222 14 L208 28 H162 V100 H134 Z M162 42 H208 L180 70 H162 Z" fill="currentColor"/></symbol>
+  <symbol id="sf-tick" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter"><path d="M12.00 84.00 L78.00 18.00"/><path d="M50.28 18.00 H78.00 V45.72"/></g></symbol>
+  </defs></svg>
+  <!-- /SF:SYMBOLS -->
+
+<div class="sheet">
+
+  <!-- ═════════ masthead ═════════ -->
+  <header class="top">
+    <div class="top-rule"></div>
+    <div class="top-meta">
+      <span class="lbl" lang="id">Eksplorasi Identitas Visual</span>
+      <span class="lbl" lang="en">Visual Identity Exploration</span>
+      <span class="lbl">SF-ID-V3</span>
+      <span class="lang-switch" style="margin-left:auto;">
+        <button type="button" data-lang-btn="id" aria-pressed="true">ID</button>
+        <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+      </span>
+    </div>
+    <h1>Sustainable <em>Futures</em></h1>
+    <p class="lede" lang="id">
+      Putaran kelima. Hurufnya tidak diganti; bidangnya yang ditambahkan. Monogram dirapatkan
+      dari 2,22 menjadi 1,59 kali tinggi huruf, lalu sudut 45° yang selama ini hanya memotong
+      ujung huruf dipakai juga untuk memotong sudut bidangnya. Tanda ini akhirnya punya bentuk
+      untuk ruang persegi — ikon, token, foto profil, favicon — bukan hanya untuk satu baris
+      kop surat.
+    </p>
+    <p class="lede" lang="en">
+      Round five. The letters are not replaced; a field is added. The monogram is tightened from
+      2.22 to 1.59 times the cap height, and the 45° angle that until now cut only the letter
+      terminals cuts the corner of the field as well. The mark finally has a form for square
+      space — icons, tokens, profile pictures, favicons — not only for a line of letterhead.
+    </p>
+  </header>
+
+  <!-- ═════════ putaran kelima ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Putaran kelima</span>
+      <span class="lbl" lang="en">Round five</span>
+      <h2 lang="id">Kenapa putaran lalu terasa biasa</h2>
+      <h2 lang="en">Why the last round felt ordinary</h2>
+      <p lang="id">
+        Penilaian itu kami baca sebagai dua hal yang terpisah. Pertama, perbandingannya. Tanda
+        selebar 2,22 kali tingginya hanya nyaman di satu tempat, yaitu baris mendatar. Di ikon,
+        token, foto profil, dan favicon ia menyusut sampai tinggal isyarat, dan gradasi empat
+        warnanya kehilangan ruang untuk terbaca. Kedua, tandanya tidak punya wadah: seluruh
+        identitas bertumpu pada dua huruf yang berdiri di ruang kosong, sehingga tidak ada satu
+        pun bentuk yang bisa dipinjam untuk kartu, sampul, atau tombol. Putaran ini menjawab
+        keduanya — hurufnya dirapatkan, dan satu bidang ditambahkan.
+      </p>
+      <p lang="en">
+        We read that judgement as two separate things. First, the proportion. A mark 2.22 times
+        wider than it is tall is comfortable in one place only, a horizontal line. In icons,
+        tokens, profile pictures, and favicons it shrinks until only a gesture is left, and its
+        four-colour gradient loses the room it needs to be read. Second, the mark had no
+        container: the whole identity rested on two letters standing in empty space, so there
+        was no shape to borrow for cards, covers, or buttons. This round answers both — the
+        letters are tightened, and a field is added.
+      </p>
+    </div>
+    <div class="apps wide">
+      <div class="app">
+        <div class="frame w" style="min-height:0; padding:40px 26px;">
+          <svg viewBox="0 0 222.00 100.00" data-mk="lama" style="height:52px;" role="img" aria-label="Round four mark"><use href="#sf-lama"/></svg>
+        </div>
+        <p class="cap" lang="id">Putaran lalu — 2,22 kali tinggi huruf</p>
+        <p class="cap" lang="en">Last round — 2.22 times the cap height</p>
+      </div>
+      <div class="app">
+        <div class="frame w" style="min-height:0; padding:40px 26px;">
+          <svg viewBox="0 0 159.00 100.00" data-mk="mark" style="height:52px;" role="img" aria-label="Round five monogram"><use href="#sf-mark"/></svg>
+        </div>
+        <p class="cap" lang="id">Sekarang — 1,59 kali tinggi huruf</p>
+        <p class="cap" lang="en">Now — 1.59 times the cap height</p>
+      </div>
+      <div class="app">
+        <div class="frame w" style="min-height:0; padding:22px 26px;">
+          <svg viewBox="0 0 178.08 178.08" data-mk="blok" style="height:88px;" role="img" aria-label="Round five block"><use href="#sf-blok"/></svg>
+        </div>
+        <p class="cap" lang="id">Yang belum pernah ada — bidangnya</p>
+        <p class="cap" lang="en">What was never there — the field</p>
+      </div>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <span class="lbl">01</span>
+        <h4 lang="id">Perbandingan itu bisa dihitung</h4>
+        <h4 lang="en">The proportion can be measured</h4>
+        <p lang="id">Dalam kotak 32 px, tanda lama menyisakan tinggi huruf 14 px; yang sekarang 20 px. Selisih itu yang menentukan tanda terbaca atau hanya terlihat.</p>
+        <p lang="en">In a 32 px box the old mark leaves 14 px of cap height; the new one leaves 20 px. That difference decides whether a mark is read or merely seen.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl">02</span>
+        <h4 lang="id">Sekarang ada bidang</h4>
+        <h4 lang="en">There is a field now</h4>
+        <p lang="id">Huruf tidak digambar ulang di dalam bidang, melainkan dilubangkan dari bidang itu. Bentuknya tidak mungkin menyimpang, karena hanya ada satu bentuk.</p>
+        <p lang="en">The letters are not redrawn inside the field but cut out of it. The shape cannot drift, because there is only one shape.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl">03</span>
+        <h4 lang="id">Gradasi akhirnya punya ruang</h4>
+        <h4 lang="en">The gradient finally has room</h4>
+        <p lang="id">Pada sapuan huruf yang tipis, empat warna berdesakan jadi satu campuran. Pada bidang seluas ini, Environment, Future Readiness, Society, dan Economy terbaca satu per satu.</p>
+        <p lang="en">On a thin letter stroke, four colours crowd into one blend. On a field this size, Environment, Future Readiness, Society, and Economy each read on their own.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl">04</span>
+        <h4 lang="id">Sudut 45° naik pangkat</h4>
+        <h4 lang="en">The 45° angle is promoted</h4>
+        <p lang="id">Dulu ia hanya memotong ujung huruf. Sekarang ia juga memotong sudut wadahnya, jadi identitas ini punya satu isyarat yang bisa dipakai di luar logo: sudut kartu, sudut foto, sudut tombol.</p>
+        <p lang="en">It used to cut only the letter terminals. Now it cuts the corner of the container too, so the identity owns one gesture that works outside the logo: the corner of a card, a photo, a button.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ arah rupa ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Titik berangkat</span>
+      <span class="lbl" lang="en">Starting point</span>
+      <h2 lang="id">Rujukan yang Anda kirim, dan apa yang kami ubah</h2>
+      <h2 lang="en">The reference you sent, and what we changed</h2>
+      <p lang="id">
+        Rujukan itu kami baca sebagai tiga keputusan: huruf tebal dari lengkung geometris, potongan
+        miring, dan gradasi. Ketiganya kami pakai. Yang tidak kami pakai adalah bentuk dan warnanya
+        yang persis, karena identitas yang mengikuti terlalu dekat akan terbaca sebagai turunan.
+        Putaran ini juga meninggalkan cara kerja sebelumnya: huruf tidak lagi digambar bebas lalu
+        dirapikan, melainkan dibangun dari lingkaran dan sudut yang bisa dihitung ulang oleh siapa
+        pun. Bagian satu memperlihatkan konstruksinya.
+      </p>
+      <p lang="en">
+        We read that reference as three decisions: bold letters from geometric curves, a diagonal
+        cut, and a gradient. We kept all three. What we did not keep is its exact shape and palette,
+        because an identity that follows too closely reads as a derivative. This round also drops the
+        previous working method: the letters are no longer drawn freehand and tidied, but built from
+        circles and angles anyone can recompute. Part one shows the construction.
+      </p>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <span class="lbl">01</span>
+        <h4 lang="id">Satu sudut untuk semua potongan</h4>
+        <h4 lang="en">One angle for every cut</h4>
+        <p lang="id">Setiap ujung huruf dipotong pada 45°, sudut yang sama dengan panah. Bukan hiasan: itu aturan yang bisa diteruskan ke ikon, kartu, dan tanda panah di dalam permainan.</p>
+        <p lang="en">Every terminal is cut at 45°, the same angle as the arrow. Not decoration: it is a rule that carries on into icons, cards, and in-game arrows.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl">02</span>
+        <h4 lang="id">Warna gradasi punya arti</h4>
+        <h4 lang="en">The gradient means something</h4>
+        <p lang="id">Empat warnanya bukan pilihan selera, melainkan empat City Indicator dari panduan permainan: Environment, Future Readiness, Society, Economy.</p>
+        <p lang="en">The four colours are not a taste choice but the four City Indicators from the game guide: Environment, Future Readiness, Society, Economy.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl">03</span>
+        <h4 lang="id">Harus hidup tanpa gradasi</h4>
+        <h4 lang="en">It must live without the gradient</h4>
+        <p lang="id">Sablon satu warna, cetak hitam putih, dan ukiran token tidak mengenal gradasi. Setiap usulan disertai versi satu warna yang diuji lebih dulu.</p>
+        <p lang="en">One-colour printing, black and white, and engraved tokens know nothing of gradients. Every proposal ships with a flat version, tested first.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl">04</span>
+        <h4 lang="id">Panah tetap ada</h4>
+        <h4 lang="en">The arrow stays</h4>
+        <p lang="id">Pada rujukan, panah hidup di baris tulisan. Kami menyediakan keduanya: panah di logotype, dan usulan yang memasukkan panah ke dalam huruf F.</p>
+        <p lang="en">In the reference the arrow lives on the type line. We offer both: an arrow in the logotype, and proposals that put the arrow inside the letter F.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ susunan merek ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Ketetapan</span>
+      <span class="lbl" lang="en">Ground rule</span>
+      <h2 lang="id">Empat tingkat, satu tanda</h2>
+      <h2 lang="en">Four levels, one mark</h2>
+      <p lang="id">
+        Hanya tingkat teratas yang punya tanda. Tiga tingkat di bawahnya tulisan, dan tulisan itu
+        boleh berganti tanpa menyentuh tandanya. Susunan ini yang membuat edisi kota berikutnya
+        tidak menuntut logo baru.
+      </p>
+      <p lang="en">
+        Only the top level owns a mark. The three levels below it are typography, and that typography
+        can change without touching the mark. This is what lets the next city edition arrive without
+        a new logo.
+      </p>
+    </div>
+    <div class="tier">
+      <div class="tier-row primary">
+        <div class="k">
+          <span class="lbl" lang="id">Merek utama</span><span class="lbl" lang="en">Master brand</span>
+          <h3>SF</h3>
+        </div>
+        <div>
+          <p lang="id"><b>Sustainable Futures.</b> Nama panjangnya menjelaskan singkatannya, bukan menggantikannya. Tanda dibangun untuk tingkat ini saja, dan tidak mengandung apa pun yang khas Samarinda.</p>
+          <p lang="en"><b>Sustainable Futures.</b> The full name explains the initials rather than replacing them. The mark is built for this level alone, and carries nothing specific to Samarinda.</p>
+        </div>
+      </div>
+      <div class="tier-row">
+        <div class="k">
+          <span class="lbl" lang="id">Semboyan</span><span class="lbl" lang="en">Tagline</span>
+          <h3>FUTURES IN ACTION</h3>
+        </div>
+        <div>
+          <p lang="id">Sikap yang dibawa SF, bukan nama merek. Boleh hadir di bawah tanda, boleh juga tidak hadir sama sekali.</p>
+          <p lang="en">The stance SF takes, not a brand name. It may sit under the mark, and it may be left out entirely.</p>
+        </div>
+      </div>
+      <div class="tier-row">
+        <div class="k">
+          <span class="lbl" lang="id">Edisi berjalan</span><span class="lbl" lang="en">Current edition</span>
+          <h3>SAMARINDA 2045</h3>
+        </div>
+        <div>
+          <p lang="id">Baris yang berganti. Jakarta 2045, Balikpapan 2045, Rotterdam 2045 memakai tanda yang persis sama.</p>
+          <p lang="en">The line that changes. Jakarta 2045, Balikpapan 2045, Rotterdam 2045 all use exactly the same mark.</p>
+        </div>
+      </div>
+      <div class="tier-row">
+        <div class="k">
+          <span class="lbl" lang="id">Studio</span><span class="lbl" lang="en">Studio</span>
+          <h3>RDL Labs</h3>
+        </div>
+        <div>
+          <p lang="id">Baris kredit di kaki halaman, kemasan, dan slide. Tidak pernah berbagi ruang dengan tanda utama.</p>
+          <p lang="en">A credit line on the footer, the box, and the slide. It never shares space with the primary mark.</p>
+        </div>
+      </div>
+    </div>
+    <p class="note" lang="id">
+      <b>Bacaan kedua.</b> SF juga inisial penulisnya. Bacaan itu tidak perlu dijelaskan di muka umum;
+      ia bekerja justru karena hanya diketahui orang dalam. Di seluruh materi resmi, SF berarti
+      Sustainable Futures.
+    </p>
+    <p class="note" lang="en">
+      <b>A second reading.</b> SF is also the author's initials. That reading needs no public
+      explanation; it works precisely because only insiders hold it. In every official material,
+      SF means Sustainable Futures.
+    </p>
+    <p class="note" lang="id">
+      <b>Yang perlu disesuaikan.</b> Kepala halaman panduan permainan masih berbunyi
+      <em>FUTURES IN ACTION | Samarinda 2045 Edition</em>. Dengan SF di atasnya, kepala halaman itu
+      perlu ikut berubah, agar pembaca tidak menemui dua susunan merek yang berselisih.
+    </p>
+    <p class="note" lang="en">
+      <b>One thing to adjust.</b> The game guide's running head still reads
+      <em>FUTURES IN ACTION | Samarinda 2045 Edition</em>. With SF placed above it, that running head
+      needs to change too, so readers do not meet two conflicting brand arrangements.
+    </p>
+  </section>
+
+  <!-- ═════════ konstruksi ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian satu</span>
+      <span class="lbl" lang="en">Part one</span>
+      <h2 lang="id">Konstruksi</h2>
+      <h2 lang="en">Construction</h2>
+      <p lang="id">
+        Huruf tidak digambar bebas lalu dirapikan. S dibangun dari dua elips yang benar-benar
+        bersinggungan; titik singgungnya tepat di tengah, dan di titik itu arah kedua lengkungan
+        mendatar, sehingga sambungannya tidak terlihat. Sudut kedua ujungnya dihitung, bukan
+        dikira-kira. Diagram di bawah menambahkan satu hal baru: garis putus-putus di sudut kiri
+        atas memperlihatkan bahwa potongan pada bidang memakai kemiringan yang sama dengan
+        potongan pada huruf.
+      </p>
+      <p lang="en">
+        The letters were not drawn freehand and then tidied. The S is built from two ellipses that
+        genuinely touch; the tangent point sits exactly at the centre, and at that point both curves
+        run horizontally, so the join is invisible. The angle of both terminals is calculated, not
+        estimated. The diagram below adds one new thing: the dashed line at the top-left corner shows
+        that the cut on the field uses the same slope as the cuts on the letters.
+      </p>
+    </div>
+    <div class="app" style="max-width:none;">
+      <div class="frame w" style="min-height:0; padding:34px 28px;">
+        <svg viewBox="0 0 178.08 178.08" data-mk="construction" style="height:250px;" role="img" aria-label="Construction grid"><use href="#sf-construction-k"/></svg>
+      </div>
+      <p class="cap" lang="id">Dua elips bersinggungan, satu titik singgung, dan empat bidang potong yang semuanya 45° — tiga pada huruf, satu pada sudut bidang</p>
+      <p class="cap" lang="en">Two tangent ellipses, one tangent point, and four cutting planes all at 45° — three on the letters, one on the corner of the field</p>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <span class="lbl">01</span>
+        <h4 lang="id">Sudut potong dihitung</h4>
+        <h4 lang="en">The cut angle is calculated</h4>
+        <p lang="id">Pada elips, titik yang garis singgungnya miring 135° dicari lebih dulu. Potongan ujung yang tegak lurus terhadapnya jatuh tepat 45°, sudut yang sama dengan panah. Kalau dikira-kira, kedua ujung S tidak akan pernah sejajar.</p>
+        <p lang="en">On an ellipse, the point whose tangent runs at 135° is solved first. The terminal cut perpendicular to it lands at exactly 45°, the arrow's angle. Estimated by eye, the two terminals of an S never end up parallel.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl">02</span>
+        <h4 lang="id">Satu bobot untuk semuanya</h4>
+        <h4 lang="en">One weight throughout</h4>
+        <p lang="id">Tebal sapuan S, lebar tiang F, lebar kedua lengan, dan tebal panah kecil di logotype memakai satu angka yang sama. Tidak ada bobot kedua di seluruh sistem.</p>
+        <p lang="en">The S's stroke, the F's stem, both arms, and the small arrow in the logotype all use one number. There is no second weight in the system.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl">03</span>
+        <h4 lang="id">Satu berkas, semua keluaran</h4>
+        <h4 lang="en">One file, every output</h4>
+        <p lang="id">Berkas SVG, tanda di halaman ini, favicon, dan diagram di atas lahir dari satu berkas geometri. Bentuk di kemasan tidak akan pernah berbeda dari bentuk di layar.</p>
+        <p lang="en">The SVG files, the marks on this page, the favicon, and the diagram above all come from one geometry file. The shape on the box can never drift from the shape on screen.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl">04</span>
+        <h4 lang="id">Wadah memakai aturan huruf</h4>
+        <h4 lang="en">The container follows the letter's rule</h4>
+        <p lang="id">Sudut kiri atas bidang dipotong pada kemiringan yang sama dengan ujung huruf. Karena itu wadah dan huruf terbaca sebagai satu keluarga, dan potongan yang sama bisa diteruskan ke sudut kartu, foto, dan tombol di situs.</p>
+        <p lang="en">The top-left corner of the field is cut on the same slope as the letter terminals. Container and letter therefore read as one family, and the same cut carries on into the corner of a card, a photo, a button on the site.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ usulan ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian dua</span>
+      <span class="lbl" lang="en">Part two</span>
+      <h2 lang="id">Satu huruf, empat bidang</h2>
+      <h2 lang="en">One letterform, four fields</h2>
+      <p lang="id">
+        Keempatnya memakai monogram yang persis sama. Yang berbeda hanya bidang tempat huruf itu
+        tinggal, dan pada usulan keempat, satu potongan yang menembusnya. Berpindah di antara
+        keempatnya karena itu tidak menuntut menggambar ulang apa pun.
+      </p>
+      <p lang="en">
+        All four use exactly the same monogram. What differs is the field the letters live in, and
+        in the fourth, one cut through it. Moving between them therefore asks for no redrawing.
+      </p>
+    </div>
+
+    <article class="opt">
+      <div class="plates">
+        <div class="plate plate-white"><span class="idx">01</span><svg viewBox="0 0 178.08 178.08" data-mk="blok" role="img" aria-label="The Block"><use href="#sf-blok"/></svg></div>
+        <div class="plate-row">
+          <div class="plate plate-ink"><svg viewBox="0 0 178.08 178.08" data-mk="blok" aria-hidden="true"><use href="#sf-blok-k"/></svg></div>
+          <div class="plate plate-mono"><svg viewBox="0 0 178.08 178.08" data-mk="blok" aria-hidden="true"><use href="#sf-blok-k"/></svg></div>
+        </div>
+      </div>
+      <div class="o-body">
+        <div class="o-title">
+          <h3 lang="id">Blok</h3><h3 lang="en">The Block</h3>
+          <span class="alt" lang="id">The Block</span><span class="alt" lang="en">Blok</span>
+          <span class="badge" lang="id">Usulan utama</span><span class="badge" lang="en">Lead proposal</span>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt><span lang="id">Kenapa perlu</span><span lang="en">Why it exists</span></dt>
+            <dd><span lang="id">Sebagian besar tempat tanda ini akan muncul berbentuk persegi: ikon aplikasi, foto profil, token permainan, sudut kemasan, favicon. Bidang persegi memberi tanda tempat tinggal di semua itu tanpa harus menyusut lebih dulu.</span>
+                <span lang="en">Most of the places this mark has to appear are square: app icons, profile pictures, game tokens, the corner of a box, favicons. A square field gives the mark a home in all of them without shrinking first.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Sudut yang dipotong</span><span lang="en">The cut corner</span></dt>
+            <dd><span lang="id">Sudut kiri atas dipotong pada 45°, kemiringan yang sama dengan ujung huruf. Potongan itu bukan hiasan: bentuknya bisa dipinjam untuk memotong sudut kartu, foto, dan tombol, sehingga satu isyarat kecil mengikat seluruh materi.</span>
+                <span lang="en">The top-left corner is cut at 45°, the same slope as the letter terminals. The cut is not decoration: its shape can be borrowed for the corner of a card, a photo, a button, so one small gesture ties the whole set of materials together.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Cara kerjanya</span><span lang="en">How it works</span></dt>
+            <dd><span lang="id">Monogram tidak digambar ulang di dalam bidang, melainkan dilubangkan dari bidang itu. Yang terbaca sebagai huruf adalah bahan di baliknya — kertas, kain, atau layar.</span>
+                <span lang="en">The monogram is not redrawn inside the field but cut out of it. What reads as a letter is the material behind — paper, cloth, or screen.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Warna</span><span lang="en">Colour</span></dt>
+            <dd><span lang="id">Di sapuan huruf yang tipis, empat warna berdesakan jadi satu campuran. Di bidang seluas ini keempatnya punya ruang, jadi Environment, Future Readiness, Society, dan Economy terbaca satu per satu.</span>
+                <span lang="en">On a thin letter stroke, four colours crowd into one blend. On a field this size each has room, so Environment, Future Readiness, Society, and Economy read one by one.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Permainan</span><span lang="en">Game read</span></dt>
+            <dd><span lang="id">Langsung menjadi ikon, penanda giliran, dan sudut kemasan tanpa penyesuaian. Sudut potongnya juga bisa dipakai sebagai sudut kartu.</span>
+                <span lang="en">It becomes an icon, a turn marker, and the corner of a box with no adjustment. The cut corner also works as a card corner.</span></dd></div>
+        </dl>
+        <div class="pros">
+          <div><span class="h" lang="id">Kekuatan</span><span class="h" lang="en">Strength</span>
+            <p lang="id">Satu-satunya bentuk yang bekerja dari 16 px sampai sisi kemasan, dan satu-satunya yang memberi gradasi cukup ruang untuk dijelaskan.</p>
+            <p lang="en">The only form that works from 16 px to the side of a box, and the only one that gives the gradient enough room to be explained.</p></div>
+          <div><span class="h" lang="id">Kelemahan</span><span class="h" lang="en">Weakness</span>
+            <p lang="id">Bidang penuh berbunyi keras. Di atas foto yang ramai atau di sebelah lambang lembaga lain ia menuntut ruang kosong, dan untuk baris kop surat yang panjang monogram terbuka lebih pas.</p>
+            <p lang="en">A solid field is loud. Over a busy photograph or beside another institution's emblem it demands clear space, and for a long line of letterhead the open monogram sits better.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="opt">
+      <div class="plates">
+        <div class="plate plate-white"><span class="idx">02</span><svg viewBox="0 0 159.00 100.00" data-mk="mark" role="img" aria-label="The Monogram"><use href="#sf-mark"/></svg></div>
+        <div class="plate-row">
+          <div class="plate plate-ink"><svg viewBox="0 0 159.00 100.00" data-mk="mark" aria-hidden="true"><use href="#sf-mark-k"/></svg></div>
+          <div class="plate plate-mono"><svg viewBox="0 0 159.00 100.00" data-mk="mark" aria-hidden="true"><use href="#sf-mark-k"/></svg></div>
+        </div>
+      </div>
+      <div class="o-body">
+        <div class="o-title">
+          <h3 lang="id">Monogram</h3><h3 lang="en">The Monogram</h3>
+          <span class="alt" lang="id">The Monogram</span><span class="alt" lang="en">Monogram</span>
+          <span class="badge" lang="id">Pendamping mendatar</span><span class="badge" lang="en">Horizontal companion</span>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt><span lang="id">Kapan dipakai</span><span lang="en">When to use</span></dt>
+            <dd><span lang="id">Baris kop surat, kepala situs, spanduk, tanda tangan surel, dan setiap bidang yang lebih lebar daripada tinggi.</span>
+                <span lang="en">Letterhead, site headers, banners, email signatures, and any field wider than it is tall.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Panah</span><span lang="en">Arrow</span></dt>
+            <dd><span lang="id">Lengan atas F berakhir runcing. Sudut ujungnya 90°, dibentuk dua bidang potong 45° yang sama persis dengan potongan pada kedua ujung S. Panahnya bagian dari huruf, dan tidak bisa dilepas tanpa merusak F.</span>
+                <span lang="en">The F's upper arm ends in a point. Its apex is 90°, formed by two 45° cutting planes identical to those on both terminals of the S. The arrow is part of the letter and cannot be removed without breaking the F.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Ukuran</span><span lang="en">Size</span></dt>
+            <dd><span lang="id">1,59 kali tinggi huruf. Dalam kotak 32 px tinggi hurufnya 20 px; tanda putaran lalu hanya menyisakan 14 px di ruang yang sama.</span>
+                <span lang="en">1.59 times the cap height. In a 32 px box the letters stand 20 px tall; last round's mark left only 14 px in the same space.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Satu warna</span><span lang="en">One colour</span></dt>
+            <dd><span lang="id">Versi tinta dan versi putih diuji lebih dulu, sebelum versi gradasi. Sablon, ukiran, dan faks memakai keduanya.</span>
+                <span lang="en">The ink and white versions are tested before the gradient version. Screen printing, engraving, and fax use those two.</span></dd></div>
+        </dl>
+        <div class="pros">
+          <div><span class="h" lang="id">Kekuatan</span><span class="h" lang="en">Strength</span>
+            <p lang="id">Paling ringan dipasang berdampingan dengan lambang lain, dan paling mudah untuk ukiran dan sablon satu warna.</p>
+            <p lang="en">The easiest to place beside another emblem, and the easiest for engraving and one-colour printing.</p></div>
+          <div><span class="h" lang="id">Kelemahan</span><span class="h" lang="en">Weakness</span>
+            <p lang="id">Masih mendatar. Di bidang persegi ia tetap kalah oleh blok, dan di bawah 24 px ujung runcingnya mulai tumpul.</p>
+            <p lang="en">Still horizontal. In a square field the block still beats it, and below 24 px the point starts to blunt.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="opt">
+      <div class="plates">
+        <div class="plate plate-white"><span class="idx">03</span><svg viewBox="0 0 187.62 187.62" data-mk="cakram" role="img" aria-label="The Disc"><use href="#sf-cakram"/></svg></div>
+        <div class="plate-row">
+          <div class="plate plate-ink"><svg viewBox="0 0 187.62 187.62" data-mk="cakram" aria-hidden="true"><use href="#sf-cakram-k"/></svg></div>
+          <div class="plate plate-mono"><svg viewBox="0 0 187.62 187.62" data-mk="cakram" aria-hidden="true"><use href="#sf-cakram-k"/></svg></div>
+        </div>
+      </div>
+      <div class="o-body">
+        <div class="o-title">
+          <h3 lang="id">Cakram</h3><h3 lang="en">The Disc</h3>
+          <span class="alt" lang="id">The Disc</span><span class="alt" lang="en">Cakram</span>
+          <span class="badge" lang="id">Untuk benda bundar</span><span class="badge" lang="en">For round objects</span>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt><span lang="id">Kenapa ada</span><span lang="en">Why it exists</span></dt>
+            <dd><span lang="id">Token, pin, stempel, dan penanda giliran berbentuk bundar sejak awal. Bentuk ini menyediakan tanda yang sudah bulat, jadi tidak ada yang perlu dipaksa masuk lingkaran.</span>
+                <span lang="en">Tokens, pins, stamps, and turn markers are round to begin with. This form supplies a mark that is already circular, so nothing has to be forced into a circle.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Cara kerjanya</span><span lang="en">How it works</span></dt>
+            <dd><span lang="id">Sama seperti blok: monogram dilubangkan, tidak digambar ulang. Yang berubah hanya bentuk bidangnya.</span>
+                <span lang="en">The same as the block: the monogram is cut out, not redrawn. Only the shape of the field changes.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Batasnya</span><span lang="en">Its limit</span></dt>
+            <dd><span lang="id">Untuk favicon dan ikon aplikasi kami menyarankan blok, bukan cakram. Pada 16 piksel bidang persegi mengisi kisi piksel sampai ke tepi, sementara cakram membuang keempat sudutnya.</span>
+                <span lang="en">For favicons and app icons we would suggest the block rather than the disc. At 16 pixels a square field fills the pixel grid to the edge, while a disc throws away all four corners.</span></dd></div>
+        </dl>
+        <div class="pros">
+          <div><span class="h" lang="id">Kekuatan</span><span class="h" lang="en">Strength</span>
+            <p lang="id">Sudah berbentuk koin. Langsung menjadi token, pin, dan stempel tanpa digambar ulang.</p>
+            <p lang="en">Already coin-shaped. It becomes a token, a pin, and a stamp with no redrawing.</p></div>
+          <div><span class="h" lang="id">Kelemahan</span><span class="h" lang="en">Weakness</span>
+            <p lang="id">Membuang ruang di sudut. Dipakai sebagai ikon aplikasi, ia terlihat lebih kecil daripada blok pada ukuran yang persis sama.</p>
+            <p lang="en">It wastes the corners. Used as an app icon it looks smaller than the block at exactly the same size.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="opt">
+      <div class="plates">
+        <div class="plate plate-white"><span class="idx">04</span><svg viewBox="0 0 178.08 178.08" data-mk="iris" role="img" aria-label="The Sliced Block"><use href="#sf-iris"/></svg></div>
+        <div class="plate-row">
+          <div class="plate plate-ink"><svg viewBox="0 0 178.08 178.08" data-mk="iris" aria-hidden="true"><use href="#sf-iris-k"/></svg></div>
+          <div class="plate plate-mono"><svg viewBox="0 0 178.08 178.08" data-mk="iris" aria-hidden="true"><use href="#sf-iris-k"/></svg></div>
+        </div>
+      </div>
+      <div class="o-body">
+        <div class="o-title">
+          <h3 lang="id">Blok Iris</h3><h3 lang="en">The Sliced Block</h3>
+          <span class="alt" lang="id">The Sliced Block</span><span class="alt" lang="en">Blok Iris</span>
+          <span class="badge" lang="id">Penyetelan ekspresif</span><span class="badge" lang="en">Expressive setting</span>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt><span lang="id">Apa yang terjadi</span><span lang="en">What happens</span></dt>
+            <dd><span lang="id">Satu potongan 45° menembus seluruh tanda. Belahan atas meluncur sepanjang potongan itu, bukan menyeberanginya, sehingga lebar celahnya tidak berubah dan kedua bidang potong tetap sejajar.</span>
+                <span lang="en">One 45° cut runs through the whole mark. The upper half slides along that cut rather than across it, so the width of the gap never changes and the two cut faces stay parallel.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Aturan pakainya</span><span lang="en">Its rule</span></dt>
+            <dd><span lang="id">Hanya 64 px ke atas, dan hanya untuk layar serta cetak penuh warna. Tidak untuk favicon, token, ukiran, atau sablon satu warna — di sana celahnya menutup dan potongannya berubah jadi cacat.</span>
+                <span lang="en">Only at 64 px and above, and only for screen and full-colour print. Not for favicons, tokens, engraving, or one-colour printing — there the gap closes and the cut turns into a flaw.</span></dd></div>
+          <div class="fact"><dt><span lang="id">Kedudukannya</span><span lang="en">Its standing</span></dt>
+            <dd><span lang="id">Bukan tanda kedua. Hurufnya sama, hanya dipotong sekali. Kalau dipilih, ia dipakai untuk sampul panduan, layar judul, dan bidang besar, sementara tiga usulan di atas tetap mengurus sisanya.</span>
+                <span lang="en">Not a second mark. The letters are the same, cut once. If it is chosen it serves the guide cover, title screens, and large fields, while the three proposals above still handle everything else.</span></dd></div>
+        </dl>
+        <div class="pros">
+          <div><span class="h" lang="id">Kekuatan</span><span class="h" lang="en">Strength</span>
+            <p lang="id">Paling berkarakter dari keempatnya, dan paling mudah diingat pada bidang besar.</p>
+            <p lang="en">The most characterful of the four, and the easiest to remember at large sizes.</p></div>
+          <div><span class="h" lang="id">Kelemahan</span><span class="h" lang="en">Weakness</span>
+            <p lang="id">Potongan itu memakan keterbacaan. Di bawah 64 px huruf S mulai pecah, dan pada cetak satu warna celahnya hilang sama sekali.</p>
+            <p lang="en">The cut eats legibility. Below 64 px the S starts to break up, and in one-colour printing the gap disappears altogether.</p></div>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ═════════ rekomendasi ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian tiga</span>
+      <span class="lbl" lang="en">Part three</span>
+      <h2 lang="id">Yang kami sarankan</h2>
+      <h2 lang="en">What we suggest</h2>
+      <p lang="id">Satu bidang sebagai tanda utama, satu bentuk mendatar yang wajib menyertainya, satu bentuk bundar untuk benda, dan satu penyetelan yang disimpan untuk bidang besar.</p>
+      <p lang="en">One field as the primary mark, one horizontal form that must accompany it, one round form for objects, and one setting held back for large fields.</p>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <span class="lbl" lang="id">Tanda utama</span><span class="lbl" lang="en">Primary</span>
+        <h4 lang="id">01 Blok</h4><h4 lang="en">01 The Block</h4>
+        <p lang="id">Sebagian besar tempat tanda ini muncul berbentuk persegi, jadi bentuk persegi yang pantas jadi utama. Sudut potongnya juga memberi identitas satu isyarat yang bisa dipakai di luar logo.</p>
+        <p lang="en">Most of the places this mark appears are square, so the square form is the one that deserves to lead. Its cut corner also gives the identity a gesture that works outside the logo.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl" lang="id">Pendamping wajib</span><span class="lbl" lang="en">Required companion</span>
+        <h4 lang="id">02 Monogram</h4><h4 lang="en">02 The Monogram</h4>
+        <p lang="id">Bukan pilihan. Setiap identitas dengan tanda persegi membutuhkan bentuk mendatar untuk kop surat dan kepala situs, dan ini bentuknya.</p>
+        <p lang="en">Not optional. Every identity with a square mark needs a horizontal form for letterhead and site headers, and this is it.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl" lang="id">Untuk benda</span><span class="lbl" lang="en">For objects</span>
+        <h4 lang="id">03 Cakram</h4><h4 lang="en">03 The Disc</h4>
+        <p lang="id">Dipakai hanya pada benda yang memang bundar: token, pin, stempel, penanda giliran. Untuk favicon dan ikon aplikasi, blok yang dipakai.</p>
+        <p lang="en">Used only on objects that are genuinely round: tokens, pins, stamps, turn markers. For favicons and app icons, the block is the one to use.</p>
+      </div>
+      <div class="rule">
+        <span class="lbl" lang="id">Cadangan</span><span class="lbl" lang="en">Reserve</span>
+        <h4 lang="id">04 Blok Iris</h4><h4 lang="en">04 The Sliced Block</h4>
+        <p lang="id">Disimpan untuk sampul panduan, layar judul, dan bidang besar. Di bawah 64 px sebaiknya tidak dipakai sama sekali.</p>
+        <p lang="en">Held for the guide cover, title screens, and large fields. Below 64 px it is better not used at all.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ kunci logo ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian empat</span>
+      <span class="lbl" lang="en">Part four</span>
+      <h2 lang="id">Kunci logo</h2>
+      <h2 lang="en">Logo lockups</h2>
+      <p lang="id">
+        Empat susunan. Kunci A dan D memakai blok, kunci B dan C memakai monogram terbuka,
+        supaya kedua bentuk terlihat sedang bekerja. Panah kecil di kepala baris digambar sendiri, bukan
+        diambil dari fonta, sehingga sudutnya persis sama dengan potongan pada huruf. Baris edisi
+        yang berganti kota; dua baris di atasnya tetap.
+      </p>
+      <p lang="en">
+        Four arrangements. Lockups A and D use the block, B and C the open monogram, so both
+        forms can be seen at work. The small arrow at the head of the line is
+        drawn, not taken from a font, so its angle matches the cut on the letters exactly. The edition
+        line changes city; the two lines above it stay.
+      </p>
+    </div>
+    <div class="apps wide">
+      <div class="app">
+        <div class="frame w">
+          <span class="lockup">
+            <svg viewBox="0 0 178.08 178.08" data-mk="blok" aria-hidden="true"><use href="#sf-blok"/></svg>
+            <span class="wm">
+              <span class="l"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><use href="#sf-tick"/></svg>Sustainable</span>
+              <span class="l" style="padding-left:calc(.78em + 7px);">Futures</span>
+            </span>
+          </span>
+        </div>
+        <p class="cap" lang="id">A. Kunci utama — blok dan nama panjangnya</p>
+        <p class="cap" lang="en">A. Master lockup — the block and the full name</p>
+      </div>
+      <div class="app">
+        <div class="frame k">
+          <span class="lockup">
+            <svg viewBox="0 0 159.00 100.00" data-mk="mark" aria-hidden="true"><use href="#sf-mark-k"/></svg>
+            <span class="wm">
+              <span class="l"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><use href="#sf-tick"/></svg>Sustainable</span>
+              <span class="l" style="padding-left:calc(.78em + 7px);">Futures</span>
+              <span class="ed" style="padding-left:calc(.78em + 7px);">Futures in Action</span>
+            </span>
+          </span>
+        </div>
+        <p class="cap" lang="id">B. Kunci semboyan — di atas tinta, tanda ikut memutih</p>
+        <p class="cap" lang="en">B. Tagline lockup — on ink, the mark turns white with it</p>
+      </div>
+      <div class="app">
+        <div class="frame w">
+          <span class="lockup">
+            <svg viewBox="0 0 159.00 100.00" data-mk="mark" aria-hidden="true"><use href="#sf-mark"/></svg>
+            <span class="wm">
+              <span class="l"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><use href="#sf-tick"/></svg>Sustainable</span>
+              <span class="l" style="padding-left:calc(.78em + 7px);">Futures</span>
+              <span class="ed" style="padding-left:calc(.78em + 7px);">Futures in Action</span>
+              <span class="ed" style="padding-left:calc(.78em + 7px); margin-top:3px;">Samarinda 2045</span>
+            </span>
+          </span>
+        </div>
+        <p class="cap" lang="id">C. Kunci edisi — dipakai di kemasan dan sampul panduan</p>
+        <p class="cap" lang="en">C. Edition lockup — used on the box and the guide cover</p>
+      </div>
+      <div class="app">
+        <div class="frame w">
+          <span class="stacked">
+            <svg viewBox="0 0 178.08 178.08" data-mk="blok" aria-hidden="true"><use href="#sf-blok"/></svg>
+            <span class="wm">
+              <span class="l">Sustainable</span>
+              <span class="l">Futures</span>
+              <span class="ed">Futures in Action</span>
+            </span>
+          </span>
+        </div>
+        <p class="cap" lang="id">D. Kunci bertumpuk — blok untuk bidang persegi dan media sosial</p>
+        <p class="cap" lang="en">D. Stacked lockup — the block for square fields and social media</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ uji ukuran ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Uji</span>
+      <span class="lbl" lang="en">Test</span>
+      <h2 lang="id">Ukuran sebenarnya</h2>
+      <h2 lang="en">At real size</h2>
+      <p lang="id">
+        Bukan ukuran presentasi. Deret ini yang menentukan apakah sebuah tanda layak dipakai:
+        96 px untuk kepala situs, 48 px untuk ikon, 32 dan 24 px untuk token kecil, 16 px untuk favicon.
+      </p>
+      <p lang="en">
+        Not presentation size. This row is what decides whether a mark is usable: 96 px for a site
+        header, 48 px for an icon, 32 and 24 px for small tokens, 16 px for a favicon.
+      </p>
+    </div>
+    <div class="sizes">
+      <div class="size-card">
+        <div class="size-row">
+          <span class="u"><svg viewBox="0 0 159.00 100.00" data-mk="mark" height="52" aria-hidden="true"><use href="#sf-mark"/></svg><span>96</span></span>
+          <span class="u"><svg viewBox="0 0 159.00 100.00" data-mk="mark" height="29" aria-hidden="true"><use href="#sf-mark"/></svg><span>48</span></span>
+          <span class="u"><svg viewBox="0 0 159.00 100.00" data-mk="mark" height="19" aria-hidden="true"><use href="#sf-mark"/></svg><span>32</span></span>
+          <span class="u"><svg viewBox="0 0 159.00 100.00" data-mk="mark" height="14" aria-hidden="true"><use href="#sf-mark"/></svg><span>24</span></span>
+        </div>
+        <p class="cap" lang="id">02 Monogram — utuh sampai 24 px. Untuk 16 px, pakai blok.</p>
+        <p class="cap" lang="en">02 The Monogram — intact to 24 px. For 16 px, use the block.</p>
+      </div>
+      <div class="size-card">
+        <div class="size-row">
+          <span class="u"><svg viewBox="0 0 178.08 178.08" data-mk="blok" height="52" aria-hidden="true"><use href="#sf-blok"/></svg><span>52</span></span>
+          <span class="u"><svg viewBox="0 0 178.08 178.08" data-mk="blok" height="32" aria-hidden="true"><use href="#sf-blok"/></svg><span>32</span></span>
+          <span class="u"><svg viewBox="0 0 178.08 178.08" data-mk="blok" height="24" aria-hidden="true"><use href="#sf-blok"/></svg><span>24</span></span>
+          <span class="u"><svg viewBox="0 0 178.08 178.08" data-mk="blok" height="16" aria-hidden="true"><use href="#sf-blok"/></svg><span>16</span></span>
+        </div>
+        <p class="cap" lang="id">01 Blok — masih terbaca di 16 px, dan mengisi kisi piksel sampai ke tepi. Inilah alasannya menjadi favicon.</p>
+        <p class="cap" lang="en">01 The Block — still legible at 16 px, and it fills the pixel grid to the edge. That is why it becomes the favicon.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ penerapan ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian lima</span>
+      <span class="lbl" lang="en">Part five</span>
+      <h2 lang="id">Penerapan</h2>
+      <h2 lang="en">Applications</h2>
+      <p lang="id">Gambar di bawah memakai usulan 01 dan monogramnya, dan cakram hanya pada benda yang memang bundar. Bila usulan lain yang dipilih, seluruh penerapan ini tetap berlaku; hanya tandanya yang ditukar.</p>
+      <p lang="en">The pictures below use proposal 01 and its monogram, with the disc only on objects that are genuinely round. If another proposal is chosen, all of these still hold; only the mark is swapped.</p>
+    </div>
+    <div class="apps">
+      <div class="app">
+        <div class="frame">
+          <div class="box3d">
+            <span class="m"><svg viewBox="0 0 178.08 178.08" data-mk="blok" aria-hidden="true"><use href="#sf-blok"/></svg></span>
+            <span class="nm">Sustainable<br>Futures</span>
+            <span class="tg">Futures in Action</span>
+            <span class="tg" style="margin-top:3px;">Samarinda 2045</span>
+            <span class="ft">RDL Labs</span>
+          </div>
+        </div>
+        <p class="cap" lang="id">Kotak permainan — gradasi di atas tinta</p>
+        <p class="cap" lang="en">Game box — gradient on ink</p>
+      </div>
+      <div class="app">
+        <div class="frame w">
+          <div class="card-g">
+            <span class="hd"><svg viewBox="0 0 178.08 178.08" data-mk="blok" aria-hidden="true"><use href="#sf-blok"/></svg><span>Mini-Project</span></span>
+            <span class="ttl">Ruang Terbuka Tepi Sungai</span>
+            <span class="ln"><i style="width:100%"></i><i style="width:88%"></i><i style="width:94%"></i><i style="width:62%"></i></span>
+            <span class="pl"><i style="background:#16a06f"></i><i style="background:#8b5cf6"></i><i style="background:#f0a92a"></i><i style="background:#2f7fe0"></i></span>
+          </div>
+        </div>
+        <p class="cap" lang="id">Kartu — blok di kepala, empat indikator di kaki</p>
+        <p class="cap" lang="en">Card — the block at the head, four indicators at the foot</p>
+      </div>
+      <div class="app">
+        <div class="frame">
+          <div class="token"><svg viewBox="0 0 187.62 187.62" data-mk="cakram" aria-hidden="true"><use href="#sf-cakram"/></svg></div>
+        </div>
+        <p class="cap" lang="id">Token — cakram sudah berbentuk koin sejak awal</p>
+        <p class="cap" lang="en">Token — the badge is already coin-shaped</p>
+      </div>
+      <div class="app">
+        <div class="frame k">
+          <div style="display:flex; flex-direction:column; gap:14px; align-items:center;">
+            <svg viewBox="0 0 159.00 100.00" data-mk="mark" height="34" aria-hidden="true"><use href="#sf-mark-k"/></svg>
+            <svg viewBox="0 0 159.00 100.00" data-mk="mark" height="34" aria-hidden="true"><use href="#sf-mark"/></svg>
+          </div>
+        </div>
+        <p class="cap" lang="id">Di atas tinta — putih untuk cetak satu warna, gradasi untuk layar</p>
+        <p class="cap" lang="en">On ink — white for one-colour print, gradient for screen</p>
+      </div>
+      <div class="app" style="grid-column:span 2;">
+        <div class="frame w">
+          <div class="browser">
+            <span class="bar"><i></i><i></i><i></i></span>
+            <div class="bd">
+              <div class="nav">
+                <span class="lockup" style="gap:10px;">
+                  <svg viewBox="0 0 159.00 100.00" data-mk="mark" height="26" aria-hidden="true"><use href="#sf-mark"/></svg>
+                  <span class="wm" style="gap:0;">
+                    <span class="l" style="font-size:.56rem; gap:4px;"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><use href="#sf-tick"/></svg>Sustainable</span>
+                    <span class="l" style="font-size:.56rem; padding-left:calc(.78em + 4px);">Futures</span>
+                  </span>
+                </span>
+                <ul><li>Permainan</li><li>Enam Fase</li><li>Kartu</li><li>Fasilitator</li><li>Futures Lab</li></ul>
+              </div>
+              <h5>Masa depan Samarinda <b>dibentuk oleh pilihan</b></h5>
+              <p>Permainan papan kooperatif untuk lima pemangku kepentingan. Seratus dua puluh menit, tiga proyek, satu aksi nyata.</p>
+              <span class="btn">Mulai</span>
+            </div>
+          </div>
+        </div>
+        <p class="cap" lang="id">Kepala situs — tanda 26 px, nama dua baris di sebelahnya</p>
+        <p class="cap" lang="en">Site header — 26 px mark, the name in two lines beside it</p>
+      </div>
+      <div class="app">
+        <div class="frame">
+          <div class="poster">
+            <span class="big"><svg viewBox="0 0 178.08 178.08" data-mk="blok" aria-hidden="true"><use href="#sf-blok"/></svg></span>
+            <span class="t">Sustainable<br>Futures</span>
+            <span class="s">Futures in Action</span>
+            <span class="s" style="margin-top:2px;">Samarinda 2045</span>
+            <span class="r"></span>
+            <span class="c">RDL Labs</span>
+          </div>
+        </div>
+        <p class="cap" lang="id">Poster — tanda besar, tulisan kecil, banyak ruang kosong</p>
+        <p class="cap" lang="en">Poster — large mark, small type, generous white space</p>
+      </div>
+      <div class="app">
+        <div class="frame">
+          <div class="slide">
+            <svg viewBox="0 0 159.00 100.00" data-mk="mark" height="22" aria-hidden="true"><use href="#sf-mark-k"/></svg>
+            <span class="mid"><h5>Fase 3 — Choose a Future</h5></span>
+            <span class="ft"><span>Samarinda 2045</span><span>03 / 06</span></span>
+          </div>
+        </div>
+        <p class="cap" lang="id">Slide — tanda kecil di kiri atas, tidak pernah di tengah</p>
+        <p class="cap" lang="en">Slide — small mark top left, never centred</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ edisi kota ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Bagian enam</span>
+      <span class="lbl" lang="en">Part six</span>
+      <h2 lang="id">Edisi berikutnya</h2>
+      <h2 lang="en">The next edition</h2>
+      <p lang="id">Tanda tidak berubah. Warna tidak berubah. Yang berganti hanya satu baris tulisan. Inilah yang membuat SF bisa tumbuh dari satu permainan menjadi satu program.</p>
+      <p lang="en">The mark does not change. The colours do not change. One line of type changes. That is what lets SF grow from a single game into a programme.</p>
+    </div>
+    <div class="cities">
+      <div class="city now">
+        <span class="stacked">
+          <svg viewBox="0 0 159.00 100.00" data-mk="mark" height="42" aria-hidden="true"><use href="#sf-mark"/></svg>
+          <span class="wm"><span class="l" style="font-size:.9rem;">Sustainable</span><span class="l" style="font-size:.9rem;">Futures</span><span class="ed">Samarinda 2045</span></span>
+        </span>
+      </div>
+      <div class="city">
+        <span class="stacked">
+          <svg viewBox="0 0 159.00 100.00" data-mk="mark" height="42" aria-hidden="true"><use href="#sf-mark"/></svg>
+          <span class="wm"><span class="l" style="font-size:.9rem;">Sustainable</span><span class="l" style="font-size:.9rem;">Futures</span><span class="ed">Jakarta 2045</span></span>
+        </span>
+      </div>
+      <div class="city">
+        <span class="stacked">
+          <svg viewBox="0 0 159.00 100.00" data-mk="mark" height="42" aria-hidden="true"><use href="#sf-mark"/></svg>
+          <span class="wm"><span class="l" style="font-size:.9rem;">Sustainable</span><span class="l" style="font-size:.9rem;">Futures</span><span class="ed">Rotterdam 2045</span></span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ warna ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Warna</span>
+      <span class="lbl" lang="en">Colour</span>
+      <h2 lang="id">Gradasi yang bisa dijelaskan</h2>
+      <h2 lang="en">A gradient that can be explained</h2>
+      <p lang="id">
+        Empat warna pada tanda bukan pilihan selera. Nilainya milik empat City Indicator di panduan
+        permainan, hanya dicerahkan seperlunya agar tetap hidup pada cetak kecil. Dengan begitu warna
+        pada logo, warna pada kartu, dan warna pada dasbor adalah warna yang sama.
+      </p>
+      <p lang="en">
+        The four colours in the mark are not a taste choice. They are the four City Indicators from the
+        game guide, brightened only as far as small print requires. So the colours in the logo, on the
+        cards, and on the dashboard are one set.
+      </p>
+    </div>
+    <div class="gradbar"></div>
+    <div class="swatches">
+      <div class="sw"><span class="chip" style="background:#16a06f;"></span><span class="m"><b>Environment</b><span>#16A06F</span></span></div>
+      <div class="sw"><span class="chip" style="background:#2f7fe0;"></span><span class="m"><b>Future Readiness</b><span>#2F7FE0</span></span></div>
+      <div class="sw"><span class="chip" style="background:#8b5cf6;"></span><span class="m"><b>Society</b><span>#8B5CF6</span></span></div>
+      <div class="sw"><span class="chip" style="background:#f0a92a;"></span><span class="m"><b>Economy</b><span>#F0A92A</span></span></div>
+      <div class="sw"><span class="chip" style="background:#0e1418;"></span><span class="m"><b>Tinta / Ink</b><span>#0E1418</span></span></div>
+      <div class="sw"><span class="chip" style="background:#ffffff; box-shadow:inset 0 0 0 1px var(--hair);"></span><span class="m"><b>Putih / White</b><span>#FFFFFF</span></span></div>
+    </div>
+    <p class="note" lang="id">
+      <b>Aturan pakai gradasi.</b> Gradasi hanya untuk layar dan cetak penuh warna, pada ukuran 24 px
+      ke atas. Di bawah itu, dan untuk sablon, ukiran, faks, atau cetak satu warna, dipakai versi
+      tinta atau putih. Setiap usulan sudah disertai versi satu warna, dan versi itu yang diuji lebih dulu.
+    </p>
+    <p class="note" lang="en">
+      <b>Gradient rules.</b> The gradient is for screens and full-colour print only, at 24 px and above.
+      Below that, and for screen printing, engraving, fax, or one-colour print, the ink or white version
+      is used. Every proposal ships with a flat version, and that version was tested first.
+    </p>
+  </section>
+
+  <!-- ═════════ penutup ═════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="lbl" lang="id">Penutup</span>
+      <span class="lbl" lang="en">Closing</span>
+      <h2 lang="id">Lima pertanyaan</h2>
+      <h2 lang="en">Five questions</h2>
+      <p lang="id">Jawaban atas lima pertanyaan ini cukup untuk mengunci identitas dan melanjutkan ke Langkah 02.</p>
+      <p lang="en">Answers to these five are enough to lock the identity and move on to Step 02.</p>
+    </div>
+    <div class="ask">
+      <ol>
+        <li lang="id"><b>Nomor berapa?</b> Boleh satu, boleh dua untuk dibandingkan lebih jauh. Ketiganya satu tanda yang sama, jadi berpindah dari satu ke yang lain tidak menuntut menggambar ulang apa pun.</li>
+        <li lang="en"><b>Which number?</b> One is enough, or two to compare further. All three are the same mark, so moving from one to another requires no redrawing.</li>
+        <li lang="id"><b>Panah di dalam tanda, atau cukup di baris tulisan?</b> Jawaban ini memisahkan usulan 01 dan 02 dari usulan 03.</li>
+        <li lang="en"><b>Arrow inside the mark, or only on the type line?</b> This answer separates proposals 01 and 02 from proposal 03.</li>
+        <li lang="id"><b>Warna gradasi memakai empat City Indicator, atau ada warna lain yang Anda inginkan?</b> Bila memakai warna lain, kaitan dengan permainan hilang dan gradasi menjadi hiasan.</li>
+        <li lang="en"><b>Should the gradient use the four City Indicators, or another palette?</b> With another palette the link to the game is lost and the gradient becomes decoration.</li>
+        <li lang="id"><b>Kepala halaman panduan permainan akan disesuaikan menjadi SF?</b> Bila tidak, akan ada dua susunan merek yang berselisih di mata pembaca.</li>
+        <li lang="en"><b>Will the game guide's running head be adjusted to SF?</b> If not, readers will meet two conflicting brand arrangements.</li>
+        <li lang="id"><b>Repositori privat atau publik?</b> Masih menggantung dari Langkah 00, dan menentukan tempat pratinjau situs.</li>
+        <li lang="en"><b>Private or public repository?</b> Still open from Step 00, and it decides where the site preview lives.</li>
+      </ol>
+    </div>
+    <div class="colophon">
+      <span class="studio">RDL Labs</span>
+      <span class="lbl" lang="id">Platform Development &amp; AI Integration</span>
+      <span class="lbl" lang="en">Platform Development &amp; AI Integration</span>
+      <span class="lbl" style="margin-left:auto;">SF-ID-V2</span>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btns = document.querySelectorAll("[data-lang-btn]");
+  function set(lang) {
+    root.setAttribute("data-lang", lang);
+    root.setAttribute("lang", lang);
+    btns.forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-lang-btn") === lang));
+    });
+  }
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () { set(b.getAttribute("data-lang-btn")); });
+  });
+  set("id");
+})();
+</script>
+</body>
+</html>

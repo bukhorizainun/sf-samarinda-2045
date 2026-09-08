@@ -11,19 +11,16 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "klien")
 OUT = os.path.join(ROOT, "docs")
 
-FAVICON = (
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">'
-    '<rect width="48" height="48" rx="8" fill="#12171a"/>'
-    '<circle cx="12" cy="24" r="3.6" fill="#f7f5f0"/>'
-    '<g fill="none" stroke="#f7f5f0" stroke-width="3">'
-    '<path d="M16 22.4L28 15.4"/><path d="M16.5 24H29"/><path d="M16 25.6L28 32.6"/>'
-    '<circle cx="34" cy="24" r="3.8" stroke-width="2.8"/>'
-    '<circle cx="33" cy="35.6" r="3.8" stroke-width="2.8"/></g>'
-    '<circle cx="33" cy="12.4" r="4.4" fill="#c08a2e"/></svg>'
-)
+# Favicon dibaca dari berkas yang ditulis tools/build_brand.py, supaya bentuknya
+# tidak pernah berbeda dengan tanda di halaman.
+FAVICON_SRC = os.path.join(ROOT, "brand", "logo", "sf-favicon.svg")
+FAVICON = io.open(FAVICON_SRC, encoding="utf-8").read().strip()
 FAVICON_HREF = "data:image/svg+xml," + urllib.parse.quote(FAVICON)
 
 PAGES = [
+    ("identitas_sf.html", "identitas-sf.html",
+     "Enam usulan tanda untuk SF (Sustainable Futures): gagasan, penilaian terbuka, "
+     "usulan terpilih, dan uji penerapannya di papan permainan maupun layar."),
     ("fia_samarinda2045.html", "identitas.html",
      "Eksplorasi identitas visual SAMARINDA 2045: lima arah konsep, matriks penilaian, "
      "arah terpilih, dan uji penerapannya."),

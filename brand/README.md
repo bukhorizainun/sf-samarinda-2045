@@ -1,89 +1,199 @@
-# Sistem Identitas — FUTURES IN ACTION
+# Sistem Identitas — SF
+
+Status: **satu huruf dengan empat bidang, belum ada yang dipilih.** Dokumen untuk klien ada di
+`klien/identitas_sf.html`, versi terbitnya di `docs/identitas-sf.html`.
+
+## Susunan merek
 
 | Tingkat | Nama | Sifat |
 |---|---|---|
-| Merek permainan | FUTURES IN ACTION | tetap di semua edisi |
-| Edisi berjalan | Samarinda 2045 Edition | berganti per kota |
-| Studio pengembang | RDL Labs | hanya baris kredit |
+| Merek utama | **SF** — Sustainable Futures | tetap, punya tanda |
+| Semboyan | FUTURES IN ACTION | tetap, hanya tulisan |
+| Edisi berjalan | SAMARINDA 2045 | berganti per kota |
+| Studio | RDL Labs | baris kredit |
 
-Susunan ini mengikuti kepala halaman panduan permainan dari klien,
-`FUTURES IN ACTION | Samarinda 2045 Edition`. Rinciannya di `docs/02-ringkasan-panduan-permainan.md`.
-Nama studio tidak pernah berbagi ruang dengan tanda utama.
+Hanya tingkat teratas yang punya tanda. Tiga tingkat di bawahnya tulisan, dan tulisan itu
+boleh berganti tanpa menyentuh tandanya.
 
-Arah terpilih: Delta Keputusan (Decision Delta), dari lima arah yang dinilai
-pada dokumen `klien/identitas_samarinda2045.html`.
+Kepala halaman panduan permainan masih berbunyi `FUTURES IN ACTION | Samarinda 2045 Edition`.
+Selama belum disesuaikan, ada dua susunan merek yang berselisih. Lihat
+`docs/02-ringkasan-panduan-permainan.md`.
 
-## Berkas
+SF juga inisial penulisnya. Bacaan itu tidak dijelaskan di materi resmi; di sana SF berarti
+Sustainable Futures.
 
-| Berkas | Untuk |
-|---|---|
-| `logo-mark.svg` | Tanda utama, 48×48 |
-| `logo-mark-min.svg` | Versi padat untuk favicon dan ukuran di bawah 24 px |
-| `logo-token.svg` | Tanda dalam lingkaran untuk token, pion, koin |
+## Kenapa ada putaran kelima
 
-Wordmark disusun di sisi kode dari huruf Outfit, bukan dari berkas SVG,
-sampai arah ini disetujui. Setelah disetujui, hurufnya dijadikan kurva.
+Klien menilai tanda putaran keempat terlalu biasa. Dibaca sebagai soal rupa, penilaian itu
+buntu; dibaca sebagai soal ukuran dan wadah, ada dua hal yang bisa diperbaiki.
 
-## Arti bentuk
+Pertama, perbandingan. Tanda lama selebar 2,22 kali tingginya, jadi hanya nyaman pada baris
+mendatar. Dalam kotak 32 piksel ia menyisakan tinggi huruf 14 piksel; yang sekarang, dengan
+perbandingan 1,59, menyisakan 20 piksel di ruang yang sama.
 
-| Elemen | Arti |
-|---|---|
-| Titik pangkal terisi | Hari ini, satu-satunya hal yang pasti |
-| Tiga jalur | Tiga skenario Fase 2: Expected, Alternative, Transformative |
-| Dua simpul kosong | Skenario yang tidak dipilih |
-| Satu simpul terisi | Preferred Future hasil Fase 3; satu-satunya aksen warna di seluruh sistem |
+Kedua, tidak ada bidang. Seluruh identitas bertumpu pada dua huruf yang berdiri di ruang
+kosong, sehingga tidak ada satu pun bentuk yang bisa dipinjam untuk kartu, sampul, atau
+tombol. Cakram putaran lalu hanya menutupi gejalanya: tanda selebar itu dijatuhkan ke dalam
+lingkaran, dan sisanya ruang kosong.
 
-Jumlah tiga bukan pilihan rupa, melainkan aturan permainan: Fase 2 menghasilkan tepat
-tiga skenario dan Fase 3 memilih satu di antaranya.
+Putaran ini merapatkan hurufnya dan menambahkan bidang. Sudut 45 derajat yang selama ini
+hanya memotong ujung huruf sekarang juga memotong sudut bidangnya, jadi wadah dan huruf
+memakai satu aturan yang sama.
 
-Bacaannya berlapis: delta Sungai Mahakam, pohon keputusan, dan jalur papan permainan.
+## Konstruksi
+
+Huruf tidak digambar bebas lalu dirapikan.
+
+- **S** dibangun dari dua elips yang benar-benar bersinggungan. Titik singgungnya tepat di
+  tengah tinggi huruf, dan di titik itu arah kedua lengkungan mendatar, sehingga sambungannya
+  tidak terlihat.
+- **Sudut ujung dihitung.** Pada elips dicari titik yang garis singgungnya miring 135°.
+  Potongan `butt` yang tegak lurus terhadapnya jatuh tepat 45° — sudut yang sama dengan panah.
+  Kalau dikira-kira, kedua ujung S tidak akan pernah sejajar.
+- **Satu bobot.** Tebal sapuan S, lebar tiang F, lebar kedua lengan, dan tebal panah kecil di
+  logotype memakai satu angka: `W`. Tidak ada bobot kedua di seluruh sistem.
+- **Satu sudut.** 45° dipakai untuk potongan ujung S, potongan ujung lengan F, ujung runcing,
+  arah panah, dan sekarang juga potongan sudut bidang.
+
+| Ukuran | Nilai | Putaran lalu |
+|---|---|---|
+| Tinggi huruf `H` | 100 | 100 |
+| Bobot `W` | 26 | 28 |
+| Jari-jari datar mangkuk `RX` | 28 | 42 |
+| Jarak S ke F `GAP` | 10 | 22 |
+| Lengan atas / tengah `A1` / `A2` | 54 / 44 | 74 / 60 |
+| Lebar tanda | 159 | 222 |
+| Perbandingan | **1,59** | 2,22 |
+
+Bidang memakai tiga angka: jarak tepi 0,12 dari lebar monogram (sisi persegi 178,08),
+potongan sudut 0,26 dari sisi, dan huruf digeser (+3, −3) menjauhi sudut yang dipotong.
+Cakram bergaris tengah 1,18 dari lebar monogram. Angka-angkanya ada di bagian `grid huruf`
+dan `grid bidang` pada `tools/build_brand.py`.
+
+## Empat berkas
+
+| Berkas | Nama | Bentuk bidang |
+|---|---|---|
+| `logo/sf-1-blok.svg` | Blok | persegi, sudut kiri atas dipotong 45° |
+| `logo/sf-2-mark.svg` | Monogram | tanpa bidang, huruf berdiri sendiri |
+| `logo/sf-3-cakram.svg` | Cakram | lingkaran penuh |
+| `logo/sf-4-iris.svg` | Blok Iris | blok dengan satu potongan menembusnya |
+
+Keempatnya memakai monogram yang persis sama, jadi berpindah di antaranya tidak menuntut
+menggambar ulang apa pun. Pada tiga bidang tertutup, huruf **dilubangkan** dari bidangnya,
+bukan digambar ulang di dalamnya; yang terbaca sebagai huruf adalah bahan di baliknya.
+
+Tiap berkas punya pasangan `-mono.svg` bertinta rata untuk sablon, ukiran, dan cetak satu
+warna. `logo/sf-favicon.svg` memakai blok versi rapat, karena pada 16 piksel bidang persegi
+mengisi kisi piksel sampai ke tepi sementara cakram membuang keempat sudutnya.
+
+Saran studio: **01 Blok** sebagai tanda utama, **02 Monogram** sebagai pendamping wajib untuk
+kop surat dan kepala situs, **03 Cakram** hanya untuk benda yang memang bundar, dan
+**04 Blok Iris** disimpan untuk sampul dan bidang besar.
+
+## Cara membangun
+
+```
+python tools/build_brand.py     # tanda → brand/logo/*.svg + symbol & viewBox ke halaman klien
+python tools/build_docs.py      # halaman klien → docs/*.html
+```
+
+`tools/build_brand.py` satu-satunya tempat geometri ditulis. Berkas SVG, `<symbol>` di halaman
+presentasi, `viewBox` tiap tanda, favicon, dan diagram konstruksi semuanya lahir dari sana.
+Jangan menyunting berkas di `logo/` dengan tangan; suntingannya akan tertimpa.
+
+Tanda putaran keempat ikut dibangun dari berkas yang sama, dengan nama `lama`, semata untuk
+perbandingan sebelum-sesudah di halaman klien. Angka-angkanya ditulis lokal di dalam
+fungsinya sendiri supaya tidak ada tetapan lama yang bocor ke tanda sekarang.
+
+Di halaman klien, tanda ditulis tanpa `viewBox`:
+
+```html
+<svg data-mk="blok"><use href="#sf-blok"/></svg>
+```
+
+`build_brand.py` yang mengisi `viewBox`-nya, sehingga perubahan bentuk tidak pernah
+meninggalkan ukuran lama di halaman. Penanda sisipan symbol:
+
+```html
+<!-- SF:SYMBOLS -->  ... diisi oleh build_brand.py ...  <!-- /SF:SYMBOLS -->
+```
+
+Akhiran `-k` berarti versi `currentColor`, dipakai di atas dasar gelap dan untuk satu warna.
+`#sf-construction` adalah diagram konstruksi, `#sf-tick` panah kecil untuk logotype, dan
+`#sf-lama` tanda putaran keempat.
 
 ## Warna
 
 | Peran | Nilai |
 |---|---|
-| Tinta | `#12171A` |
-| Kertas | `#F7F5F0` |
-| Hijau sungai | `#0F5C58` |
-| Kuningan endapan (aksen) | `#C08A2E` |
-| Kuningan versi gelap | `#D9A04A` |
+| Tinta | `#0E1418` |
+| Putih | `#FFFFFF` |
 
-Aksen hanya boleh muncul pada satu simpul. Bila tampil di lebih dari satu tempat,
-tanda kehilangan titik berhentinya.
+Empat warna gradasi, nilainya milik City Indicator di panduan permainan, dicerahkan seperlunya
+untuk cetak kecil:
 
-## Cara memasang warna
+| Indikator | Nilai |
+|---|---|
+| Environment | `#16A06F` |
+| Future Readiness | `#2F7FE0` |
+| Society | `#8B5CF6` |
+| Economy | `#F0A92A` |
 
-Tanda memakai `currentColor` untuk garis dan titik pangkal, serta membaca
-variabel `--logo-accent` untuk simpul terisi.
-
-```html
-<span style="color:#0f5c58; --logo-accent:#c08a2e;">
-  <!-- isi logo-mark.svg -->
-</span>
-```
-
-Untuk sablon satu warna, set `--logo-accent: currentColor`.
+Urutan gradasi mengikuti daftar itu, dari kiri bawah ke kanan atas, searah panah. Pada bidang
+persegi keempat warna punya ruang untuk terbaca satu per satu; pada sapuan huruf yang tipis
+mereka berdesakan jadi satu campuran. Itu sebabnya blok yang dipakai bila gradasi harus
+menjelaskan dirinya.
 
 ## Aturan pakai
 
-- Ruang kosong di sekeliling tanda minimal setinggi satu simpul.
-- Ukuran terkecil tanda utama 24 px. Di bawah itu pakai `logo-mark-min.svg`.
-- Jangan memiringkan, memberi bayangan, gradasi, atau garis luar tambahan.
-- Jangan mengisi lebih dari satu simpul.
+- Gradasi hanya untuk layar dan cetak penuh warna, pada ukuran 24 px ke atas. Di bawah itu,
+  dan untuk sablon, ukiran, atau cetak satu warna, pakai versi tinta atau putih.
+- Ukuran terkecil monogram 24 px. Untuk 16 px dan semua bidang persegi, pakai blok.
+- Blok Iris hanya 64 px ke atas, hanya layar dan cetak penuh warna. Tidak untuk favicon,
+  token, ukiran, atau sablon satu warna.
+- Cakram hanya untuk benda yang memang bundar: token, pin, stempel, penanda giliran. Untuk
+  favicon dan ikon aplikasi, blok yang dipakai.
+- Ruang kosong di sekeliling blok minimal selebar potongan sudutnya. Untuk monogram, ruang
+  kosong di kanan minimal selebar satu tiang F, karena ujung runcing perlu jarak.
+- Jangan memiringkan, memberi bayangan, garis luar tambahan, atau mengubah sudut potong.
+- Nama studio tidak pernah berbagi ruang dengan tanda utama.
 
-## Kunci wordmark
+## Kunci logo
 
 ```
-[tanda]  FUTURES IN ACTION        ← Outfit 500, jarak huruf .12em, huruf besar
-         SAMARINDA 2045 EDITION   ← Outfit 200, jarak huruf .2em, opasitas .78
+[tanda]  ↗ SUSTAINABLE       ← Outfit 600, huruf besar
+           FUTURES
+           FUTURES IN ACTION ← Outfit 300, jarak huruf .22em, opasitas .66
+           SAMARINDA 2045    ← baris yang berganti kota
 ```
 
-Baris pertama tetap. Untuk edisi lain hanya baris kedua yang berganti:
-JAKARTA 2045 EDITION, BANDUNG 2045 EDITION, ROTTERDAM 2045 EDITION.
+Kunci A (utama) dan D (bertumpuk) memakai blok; kunci B dan C memakai monogram terbuka.
+Panah kecil di kepala baris digambar sendiri (`#sf-tick`), bukan diambil dari fonta, supaya
+sudut dan bobotnya sama persis dengan potongan pada huruf.
 
-Pada bidang sempit di bawah 130 px, pakai tanda saja tanpa teks.
+Pada bidang lebih sempit dari 130 px, pakai tanda saja tanpa tulisan.
+
+## Huruf
+
+Outfit untuk logotype dan judul, Karla untuk teks isi, JetBrains Mono untuk label kecil.
 
 ## Belum dikerjakan
 
-- Wordmark berkurva dan berkas PNG. Menunggu persetujuan arah.
+- Kunci logo sebagai berkas SVG. Menunggu bidang terpilih; setelah itu tulisannya dijadikan
+  kurva supaya tidak bergantung pada ketersediaan fonta.
+- Berkas PNG dan PDF untuk percetakan.
 - Panduan merek ringkas satu halaman untuk pihak percetakan.
+- Sudut potong 45° sebagai bentuk pinjaman untuk kartu, foto, dan tombol di situs. Aturannya
+  sudah ada di tanda; penerapannya di web belum ditulis.
+
+## Arsip
+
+- `legacy/` — Delta Keputusan, putaran pertama, ketika Futures in Action masih merek utama.
+- `legacy/round2/` — enam lambang bergaya instrumen kuningan.
+- `legacy/round3/` — monogram gradasi putaran ketiga, hurufnya masih digambar bebas.
+- `legacy/round4/` — monogram terbangun putaran keempat, lebar 2,22. Hurufnya benar,
+  bidangnya belum ada.
+- `../tools/legacy/build_brand_round4.py` — pembangun putaran keempat, disimpan utuh.
+
+Keempatnya disimpan sebagai catatan, bukan bahan pakai.

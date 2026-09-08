@@ -19,6 +19,13 @@ Catatan penting: penawaran awal menyebut permainan ini "Samarinda 2045: Futures 
 Nama itu tidak muncul di panduan klien. Yang benar adalah Futures in Action, dengan
 Samarinda 2045 sebagai nama edisi.
 
+Pembaruan dari klien, di luar panduan ini: klien menempatkan **SF (Sustainable Futures)**
+sebagai merek utama di atas Futures in Action, sehingga Futures in Action turun menjadi
+semboyan dan Samarinda 2045 tetap sebagai nama edisi. Susunan itu yang dipakai di seluruh
+materi rupa; lihat `brand/README.md`. Selama kepala halaman panduan masih berbunyi
+`FUTURES IN ACTION | Samarinda 2045 Edition`, dokumen ini dan materi rupa berselisih satu
+tingkat. Penyesuaian kepala halaman panduan sudah diajukan sebagai pertanyaan ke klien.
+
 ## Profil permainan
 
 | Butir | Isi |

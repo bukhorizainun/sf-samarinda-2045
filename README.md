@@ -10,9 +10,10 @@ panduan resmi klien.
 
 | Folder | Isi |
 |---|---|
-| `klien/` | Dokumen yang dikirim ke klien: peta pengerjaan, arah visual |
+| `klien/` | Dokumen yang dikirim ke klien: peta pengerjaan, arah visual, usulan tanda SF |
 | `docs/` | Halaman siap terbit untuk GitHub Pages, plus catatan internal |
-| `brand/` | Logo dan aturan pakainya |
+| `brand/` | Tanda, aturan pakainya, dan arsip empat putaran sebelumnya |
+| `tools/` | Pembangun tanda dan halaman. `build_brand.py` satu-satunya sumber geometri tanda |
 | `web/` | Aplikasi situs. Belum dibuat, menunggu Langkah 02 |
 
 Dua berkas HTML di akar folder adalah dokumen penawaran awal beserta rencana eksekusinya.
@@ -22,8 +23,9 @@ Dua berkas HTML di akar folder adalah dokumen penawaran awal beserta rencana eks
 | Langkah | Nama | Status |
 |---|---|---|
 | 00 | Fondasi & peta halaman | Menunggu tanggapan klien |
-| 01 | Logo & arah visual | Menunggu tanggapan klien |
+| 01 | Logo & arah visual | Putaran kelima: monogram dirapatkan 2,22 → 1,59 dan bidang ditambahkan, menunggu pilihan bidang |
 | — | Koreksi nama merek dari panduan klien | Selesai |
+| — | Merek utama berpindah ke SF, Futures in Action jadi semboyan | Selesai di sisi rupa |
 | 02 | Halaman inti & isi | Belum mulai |
 | 03 | Dashboard 4 pilar | Belum mulai |
 | 04 | GenAI Futures Lab Companion | Belum mulai |
@@ -37,5 +39,14 @@ Tidak ada tanggal mati; penjadwalan menyesuaikan kesiapan kedua pihak.
 
 1. Repositori privat atau publik. Menentukan apakah pratinjau bisa memakai GitHub Pages
    atau harus langsung ke Cloudflare Pages. Rinciannya di `docs/00-catatan-teknis.md`.
-2. Arah visual A atau B.
-3. Bahasa situs: Indonesia saja, atau disiapkan tempat untuk Inggris sejak awal.
+2. Bidang tanda: 01 Blok, 02 Monogram, 03 Cakram, atau 04 Blok Iris. Keempatnya memakai huruf
+   yang persis sama, jadi berpindah tidak menuntut menggambar ulang. Saran studio: 01 Blok
+   sebagai tanda utama, dengan 02 Monogram sebagai pendamping wajib untuk kop surat dan
+   kepala situs.
+3. Blok Iris dipakai atau tidak. Bila dipakai, ia hanya boleh muncul pada 64 px ke atas dan
+   pada cetak penuh warna, jadi perlu disepakati lebih dulu di mana saja tempatnya.
+4. Gradasi memakai empat warna City Indicator, atau warna lain. Bila warna lain, kaitan dengan
+   permainan hilang dan gradasi menjadi hiasan.
+5. Kepala halaman panduan permainan disesuaikan menjadi SF atau tidak. Selama belum, ada dua
+   susunan merek yang berselisih di mata pembaca.
+6. Bahasa situs: Indonesia saja, atau disiapkan tempat untuk Inggris sejak awal.

@@ -16,3 +16,12 @@ rencana_eksekusi_tier2.html
 
 # materi milik klien — hak ciptanya bukan milik studio
 *.pdf
+__pycache__/
+
+# materi mentah dari klien & hasil rekaman
+Bahan Web/
+Bahan Web.zip
+tools/demo/keluaran/
+
+# alur kerja butuh izin tambahan; penerbitan dilakukan lewat cabang gh-pages
+.github/
