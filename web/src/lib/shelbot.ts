@@ -767,24 +767,6 @@ export function tanya(
   const teks = bersih(pertanyaan);
   const kata = teks.split(" ").filter((w) => w.length >= 2);
 
-  // 0a. Pertanyaan lanjutan yang pendek: dalamkan topik sebelumnya.
-  if (LANJUTAN.test(teks) && kata.length <= 5 && ingatan?.key) {
-    const dalam =
-      PENDALAMAN[ingatan.key === "samarinda" ? "kota" : ingatan.key];
-    return {
-      teks: dalam
-        ? dalam[lang]
-        : lang === "id"
-          ? "Untuk yang satu itu aku tidak punya lapisan yang lebih dalam — yang kutahu sudah kusampaikan tadi. Coba tanyakan sisi lainnya, atau sebut hal yang lebih khusus."
-          : "On that one I have no deeper layer — what I know is what I already said. Try another side of it, or name something more specific.",
-      ingatan,
-      lanjutan:
-        lang === "id"
-          ? ["Apa saja yang bisa kutanyakan?", "Bagaimana cara menang?"]
-          : ["What can I ask you?", "How do you win?"],
-    };
-  }
-
   // 0b. Pertanyaan tentang kartu yang barusan dibicarakan.
   const mintaDefinisi = /apa itu|itu apa|what is|artinya/.test(teks);
   if (ingatan?.kartu?.length === 1 && kata.length <= 6 && !mintaDefinisi) {
@@ -858,6 +840,30 @@ export function tanya(
       }
     }
     if (nilai > 0 && (!terbaik || nilai > terbaik.nilai)) terbaik = { niat, nilai };
+  }
+
+  // 0a. Pertanyaan lanjutan yang pendek: dalamkan topik sebelumnya.
+  // Hanya dianggap lanjutan kalau tidak ada topik yang cocok kuat.
+  if (
+    LANJUTAN.test(teks) &&
+    kata.length <= 5 &&
+    ingatan?.key &&
+    (terbaik?.nilai ?? 0) < 6
+  ) {
+    const dalam =
+      PENDALAMAN[ingatan.key === "samarinda" ? "kota" : ingatan.key];
+    return {
+      teks: dalam
+        ? dalam[lang]
+        : lang === "id"
+          ? "Untuk yang satu itu aku tidak punya lapisan yang lebih dalam — yang kutahu sudah kusampaikan tadi. Coba tanyakan sisi lainnya, atau sebut hal yang lebih khusus."
+          : "On that one I have no deeper layer — what I know is what I already said. Try another side of it, or name something more specific.",
+      ingatan,
+      lanjutan:
+        lang === "id"
+          ? ["Apa saja yang bisa kutanyakan?", "Bagaimana cara menang?"]
+          : ["What can I ask you?", "How do you win?"],
+    };
   }
 
   // 2. Kartu yang cocok. Kalau lebih meyakinkan daripada niat, kartu yang menang.
