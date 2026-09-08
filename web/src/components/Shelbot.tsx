@@ -1,8 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { LAB } from "@/content/site";
+
+// next/image tidak menambahkan basePath pada gambar statis, jadi awalannya
+// dipasang sendiri di sini supaya wajah Shelbot tetap muncul di GitHub Pages.
+const AWALAN = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const WAJAH = `${AWALAN}/gambar/shelbot-avatar.webp`;
 import { tanya, type Jawaban } from "@/lib/shelbot";
 import { t, type Lang } from "@/lib/i18n";
 
@@ -58,14 +62,9 @@ export function Shelbot({ lang }: { lang: Lang }) {
       {/* Kepala */}
       <div className="flex items-center gap-4 border-b p-5 rule sm:px-7">
         <span className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-full ring-1 ring-[var(--line-strong)]">
-          <Image
-            src="/gambar/shelbot-avatar.webp"
-            alt=""
-            width={360}
-            height={360}
-            className="h-full w-full object-cover"
-            priority
-          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={WAJAH} alt="" width={360} height={360}
+            className="h-full w-full object-cover" />
         </span>
         <div>
           <p className="text-[0.95rem] font-semibold">Shelbot</p>
@@ -209,13 +208,9 @@ export function Shelbot({ lang }: { lang: Lang }) {
 function Wajah() {
   return (
     <span className="relative mt-0.5 block h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-[var(--line)]">
-      <Image
-        src="/gambar/shelbot-avatar.webp"
-        alt=""
-        width={360}
-        height={360}
-        className="h-full w-full object-cover"
-      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={WAJAH} alt="" width={360} height={360}
+        className="h-full w-full object-cover" />
     </span>
   );
 }
