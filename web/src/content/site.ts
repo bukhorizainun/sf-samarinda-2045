@@ -24,7 +24,7 @@ export const NAV: NavItem[] = [
   { slug: "permainan", label: { id: "Tentang Permainan", en: "The Game" } },
   { slug: "kartu", label: { id: "Katalog Kartu", en: "Card Catalogue" } },
   { slug: "samarinda", label: { id: "Samarinda", en: "Samarinda" } },
-  { slug: "futures-lab", label: { id: "Futures Lab", en: "Futures Lab" } },
+  { slug: "shelbot", label: { id: "Shelbot", en: "Shelbot" } },
   { slug: "mini-game", label: { id: "Mini Game", en: "Mini Game" } },
   { slug: "kontak", label: { id: "Kontak", en: "Contact" } },
 ];
@@ -375,50 +375,50 @@ export const REFLECT_QUESTION: T = {
 /* ---------- Halaman: Futures Lab ---------- */
 
 export const LAB = {
-  title: { id: "Futures Lab", en: "Futures Lab" } as T,
+  title: { id: "Shelbot", en: "Shelbot" } as T,
   lead: {
-    id: "Pendamping berpikir untuk pemain. Ia membantu memetakan sebab dan akibat, membayangkan kondisi kota pada 2030, 2040, dan 2045, melihat masalah dari sudut pandang peran lain, membandingkan manfaat dan risiko, serta menandai informasi yang masih perlu diperiksa.",
-    en: "A thinking companion for players. It helps map causes and effects, picture the city in 2030, 2040, and 2045, view a problem from another role's side, compare benefits against risks, and flag what still needs checking.",
+    id: "Pemandu permainan yang tinggal di dalam situs ini. Shelbot hafal enam fase, kelima peran, empat indikator kota, dan seluruh 184 kartu. Tanya cara bermain, cari kartu tertentu, atau tanyakan isu keberlanjutan di Samarinda. Semuanya berjalan di peramban kamu, tanpa mengirim apa pun ke server.",
+    en: "A game guide that lives inside this site. Shelbot knows the six phases, the five roles, the four city indicators, and all 184 cards. Ask how it plays, look up a card, or ask about Samarinda's sustainability issues. It all runs in your browser, with nothing sent to a server.",
   } as T,
   limitsTitle: {
-    id: "Batas yang dipegang, diambil dari aturan permainan",
-    en: "The limits it keeps, taken from the game's own rules",
+    id: "Batas yang dipegang Shelbot",
+    en: "The limits Shelbot keeps",
   } as T,
   limits: {
     id: [
-      "GenAI tidak punya suara. Ia tidak menetapkan biaya proyek dan tidak memilih proyek prioritas.",
-      "Jawabannya bantuan berpikir, bukan ramalan, dan tidak selalu sesuai dengan keadaan setempat.",
-      "Bedakan fakta, opini, dan asumsi. Periksa kembali informasi yang penting.",
-      "Jangan memasukkan data pribadi, milikmu maupun milik orang lain.",
-      "Tampilkan pertanyaan dan jawabannya secara terbuka, lalu bahas bersama pemain lain.",
+      "Jawabannya diambil dari panduan resmi, naskah situs, dan 184 kartu. Bukan karangan baru.",
+      "Shelbot tidak punya suara di meja. Ia tidak menetapkan biaya proyek dan tidak memilih prioritas.",
+      "Kalau pertanyaannya di luar isi permainan, ia bilang tidak tahu.",
+      "Percakapan berjalan di peramban kamu. Tidak ada yang dikirim atau disimpan di server.",
+      "Untuk pemakaian GenAI di dalam permainan, aturannya terpisah dan tertulis di panduan.",
     ],
     en: [
-      "GenAI holds no vote. It does not price projects and does not pick priorities.",
-      "Its answers are thinking aid, not prophecy, and will not always fit local conditions.",
-      "Separate fact, opinion, and assumption. Check anything that matters.",
-      "Do not enter personal data, yours or anyone else's.",
-      "Keep the question and the answer in the open, then discuss them with the other players.",
+      "Answers come from the official guide, the site text, and the 184 cards. Nothing is invented.",
+      "Shelbot holds no vote at the table. It does not price projects and does not pick priorities.",
+      "When a question falls outside the game, it says it does not know.",
+      "The conversation runs in your browser. Nothing is sent to or stored on a server.",
+      "GenAI use inside the game is a separate matter, with its own rules in the guide.",
     ],
   } as TL,
   starters: {
     id: [
-      "Petakan sebab dan akibat banjir di Samarinda, lalu tunjukkan titik mana yang paling layak diintervensi.",
-      "Bandingkan manfaat dan risiko memulihkan lahan bekas tambang dibandingkan menutupnya saja.",
-      "Bagaimana Warga dan Pelaku Usaha melihat penertiban pemukiman di tepi sungai secara berbeda?",
+      "Bagaimana cara bermainnya?",
+      "Apa saja perannya?",
+      "Cari kartu tentang banjir",
     ],
     en: [
-      "Map the causes and effects of flooding in Samarinda, then show where intervention is most worthwhile.",
-      "Compare the benefits and risks of restoring an abandoned mining pit against simply sealing it.",
-      "How would Residents and Business read a riverbank clearance differently?",
+      "How does it play?",
+      "What are the roles?",
+      "Find cards about flooding",
     ],
   } as TL,
   placeholder: {
-    id: "Tanyakan sesuatu tentang Samarinda, keberlanjutan, atau keputusan di dalam permainan…",
-    en: "Ask about Samarinda, sustainability, or a decision inside the game…",
+    id: "Tanya cara bermain, nama kartu, atau isu Samarinda…",
+    en: "Ask about the rules, a card, or Samarinda…",
   } as T,
   disclaimer: {
-    id: "Jawaban dihasilkan mesin dan bisa keliru. Keputusan tetap milik kamu dan kelompokmu.",
-    en: "Answers are machine-generated and can be wrong. The decision stays with you and your group.",
+    id: "Shelbot menjawab dari isi permainan yang sudah tertulis, bukan mengarang kalimat baru. Kalau pertanyaannya di luar itu, ia akan bilang tidak tahu. Keputusan di meja tetap milik kamu dan kelompokmu.",
+    en: "Shelbot answers from what the game already says rather than composing new claims. Outside that, it will tell you it does not know. Decisions at the table stay with you and your group.",
   } as T,
 };
 

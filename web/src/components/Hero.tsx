@@ -126,7 +126,7 @@ export function Hero({ lang }: { lang: Lang }) {
             </Link>
 
             <Link
-              href={`${base}/futures-lab`}
+              href={`${base}/shelbot`}
               className="glass rounded-full px-7 py-3.5 text-[0.9rem] font-medium transition-colors duration-300 hover:border-[var(--line-strong)]"
             >
               {t(HOME.ctaSecondary, lang)}

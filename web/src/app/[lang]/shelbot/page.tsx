@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
-import { Chat } from "@/components/Chat";
+import { Shelbot } from "@/components/Shelbot";
 import { LAB } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
 
@@ -8,9 +8,9 @@ export function generateStaticParams() {
   return LANGS.map((lang) => ({ lang }));
 }
 
-export const metadata: Metadata = { title: "Futures Lab" };
+export const metadata: Metadata = { title: "Shelbot" };
 
-export default async function FuturesLab({
+export default async function HalamanShelbot({
   params,
 }: {
   params: Promise<{ lang: Lang }>;
@@ -22,7 +22,7 @@ export default async function FuturesLab({
     <>
       <Container className="pb-10 pt-14 sm:pt-20">
         <p className="t-eyebrow">
-          {id ? "Pendamping berpikir" : "Thinking companion"}
+          {id ? "Pemandu permainan" : "Game guide"}
         </p>
         <h1 className="t-h1 mt-4 max-w-[18ch]">{t(LAB.title, lang)}</h1>
         <p className="t-lead measure mt-6">{t(LAB.lead, lang)}</p>
@@ -30,7 +30,7 @@ export default async function FuturesLab({
 
       <Section className="!pt-4">
         <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
-          <Chat lang={lang} />
+          <Shelbot lang={lang} />
 
           <aside>
             <h2 className="t-h3">{t(LAB.limitsTitle, lang)}</h2>
