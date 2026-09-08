@@ -26,6 +26,9 @@ export default async function HalamanShelbot({
         </p>
         <h1 className="t-h1 mt-4 max-w-[18ch]">{t(LAB.title, lang)}</h1>
         <p className="t-lead measure mt-6">{t(LAB.lead, lang)}</p>
+        <p className="measure mt-5 border-l-2 pl-5 text-[0.9rem] leading-relaxed text-[var(--fg-faint)] rule">
+          {t(LAB.catatanMeja, lang)}
+        </p>
       </Container>
 
       <Section className="!pt-4">

@@ -446,3 +446,53 @@ body::after {
     transform: none;
   }
 }
+
+/* ---------- Shelly, wajah Shelbot ---------- */
+
+/* Napas pelan; sosoknya tidak pernah benar-benar diam. */
+@keyframes sh-apung {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.6px); }
+}
+.sh-apung { animation: sh-apung 4.5s var(--ease-out-soft) infinite; }
+
+/* Bulu enggang tertiup angin sungai. */
+@keyframes sh-bulu {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(3deg); }
+}
+.sh-bulu {
+  transform-origin: 46px 32px;
+  animation: sh-bulu 5.5s var(--ease-out-soft) infinite;
+}
+
+/* Anting berayun sedikit tertinggal dari kepalanya. */
+@keyframes sh-anting {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.sh-anting {
+  transform-origin: 50% 66px;
+  animation: sh-anting 3.8s var(--ease-out-soft) infinite;
+}
+
+/* Kedipan jarang, dan tidak jatuh di ketukan yang sama. */
+@keyframes sh-kedip {
+  0%, 92%, 100% { transform: scaleY(1); }
+  94%, 96% { transform: scaleY(0.08); }
+}
+.sh-kedip {
+  transform-origin: 60px 61px;
+  animation: sh-kedip 6.7s steps(1, end) infinite;
+}
+
+/* Mulut bergerak selama Shelbot menyusun jawaban. */
+@keyframes sh-bicara {
+  0%, 100% { d: path("M55 72 q5 5 10 0"); }
+  50% { d: path("M55 72 q5 9 10 0"); }
+}
+.sh-bicara { animation: sh-bicara 0.42s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sh-apung, .sh-bulu, .sh-anting, .sh-kedip, .sh-bicara { animation: none; }
+}

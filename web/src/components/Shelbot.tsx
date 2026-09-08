@@ -2,12 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { LAB } from "@/content/site";
-
-// next/image tidak menambahkan basePath pada gambar statis, jadi awalannya
-// dipasang sendiri di sini supaya wajah Shelbot tetap muncul di GitHub Pages.
-const AWALAN = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const WAJAH = `${AWALAN}/gambar/shelbot-avatar.webp`;
-import { tanya, type Jawaban } from "@/lib/shelbot";
+import { Shelly } from "./Shelly";
+import { tanya, type Ingatan, type Jawaban } from "@/lib/shelbot";
 import { t, type Lang } from "@/lib/i18n";
 
 type Pesan =
@@ -25,6 +21,8 @@ export function Shelbot({ lang }: { lang: Lang }) {
   const [lanjutan, setLanjutan] = useState<string[]>(LAB.starters[lang]);
   const akhirRef = useRef<HTMLDivElement>(null);
   const hidupRef = useRef(true);
+  // Apa yang barusan dibicarakan, supaya "kenapa?" tetap nyambung.
+  const ingatanRef = useRef<Ingatan | undefined>(undefined);
 
   useEffect(() => () => void (hidupRef.current = false), []);
   useEffect(() => {
@@ -42,7 +40,8 @@ export function Shelbot({ lang }: { lang: Lang }) {
 
     // Jawabannya dihitung di sini juga, di dalam peramban. Tidak ada
     // permintaan jaringan, jadi tidak ada yang bisa gagal di tengah jalan.
-    const jawab: Jawaban = tanya(bersih, lang);
+    const jawab: Jawaban = tanya(bersih, lang, ingatanRef.current);
+    ingatanRef.current = jawab.ingatan;
 
     setTimeout(() => {
       if (!hidupRef.current) return;
@@ -61,10 +60,8 @@ export function Shelbot({ lang }: { lang: Lang }) {
     <div className="glass overflow-hidden">
       {/* Kepala */}
       <div className="flex items-center gap-4 border-b p-5 rule sm:px-7">
-        <span className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-full ring-1 ring-[var(--line-strong)]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={WAJAH} alt="" width={360} height={360}
-            className="h-full w-full object-cover" />
+        <span className="block h-12 w-12 shrink-0 self-start overflow-hidden rounded-full ring-1 ring-[var(--line-strong)]">
+          <Shelly size={48} bicara={mengetik} />
         </span>
         <div>
           <p className="text-[0.95rem] font-semibold">Shelbot</p>
@@ -125,7 +122,7 @@ export function Shelbot({ lang }: { lang: Lang }) {
 
         {mengetik && (
           <div className="flex gap-4">
-            <Wajah />
+            <Wajah bicara />
             <p className="flex items-center gap-1.5 pt-3" aria-live="polite">
               <span className="sr-only">
                 {id ? "Shelbot sedang menulis" : "Shelbot is typing"}
@@ -205,12 +202,10 @@ export function Shelbot({ lang }: { lang: Lang }) {
 }
 
 /** Wajah kecil di samping tiap jawaban. */
-function Wajah() {
+function Wajah({ bicara = false }: { bicara?: boolean }) {
   return (
-    <span className="relative mt-0.5 block h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-[var(--line)]">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={WAJAH} alt="" width={360} height={360}
-        className="h-full w-full object-cover" />
+    <span className="mt-0.5 block h-9 w-9 shrink-0 self-start overflow-hidden rounded-full ring-1 ring-[var(--line)]">
+      <Shelly size={36} bicara={bicara} />
     </span>
   );
 }

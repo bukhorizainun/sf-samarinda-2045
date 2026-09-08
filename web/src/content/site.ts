@@ -380,6 +380,10 @@ export const LAB = {
     id: "Pemandu permainan yang tinggal di dalam situs ini. Shelbot hafal enam fase, kelima peran, empat indikator kota, dan seluruh 184 kartu. Tanya cara bermain, cari kartu tertentu, atau tanyakan isu keberlanjutan di Samarinda. Semuanya berjalan di peramban kamu, tanpa mengirim apa pun ke server.",
     en: "A game guide that lives inside this site. Shelbot knows the six phases, the five roles, the four city indicators, and all 184 cards. Ask how it plays, look up a card, or ask about Samarinda's sustainability issues. It all runs in your browser, with nothing sent to a server.",
   } as T,
+  catatanMeja: {
+    id: "Shelbot pemandu di luar meja — untuk belajar sebelum bermain dan menengok kembali sesudahnya. Selama sesi berlangsung, yang berlaku tetap aturan permainan: pemakaian GenAI dijatah lewat GenAI Access Token, dan keputusan tetap milik kelima peran.",
+    en: "Shelbot guides away from the table — for learning before a session and looking back after one. During play the game's own rules stand: GenAI use is rationed through GenAI Access Tokens, and the decision belongs to the five roles.",
+  } as T,
   limitsTitle: {
     id: "Batas yang dipegang Shelbot",
     en: "The limits Shelbot keeps",
