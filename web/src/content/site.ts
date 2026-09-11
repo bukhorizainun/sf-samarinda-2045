@@ -131,10 +131,13 @@ export const HOME = {
       } as T,
     },
     {
-      title: { id: "Pendamping AI", en: "An AI companion" } as T,
+      title: {
+        id: "GenAI di dalam permainan",
+        en: "GenAI inside the game",
+      } as T,
       body: {
-        id: "GenAI hadir sebagai teman berpikir: memetakan sebab-akibat dan membandingkan pilihan. Ia tidak punya suara dalam keputusan.",
-        en: "GenAI joins as a thinking partner: mapping causes and effects, comparing options. It holds no vote in the decision.",
+        id: "Di meja, GenAI dipakai sebagai teman berpikir: memetakan sebab-akibat dan membandingkan pilihan. Pemakaiannya dijatah lewat token, dan ia tidak punya suara dalam keputusan. Shelbot di situs ini hal yang berbeda — pemandu di luar meja.",
+        en: "At the table, GenAI serves as a thinking partner: mapping causes and effects, comparing options. Its use is rationed through tokens, and it holds no vote in the decision. Shelbot on this site is a different thing — a guide away from the table.",
       } as T,
     },
   ],
