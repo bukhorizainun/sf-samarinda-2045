@@ -242,8 +242,9 @@ const NIAT: Niat[] = [
   },
   {
     key: "komponen",
-    kata: ["komponen", "isi kotak", "component", "kartu berapa", "token",
-      "papan", "board", "pion", "dadu", "berapa kartu", "perlengkapan"],
+    kata: ["komponen", "isi kotak", "component", "components", "in the box",
+      "contents", "included", "kartu berapa", "token", "tokens", "papan",
+      "pion", "pawn", "dadu", "dice", "berapa kartu", "perlengkapan"],
     jawab: (l) => ({
       teks:
         (l === "id" ? "Isi permainannya:\n\n" : "What's in the box:\n\n") +
@@ -779,7 +780,9 @@ export function tanya(
   const kata = teks.split(" ").filter((w) => w.length >= 2);
 
   // 0b. Pertanyaan tentang kartu yang barusan dibicarakan.
-  const mintaDefinisi = /apa itu|itu apa|what is|artinya/.test(teks);
+  const mintaDefinisi =
+    /apa itu|itu apa|artinya|what is (a|an|the)/.test(teks) &&
+    !/its|nya/.test(teks);
   if (ingatan?.kartu?.length === 1 && kata.length <= 6 && !mintaDefinisi) {
     const k = ingatan.kartu[0];
     const soalBiaya = /biaya|harga|cost|butuh|perlu/.test(teks);
@@ -915,6 +918,7 @@ export function tanya(
 
   // 3. Tidak ketemu. Katakan apa adanya, jangan mengarang.
   return {
+    ingatan,
     teks:
       lang === "id"
         ? "Itu di luar yang aku tahu. Aku hanya menjawab dari isi permainan ini — panduannya, naskah situs, dan 184 kartunya — dan aku memilih bilang tidak tahu daripada mengarang jawaban.\n\nCoba tanyakan soal cara bermain, peran, indikator kota, isi kartu tertentu, atau isu keberlanjutan di Samarinda."
