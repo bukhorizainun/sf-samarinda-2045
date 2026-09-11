@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { HOME } from "@/content/site";
+import { Maskot } from "./Maskot";
 import { t, type Lang } from "@/lib/i18n";
 
 /**
@@ -84,7 +85,12 @@ export function Hero({ lang }: { lang: Lang }) {
         </svg>
       </div>
 
-      {/* Lapis 3 — tulisan */}
+      {/* Lapis 3 — maskot di dermaga, sedikit lebih lambat dari arus */}
+      <Maskot
+        className="pointer-events-auto absolute bottom-0 right-2 -z-10 h-[210px] w-auto opacity-95 sm:right-8 sm:h-[260px] lg:h-[300px]"
+      />
+
+      {/* Lapis 4 — tulisan */}
       <div className="mx-auto w-full max-w-6xl px-5 pb-28 pt-20 sm:px-8 sm:pb-36 sm:pt-28">
         <div className="rise">
           <p className="t-eyebrow flex items-center gap-3">

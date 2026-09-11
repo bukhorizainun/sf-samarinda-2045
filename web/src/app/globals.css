@@ -496,3 +496,70 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .sh-apung, .sh-bulu, .sh-anting, .sh-kedip, .sh-bicara { animation: none; }
 }
+
+/* ---------- Shelly & Hakam, maskot di dermaga ---------- */
+
+@keyframes mk-apung {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2.5px); }
+}
+.mk-apung { animation: mk-apung 5s var(--ease-out-soft) infinite; }
+
+/* Lambaian bergantian: satu melambai, satunya menunggu giliran. */
+@keyframes mk-lambai {
+  0%, 42%, 100% { transform: rotate(0deg); }
+  8%, 24% { transform: rotate(-16deg); }
+  16%, 32% { transform: rotate(10deg); }
+}
+.mk-lambai-a {
+  transform-origin: 38px 96px;
+  animation: mk-lambai 7s var(--ease-out-soft) infinite;
+}
+.mk-lambai-b {
+  transform-origin: 8px 96px;
+  animation: mk-lambai 7s var(--ease-out-soft) infinite;
+  animation-delay: -3.5s;
+}
+
+@keyframes mk-bulu {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(4deg); }
+}
+.mk-bulu {
+  transform-origin: 20px 56px;
+  animation: mk-bulu 6s var(--ease-out-soft) infinite;
+}
+
+@keyframes mk-anting {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1px); }
+}
+.mk-anting { animation: mk-anting 3.6s var(--ease-out-soft) infinite; }
+
+@keyframes mk-kedip {
+  0%, 93%, 100% { transform: scaleY(1); }
+  95%, 97% { transform: scaleY(0.08); }
+}
+.mk-kedip-a {
+  transform-origin: 22px 71px;
+  animation: mk-kedip 7.3s steps(1, end) infinite;
+}
+.mk-kedip-b {
+  transform-origin: 24px 71px;
+  animation: mk-kedip 5.9s steps(1, end) infinite;
+}
+
+/* Perahu menyeberang, lalu menunggu lama sebelum kembali. */
+@keyframes mk-perahu {
+  0% { transform: translateX(-30px); opacity: 0; }
+  8%, 72% { opacity: 1; }
+  100% { transform: translateX(280px); opacity: 0; }
+}
+.mk-perahu { animation: mk-perahu 26s linear infinite; }
+
+.mk-sapa { transition: opacity 0.4s var(--ease-out-soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-apung, .mk-lambai-a, .mk-lambai-b, .mk-bulu, .mk-anting,
+  .mk-kedip-a, .mk-kedip-b, .mk-perahu { animation: none; }
+}

@@ -13,6 +13,9 @@
  * menyala, mulutnya ikut bergerak. Semuanya berhenti kalau pengunjung
  * meminta gerakan dikurangi.
  */
+// Rambut tetap gelap di kedua tampilan.
+const RAMBUT = "#161f28";
+
 export function Shelly({
   size = 40,
   bicara = false,
@@ -81,7 +84,7 @@ export function Shelly({
           {/* Rambut */}
           <path
             d="M34 56 C 32 32, 45 22, 60 22 C 75 22, 88 32, 86 56 L86 74 C 86 78, 82 80, 79 76 C 80 62, 76 52, 60 52 C 44 52, 40 62, 41 76 C 38 80, 34 78, 34 74 Z"
-            fill="var(--fg)"
+            fill={RAMBUT}
           />
 
           {/* Wajah */}
@@ -106,11 +109,11 @@ export function Shelly({
           {/* Poni */}
           <path
             d="M40 50 C 46 42, 74 42, 80 50 C 72 46, 48 46, 40 50 Z"
-            fill="var(--fg)"
+            fill={RAMBUT}
           />
 
           {/* Mata */}
-          <g className="sh-kedip" fill="var(--fg)">
+          <g className="sh-kedip" fill={RAMBUT}>
             <ellipse cx="52" cy="61" rx="3" ry="3.6" />
             <ellipse cx="68" cy="61" rx="3" ry="3.6" />
           </g>
@@ -130,7 +133,7 @@ export function Shelly({
             className={bicara ? "sh-bicara" : ""}
             d="M55 72 q5 5 10 0"
             fill="none"
-            stroke="var(--fg)"
+            stroke={RAMBUT}
             strokeWidth="1.8"
             strokeLinecap="round"
           />
