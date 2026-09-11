@@ -14,8 +14,8 @@ export const BRAND = {
   edition: { id: "Samarinda 2045", en: "Samarinda 2045" } as T,
   /** Baris di samping tanda pada kepala halaman. */
   headerLine: {
-    id: "Sustainability Futures",
-    en: "Sustainability Futures",
+    id: "Sustainable Futures",
+    en: "Sustainable Futures",
   } as T,
   studio: "RDL Labs",
 };
