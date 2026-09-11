@@ -563,3 +563,32 @@ body::after {
   .mk-apung, .mk-lambai-a, .mk-lambai-b, .mk-bulu, .mk-anting,
   .mk-kedip-a, .mk-kedip-b, .mk-perahu { animation: none; }
 }
+
+/* Menanam: badan sedikit membungkuk, tangan bergerak pelan. */
+@keyframes mk-tanam {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-7deg); }
+}
+.mk-tanam-a {
+  transform-origin: 38px 98px;
+  animation: mk-tanam 3.2s var(--ease-out-soft) infinite;
+}
+.mk-tanam-b {
+  transform-origin: 8px 98px;
+  animation: mk-tanam 3.2s var(--ease-out-soft) infinite;
+  animation-delay: -1.6s;
+}
+
+/* Tunas tumbuh dari tanah saat masa depan itu dipilih. */
+@keyframes mk-tumbuh {
+  from { transform: scaleY(0); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+.mk-tumbuh {
+  transform-origin: center 170px;
+  animation: mk-tumbuh 1.1s var(--ease-glide) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-tanam-a, .mk-tanam-b, .mk-tumbuh { animation: none; }
+}

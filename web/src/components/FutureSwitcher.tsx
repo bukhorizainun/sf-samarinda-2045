@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FUTURES, FUTURES_NOTE } from "@/content/site";
+import { Maskot, type Pose } from "./Maskot";
 import { t, type Lang } from "@/lib/i18n";
 
 /**
@@ -105,6 +106,8 @@ export function FutureSwitcher({ lang }: { lang: Lang }) {
  * memakai kerangka yang sama, dengan tumbuhan dan atap hijau yang
  * bertambah dari kiri ke kanan. Semuanya memakai warna adegan.
  */
+const POSE: Pose[] = ["amati", "lambai", "tanam"];
+
 function Kota({ varian }: { varian: number }) {
   // Kerapatan hijau naik menurut jenis masa depannya.
   const hijau = [2, 5, 9][varian];
@@ -112,6 +115,15 @@ function Kota({ varian }: { varian: number }) {
 
   return (
     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border bg-[var(--bg-raised)] rule">
+      {/* Shelly dan Hakam ikut menanggapi masa depan yang sedang dilihat:
+          berdiri memandang, menyambut, atau menanam. */}
+      <Maskot
+        key={varian}
+        pose={POSE[varian]}
+        latar={false}
+        className="rise absolute bottom-[27%] left-[4%] z-10 h-[32%] w-auto"
+      />
+
       <svg
         viewBox="0 0 400 300"
         className="h-full w-full"

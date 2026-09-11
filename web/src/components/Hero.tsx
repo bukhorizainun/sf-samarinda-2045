@@ -87,6 +87,8 @@ export function Hero({ lang }: { lang: Lang }) {
 
       {/* Lapis 3 — maskot di dermaga, sedikit lebih lambat dari arus */}
       <Maskot
+        pose="lambai"
+        sapaan={id ? "Selamat datang" : "Welcome"}
         className="pointer-events-auto absolute bottom-0 right-2 -z-10 h-[210px] w-auto opacity-95 sm:right-8 sm:h-[260px] lg:h-[300px]"
       />
 
