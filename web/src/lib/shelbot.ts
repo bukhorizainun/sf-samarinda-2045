@@ -158,7 +158,9 @@ const NIAT: Niat[] = [
   {
     key: "fase",
     kata: ["fase", "phase", "cara main", "cara bermain", "alur", "urutan",
-      "bagaimana", "how to play", "gameplay", "tahap", "langkah"],
+      "bagaimana", "how to play", "how do you play", "gameplay", "tahap",
+      "langkah", "bermain", "playing", "rules", "aturan", "turn", "giliran",
+      "works", "berjalan"],
     jawab: (l) => ({
       teks:
         (l === "id"
@@ -179,8 +181,10 @@ const NIAT: Niat[] = [
   },
   {
     key: "peran",
-    kata: ["peran", "role", "pemain", "stakeholder", "karakter", "siapa",
-      "pemerintah", "pengusaha", "warga", "peneliti", "ilmuwan", "player"],
+    kata: ["peran", "role", "roles", "pemain", "player", "players",
+      "stakeholder", "stakeholders", "karakter", "character", "siapa",
+      "pemerintah", "pengusaha", "warga", "peneliti", "ilmuwan", "who plays",
+      "siapa saja"],
     jawab: (l) => ({
       teks:
         (l === "id"
@@ -199,9 +203,10 @@ const NIAT: Niat[] = [
   },
   {
     key: "indikator",
-    kata: ["city indicator", "indikator", "indicator", "pilar", "lingkungan",
-      "masyarakat", "ekonomi", "environment", "society", "economy", "skor",
-      "nilai", "kritis", "empat indikator"],
+    kata: ["city indicator", "city indicators", "indikator", "indicator",
+      "indicators", "pilar", "lingkungan", "masyarakat", "ekonomi",
+      "environment", "society", "economy", "skor", "score", "nilai", "kritis",
+      "critical", "empat indikator", "four indicators"],
     jawab: (l) => ({
       teks:
         (l === "id"
@@ -220,8 +225,8 @@ const NIAT: Niat[] = [
   },
   {
     key: "menang",
-    kata: ["menang", "win", "kalah", "lose", "syarat", "menangkan", "selesai",
-      "akhir", "kondisi"],
+    kata: ["menang", "win", "winning", "kalah", "lose", "losing", "syarat",
+      "condition", "conditions", "menangkan", "selesai", "akhir", "kondisi"],
     jawab: (l) => ({
       teks:
         (l === "id"
@@ -293,7 +298,7 @@ const NIAT: Niat[] = [
   {
     key: "keberlanjutan",
     kata: ["keberlanjutan", "sustainability", "sustainable", "sdg", "sdgs",
-      "pembangunan berkelanjutan", "lestari"],
+      "pembangunan berkelanjutan", "lestari", "development goals"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -346,8 +351,8 @@ const NIAT: Niat[] = [
     jawab: (l) => ({
       teks:
         l === "id"
-          ? "Permainan ini dipakai di sekolah, kampus, dan komunitas. Satu sesi penuh sekitar sembilan puluh menit dengan lima pemain, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan.\n\nSaluran pemesanan resminya belum dipasang di situs ini. Begitu ditetapkan, keterangannya muncul di halaman Kontak."
-          : "The game is used in schools, universities, and community groups. A full session runs about ninety minutes with five players, and a teacher can facilitate it without lengthy training. For a large class, several tables run at once and compare outcomes.\n\nThe official ordering channels are not on this site yet. Once they are settled, the Contact page will carry them.",
+          ? "Permainan ini dipakai di sekolah, kampus, dan komunitas. Satu sesi penuh sekitar sembilan puluh menit dengan lima pemain, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan.\n\nUntuk memesan atau bertanya lebih jauh, hubungi WhatsApp +62 812-5484-0507. Tautannya ada di halaman Kontak."
+          : "The game is used in schools, universities, and community groups. A full session runs about ninety minutes with five players, and a teacher can facilitate it without lengthy training. For a large class, several tables run at once and compare outcomes.\n\nTo order or ask anything further, reach us on WhatsApp at +62 812-5484-0507. The link is on the Contact page.",
       lanjutan:
         l === "id"
           ? ["Berapa lama satu sesi?", "Perlu alat digital?", "Berapa pemainnya?"]
@@ -359,8 +364,9 @@ const NIAT: Niat[] = [
   {
     key: "meja",
     kata: ["berapa pemain", "berapa orang", "jumlah pemain", "berapa lama",
-      "durasi", "berapa menit", "berapa jam", "umur", "usia", "kelas berapa",
-      "cocok untuk", "berapa pemainnya", "how many players", "how long"],
+      "durasi", "duration", "berapa menit", "berapa jam", "umur", "usia",
+      "age", "kelas berapa", "cocok untuk", "berapa pemainnya",
+      "how many players", "how long", "how many people", "session"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -391,7 +397,8 @@ const NIAT: Niat[] = [
   },
   {
     key: "zona",
-    kata: ["zona", "zone", "tematik", "papan", "petak", "area", "wilayah"],
+    kata: ["zona", "zone", "zones", "tematik", "thematic", "papan", "board",
+      "petak", "area", "wilayah"],
     jawab: (l) => ({
       teks:
         (l === "id"
@@ -443,7 +450,8 @@ const NIAT: Niat[] = [
   {
     key: "aksi-nyata",
     kata: ["aksi nyata", "action evidence", "bukti aksi", "real world",
-      "rencana aksi", "tindak lanjut", "setelah main", "7 hari", "30 hari"],
+      "real-world", "rencana aksi", "action plan", "tindak lanjut",
+      "setelah main", "7 hari", "30 hari", "after the game"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -459,7 +467,7 @@ const NIAT: Niat[] = [
   {
     key: "jenis-kartu",
     kata: ["jenis kartu", "macam kartu", "kartu apa saja", "card types",
-      "berapa jenis", "isi dek", "dek"],
+      "card type", "berapa jenis", "isi dek", "dek", "deck", "what cards"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -506,8 +514,9 @@ const NIAT: Niat[] = [
   },
   {
     key: "kota",
-    kata: ["samarinda", "kaltim", "kalimantan timur", "ibu kota", "kota ini",
-      "letak", "dimana", "geografi", "penduduk", "sejarah"],
+    kata: ["samarinda", "kaltim", "kalimantan timur", "east kalimantan",
+      "ibu kota", "capital", "kota ini", "the city", "letak", "dimana",
+      "where is", "geografi", "penduduk", "sejarah", "history"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -522,8 +531,8 @@ const NIAT: Niat[] = [
   },
   {
     key: "mahakam",
-    kata: ["mahakam", "sungai mahakam", "sungai besar", "ponton", "tongkang",
-      "kapal"],
+    kata: ["mahakam", "sungai mahakam", "mahakam river", "sungai besar",
+      "the river", "ponton", "tongkang", "barge", "barges", "kapal"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -569,8 +578,10 @@ const NIAT: Niat[] = [
   },
   {
     key: "fasilitator",
-    kata: ["fasilitator", "memfasilitasi", "cara mengajar", "untuk guru",
-      "di kelas", "persiapan", "sebelum main", "tips"],
+    kata: ["fasilitator", "facilitator", "memfasilitasi", "facilitate",
+      "cara mengajar", "teaching", "untuk guru", "for teachers", "guru",
+      "teacher", "di kelas", "classroom", "persiapan", "sebelum main",
+      "tips"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -836,7 +847,8 @@ export function tanya(
       }
       for (const w of kata) {
         if (w === k) nilai += 6;
-        else if (mirip(w, k)) nilai += k.length >= 5 ? 4 : 3;
+        // "players" terhadap "player", "bermain" terhadap "main": tetap sah.
+        else if (mirip(w, k)) nilai += k.length >= 5 ? 5 : 3;
       }
     }
     if (nilai > 0 && (!terbaik || nilai > terbaik.nilai)) terbaik = { niat, nilai };
@@ -868,7 +880,7 @@ export function tanya(
 
   // 2. Kartu yang cocok. Kalau lebih meyakinkan daripada niat, kartu yang menang.
   // Menyebut "kartu" atau "card" berarti memang kartu yang dicari.
-  const mintaKartu = /\bkartu\b|\bcard\b/.test(teks);
+  const mintaKartu = /\bkartu\b|\bcards?\b/.test(teks);
   const kartu = cariKartu(kata, pertanyaan, mintaKartu);
   const kodeDisebut = /\b[a-z]{1,3}\d{2,3}\b/.test(teks);
   // Topik menang lebih dulu; kartu tampil kalau memang kartu yang dicari.

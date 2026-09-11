@@ -12,6 +12,11 @@ export const BRAND = {
   name: { id: "Sustainable Futures", en: "Sustainable Futures" } as T,
   tagline: { id: "Futures in Action", en: "Futures in Action" } as T,
   edition: { id: "Samarinda 2045", en: "Samarinda 2045" } as T,
+  /** Baris di samping tanda pada kepala halaman. */
+  headerLine: {
+    id: "Sustainability Futures",
+    en: "Sustainability Futures",
+  } as T,
   studio: "RDL Labs",
 };
 
@@ -21,7 +26,7 @@ export type NavItem = { slug: string; label: T };
 
 export const NAV: NavItem[] = [
   { slug: "", label: { id: "Beranda", en: "Home" } },
-  { slug: "permainan", label: { id: "Tentang Permainan", en: "The Game" } },
+  { slug: "permainan", label: { id: "Board Game", en: "Board Game" } },
   { slug: "kartu", label: { id: "Katalog Kartu", en: "Card Catalogue" } },
   { slug: "samarinda", label: { id: "Samarinda", en: "Samarinda" } },
   { slug: "shelbot", label: { id: "Shelbot", en: "Shelbot" } },
@@ -98,7 +103,7 @@ export const HOME = {
     en: "What will Samarinda look like in 2045? A greener, safer, fairer city, or one facing steadily harder environmental problems? This game asks you to weigh four forces that pull against each other, and to decide together with other people.",
   } as T,
   ctaPrimary: { id: "Lihat cara bermain", en: "See how it plays" } as T,
-  ctaSecondary: { id: "Coba Futures Lab", en: "Try the Futures Lab" } as T,
+  ctaSecondary: { id: "Coba Shelbot", en: "Try Shelbot" } as T,
 
   pillarsTitle: {
     id: "Empat indikator kota yang harus tetap seimbang",
