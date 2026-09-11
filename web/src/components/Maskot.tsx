@@ -155,6 +155,8 @@ export function Maskot({
       >
         {/* ---------- Hakam ---------- */}
         <g transform="translate(78 0)">
+          <Lengan pose={pose} sisi="kanan" kulit={KULIT_B} dalam />
+
           <g className="mk-bulu">
             <path
               d="M14 56 C 10 44, 12 37, 16 33 C 20 39, 20 48, 18 57 Z"
@@ -207,6 +209,8 @@ export function Maskot({
 
         {/* ---------- Shelly ---------- */}
         <g transform="translate(140 0)">
+          <Lengan pose={pose} sisi="kiri" kulit={KULIT_A} dalam />
+
           <g className="mk-bulu" style={{ animationDelay: "-1.8s" }}>
             <path
               d="M30 54 C 34 42, 33 35, 29 31 C 25 37, 26 46, 27 55 Z"
@@ -299,16 +303,33 @@ function Lengan({
   pose,
   sisi,
   kulit,
+  dalam = false,
 }: {
   pose: Pose;
   sisi: "kiri" | "kanan";
   kulit: string;
+  /** Lengan sisi dalam: menggantung tenang, dan digambar di balik badan. */
+  dalam?: boolean;
 }) {
   const garis = {
     stroke: ANGGOTA,
     strokeWidth: 4,
     strokeLinecap: "round" as const,
   };
+
+  if (dalam) {
+    return sisi === "kiri" ? (
+      <>
+        <line x1="8" y1="94" x2="1" y2="120" {...garis} />
+        <circle cx="0" cy="122" r="3.4" fill={kulit} />
+      </>
+    ) : (
+      <>
+        <line x1="38" y1="94" x2="45" y2="120" {...garis} />
+        <circle cx="46" cy="122" r="3.4" fill={kulit} />
+      </>
+    );
+  }
 
   // Menanam: tangan turun ke depan, menghadap tunas.
   if (pose === "tanam") {
