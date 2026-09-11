@@ -31,6 +31,7 @@ export const NAV: NavItem[] = [
   { slug: "samarinda", label: { id: "Samarinda", en: "Samarinda" } },
   { slug: "shelbot", label: { id: "Shelbot", en: "Shelbot" } },
   { slug: "mini-game", label: { id: "Mini Game", en: "Mini Game" } },
+  { slug: "fasilitator", label: { id: "Fasilitator", en: "Facilitator" } },
   { slug: "kontak", label: { id: "Kontak", en: "Contact" } },
 ];
 

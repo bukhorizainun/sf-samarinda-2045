@@ -80,7 +80,7 @@ export function Header({ lang }: { lang: Lang }) {
                   <Link
                     href={href(item.slug)}
                     aria-current={active ? "page" : undefined}
-                    className={`relative block rounded-full px-3.5 py-2 text-[0.875rem] transition-colors duration-200 ${
+                    className={`relative block rounded-full px-3 py-2 text-[0.85rem] transition-colors duration-200 ${
                       active
                         ? "text-[var(--fg)]"
                         : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
@@ -89,7 +89,7 @@ export function Header({ lang }: { lang: Lang }) {
                     {t(item.label, lang)}
                     <span
                       aria-hidden
-                      className={`absolute inset-x-3.5 -bottom-px h-px origin-left transition-transform duration-300 ease-[var(--ease-out-soft)] sf-gradient ${
+                      className={`absolute inset-x-3 -bottom-px h-px origin-left transition-transform duration-300 ease-[var(--ease-out-soft)] sf-gradient ${
                         active ? "scale-x-100" : "scale-x-0"
                       }`}
                     />

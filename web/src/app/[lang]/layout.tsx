@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { THEME_SCRIPT } from "@/components/ThemeToggle";
 import { UI } from "@/content/site";
 import { LANGS, isLang, t, type Lang } from "@/lib/i18n";
+import { SITUS } from "@/lib/situs";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -21,13 +22,40 @@ const body = Inter({
   display: "swap",
 });
 
+const JUDUL = "SF — Sustainable Futures · Futures in Action";
+const RINGKAS = {
+  id: "Futures in Action, edisi Samarinda 2045. Board game keberlanjutan tentang menimbang lingkungan, masyarakat, ekonomi, dan masa depan kota.",
+  en: "Futures in Action, Samarinda 2045 Edition. A sustainability board game about weighing environment, society, economy, and the city's future.",
+};
+
+/** Pratinjau tautan: yang muncul saat alamat situs dibagikan di percakapan. */
 export const metadata: Metadata = {
-  title: {
-    default: "SF — Sustainable Futures · Futures in Action",
-    template: "%s · SF",
+  metadataBase: new URL(SITUS),
+  title: { default: JUDUL, template: "%s · SF" },
+  description: RINGKAS.id,
+  openGraph: {
+    type: "website",
+    siteName: "SF — Sustainable Futures",
+    title: JUDUL,
+    description: RINGKAS.id,
+    images: [
+      {
+        url: "/gambar/pratinjau.png",
+        width: 1200,
+        height: 630,
+        alt: "Futures in Action — Samarinda 2045",
+      },
+    ],
   },
-  description:
-    "Futures in Action, edisi Samarinda 2045. Board game keberlanjutan tentang menimbang lingkungan, masyarakat, ekonomi, dan masa depan kota.",
+  twitter: {
+    card: "summary_large_image",
+    title: JUDUL,
+    description: RINGKAS.id,
+    images: ["/gambar/pratinjau.png"],
+  },
+  alternates: {
+    languages: { id: `${SITUS}/id/`, en: `${SITUS}/en/` },
+  },
 };
 
 export const viewport: Viewport = {
