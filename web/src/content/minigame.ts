@@ -351,6 +351,8 @@ export const MG_UI = {
   pilihTiga: { id: "Pilih tiga", en: "Choose three" } as T,
   hasil: { id: "Hasil", en: "Result" } as T,
   benarnya: { id: "Jawaban benar", en: "Correct answer" } as T,
+  bagikan: { id: "Bagikan Skor", en: "Share Score" } as T,
+  tersalin: { id: "Tersalin", en: "Copied" } as T,
 } satisfies Record<string, T>;
 
 export type { T, TL };

@@ -49,6 +49,7 @@ export function MiniGame({ lang }: { lang: Lang }) {
   const [kombo, setKombo] = useState(0);
   const [catatan, setCatatan] = useState<Catatan[]>([]);
   const [lihatJawaban, setLihatJawaban] = useState(false);
+  const [tersalin, setTersalin] = useState(false);
 
   /* ---- keadaan satu level ---- */
   const [urutan, setUrutan] = useState<Kartu[]>([]);
@@ -193,6 +194,26 @@ export function MiniGame({ lang }: { lang: Lang }) {
     () => TINGKAT.find((x) => skor >= x.min) ?? TINGKAT[TINGKAT.length - 1],
     [skor],
   );
+
+  /** Bagikan lewat lembar berbagi bawaan perangkat; kalau tidak ada, disalin. */
+  async function bagikan() {
+    const pesan = id
+      ? `Aku dapat ${skor} poin di "Jaga Samarinda!" — ${t(tingkat.gelar, lang)}. Coba juga:`
+      : `I scored ${skor} in "Guard Samarinda!" — ${t(tingkat.gelar, lang)}. Try it:`;
+    const tautan = typeof window === "undefined" ? "" : window.location.href;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ text: pesan, url: tautan });
+        return;
+      }
+      await navigator.clipboard.writeText(`${pesan} ${tautan}`);
+      setTersalin(true);
+      setTimeout(() => setTersalin(false), 2200);
+    } catch {
+      /* Dibatalkan sendiri oleh pengunjung, atau papan klip ditutup peramban. */
+    }
+  }
 
   /* ---------------- tampilan ---------------- */
 
@@ -405,6 +426,12 @@ export function MiniGame({ lang }: { lang: Lang }) {
               className="rounded-full bg-[var(--fg)] px-6 py-3 text-[0.875rem] font-medium text-[var(--bg)]"
             >
               {t(MG_UI.ulang, lang)}
+            </button>
+            <button
+              onClick={bagikan}
+              className="rounded-full border px-6 py-3 text-[0.875rem] font-medium transition-colors hover:bg-[var(--bg)] rule"
+            >
+              {tersalin ? t(MG_UI.tersalin, lang) : t(MG_UI.bagikan, lang)}
             </button>
             <button
               onClick={() => setLihatJawaban((v) => !v)}
