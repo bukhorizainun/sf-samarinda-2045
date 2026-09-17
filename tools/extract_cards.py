@@ -25,13 +25,41 @@ SUMBER = Path(
 )
 TUJUAN = Path("web/src/content/cards.json")
 
+# Fase tempat tiap dek dipakai. Sumbernya panduan resmi, bukan muka kartu:
+# Setup (0) untuk peran dan tujuan; Scenario dan Problem Factor di Fase 1
+# (panduan "Reveal and read one Samarinda Scenario Card", "Each stakeholder
+# takes two Problem Factor Cards"); Driver dan Uncertainty di Fase 2
+# ("Reveal three Change Driver Cards", "Reveal two Uncertainty Cards");
+# proyek, Opportunity, dan Event di Fase 4 (Project Market); Event dipakai
+# lagi di Fase 6 ("Apply an Event Card"); Action Evidence di Fase 6; dua
+# pemakaian inti GenAI ada di Fase 1 dan Fase 4.
+FASE = {
+    "ROLE CARD": [0],
+    "SPECIAL GOAL": [0],
+    "SAMARINDA SCENARIO": [1],
+    "PROBLEM FACTOR": [1],
+    "DRIVER": [2],
+    "UNCERTAINTY": [2],
+    "MINI-PROJECT": [4],
+    "OPEN PROJECT": [4],
+    "OPPORTUNITY": [4],
+    "EVENT": [4, 6],
+    "GENAI PROMPT": [1, 4],
+    "ACTION EVIDENCE": [6],
+}
+
 KEPALA = re.compile(r"^([A-Z]{1,3}\d{2,3})\s{2,}([A-Z][A-Z &/\-]+)$")
 
 # Delapan zona tematik papan. Dipakai untuk melepas zona yang menempel
 # di ujung judul ketika PDF menggabungkan dua kolom jadi satu baris.
 ZONA = ["Green", "Energy", "Transport", "Education", "Waste", "Disaster",
         "River", "Food"]
-EKOR_ZONA = re.compile(rf"\s+({'|'.join(ZONA)})\s+Zone\.?$")
+
+# Nama zona di kartu kadang membawa kata depan: "Environmental Education Zone",
+# "Disaster Resilience Zone". Yang disimpan tetap nama pendek milik papan.
+PENUH = rf"(?:[A-Z][a-z]+\s+){{0,2}}({'|'.join(ZONA)})(?:\s+[A-Z][a-z]+)?\s+Zone"
+EKOR_ZONA = re.compile(rf"\s+{PENUH}\.?$")
+AWAL_ZONA = re.compile(rf"^{PENUH}\.\s*")
 
 # Bidang di badan kartu proyek.
 BIAYA = re.compile(r"Cost:\s*([^.]+)\.")
@@ -39,6 +67,15 @@ DAMPAK = re.compile(r"impact:\s*(-?\d+)\s*/\s*(-?\d+)\s*/\s*(-?\d+)\s*/\s*(-?\d+
 RISIKO = re.compile(r"Risk:\s*([^.]+\.)")
 AKSI = re.compile(r"Real-world action:\s*(.+?)(?:\s+[A-Z]{2,}\b|$)")
 
+
+# Nama zona dicetak besar sebagai kepala kolom di lembar PDF, lalu ikut
+# tersedot ke ujung isi kartu. Itu tata letak lembar cetak, bukan naskah
+# kartu, jadi dibuang — tetapi hanya bila memang menyebut zona kartu itu.
+EKOR_BESAR = re.compile(r"\s+([A-Z][A-Z &/\-]{2,})$")
+
+# Dua prompt inti yang gratis ditandai begitu di kartunya sendiri. Itu
+# aturan permainan, jadi disimpan sebagai penanda, bukan dibuang.
+INTI_GRATIS = "FREE CORE PROMPT"
 # Judul boleh melanjut ke baris kedua hanya bila keduanya pendek.
 BATAS_JUDUL = 40
 
@@ -103,13 +140,24 @@ def tarik(sumber: Path) -> list[dict]:
             zona = ekor.group(1)
             judul = judul[: ekor.start()].strip()
         else:
-            awal = re.match(rf"^({'|'.join(ZONA)})\s+Zone\.\s*", badan)
+            awal = AWAL_ZONA.match(badan)
             if awal:
                 zona = awal.group(1)
                 badan = badan[awal.end():].strip()
 
+        gratis = False
+        if ekor_besar := EKOR_BESAR.search(badan):
+            tanda = ekor_besar.group(1)
+            if tanda == INTI_GRATIS:
+                gratis = True
+                badan = badan[: ekor_besar.start()].strip()
+            elif zona and zona.upper() in tanda:
+                badan = badan[: ekor_besar.start()].strip()
+
         rec = {"code": k["code"], "type": k["type"], "title": judul,
-               "body": badan}
+               "body": badan, "phases": FASE.get(k["type"], [])}
+        if gratis:
+            rec["freeCorePrompt"] = True
         if zona:
             rec["zone"] = zona
 
@@ -135,6 +183,15 @@ if __name__ == "__main__":
     tanpa_judul = [k["code"] for k in kartu if not k["title"]]
     if tanpa_judul:
         raise SystemExit(f"Kartu tanpa judul: {', '.join(tanpa_judul)}")
+
+    tanpa_zona = [k["code"] for k in kartu
+                  if k["type"] == "MINI-PROJECT" and "zone" not in k]
+    if tanpa_zona:
+        raise SystemExit(f"Proyek kecil tanpa zona: {', '.join(tanpa_zona)}")
+
+    tanpa_fase = sorted({k["type"] for k in kartu if not k["phases"]})
+    if tanpa_fase:
+        raise SystemExit(f"Jenis tanpa fase: {', '.join(tanpa_fase)}")
 
     TUJUAN.write_text(
         json.dumps(kartu, ensure_ascii=False, indent=1), encoding="utf-8"

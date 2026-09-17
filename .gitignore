@@ -25,3 +25,7 @@ tools/demo/keluaran/
 
 # alur kerja butuh izin tambahan; penerbitan dilakukan lewat cabang gh-pages
 .github/
+
+# berkas instruksi agen coding, milik mesin masing-masing
+AGENTS.md
+CLAUDE.md
