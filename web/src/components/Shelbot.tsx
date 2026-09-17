@@ -57,9 +57,9 @@ export function Shelbot({ lang }: { lang: Lang }) {
   const kosong = pesan.length === 0;
 
   return (
-    <div className="glass overflow-hidden">
+    <div className="obrolan">
       {/* Kepala */}
-      <div className="flex items-center gap-4 border-b p-5 rule sm:px-7">
+      <div className="obrolan-kepala sm:px-7">
         <span className="block h-12 w-12 shrink-0 self-start overflow-hidden rounded-full ring-1 ring-[var(--line-strong)]">
           <Shelly size={48} bicara={mengetik} />
         </span>
@@ -78,7 +78,7 @@ export function Shelbot({ lang }: { lang: Lang }) {
       </div>
 
       {/* Percakapan */}
-      <div className="min-h-[24rem] space-y-6 p-6 sm:p-7">
+      <div className="max-h-[62vh] min-h-[24rem] space-y-6 overflow-y-auto overscroll-contain p-6 sm:p-7">
         {kosong && (
           <div className="flex gap-4">
             <Wajah />
@@ -95,14 +95,12 @@ export function Shelbot({ lang }: { lang: Lang }) {
         {pesan.map((m, i) =>
           m.dari === "orang" ? (
             <div key={i} className="flex justify-end">
-              <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-[var(--bg-sunken)] px-4 py-3 text-[0.925rem] leading-relaxed">
-                {m.teks}
-              </p>
+              <p className="gelembung-orang">{m.teks}</p>
             </div>
           ) : (
             <div key={i} className="rise flex gap-4">
               <Wajah />
-              <div className="measure">
+              <div className="gelembung-shelbot measure">
                 <div className="space-y-3 text-[0.95rem] leading-relaxed">
                   {m.teks.split("\n\n").map((p, j) => (
                     <p key={j} className="whitespace-pre-line">
@@ -147,7 +145,7 @@ export function Shelbot({ lang }: { lang: Lang }) {
                 <button
                   type="button"
                   onClick={() => kirim(s)}
-                  className="rounded-full border px-4 py-2 text-left text-[0.85rem] leading-snug text-[var(--fg-muted)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--fg)] rule"
+                  className="saran"
                 >
                   {s}
                 </button>
@@ -165,7 +163,7 @@ export function Shelbot({ lang }: { lang: Lang }) {
           e.preventDefault();
           kirim(teks);
         }}
-        className="flex items-end gap-3 border-t p-4 rule sm:p-5"
+        className="tulis sm:px-5"
       >
         <label htmlFor="tanya" className="sr-only">
           {t(LAB.placeholder, lang)}
@@ -188,13 +186,13 @@ export function Shelbot({ lang }: { lang: Lang }) {
         <button
           type="submit"
           disabled={mengetik || !teks.trim()}
-          className="shrink-0 rounded-full bg-[var(--fg)] px-5 py-2.5 text-[0.85rem] font-medium text-[var(--bg)] transition-opacity disabled:opacity-35"
+          className="btn btn-utama shrink-0 !min-h-0 !px-5 !py-2.5 text-[0.85rem] disabled:opacity-35"
         >
           {id ? "Kirim" : "Send"}
         </button>
       </form>
 
-      <p className="border-t px-5 py-4 text-xs leading-relaxed text-[var(--fg-faint)] rule">
+      <p className="border-t bg-[var(--bg-sunken)] px-5 py-4 text-xs leading-relaxed text-[var(--fg-faint)] rule">
         {t(LAB.disclaimer, lang)}
       </p>
     </div>

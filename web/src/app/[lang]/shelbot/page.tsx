@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Section } from "@/components/Section";
+import { Container, Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { Shelbot } from "@/components/Shelbot";
-import { LAB } from "@/content/site";
+import { INDICATORS, LAB, PHASES, ROLES } from "@/content/site";
+import cards from "@/content/cards.json";
 import { LANGS, t, type Lang } from "@/lib/i18n";
 
 export function generateStaticParams() {
@@ -32,7 +33,39 @@ export default async function HalamanShelbot({
         </p>
       </KepalaHalaman>
 
-      <Section className="!pt-4">
+      <Container className="pb-10">
+        <div className="malam konsol">
+          <div className="konsol-kepala">
+            <span className="flex items-center gap-2.5">
+              <span aria-hidden className="lampu" />
+              {id ? "Yang dihafal Shelbot" : "What Shelbot knows"}
+            </span>
+            <span className="mono normal-case tracking-normal">
+              {id ? "dari panduan resmi" : "from the official guide"}
+            </span>
+          </div>
+          <dl className="fakta px-5 pt-1 sm:px-7">
+            <div>
+              <dt>{PHASES.length}</dt>
+              <dd>{id ? "fase permainan" : "phases of play"}</dd>
+            </div>
+            <div>
+              <dt>{ROLES.length}</dt>
+              <dd>{id ? "peran pemain" : "player roles"}</dd>
+            </div>
+            <div>
+              <dt>{INDICATORS.length}</dt>
+              <dd>{id ? "indikator kota" : "city indicators"}</dd>
+            </div>
+            <div>
+              <dt>{cards.length}</dt>
+              <dd>{id ? "kartu dek" : "cards in the deck"}</dd>
+            </div>
+          </dl>
+        </div>
+      </Container>
+
+      <Section className="band border-t rule !pt-12">
         <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
           <Shelbot lang={lang} />
 

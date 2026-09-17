@@ -1358,3 +1358,266 @@ body::after {
   background: var(--bg-raised);
   box-shadow: var(--lift-1);
 }
+
+/* ============================================================
+   Mini game dan Shelbot: konsol yang dipegang pemain
+   ============================================================ */
+
+/* Bilah instrumen di kepala mini game. */
+.instrumen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  background: rgb(0 0 0 / 0.2);
+}
+.angka-besar {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Rel waktu: terisi penuh di awal, menyusut tiap detik. */
+.rel-waktu {
+  position: relative;
+  width: 7rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.1);
+}
+.rel-waktu span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-mint);
+  transition: width 1s linear, background-color var(--gerak-sedang);
+}
+.rel-waktu[data-tipis] span {
+  background: var(--color-ember);
+}
+
+/* Kartu soal, dengan tumpukan tipis di belakangnya supaya terbaca
+   sebagai kartu yang sedang diambil dari dek. */
+.soal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 11rem;
+  padding: 2.25rem 1.75rem;
+  border-radius: 18px;
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.03));
+  text-align: center;
+  box-shadow: 0 18px 40px -30px rgb(0 0 0 / 0.9);
+}
+.soal::before,
+.soal::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  height: 14px;
+  border-radius: 0 0 16px 16px;
+  border: 1px solid var(--line);
+  border-top: 0;
+  background: rgb(255 255 255 / 0.04);
+  transform: translateX(-50%);
+  z-index: -1;
+}
+.soal::before { width: 94%; }
+.soal::after { width: 88%; bottom: -12px; }
+
+/* Papan jawaban: dua bidang lebar yang enak ditekan. */
+.paddle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  min-height: 4.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  box-shadow: 0 4px 0 0 rgb(0 0 0 / 0.3);
+  transition:
+    transform var(--gerak-sedang) var(--ease-out-soft),
+    border-color var(--gerak-sedang) var(--ease-out-soft),
+    background-color var(--gerak-sedang) var(--ease-out-soft),
+    box-shadow var(--gerak-sedang) var(--ease-out-soft);
+}
+.paddle:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: var(--warna, var(--line-strong));
+  box-shadow: 0 7px 0 0 rgb(0 0 0 / 0.3);
+}
+.paddle:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+  transition-duration: var(--gerak-cepat);
+}
+.paddle:disabled { opacity: 0.5; }
+.paddle kbd {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  color: var(--fg-faint);
+}
+.paddle[data-keadaan="tepat"] {
+  border-color: var(--color-mint);
+  background: color-mix(in oklab, var(--color-mint) 16%, transparent);
+}
+.paddle[data-keadaan="salah"] {
+  border-color: var(--color-ember);
+  background: color-mix(in oklab, var(--color-ember) 12%, transparent);
+}
+
+/* Pip kemajuan: satu titik per kartu dalam level. */
+.pip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.pip > i {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.14);
+  transition: background-color var(--gerak-sedang), transform var(--gerak-sedang);
+}
+.pip > i[data-lewat] { background: var(--color-mint); }
+.pip > i[data-kini] {
+  background: var(--fg);
+  transform: scale(1.35);
+}
+
+/* Pilihan bertoken huruf, dipakai di babak tantangan. */
+.pilihan {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  text-align: left;
+  font-size: 0.925rem;
+  transition:
+    transform var(--gerak-sedang) var(--ease-out-soft),
+    border-color var(--gerak-sedang) var(--ease-out-soft),
+    background-color var(--gerak-sedang) var(--ease-out-soft);
+}
+.pilihan:hover:not(:disabled) { transform: translateX(3px); border-color: var(--line-strong); }
+.pilihan:active:not(:disabled) { transform: scale(0.99); }
+.pilihan > b {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+.pilihan[data-keadaan="tepat"] {
+  border-color: var(--color-mint);
+  background: color-mix(in oklab, var(--color-mint) 14%, transparent);
+}
+.pilihan[data-keadaan="tepat"] > b {
+  background: var(--color-mint);
+  border-color: var(--color-mint);
+  color: #06201f;
+}
+.pilihan[data-keadaan="salah"] { border-color: var(--color-ember); opacity: 0.75; }
+.pilihan[aria-pressed="true"] {
+  border-color: var(--fg);
+  background: rgb(255 255 255 / 0.08);
+}
+.pilihan[aria-pressed="true"] > b {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+/* ---------- Shelbot ---------- */
+
+.obrolan {
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+  box-shadow: var(--lift-2);
+  overflow: hidden;
+}
+.obrolan-kepala {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--scene) 10%, transparent), transparent);
+}
+/* Gelembung: milik Shelbot berpita warna adegan, milik pengunjung padat. */
+.gelembung-shelbot {
+  position: relative;
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid color-mix(in oklab, var(--scene) 70%, var(--line));
+  background: var(--bg-raised);
+}
+.gelembung-orang {
+  max-width: 85%;
+  padding: 0.8rem 1.05rem;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 0.925rem;
+  line-height: 1.6;
+}
+.saran {
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px dashed var(--line-strong);
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: var(--fg-muted);
+  text-align: left;
+  transition:
+    border-style var(--gerak-cepat),
+    border-color var(--gerak-sedang),
+    background-color var(--gerak-sedang),
+    color var(--gerak-sedang),
+    transform var(--gerak-sedang) var(--ease-out-soft);
+}
+.saran:hover {
+  border-style: solid;
+  background: var(--bg-raised);
+  color: var(--fg);
+  transform: translateY(-2px);
+}
+.saran:active { transform: translateY(1px) scale(0.99); }
+.tulis {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--line);
+  background: var(--bg-sunken);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paddle:hover, .paddle:active, .pilihan:hover, .pilihan:active,
+  .saran:hover, .saran:active { transform: none; }
+}
