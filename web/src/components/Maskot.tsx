@@ -110,29 +110,22 @@ export function Maskot({
             <ellipse cx="120" cy="18" rx="16" ry="5" />
           </g>
 
-          {/* Enggang gading: badan, sayap yang mengepak, paruh besar
-              dengan balung di atasnya. Itu ciri yang membuatnya
-              enggang, bukan burung mana pun. */}
-          <g className="mk-enggang">
-            {/* Badan dan ekor panjang */}
-            <path
-              d="M30 82 C 30 74, 36 69, 45 69 C 54 69, 60 74, 60 81 C 60 87, 54 91, 45 91 C 36 91, 30 88, 30 82 Z"
-              fill="var(--fg)"
-              opacity="0.62"
-            />
-            <path d="M30 82 L10 88 L14 80 L10 73 Z" fill="var(--fg)" opacity="0.5" />
-            {/* Sayap yang mengepak */}
-            <path
-              className="mk-sayap"
-              d="M44 72 C 40 58, 45 49, 55 45 C 56 57, 52 67, 48 74 Z"
-              fill="var(--color-ember)"
-              opacity="0.8"
-            />
-            {/* Kepala, paruh melengkung, dan balung */}
-            <circle cx="60" cy="76" r="6.5" fill="var(--fg)" opacity="0.62" />
-            <path d="M65 75 C 73 73, 80 75, 84 78 C 78 80, 70 81, 65 80 Z" fill="var(--color-ember)" />
-            <path d="M66 71 C 72 67, 79 68, 83 71 C 77 72, 71 73, 66 74 Z" fill="var(--color-ember)" opacity="0.75" />
-            <circle cx="61" cy="74" r="1.3" fill="var(--bg-raised)" />
+          {/* Tiga enggang gading, dengan ukuran dan jadwal kepak yang
+              berbeda. Letaknya dijaga di luar pita x 60–200 pada
+              ketinggian lengan, supaya tidak pernah menutupi tangan
+              yang melambai. */}
+          {/* Dua sosok menempati x 84–190 dan y 31 ke bawah, termasuk
+              bulu enggang di kepala dan tangan yang terangkat sampai
+              x 189. Ketiga burung dijaga di luar petak itu: dua di
+              pita langit y < 28, satu di sisi kiri x < 80. */}
+          <g transform="translate(8 -23) scale(0.55)">
+            <Enggang />
+          </g>
+          <g transform="translate(170 -22) scale(0.5)">
+            <Enggang jeda="-1.8s" />
+          </g>
+          <g transform="translate(-4 18) scale(0.7)">
+            <Enggang jeda="-3.4s" />
           </g>
         </g>
       )}
@@ -517,6 +510,41 @@ function Lengan({
     <g className="mk-lambai-a">
       <line x1="38" y1="96" x2="50" y2="80" {...garis} />
       <circle cx="51" cy="78" r="3.4" fill={kulit} />
+    </g>
+  );
+}
+
+/**
+ * Enggang gading, burung khas Kalimantan.
+ *
+ * Yang membuatnya enggang dan bukan burung mana pun: paruh besar
+ * melengkung dengan balung di atasnya, badan gempal, dan ekor panjang.
+ * `jeda` menggeser jadwal kepak dan layangnya, jadi tiga ekor di satu
+ * adegan tidak pernah bergerak serentak.
+ */
+function Enggang({ jeda = "0s" }: { jeda?: string }) {
+  return (
+    <g className="mk-enggang" style={{ animationDelay: jeda }}>
+      {/* Badan dan ekor panjang */}
+      <path
+        d="M30 82 C 30 74, 36 69, 45 69 C 54 69, 60 74, 60 81 C 60 87, 54 91, 45 91 C 36 91, 30 88, 30 82 Z"
+        fill="var(--fg)"
+        opacity="0.62"
+      />
+      <path d="M30 82 L10 88 L14 80 L10 73 Z" fill="var(--fg)" opacity="0.5" />
+      {/* Sayap yang mengepak */}
+      <path
+        className="mk-sayap"
+        style={{ animationDelay: jeda }}
+        d="M44 72 C 40 58, 45 49, 55 45 C 56 57, 52 67, 48 74 Z"
+        fill="var(--color-ember)"
+        opacity="0.8"
+      />
+      {/* Kepala, paruh melengkung, dan balung */}
+      <circle cx="60" cy="76" r="6.5" fill="var(--fg)" opacity="0.62" />
+      <path d="M65 75 C 73 73, 80 75, 84 78 C 78 80, 70 81, 65 80 Z" fill="var(--color-ember)" />
+      <path d="M66 71 C 72 67, 79 68, 83 71 C 77 72, 71 73, 66 74 Z" fill="var(--color-ember)" opacity="0.75" />
+      <circle cx="61" cy="74" r="1.3" fill="var(--bg-raised)" />
     </g>
   );
 }

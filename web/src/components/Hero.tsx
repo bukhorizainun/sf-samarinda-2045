@@ -69,14 +69,29 @@ export function Hero({ lang }: { lang: Lang }) {
             </linearGradient>
           </defs>
 
-          {/* Pesut Mahakam melompat sekali dalam satu putaran panjang.
-              Bentuknya kepala membulat tanpa moncong, seperti pesut
-              sungguhan, bukan lumba-lumba laut. */}
-          <g className="pesut" fill="var(--color-aqua)" opacity="0.5">
-            <path d="M0 0 C 0 -9, 10 -14, 24 -13 C 42 -12, 54 -6, 62 0 C 54 6, 42 10, 24 11 C 10 12, 0 9, 0 0 Z" />
-            <path d="M34 -12 C 37 -17, 42 -19, 46 -18 C 43 -16, 40 -13, 39 -10 Z" />
-            <path d="M62 0 C 70 -6, 78 -8, 84 -7 C 79 -3, 77 0, 77 3 C 79 8, 80 13, 78 17 C 72 13, 66 6, 62 2 Z" />
-          </g>
+          {/* Tiga pesut Mahakam melompat menyeberangi lapis arus, dengan
+              ukuran, ketinggian, dan jadwal yang berbeda. Bentuknya
+              kepala membulat tanpa moncong, seperti pesut sungguhan,
+              bukan lumba-lumba laut. Bidang skala dipisahkan dari
+              bidang gerak supaya keduanya tidak saling menimpa. */}
+          {[
+            { skala: 1, atas: 0, jeda: "0s", laju: "34s" },
+            { skala: 0.62, atas: 74, jeda: "-13s", laju: "44s" },
+            { skala: 0.44, atas: 120, jeda: "-26s", laju: "52s" },
+          ].map((p) => (
+            <g key={p.jeda} transform={`translate(0 ${p.atas}) scale(${p.skala})`}>
+              <g
+                className="pesut"
+                fill="var(--color-aqua)"
+                opacity={0.5}
+                style={{ animationDelay: p.jeda, animationDuration: p.laju }}
+              >
+                <path d="M0 0 C 0 -9, 10 -14, 24 -13 C 42 -12, 54 -6, 62 0 C 54 6, 42 10, 24 11 C 10 12, 0 9, 0 0 Z" />
+                <path d="M34 -12 C 37 -17, 42 -19, 46 -18 C 43 -16, 40 -13, 39 -10 Z" />
+                <path d="M62 0 C 70 -6, 78 -8, 84 -7 C 79 -3, 77 0, 77 3 C 79 8, 80 13, 78 17 C 72 13, 66 6, 62 2 Z" />
+              </g>
+            </g>
+          ))}
 
           {[0, 22, 44, 66, 88, 110, 132].map((d, i) => (
             <path
