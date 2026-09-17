@@ -3,6 +3,10 @@ import { Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { Tabs } from "@/components/Tabs";
+import { PetaPapan } from "@/components/PetaPapan";
+import cards from "@/content/cards.json";
+import type { Kartu } from "@/lib/kartu";
+import { Container } from "@/components/Section";
 import {
   CHALLENGES,
   INDICATORS,
@@ -47,6 +51,10 @@ export default async function Samarinda({
         lead={t(SAMARINDA_INTRO, lang)}
       />
 
+
+      <Container className="pb-16">
+        <PetaPapan kartu={cards as Kartu[]} lang={lang} />
+      </Container>
 
       <Section className="band border-t rule !pt-10">
         <Tabs tabs={tabs} label={id ? "Bagian halaman" : "Page sections"}>

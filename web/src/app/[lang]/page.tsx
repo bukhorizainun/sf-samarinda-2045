@@ -4,6 +4,8 @@ import { IndicatorBalance } from "@/components/IndicatorBalance";
 import { FutureSwitcher } from "@/components/FutureSwitcher";
 import { Hero } from "@/components/Hero";
 import { TumpukanDek } from "@/components/TumpukanDek";
+import { PetaPapan } from "@/components/PetaPapan";
+import { KomposisiDek } from "@/components/KomposisiDek";
 import cards from "@/content/cards.json";
 import type { Kartu } from "@/lib/kartu";
 import {
@@ -50,6 +52,7 @@ export default async function Home({
       {/* ---------- Empat indikator ---------- */}
       <Section className="band border-t rule">
         <SectionHead
+          bab="02 / 06"
           eyebrow={lang === "id" ? "City Indicators" : "City Indicators"}
           title={t(HOME.pillarsTitle, lang)}
           lead={t(HOME.pillarsLead, lang)}
@@ -62,12 +65,32 @@ export default async function Home({
         </p>
       </Section>
 
-      {/* ---------- Apa ini ---------- */}
+      {/* ---------- Peta papan ---------- */}
       <Section className="border-t rule">
-        <SectionHead title={t(HOME.whatTitle, lang)} />
+        <SectionHead
+          bab="03 / 06"
+          eyebrow={lang === "id" ? "Papan" : "The board"}
+          title={
+            lang === "id"
+              ? "Delapan zona kota di satu papan"
+              : "Eight city zones on one board"
+          }
+        />
+        <div className="mt-12">
+          <PetaPapan kartu={cards as Kartu[]} lang={lang} />
+        </div>
+      </Section>
+
+      {/* ---------- Apa ini ---------- */}
+      <Section className="band border-t rule">
+        <SectionHead
+          bab="04 / 06"
+          eyebrow={lang === "id" ? "Tentang" : "About"}
+          title={t(HOME.whatTitle, lang)}
+        />
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border bg-[var(--line)] rule sm:grid-cols-3">
           {HOME.what.map((item, i) => (
-            <div key={i} className="bg-[var(--bg)] p-7 sm:p-8">
+            <div key={i} className="bg-[var(--surface-1)] p-7 transition-colors duration-300 hover:bg-[var(--bg-raised)] sm:p-8">
               <span
                 aria-hidden
                 className="block h-1 w-10 rounded-full"
@@ -83,6 +106,7 @@ export default async function Home({
       {/* ---------- Enam fase, sekilas ---------- */}
       <Section className="papan">
         <SectionHead
+          bab="05 / 06"
           eyebrow={lang === "id" ? "Perjalanan permainan" : "The arc of play"}
           title={
             lang === "id"
@@ -122,14 +146,15 @@ export default async function Home({
 
       {/* ---------- Dek ---------- */}
       <Section className="border-t rule">
+        <p className="bab mb-12">
+          <b>06 / 06</b>
+          {lang === "id" ? "Isi kotak" : "What is in the box"}
+        </p>
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-20">
           <TumpukanDek kartu={DEK} jumlahDek={cards.length} lang={lang} />
 
           <div>
-            <p className="t-eyebrow">
-              {lang === "id" ? "Isi kotak" : "What is in the box"}
-            </p>
-            <h2 className="t-h2 mt-4 measure-tight">
+            <h2 className="t-h1 measure-tight">
               {lang === "id"
                 ? "184 kartu, dua belas jenis, delapan zona kota"
                 : "184 cards, twelve types, eight city zones"}
@@ -152,6 +177,9 @@ export default async function Home({
               </span>
             </Link>
           </div>
+        </div>
+        <div className="mt-16">
+          <KomposisiDek kartu={cards as Kartu[]} lang={lang} />
         </div>
       </Section>
 

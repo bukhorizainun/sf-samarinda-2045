@@ -2,16 +2,17 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { BRAND, HOME } from "@/content/site";
+import { BRAND, COMPONENTS, HOME, PHASES, ROLES } from "@/content/site";
 import { Maskot } from "./Maskot";
 import { t, type Lang } from "@/lib/i18n";
 
 /**
- * Pembuka halaman depan.
+ * Pembuka halaman depan: panggung malam di tepi Mahakam.
  *
- * Tiga lapis yang bergerak dengan laju berbeda saat digulir: aurora di
- * belakang, arus sungai di tengah, tulisan di depan. Kalau pengunjung
- * meminta gerakan dikurangi, semuanya diam dan halaman tetap utuh.
+ * Judul dibuat sebesar poster, lalu dikunci di bawahnya oleh deret
+ * fakta permainan. Semua angka di deret itu diambil dari isi situs,
+ * bukan ditulis ulang di sini. Lapis arus dan maskot bergerak dengan
+ * laju berbeda saat digulir; kalau gerakan diminta dikurangi, semuanya diam.
  */
 export function Hero({ lang }: { lang: Lang }) {
   const [y, setY] = useState(0);
@@ -26,7 +27,7 @@ export function Hero({ lang }: { lang: Lang }) {
       if (jalan) return;
       jalan = true;
       requestAnimationFrame(() => {
-        setY(window.scrollY);
+        setY(Math.min(window.scrollY, 900));
         jalan = false;
       });
     };
@@ -37,24 +38,21 @@ export function Hero({ lang }: { lang: Lang }) {
   const base = `/${lang}`;
   const id = lang === "id";
 
-  return (
-    <section className="relative isolate overflow-hidden">
-      {/* Lapis 1 — aurora */}
-      <div
-        className="aurora"
-        aria-hidden
-        style={{ transform: `translate3d(0, ${y * 0.18}px, 0)` }}
-      >
-        <span />
-        <span />
-        <span />
-      </div>
+  const jumlah = (i: number) => COMPONENTS[i].count;
+  const fakta = [
+    { n: String(ROLES.length), l: id ? "peran pemain" : "player roles" },
+    { n: String(PHASES.length), l: id ? "fase permainan" : "phases of play" },
+    { n: jumlah(0), l: id ? "kartu di dek" : "cards in the deck" },
+    { n: jumlah(1), l: id ? "zona tematik di papan" : "thematic zones on the board" },
+  ];
 
-      {/* Lapis 2 — arus sungai */}
+  return (
+    <section className="malam panggung">
+      {/* Lapis 1 — arus sungai */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[70%] opacity-70"
-        style={{ transform: `translate3d(0, ${y * -0.09}px, 0)` }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[75%] opacity-60"
+        style={{ transform: `translate3d(0, ${y * -0.08}px, 0)` }}
       >
         <svg
           viewBox="0 0 1200 420"
@@ -78,37 +76,30 @@ export function Hero({ lang }: { lang: Lang }) {
               fill="none"
               stroke="url(#arus)"
               strokeWidth={i % 2 ? 1 : 1.6}
-              opacity={0.9 - i * 0.1}
+              opacity={0.8 - i * 0.1}
               style={{ animationDuration: `${22 + i * 4}s` }}
             />
           ))}
         </svg>
       </div>
 
-      {/* Lapis 3 — maskot di dermaga, sedikit lebih lambat dari arus */}
-      <Maskot
-        pose="lambai"
-        sapaan={id ? "Selamat datang" : "Welcome"}
-        className="pointer-events-auto absolute bottom-0 right-2 -z-10 h-[210px] w-auto opacity-95 sm:right-8 sm:h-[260px] lg:h-[300px]"
-      />
-
-      {/* Lapis 4 — tulisan */}
-      <div className="mx-auto w-full max-w-6xl px-5 pb-28 pt-20 sm:px-8 sm:pb-36 sm:pt-28">
-        <div className="rise">
+      <div className="mx-auto w-full max-w-6xl px-5 pt-14 sm:px-8 sm:pt-20">
+        <div className="rise flex flex-wrap items-center justify-between gap-4">
           <p className="lockup">
             <span>{t(BRAND.name, lang)}</span>
             <span>{t(BRAND.edition, lang)}</span>
           </p>
-
-          <p className="t-eyebrow mt-6 flex items-center gap-3">
+          <p className="t-eyebrow flex items-center gap-3 !text-[var(--fg-faint)]">
             <span
               aria-hidden
               className="pulse-soft inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-mint)]"
             />
             {t(HOME.heroKicker, lang)}
           </p>
+        </div>
 
-          <h1 className="t-display mt-7 max-w-[16ch]">
+        <div className="relative">
+          <h1 className="panggung-judul rise mt-12 max-w-[13ch] [animation-delay:80ms] sm:mt-16">
             {id ? (
               <>
                 Hari ini kita <span className="tekan">memutuskan</span>.
@@ -122,29 +113,53 @@ export function Hero({ lang }: { lang: Lang }) {
             )}
           </h1>
 
-          <p className="t-lead measure mt-9">{t(HOME.heroLead, lang)}</p>
+          <div className="mt-10 grid gap-10 pb-14 sm:pb-16 lg:grid-cols-[minmax(0,34rem)_1fr] lg:items-end">
+            <div className="rise [animation-delay:160ms]">
+              <p className="t-lead">{t(HOME.heroLead, lang)}</p>
 
-          <div className="mt-11 flex flex-wrap items-center gap-3">
-            <Link
-              href={`${base}/permainan`}
-              className="btn btn-utama group px-7"
-            >
-              {t(HOME.ctaPrimary, lang)}
-              <span
-                aria-hidden
-                className="transition-transform duration-[var(--gerak-sedang)] ease-[var(--ease-out-soft)] group-hover:translate-x-1"
-              >
-                →
-              </span>
-            </Link>
+              <div className="mt-9 flex flex-wrap items-center gap-3">
+                <Link href={`${base}/permainan`} className="btn btn-utama group px-7">
+                  {t(HOME.ctaPrimary, lang)}
+                  <span
+                    aria-hidden
+                    className="transition-transform duration-[var(--gerak-sedang)] ease-[var(--ease-out-soft)] group-hover:translate-x-1"
+                  >
+                    →
+                  </span>
+                </Link>
+                <Link href={`${base}/shelbot`} className="btn btn-garis px-7">
+                  {t(HOME.ctaSecondary, lang)}
+                </Link>
+              </div>
+            </div>
 
-            <Link
-              href={`${base}/shelbot`}
-              className="btn btn-garis px-7 backdrop-blur-md"
+            {/* Maskot di dermaga. Di layar sempit ia berdiri di bawah
+                tombol, bukan menimpanya. */}
+            <div
+              className="relative flex justify-end"
+              style={{ transform: `translate3d(0, ${y * 0.05}px, 0)` }}
             >
-              {t(HOME.ctaSecondary, lang)}
-            </Link>
+              <Maskot
+                pose="lambai"
+                sapaan={id ? "Selamat datang" : "Welcome"}
+                className="h-[190px] w-auto sm:h-[250px] lg:h-[290px]"
+              />
+            </div>
           </div>
+        </div>
+
+        <dl className="fakta rise [animation-delay:240ms]">
+          {fakta.map((f) => (
+            <div key={f.l}>
+              <dt>{f.n}</dt>
+              <dd>{f.l}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <div className="flex items-center gap-4 py-7 text-[0.7rem] uppercase tracking-[0.16em] text-[var(--fg-faint)]">
+          <span aria-hidden className="isyarat-gulir" />
+          {id ? "Gulir untuk mulai" : "Scroll to begin"}
         </div>
       </div>
     </section>

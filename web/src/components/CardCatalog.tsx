@@ -95,6 +95,14 @@ export function CardCatalog({ cards, lang }: { cards: Kartu[]; lang: Lang }) {
     [],
   );
 
+  const [tampilan, setTampilan] = useState<"petak" | "daftar">("petak");
+
+  const hitungJenis = useMemo(() => {
+    const m: Record<string, number> = {};
+    for (const c of cards) m[c.type] = (m[c.type] ?? 0) + 1;
+    return m;
+  }, [cards]);
+
   const sumbu = useMemo(() => {
     const jenis: string[] = [];
     const zona: string[] = [];
@@ -142,11 +150,15 @@ export function CardCatalog({ cards, lang }: { cards: Kartu[]; lang: Lang }) {
         ubah={ubah}
         jumlah={hasil.length}
         bersih={bersih}
+        hitungJenis={hitungJenis}
+        total={cards.length}
+        tampilan={tampilan}
+        setTampilan={setTampilan}
       />
 
       {/* Petak dipasang ulang setiap penyaring berubah, jadi jumlah kartu
           yang sudah dimuat kembali ke awal tanpa efek tambahan. */}
-      <Petak key={tanya} hasil={hasil} lang={lang} />
+      <Petak key={tanya} hasil={hasil} lang={lang} tampilan={tampilan} />
 
       {hasil.length === 0 && (
         <div className="mt-16 text-center">
@@ -170,7 +182,15 @@ export function CardCatalog({ cards, lang }: { cards: Kartu[]; lang: Lang }) {
 
 /* ---------- Petak kartu ---------- */
 
-function Petak({ hasil, lang }: { hasil: Kartu[]; lang: Lang }) {
+function Petak({
+  hasil,
+  lang,
+  tampilan,
+}: {
+  hasil: Kartu[];
+  lang: Lang;
+  tampilan: "petak" | "daftar";
+}) {
   const id = lang === "id";
   const [tampil, setTampil] = useState(SEKALI_MUAT);
   const [buka, setBuka] = useState<Kartu | null>(null);
@@ -191,6 +211,35 @@ function Petak({ hasil, lang }: { hasil: Kartu[]; lang: Lang }) {
   return (
     <>
       {/* Lebar kolom tetap supaya rasio kartu terjaga di tiap lebar layar. */}
+      {tampilan === "daftar" ? (
+        <ul className="mt-9 overflow-hidden rounded-2xl border rule">
+          {hasil.slice(0, tampil).map((c) => (
+            <li key={c.code} className="border-b last:border-b-0 rule">
+              <button
+                type="button"
+                onClick={(e) => {
+                  asal.current = e.currentTarget;
+                  setBuka(c);
+                }}
+                className="baris-kartu"
+                style={{ "--pita": pita(c.type) } as React.CSSProperties}
+              >
+                <span className="mono text-[0.75rem] text-[var(--fg-faint)]">{c.code}</span>
+                <span className="hidden text-[0.72rem] font-semibold uppercase tracking-[0.1em] md:block" style={{ color: pita(c.type) }}>
+                  {namaJenis(c.type, lang)}
+                </span>
+                <span className="min-w-0">
+                  <span className="block truncate text-[0.95rem] font-medium">{c.title}</span>
+                  <span className="block truncate text-[0.78rem] text-[var(--fg-faint)]">{c.body}</span>
+                </span>
+                <span className="mono shrink-0 text-right text-[0.68rem] text-[var(--fg-faint)]">
+                  {c.zone ? namaZona(c.zone, lang) : c.phases.map((f) => (f === 0 ? labelFase(0, lang) : `F${f}`)).join(" · ")}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
       <ul className="mt-9 grid grid-cols-[repeat(auto-fill,minmax(15.5rem,1fr))] gap-5 sm:gap-6">
         {hasil.slice(0, tampil).map((c) => (
           <li key={c.code}>
@@ -208,6 +257,7 @@ function Petak({ hasil, lang }: { hasil: Kartu[]; lang: Lang }) {
           </li>
         ))}
       </ul>
+      )}
 
       <div ref={ujung} aria-hidden className="h-px" />
 
@@ -253,6 +303,10 @@ function Penyaring({
   ubah,
   jumlah,
   bersih,
+  hitungJenis,
+  total,
+  tampilan,
+  setTampilan,
 }: {
   lang: Lang;
   sumbu: { jenis: string[]; zona: string[]; fase: number[] };
@@ -260,11 +314,15 @@ function Penyaring({
   ubah: (b: Partial<Saring>) => void;
   jumlah: number;
   bersih: boolean;
+  hitungJenis: Record<string, number>;
+  total: number;
+  tampilan: "petak" | "daftar";
+  setTampilan: (t: "petak" | "daftar") => void;
 }) {
   const id = lang === "id";
 
   return (
-    <div className="rounded-2xl border bg-[var(--surface-2)] p-5 shadow-[var(--lift-1)] sm:p-6 rule">
+    <div className="rounded-2xl border bg-[color-mix(in_oklab,var(--surface-2)_88%,transparent)] p-5 shadow-[var(--lift-2)] backdrop-blur-md sm:p-6 rule">
       {/* Sumbu satu: jenis kartu. */}
       <div
         role="tablist"
@@ -275,6 +333,7 @@ function Penyaring({
           on={!saring.jenis}
           pilih={() => ubah({ jenis: "" })}
           label={id ? "Semua jenis" : "All types"}
+          hitung={total}
         />
         {sumbu.jenis.map((j) => (
           <Keping
@@ -282,6 +341,7 @@ function Penyaring({
             on={saring.jenis === j}
             pilih={() => ubah({ jenis: saring.jenis === j ? "" : j })}
             label={namaJenis(j, lang)}
+            hitung={hitungJenis[j]}
             warna={pita(j)}
             ikon={
               <span className="block h-[7px] w-[7px] rounded-full bg-current" />
@@ -353,9 +413,12 @@ function Penyaring({
         </div>
       </div>
 
-      <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tabular-nums text-[var(--fg-faint)]">
-        <span>
-          {jumlah} {id ? "kartu" : "cards"}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+      <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tabular-nums text-[var(--fg-faint)]">
+        <span className="mono text-[var(--fg)]">
+          {jumlah}
+          <span className="text-[var(--fg-faint)]"> / {total}</span>{" "}
+          {id ? "kartu" : "cards"}
         </span>
         <span aria-hidden>·</span>
         <span>
@@ -373,6 +436,20 @@ function Penyaring({
           </button>
         )}
       </p>
+      <div className="segmen !p-0.5" role="group" aria-label={id ? "Tampilan" : "View"}>
+        {(["petak", "daftar"] as const).map((v) => (
+          <button
+            key={v}
+            type="button"
+            aria-pressed={tampilan === v}
+            onClick={() => setTampilan(v)}
+            className="segmen-tab !min-h-0 !px-3 !py-1.5 !text-[0.75rem]"
+          >
+            {v === "petak" ? (id ? "Petak" : "Grid") : id ? "Daftar" : "List"}
+          </button>
+        ))}
+      </div>
+      </div>
     </div>
   );
 }
@@ -384,7 +461,9 @@ function Keping({
   warna,
   ikon,
   kecil,
+  hitung,
 }: {
+  hitung?: number;
   on: boolean;
   pilih: () => void;
   label: string;
@@ -413,6 +492,7 @@ function Keping({
         </span>
       )}
       {label}
+      {hitung !== undefined && <span className="hitung">{hitung}</span>}
     </button>
   );
 }

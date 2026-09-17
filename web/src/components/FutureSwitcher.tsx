@@ -28,57 +28,58 @@ export function FutureSwitcher({ lang }: { lang: Lang }) {
   return (
     <div ref={wadahRef} className="scene-wash">
       <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-        <p className="t-eyebrow">
+        <p className="bab mb-8">
+          <b>01 / 06</b>
           {lang === "id"
             ? "Fase 2 · Bayangkan masa depan"
             : "Phase 2 · Imagine futures"}
         </p>
 
-        <h2 className="t-h1 mt-5 max-w-[17ch]">
+        <h2 className="t-h1 max-w-[17ch]">
           {lang === "id"
             ? "Setiap meja menyusun tiga Samarinda, lalu memilih satu"
             : "Every table builds three Samarindas, then picks one"}
         </h2>
 
-        {/* Pemilih */}
-        <div
-          role="tablist"
-          aria-label={lang === "id" ? "Tiga masa depan" : "Three futures"}
-          className="mt-10 grid gap-3 sm:grid-cols-3"
-        >
-          {FUTURES.map((f, i) => {
-            const on = i === ke;
-            return (
-              <button
-                key={f.key}
-                role="tab"
-                aria-selected={on}
-                onClick={() => setKe(i)}
-                className={`group relative overflow-hidden rounded-2xl border p-5 text-left transition-all duration-500 ease-[var(--ease-out-soft)] rule ${
-                  on
-                    ? "bg-[var(--bg-raised)] shadow-[0_1px_0_0_var(--line)]"
-                    : "hover:bg-[var(--bg-raised)]/60"
-                }`}
-                style={on ? { borderColor: f.warna } : undefined}
-              >
-                <span
-                  aria-hidden
-                  className="block h-1 w-8 rounded-full transition-all duration-500"
-                  style={{
-                    background: f.warna,
-                    width: on ? "3.5rem" : "2rem",
-                    opacity: on ? 1 : 0.45,
-                  }}
-                />
-                <span className="mt-4 block text-[0.95rem] font-semibold">
-                  {t(f.nama, lang)}
-                </span>
-                <span className="mt-1 block text-[0.85rem] text-[var(--fg-faint)]">
-                  {t(f.label, lang)}
-                </span>
-              </button>
-            );
-          })}
+        {/* Pemilih: satu titik hari ini, tiga cabang menuju 2045. */}
+        <div className="mt-12 grid items-center gap-6 lg:grid-cols-[1.5fr_1fr] lg:gap-0">
+          <Cabang ke={ke} pilih={setKe} lang={lang} />
+
+          <div
+            role="tablist"
+            aria-label={lang === "id" ? "Tiga masa depan" : "Three futures"}
+            className="grid gap-3"
+          >
+            {FUTURES.map((f, i) => {
+              const on = i === ke;
+              return (
+                <button
+                  key={f.key}
+                  role="tab"
+                  aria-selected={on}
+                  onClick={() => setKe(i)}
+                  className="cabang-pilih"
+                  style={{ "--scene": f.warna } as React.CSSProperties}
+                >
+                  <span
+                    aria-hidden
+                    className="mono grid h-8 w-8 shrink-0 place-items-center rounded-full border text-[0.7rem] rule"
+                    style={on ? { background: f.warna, borderColor: f.warna, color: "#fff" } : undefined}
+                  >
+                    {String.fromCharCode(65 + i)}
+                  </span>
+                  <span>
+                    <span className="block text-[0.95rem] font-semibold">
+                      {t(f.nama, lang)}
+                    </span>
+                    <span className="mt-0.5 block text-[0.83rem] text-[var(--fg-faint)]">
+                      {t(f.label, lang)}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Adegan */}
@@ -98,6 +99,101 @@ export function FutureSwitcher({ lang }: { lang: Lang }) {
         </p>
       </div>
     </div>
+  );
+}
+
+/**
+ * Diagram cabang. Garis ini tidak mengukur apa pun: ia hanya
+ * menggambarkan bahwa ketiga masa depan berangkat dari keadaan hari
+ * ini yang sama, lalu berpisah. Tidak ada sumbu, tidak ada nilai.
+ */
+function Cabang({
+  ke,
+  pilih,
+  lang,
+}: {
+  ke: number;
+  pilih: (i: number) => void;
+  lang: Lang;
+}) {
+  const ujungY = [70, 170, 270];
+  const jalur = ujungY.map(
+    (y) => `M60 170 C 240 170, 300 ${y}, 470 ${y} L 560 ${y}`,
+  );
+
+  return (
+    <svg
+      viewBox="0 0 640 340"
+      className="hidden w-full lg:block"
+      role="img"
+      aria-label={
+        lang === "id"
+          ? "Tiga cabang masa depan berangkat dari keadaan hari ini menuju 2045"
+          : "Three future branches leaving today's situation toward 2045"
+      }
+    >
+      {/* Rel waktu */}
+      <line x1="60" y1="318" x2="600" y2="318" stroke="var(--line-strong)" />
+      <text x="60" y="336" fontSize="11" fill="var(--fg-faint)" className="mono">
+        {lang === "id" ? "HARI INI" : "TODAY"}
+      </text>
+      <text x="600" y="336" fontSize="11" fill="var(--fg-faint)" textAnchor="end" className="mono">
+        2045
+      </text>
+
+      {FUTURES.map((f, i) => {
+        const on = i === ke;
+        return (
+          <g
+            key={f.key}
+            onClick={() => pilih(i)}
+            className="cursor-pointer"
+            aria-hidden
+          >
+            {/* Wilayah klik yang lebih lebar dari garisnya. */}
+            <path d={jalur[i]} stroke="transparent" strokeWidth="26" fill="none" />
+            <path
+              d={jalur[i]}
+              className="cabang-jalur"
+              stroke={f.warna}
+              strokeWidth={on ? 4 : 1.6}
+              opacity={on ? 1 : 0.35}
+            />
+            {on && (
+              <path
+                d={jalur[i]}
+                className="cabang-jalur cabang-alir"
+                stroke="var(--bg)"
+                strokeWidth="2"
+              />
+            )}
+            <circle
+              cx="560"
+              cy={ujungY[i]}
+              r={on ? 11 : 7}
+              fill={on ? f.warna : "var(--bg)"}
+              stroke={f.warna}
+              strokeWidth="2"
+              className="transition-all duration-500"
+            />
+            <text
+              x="584"
+              y={ujungY[i] + 4}
+              fontSize="12"
+              fontWeight="600"
+              fill={on ? "var(--fg)" : "var(--fg-faint)"}
+              className="mono"
+            >
+              {String.fromCharCode(65 + i)}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Titik hari ini */}
+      <circle cx="60" cy="170" r="16" fill="var(--scene)" opacity="0.18" className="pulse-soft" style={{ transformBox: "fill-box", transformOrigin: "center" }} />
+      <circle cx="60" cy="170" r="8" fill="var(--fg)" />
+    </svg>
   );
 }
 

@@ -33,16 +33,27 @@ export function SectionHead({
   eyebrow,
   title,
   lead,
+  bab,
 }: {
   eyebrow?: string;
   title: string;
   lead?: string;
+  /** Nomor bab editorial, mis. "02 / 06". Label bab memakai eyebrow. */
+  bab?: string;
 }) {
   return (
-    <div className="measure">
-      {eyebrow && <p className="t-eyebrow">{eyebrow}</p>}
-      <h2 className={`t-h2 ${eyebrow ? "mt-4" : ""}`}>{title}</h2>
+    <div>
+      {bab && (
+        <p className="bab mb-8">
+          <b>{bab}</b>
+          {eyebrow}
+        </p>
+      )}
+      <div className="measure">
+      {eyebrow && !bab && <p className="t-eyebrow">{eyebrow}</p>}
+      <h2 className={`${bab ? "t-h1" : "t-h2"} ${eyebrow && !bab ? "mt-4" : ""}`}>{title}</h2>
       {lead && <p className="t-lead mt-5">{lead}</p>}
+      </div>
     </div>
   );
 }

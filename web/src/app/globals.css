@@ -923,3 +923,438 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .ubin:hover, .zona:hover, .segmen-tab:active { transform: none; }
 }
+
+/* ============================================================
+   Lima pola acuan
+   Earthshot: panggung editorial · Oceans Futures: cabang masa depan
+   Climate TRACE: konsol data · Global Fishing Watch: peta berlapis
+   Drawdown Explorer: penjelajah kartu
+   ============================================================ */
+
+:root {
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, monospace;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Permukaan gelap bersama untuk panggung, konsol, dan peta. Token teks
+   ditimpa supaya komponen di dalamnya otomatis terbaca. */
+.malam {
+  --fg: #eef3ec;
+  --fg-muted: #b7c7c0;
+  --fg-faint: #8fa59c;
+  --line: rgb(255 255 255 / 0.11);
+  --line-strong: rgb(255 255 255 / 0.24);
+  --bg: #071614;
+  --bg-raised: rgb(255 255 255 / 0.05);
+  --bg-sunken: rgb(0 0 0 / 0.25);
+  --surface-1: rgb(255 255 255 / 0.05);
+  color: var(--fg);
+  background: var(--bg);
+}
+
+/* ---------- Earthshot: panggung pembuka ---------- */
+
+.panggung {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(80% 70% at 78% 100%, rgb(22 160 111 / 0.28), transparent 70%),
+    radial-gradient(60% 60% at 10% 0%, rgb(53 200 255 / 0.16), transparent 70%),
+    linear-gradient(180deg, #06201f 0%, #071614 60%, #050f0e 100%);
+}
+.panggung-judul {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.9rem, 1.2rem + 6.4vw, 7.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-weight: 450;
+  font-variation-settings: "opsz" 144;
+  text-wrap: balance;
+}
+.panggung .tekan::after {
+  height: 0.045em;
+}
+
+/* Deret fakta di kaki panggung. */
+.fakta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 640px) {
+  .fakta { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.fakta > div {
+  padding: 1.25rem 1rem 1.4rem 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 640px) {
+  .fakta > div { border-bottom: 0; }
+  .fakta > div + div { padding-left: 1.5rem; border-left: 1px solid var(--line); }
+}
+.fakta dt {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.fakta dd {
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+}
+
+@keyframes gulir-isyarat {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+.isyarat-gulir {
+  position: relative;
+  width: 1px;
+  height: 2.75rem;
+  overflow: hidden;
+  background: var(--line);
+}
+.isyarat-gulir::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, var(--color-mint));
+  animation: gulir-isyarat 2.2s var(--ease-glide) infinite;
+}
+
+/* Penanda bab editorial: 01 — judul kecil, garis panjang. */
+.bab {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+.bab b {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--fg);
+}
+.bab::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ---------- Oceans Futures: cabang masa depan ---------- */
+
+.cabang-jalur {
+  fill: none;
+  stroke-linecap: round;
+  transition:
+    stroke-width var(--gerak-lambat) var(--ease-out-soft),
+    opacity var(--gerak-lambat) var(--ease-out-soft);
+}
+@keyframes alir-cabang {
+  to { stroke-dashoffset: -60; }
+}
+.cabang-alir {
+  stroke-dasharray: 2 10;
+  animation: alir-cabang 1.6s linear infinite;
+}
+.cabang-pilih {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0.95rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--bg-raised) 60%, transparent);
+  text-align: left;
+  transition:
+    border-color var(--gerak-sedang) var(--ease-out-soft),
+    background-color var(--gerak-sedang) var(--ease-out-soft),
+    transform var(--gerak-sedang) var(--ease-out-soft),
+    box-shadow var(--gerak-sedang) var(--ease-out-soft);
+}
+.cabang-pilih:hover { transform: translateX(3px); }
+.cabang-pilih:active { transform: scale(0.985); }
+.cabang-pilih[aria-selected="true"] {
+  background: var(--bg-raised);
+  border-color: var(--scene);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--scene) 16%, transparent), var(--lift-1);
+}
+
+/* ---------- Climate TRACE: konsol data ---------- */
+
+.konsol {
+  position: relative;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background:
+    radial-gradient(90% 60% at 100% 0%, rgb(53 200 255 / 0.08), transparent 60%),
+    linear-gradient(180deg, #0a1d1b, #071413);
+  box-shadow: var(--lift-3);
+}
+.konsol-kepala {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+.lampu {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: var(--color-mint);
+  box-shadow: 0 0 10px var(--color-mint);
+}
+
+/* Jalur sepuluh sel. Sel 0–2 berarsir: rentang kritis. */
+.jalur {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 3px;
+}
+.jalur > i {
+  height: 1.35rem;
+  border-radius: 3px;
+  background: rgb(255 255 255 / 0.06);
+  transition: background-color var(--gerak-lambat) var(--ease-out-soft), transform var(--gerak-sedang) var(--ease-out-soft);
+}
+.jalur > i[data-kritis] {
+  background-image: repeating-linear-gradient(135deg, rgb(255 110 110 / 0.22) 0 2px, transparent 2px 6px);
+}
+.jalur > i[data-isi] {
+  background: var(--warna);
+}
+.baris-indikator {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--line);
+  transition: background-color var(--gerak-sedang) var(--ease-out-soft);
+}
+.baris-indikator:last-child { border-bottom: 0; }
+.baris-indikator:hover,
+.baris-indikator:focus-visible { background: rgb(255 255 255 / 0.03); }
+.baris-indikator:hover .jalur > i[data-isi] { transform: scaleY(1.15); }
+
+/* Batang komposisi dek. */
+.batang {
+  display: flex;
+  height: 2.6rem;
+  gap: 2px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.batang > span {
+  position: relative;
+  min-width: 3px;
+  background: var(--warna);
+  opacity: 0.85;
+  transition: opacity var(--gerak-sedang) var(--ease-out-soft), flex-grow var(--gerak-lambat) var(--ease-glide);
+}
+.batang:hover > span { opacity: 0.35; }
+.batang > span:hover,
+.batang > span[data-on] { opacity: 1; }
+.kolom-fase {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  height: 9rem;
+}
+.kolom-fase > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  height: 100%;
+}
+.kolom-fase b {
+  display: block;
+  width: 100%;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(180deg, var(--color-aqua), color-mix(in oklab, var(--color-aqua) 35%, transparent));
+  transform-origin: bottom;
+  animation: tumbuh-kolom 1s var(--ease-glide) both;
+}
+@keyframes tumbuh-kolom {
+  from { transform: scaleY(0); }
+}
+
+/* ---------- Global Fishing Watch: peta berlapis ---------- */
+
+.peta {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 90% at 50% 55%, rgb(53 200 255 / 0.07), transparent 70%),
+    #061210;
+}
+@media (max-width: 639px) {
+  .peta { aspect-ratio: 4 / 5; }
+}
+.peta-kisi {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.peta-zona {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  z-index: 2;
+}
+.peta-zona-titik {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 12px;
+  border: 1px solid rgb(255 255 255 / 0.28);
+  background: rgb(8 30 28 / 0.85);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--fg);
+  transition:
+    transform var(--gerak-sedang) var(--ease-out-soft),
+    border-color var(--gerak-sedang) var(--ease-out-soft),
+    background-color var(--gerak-sedang) var(--ease-out-soft),
+    box-shadow var(--gerak-sedang) var(--ease-out-soft);
+}
+.peta-zona:hover .peta-zona-titik { transform: scale(1.08); border-color: var(--color-mint); }
+.peta-zona[aria-pressed="true"] .peta-zona-titik {
+  background: var(--color-mint);
+  border-color: var(--color-mint);
+  color: #06201f;
+  box-shadow: 0 0 0 6px rgb(79 240 192 / 0.18), 0 0 30px rgb(79 240 192 / 0.35);
+}
+.peta-zona-nama {
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  background: rgb(6 18 16 / 0.8);
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--fg-muted);
+}
+@keyframes denyut-cincin {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+.peta-cincin {
+  position: absolute;
+  inset: -1px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-ember);
+  animation: denyut-cincin 2.4s var(--ease-out-soft) infinite;
+  pointer-events: none;
+}
+.peta-lapis {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.8rem 0.35rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+  transition: background-color var(--gerak-sedang), border-color var(--gerak-sedang), color var(--gerak-sedang);
+}
+.peta-lapis i {
+  position: relative;
+  width: 1.9rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.14);
+  transition: background-color var(--gerak-sedang) var(--ease-out-soft);
+}
+.peta-lapis i::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(1.1rem - 4px);
+  height: calc(1.1rem - 4px);
+  border-radius: 999px;
+  background: #fff;
+  transition: transform var(--gerak-sedang) var(--ease-out-soft);
+}
+.peta-lapis[aria-pressed="true"] {
+  color: var(--fg);
+  border-color: var(--line-strong);
+  background: rgb(255 255 255 / 0.05);
+}
+.peta-lapis[aria-pressed="true"] i { background: var(--lapis, var(--color-mint)); }
+.peta-lapis[aria-pressed="true"] i::after { transform: translateX(0.8rem); }
+
+/* ---------- Drawdown Explorer: baris daftar kartu ---------- */
+
+.baris-kartu {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.9rem 1.1rem 0.9rem 1rem;
+  border-left: 3px solid var(--pita, var(--line));
+  background: var(--surface-1);
+  text-align: left;
+  transition: background-color var(--gerak-cepat), transform var(--gerak-sedang) var(--ease-out-soft);
+}
+.baris-kartu:hover { background: var(--bg-raised); transform: translateX(3px); }
+@media (min-width: 768px) {
+  .baris-kartu { grid-template-columns: 3.5rem 11rem 1fr auto; }
+}
+.hitung {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.4rem;
+  height: 1.15rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, currentColor 12%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isyarat-gulir::after, .cabang-alir, .peta-cincin, .kolom-fase b { animation: none; }
+  .cabang-pilih:hover, .baris-kartu:hover { transform: none; }
+}
+
+.segmen-tab[aria-pressed="true"] {
+  color: var(--fg);
+  font-weight: 500;
+  background: var(--bg-raised);
+  box-shadow: var(--lift-1);
+}
