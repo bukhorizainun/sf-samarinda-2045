@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { BRAND, COMPONENTS, HOME, PHASES, ROLES } from "@/content/site";
 import { Maskot } from "./Maskot";
+import { Ombak } from "./Ombak";
 import { t, type Lang } from "@/lib/i18n";
 
 /**
@@ -47,7 +48,7 @@ export function Hero({ lang }: { lang: Lang }) {
   ];
 
   return (
-    <section className="malam panggung">
+    <section className="malam panggung pb-10">
       {/* Lapis 1 — arus sungai */}
       <div
         aria-hidden
@@ -162,6 +163,9 @@ export function Hero({ lang }: { lang: Lang }) {
           {id ? "Gulir untuk mulai" : "Scroll to begin"}
         </div>
       </div>
+
+      {/* Kaki panggung dipotong lengkungan sungai, bukan garis lurus. */}
+      <Ombak posisi="bawah" />
     </section>
   );
 }

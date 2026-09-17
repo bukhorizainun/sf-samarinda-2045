@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
+import { Ombak } from "@/components/Ombak";
 import { FASIL } from "@/content/fasilitator";
 import { INDICATORS, UI } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
@@ -62,7 +63,8 @@ export default async function Fasilitator({
       </Section>
 
       {/* Menjaga waktu */}
-      <Section className="papan">
+      <Section className="papan berombak relative !py-0">
+        <Ombak posisi="atas" />
         <p className="bab mb-6"><b>02 / 03</b>{id ? "Selama sesi" : "During the session"}</p>
         <h2 className="t-h2">{t(FASIL.jalanJudul, lang)}</h2>
         <p className="t-body measure mt-4">
@@ -85,6 +87,7 @@ export default async function Fasilitator({
             </li>
           ))}
         </ol>
+        <Ombak posisi="bawah" />
       </Section>
 
       {/* Lembar validasi & aturan GenAI */}

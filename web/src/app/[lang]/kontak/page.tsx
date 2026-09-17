@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
+import { Tilt } from "@/components/Tilt";
 import { BRAND, PHASES, ROLES, UI } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
 
@@ -128,6 +129,7 @@ export default async function Kontak({
 
       {/* Ukuran satu sesi, supaya guru bisa menakar sebelum menghubungi. */}
       <Container className="pb-12">
+        <Tilt derajat={3}>
         <div className="malam konsol">
           <div className="konsol-kepala">
             <span className="flex items-center gap-2.5">
@@ -147,6 +149,7 @@ export default async function Kontak({
             ))}
           </dl>
         </div>
+        </Tilt>
       </Container>
 
       <Section className="band border-t rule">
@@ -157,8 +160,8 @@ export default async function Kontak({
 
         <div className="grid gap-5 sm:grid-cols-2">
           {saluran.map((s) => (
+            <Tilt key={s.kunci} derajat={4}>
             <div
-              key={s.kunci}
               className="saluran"
               style={{ "--aksen": s.aksen } as React.CSSProperties}
             >
@@ -195,6 +198,7 @@ export default async function Kontak({
                 </span>
               </a>
             </div>
+            </Tilt>
           ))}
         </div>
 

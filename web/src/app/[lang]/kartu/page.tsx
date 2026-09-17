@@ -4,6 +4,7 @@ import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { CardCatalog, type Kartu } from "@/components/CardCatalog";
 import { KomposisiDek } from "@/components/KomposisiDek";
+import { Tilt } from "@/components/Tilt";
 import { Container } from "@/components/Section";
 import cards from "@/content/cards.json";
 import { LANGS, type Lang } from "@/lib/i18n";
@@ -40,7 +41,9 @@ export default async function KatalogKartu({
 
 
       <Container className="pb-14">
-        <KomposisiDek kartu={cards as Kartu[]} lang={lang} fase={false} />
+        <Tilt derajat={3}>
+          <KomposisiDek kartu={cards as Kartu[]} lang={lang} fase={false} />
+        </Tilt>
       </Container>
 
       <Section className="band border-t rule !pt-10">

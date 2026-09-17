@@ -51,7 +51,7 @@ export function TumpukanDek({
   return (
     <div>
       <div
-        className="tumpukan"
+        className="tumpukan tumpukan-3d"
         onPointerEnter={() => (dijeda.current = true)}
         onPointerLeave={() => (dijeda.current = false)}
       >

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { Fraunces, Inter } from "next/font/google";
 import "../globals.css";
+import { Aliran } from "@/components/Aliran";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { THEME_SCRIPT } from "@/components/ThemeToggle";
@@ -93,6 +94,7 @@ export default async function LangLayout({
         >
           {t(UI.skip, lang)}
         </a>
+        <Aliran />
         <Header lang={lang} />
         <main id="isi">{children}</main>
         <Footer lang={lang} />

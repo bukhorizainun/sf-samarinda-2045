@@ -3,6 +3,7 @@ import { Container, Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { Shelbot } from "@/components/Shelbot";
+import { Tilt } from "@/components/Tilt";
 import { INDICATORS, LAB, PHASES, ROLES } from "@/content/site";
 import cards from "@/content/cards.json";
 import { LANGS, t, type Lang } from "@/lib/i18n";
@@ -34,6 +35,7 @@ export default async function HalamanShelbot({
       </KepalaHalaman>
 
       <Container className="pb-10">
+        <Tilt derajat={3}>
         <div className="malam konsol">
           <div className="konsol-kepala">
             <span className="flex items-center gap-2.5">
@@ -63,6 +65,7 @@ export default async function HalamanShelbot({
             </div>
           </dl>
         </div>
+        </Tilt>
       </Container>
 
       <Section className="band border-t rule !pt-12">

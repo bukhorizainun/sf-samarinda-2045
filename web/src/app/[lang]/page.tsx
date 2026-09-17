@@ -6,6 +6,8 @@ import { Hero } from "@/components/Hero";
 import { TumpukanDek } from "@/components/TumpukanDek";
 import { PetaPapan } from "@/components/PetaPapan";
 import { KomposisiDek } from "@/components/KomposisiDek";
+import { Tilt } from "@/components/Tilt";
+import { Ombak } from "@/components/Ombak";
 import cards from "@/content/cards.json";
 import type { Kartu } from "@/lib/kartu";
 import {
@@ -58,7 +60,9 @@ export default async function Home({
           lead={t(HOME.pillarsLead, lang)}
         />
         <div className="mt-12">
-          <IndicatorBalance lang={lang} />
+          <Tilt derajat={3}>
+            <IndicatorBalance lang={lang} />
+          </Tilt>
         </div>
         <p className="mt-8 text-sm text-[var(--fg-faint)] measure">
           {t(INDICATOR_SCALE, lang)}
@@ -104,7 +108,8 @@ export default async function Home({
       </Section>
 
       {/* ---------- Enam fase, sekilas ---------- */}
-      <Section className="papan">
+      <Section className="papan berombak relative !py-0">
+        <Ombak posisi="atas" />
         <SectionHead
           bab="05 / 06"
           eyebrow={lang === "id" ? "Perjalanan permainan" : "The arc of play"}
@@ -142,6 +147,7 @@ export default async function Home({
             </span>
           </Link>
         </div>
+        <Ombak posisi="bawah" />
       </Section>
 
       {/* ---------- Dek ---------- */}
@@ -179,7 +185,9 @@ export default async function Home({
           </div>
         </div>
         <div className="mt-16">
-          <KomposisiDek kartu={cards as Kartu[]} lang={lang} />
+          <Tilt derajat={3}>
+            <KomposisiDek kartu={cards as Kartu[]} lang={lang} />
+          </Tilt>
         </div>
       </Section>
 
