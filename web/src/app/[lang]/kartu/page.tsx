@@ -29,8 +29,8 @@ export default async function KatalogKartu({
         </h1>
         <p className="t-lead measure mt-6">
           {id
-            ? "Isi dek lengkap dalam sembilan jenis kartu, mulai dari peran dan skenario Samarinda sampai peluang, kejadian, dan bukti aksi. Klik satu kartu untuk membacanya utuh."
-            : "The full deck across nine card types, from roles and Samarinda scenarios to opportunities, events, and action evidence. Click a card to read it in full."}
+            ? "Isi dek lengkap dalam dua belas jenis kartu, mulai dari peran dan skenario Samarinda sampai peluang, kejadian, dan bukti aksi. Saring menurut jenis, fase, atau zona; klik satu kartu untuk membacanya utuh."
+            : "The full deck across twelve card types, from roles and Samarinda scenarios to opportunities, events, and action evidence. Filter by type, phase, or zone; click a card to read it in full."}
         </p>
       </Container>
 

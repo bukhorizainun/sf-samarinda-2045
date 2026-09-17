@@ -271,7 +271,7 @@ export const ROLES_NOTE: T = {
 export type Component = { count: string; label: T };
 
 export const COMPONENTS: Component[] = [
-  { count: "184", label: { id: "kartu dalam sembilan jenis", en: "cards across nine types" } },
+  { count: "184", label: { id: "kartu dalam dua belas jenis", en: "cards across twelve types" } },
   { count: "8", label: { id: "zona tematik di papan", en: "thematic zones on the board" } },
   { count: "6", label: { id: "jenis token sumber daya", en: "resource token types" } },
   { count: "5", label: { id: "pion peran", en: "role pawns" } },

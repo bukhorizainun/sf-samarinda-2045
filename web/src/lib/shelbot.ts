@@ -352,8 +352,8 @@ const NIAT: Niat[] = [
     jawab: (l) => ({
       teks:
         l === "id"
-          ? "Permainan ini dipakai di sekolah, kampus, dan komunitas. Satu sesi penuh sekitar sembilan puluh menit dengan lima pemain, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan.\n\nUntuk memesan atau bertanya lebih jauh, hubungi WhatsApp +62 812-5484-0507. Tautannya ada di halaman Kontak."
-          : "The game is used in schools, universities, and community groups. A full session runs about ninety minutes with five players, and a teacher can facilitate it without lengthy training. For a large class, several tables run at once and compare outcomes.\n\nTo order or ask anything further, reach us on WhatsApp at +62 812-5484-0507. The link is on the Contact page.",
+          ? "Permainan ini dipakai di sekolah, kampus, dan komunitas. Satu sesi penuh sekitar sembilan puluh menit dengan lima pemain, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan.\n\nUntuk memesan atau bertanya lebih jauh, hubungi WhatsApp +62 812-5484-0507 atau surel shelbot.2026@gmail.com. Keduanya ada di halaman Kontak."
+          : "The game is used in schools, universities, and community groups. A full session runs about ninety minutes with five players, and a teacher can facilitate it without lengthy training. For a large class, several tables run at once and compare outcomes.\n\nTo order or ask anything further, reach us on WhatsApp at +62 812-5484-0507 or by email at shelbot.2026@gmail.com. Both are on the Contact page.",
       lanjutan:
         l === "id"
           ? ["Berapa lama satu sesi?", "Perlu alat digital?", "Berapa pemainnya?"]
@@ -472,8 +472,8 @@ const NIAT: Niat[] = [
     jawab: (l) => ({
       teks:
         l === "id"
-          ? "Deknya 184 kartu dalam sembilan jenis: 5 Peran, 5 Tujuan Khusus, 12 Skenario Samarinda, 36 Faktor Masalah, Pendorong, dan Ketidakpastian, 40 Proyek Kecil, 10 Proyek Terbuka, 24 Peluang, 18 Kejadian, 24 Prompt GenAI, dan 10 Bukti Aksi.\n\nSemuanya bisa dibaca di halaman Katalog Kartu situs ini, dan aku bisa membacakan satu per satu — sebut judulnya atau kodenya, misalnya P01."
-          : "The deck holds 184 cards in nine types: 5 Role, 5 Special Goal, 12 Samarinda Scenario, 36 Problem Factor, Driver and Uncertainty, 40 Mini-Project, 10 Open Project, 24 Opportunity, 18 Event, 24 GenAI Prompt, and 10 Action Evidence.\n\nAll of them are on this site's Card Catalogue page, and I can read any of them out — name it or use its code, for instance P01.",
+          ? "Deknya 184 kartu dalam dua belas jenis: 5 Peran, 5 Tujuan Khusus, 12 Skenario Samarinda, 36 Faktor Masalah, Pendorong, dan Ketidakpastian, 40 Proyek Kecil, 10 Proyek Terbuka, 24 Peluang, 18 Kejadian, 24 Prompt GenAI, dan 10 Bukti Aksi.\n\nSemuanya bisa dibaca di halaman Katalog Kartu situs ini, dan aku bisa membacakan satu per satu — sebut judulnya atau kodenya, misalnya P01."
+          : "The deck holds 184 cards in twelve types: 5 Role, 5 Special Goal, 12 Samarinda Scenario, 36 Problem Factor, Driver and Uncertainty, 40 Mini-Project, 10 Open Project, 24 Opportunity, 18 Event, 24 GenAI Prompt, and 10 Action Evidence.\n\nAll of them are on this site's Card Catalogue page, and I can read any of them out — name it or use its code, for instance P01.",
       lanjutan:
         l === "id"
           ? ["Kartu tentang banjir", "Apa itu Proyek Kecil?", "Apa itu Kejadian?"]
