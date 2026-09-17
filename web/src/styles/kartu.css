@@ -1,0 +1,239 @@
+/* ============================================================
+   Muka kartu
+   Kartu di layar mengikuti kartu di meja: rasio 63 x 88 mm, pita
+   jenis di tepi kiri, ornamen keluarga di kepala, kaki bergaris.
+   Berkas ini hanya mengurus kartu; tokennya milik globals.css.
+   ============================================================ */
+
+/* ---------- Tangga permukaan ----------
+   Empat kedalaman bernama, menggantikan satu --bg-raised untuk
+   semua. Nol adalah halaman, tiga adalah lapis yang menimpa. */
+
+:root {
+  --surface-1: #ffffff;
+  --surface-2: #fbfcfe;
+  --surface-3: #ffffff;
+
+  --lift-1:
+    0 1px 2px rgb(10 20 32 / 0.05),
+    0 10px 24px -18px rgb(10 20 32 / 0.28);
+  --lift-2:
+    0 1px 2px rgb(10 20 32 / 0.06),
+    0 20px 44px -26px rgb(10 20 32 / 0.34);
+  --lift-3:
+    0 2px 6px rgb(10 20 32 / 0.08),
+    0 40px 90px -40px rgb(10 20 32 / 0.45);
+
+  /* Gerak: satu kurva, tiga durasi. */
+  --gerak-cepat: 120ms;
+  --gerak-sedang: 280ms;
+  --gerak-lambat: 520ms;
+}
+
+:root[data-theme="dark"] {
+  --surface-1: rgb(255 255 255 / 0.035);
+  --surface-2: rgb(255 255 255 / 0.055);
+  --surface-3: #0d1725;
+
+  --lift-1: inset 0 1px 0 0 rgb(255 255 255 / 0.05);
+  --lift-2:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.07),
+    0 20px 44px -30px rgb(0 0 0 / 0.8);
+  --lift-3:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.09),
+    0 40px 90px -40px rgb(0 0 0 / 0.9);
+}
+
+/* ---------- Kerangka kartu ---------- */
+
+.kartu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Di petak, kartu jauh lebih pendek dari kartu cetak: isi dek ini
+     pendek-pendek, dan 63x88 menyisakan lubang besar di tengah. Rasio
+     cetak yang sebenarnya hanya dipakai di panel rinci, tempat kartu
+     tampil sebagai benda, bukan sebagai baris bacaan. */
+  aspect-ratio: var(--kartu-rasio, 63 / 76);
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+  box-shadow: var(--lift-1);
+  overflow: hidden;
+  text-align: left;
+  isolation: isolate;
+  transition:
+    box-shadow var(--gerak-sedang) var(--ease-out-soft),
+    transform var(--gerak-sedang) var(--ease-out-soft),
+    border-color var(--gerak-sedang) var(--ease-out-soft);
+}
+
+/* Naik dua piksel, tidak miring, tidak membesar. Yang bertambah
+   terutama bayangannya. */
+.kartu:hover,
+.kartu:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--lift-2);
+  border-color: var(--line-strong);
+}
+
+/* Pita jenis. Satu isyarat warna yang terbaca saat mata memindai
+   petak, tanpa mewarnai teks. */
+.kartu::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--pita, var(--fg-faint));
+  z-index: 3;
+}
+
+/* Guilloche: garis rapat seperti pada kartu cetak. Menahan bidang
+   putih besar agar tidak terbaca sebagai kotak kosong. */
+.kartu::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
+  background-image: repeating-linear-gradient(
+      58deg,
+      color-mix(in oklab, var(--pita, var(--fg-faint)) 9%, transparent) 0 1px,
+      transparent 1px 7px
+    ),
+    repeating-linear-gradient(
+      -58deg,
+      color-mix(in oklab, var(--pita, var(--fg-faint)) 6%, transparent) 0 1px,
+      transparent 1px 11px
+    );
+  mask-image: linear-gradient(180deg, transparent 55%, #000 100%);
+}
+
+:root[data-theme="dark"] .kartu::after {
+  opacity: 0.8;
+}
+
+/* Kepala kartu: tempat ornamen keluarga duduk. */
+.kartu-kepala {
+  position: relative;
+  z-index: 2;
+  padding: 1.1rem 1.15rem 0 1.35rem;
+}
+
+.kartu-ornamen {
+  position: absolute;
+  inset: -1.6rem -1.6rem auto auto;
+  width: 11.5rem;
+  height: 11.5rem;
+  z-index: -1;
+  color: var(--pita, var(--fg-faint));
+  opacity: 0.3;
+  pointer-events: none;
+  mask-image: radial-gradient(
+    115% 115% at 100% 0%,
+    #000 42%,
+    transparent 82%
+  );
+}
+
+:root[data-theme="dark"] .kartu-ornamen {
+  opacity: 0.4;
+}
+
+/* Prosa mengambil sisa tinggi kartu dan meredup di batas bawahnya,
+   bukan terpotong mendadak. min-height nol supaya penampung lentur ini
+   benar-benar boleh menyusut, dan teks tidak pernah menembus kaki. */
+.kartu-prosa {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, #000 76%, transparent 100%);
+}
+
+.kartu-badan {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 1;
+  /* Judul tiga baris tidak boleh mendorong kaki kartu keluar bingkai:
+     penampung ini harus boleh menyusut, prosanya yang mengalah. */
+  min-height: 0;
+  flex-direction: column;
+  padding: 0.55rem 1.15rem 1.05rem 1.35rem;
+}
+
+/* Kaki kartu: garis pemisah setipis rambut, lalu barisan angka.
+   Tidak pernah ikut menyusut, berapa pun panjang prosanya. */
+.kartu-kaki {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+/* Keping sumber daya: tetap utuh, prosalah yang mengalah. */
+.kartu-keping {
+  flex-shrink: 0;
+}
+
+/* ---------- Membalik kartu ---------- */
+
+.balik {
+  perspective: 1400px;
+}
+
+.balik-isi {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--gerak-lambat) var(--ease-glide);
+}
+
+.balik[data-balik="ya"] .balik-isi {
+  transform: rotateY(180deg);
+}
+
+.balik-sisi {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.balik-belakang {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .balik-isi {
+    transition: none;
+  }
+}
+
+/* ---------- Punggung kartu ---------- */
+
+/* Punggung memakai motif keluarga yang sama, diperbesar dan dibuat
+   penuh. Yang dipegang pemain juga begitu. */
+.punggung {
+  background:
+    radial-gradient(
+      120% 90% at 50% 0%,
+      color-mix(in oklab, var(--pita) 14%, var(--surface-1)),
+      var(--surface-1) 70%
+    );
+}
+
+/* ---------- Batang dampak ---------- */
+
+.dampak-batang {
+  width: 5px;
+  border-radius: 999px;
+  transition: height var(--gerak-sedang) var(--ease-out-soft);
+}
