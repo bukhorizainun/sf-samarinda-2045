@@ -33,11 +33,24 @@ export function KartuMuka({
   const id = lang === "id";
   const warna = pita(kartu.type);
 
+  /* Sorotan mengikuti kursor. Titiknya ditulis sebagai variabel CSS
+     langsung ke simpulnya, jadi tidak ada render ulang React saat
+     tetikus bergerak. */
+  const ikuti = (e: React.PointerEvent<HTMLElement>) => {
+    const k = e.currentTarget;
+    const b = k.getBoundingClientRect();
+    k.style.setProperty("--sorot-x", `${((e.clientX - b.left) / b.width) * 100}%`);
+    k.style.setProperty("--sorot-y", `${((e.clientY - b.top) / b.height) * 100}%`);
+  };
+
   return (
     <article
       className={`kartu ${className}`}
       style={{ "--pita": warna } as React.CSSProperties}
+      onPointerMove={ikuti}
     >
+      <span aria-hidden className="kartu-sorot" />
+
       <header className="kartu-kepala">
         <Ornamen keluarga={keluarga(kartu.type)} className="kartu-ornamen" />
         <div className="flex items-baseline justify-between gap-2">

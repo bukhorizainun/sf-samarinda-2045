@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
 import { Tabs } from "@/components/Tabs";
+import { GarisFase } from "@/components/GarisFase";
 import {
   COMPONENTS,
   INDICATORS,
   INDICATOR_SCALE,
-  PHASES,
   ROLES,
   ROLES_NOTE,
   UI,
@@ -57,27 +57,7 @@ export default async function Permainan({
           {[
             /* ---- Enam fase ---- */
             (
-                <ol key="fase" className="space-y-px overflow-hidden rounded-2xl border bg-[var(--line)] rule">
-                  {PHASES.map((p) => (
-                    <li
-                      key={p.no}
-                      className="grid gap-4 bg-[var(--bg)] p-7 sm:grid-cols-[auto_1fr_auto] sm:items-baseline sm:gap-8 sm:p-8"
-                    >
-                      <span className="font-display text-3xl leading-none tabular-nums text-[var(--fg-faint)]">
-                        {String(p.no).padStart(2, "0")}
-                      </span>
-                      <div>
-                        <h3 className="t-h3">{t(p.name, lang)}</h3>
-                        <p className="t-body measure mt-2 text-[0.95rem]">
-                          {t(p.output, lang)}
-                        </p>
-                      </div>
-                      <span className="text-xs tabular-nums text-[var(--fg-faint)]">
-                        {p.time} {id ? "mnt" : "min"}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
+                <GarisFase key="fase" lang={lang} />
             ),
 
             /* ---- Lima peran ---- */

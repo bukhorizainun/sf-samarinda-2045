@@ -3,6 +3,9 @@ import { Section, SectionHead } from "@/components/Section";
 import { IndicatorBalance } from "@/components/IndicatorBalance";
 import { FutureSwitcher } from "@/components/FutureSwitcher";
 import { Hero } from "@/components/Hero";
+import { TumpukanDek } from "@/components/TumpukanDek";
+import cards from "@/content/cards.json";
+import type { Kartu } from "@/lib/kartu";
 import {
   BRAND,
   HOME,
@@ -12,6 +15,16 @@ import {
   UI,
 } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
+
+/* Satu kartu untuk tiap jenis, supaya tumpukan di beranda
+   memperlihatkan keragaman dek, bukan satu dek yang seragam. */
+const DEK: Kartu[] = (() => {
+  const pilih: Kartu[] = [];
+  for (const c of cards as Kartu[]) {
+    if (!pilih.some((k) => k.type === c.type)) pilih.push(c);
+  }
+  return pilih;
+})();
 
 export function generateStaticParams() {
   return LANGS.map((lang) => ({ lang }));
@@ -103,6 +116,41 @@ export default async function Home({
               →
             </span>
           </Link>
+        </div>
+      </Section>
+
+      {/* ---------- Dek ---------- */}
+      <Section className="border-t rule">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-20">
+          <TumpukanDek kartu={DEK} jumlahDek={cards.length} lang={lang} />
+
+          <div>
+            <p className="t-eyebrow">
+              {lang === "id" ? "Isi kotak" : "What is in the box"}
+            </p>
+            <h2 className="t-h2 mt-4 measure-tight">
+              {lang === "id"
+                ? "184 kartu, dua belas jenis, delapan zona kota"
+                : "184 cards, twelve types, eight city zones"}
+            </h2>
+            <p className="t-body measure mt-6">
+              {lang === "id"
+                ? "Peran, skenario Samarinda, faktor masalah, pendorong, ketidakpastian, proyek, peluang, kejadian, prompt GenAI, dan bukti aksi. Tiap kartu menyebut fase tempat ia dipakai, dan kartu proyek membawa biaya, dampak, risiko, serta satu aksi nyata yang bisa dikerjakan siswa."
+                : "Roles, Samarinda scenarios, problem factors, drivers, uncertainties, projects, opportunities, events, GenAI prompts, and action evidence. Each card names the phase it belongs to, and project cards carry cost, impact, risk, and one real-world action students can run."}
+            </p>
+            <Link
+              href={`${base}/kartu`}
+              className="group mt-9 inline-flex items-center gap-2 text-[0.9rem] font-medium"
+            >
+              {lang === "id" ? "Buka katalog kartu" : "Open the card catalogue"}
+              <span
+                aria-hidden
+                className="transition-transform duration-[var(--gerak-sedang)] ease-[var(--ease-out-soft)] group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </Link>
+          </div>
         </div>
       </Section>
 

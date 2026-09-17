@@ -237,3 +237,170 @@
   border-radius: 999px;
   transition: height var(--gerak-sedang) var(--ease-out-soft);
 }
+
+/* ============================================================
+   Garis waktu enam fase
+   Rel di tepi kiri, terisi mengikuti gulir. Simpul yang sudah
+   terlewat memakai warna adegan; yang belum tetap sewarna garis.
+   ============================================================ */
+
+.fase-rel {
+  position: relative;
+  padding-left: 2.6rem;
+}
+
+.fase-rel-dasar,
+.fase-rel-isi {
+  position: absolute;
+  left: 0.6rem;
+  top: 0.9rem;
+  bottom: 0.9rem;
+  width: 2px;
+  border-radius: 999px;
+}
+
+.fase-rel-dasar {
+  background: var(--line);
+}
+
+/* Bagian terisi tumbuh dari atas. Ujungnya meredup supaya batasnya
+   tidak terbaca sebagai garis potong. */
+.fase-rel-isi {
+  bottom: auto;
+  background: linear-gradient(
+    180deg,
+    var(--scene),
+    color-mix(in oklab, var(--scene) 30%, transparent)
+  );
+  transition: height var(--gerak-lambat) var(--ease-glide);
+}
+
+.fase-butir {
+  position: relative;
+  padding-block: 1.35rem 1.9rem;
+}
+
+.fase-butir + .fase-butir {
+  border-top: 1px solid var(--line);
+}
+
+/* Simpul fase. Cincin kosong sebelum terlewat, terisi sesudahnya. */
+.fase-simpul {
+  position: absolute;
+  left: -2.31rem;
+  top: 1.75rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  border: 2px solid var(--line-strong);
+  background: var(--bg);
+  transition:
+    border-color var(--gerak-sedang) var(--ease-out-soft),
+    background-color var(--gerak-sedang) var(--ease-out-soft),
+    box-shadow var(--gerak-sedang) var(--ease-out-soft);
+}
+
+.fase-butir[data-lewat="ya"] .fase-simpul {
+  border-color: var(--scene);
+  background: var(--scene);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--scene) 16%, transparent);
+}
+
+/* Fase yang belum terlewat sedikit mundur, tanpa sampai tak terbaca. */
+.fase-butir[data-lewat="tidak"] {
+  opacity: 0.62;
+  transition: opacity var(--gerak-lambat) var(--ease-glide);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fase-butir[data-lewat="tidak"] {
+    opacity: 1;
+  }
+  .fase-rel-isi {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Sorotan kursor pada kartu
+   Kilau lembut yang mengikuti pointer, sewarna pita jenis kartu.
+   Hanya untuk tetikus: pada layar sentuh tidak ada kursor untuk
+   diikuti, dan hover di sana justru menempel.
+   ============================================================ */
+
+@media (hover: hover) and (pointer: fine) {
+  .kartu-sorot {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(
+      15rem 15rem at var(--sorot-x, 50%) var(--sorot-y, 0%),
+      color-mix(in oklab, var(--pita) 16%, transparent),
+      transparent 70%
+    );
+    transition: opacity var(--gerak-sedang) var(--ease-out-soft);
+  }
+
+  .kartu:hover .kartu-sorot {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kartu-sorot {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Tumpukan dek
+   Kartu bertumpuk seperti di atas meja: yang di bawah sedikit
+   mundur, turun, dan miring. Perpindahan lapis memakai durasi
+   lambat yang sama dengan membalik kartu.
+   ============================================================ */
+
+.tumpukan {
+  position: relative;
+  width: 100%;
+  max-width: 18rem;
+  aspect-ratio: 63 / 76;
+}
+
+.tumpukan-lapis {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  transition:
+    transform var(--gerak-lambat) var(--ease-glide),
+    opacity var(--gerak-lambat) var(--ease-glide);
+}
+
+.tumpukan-lapis[data-lapis="0"] {
+  transform: none;
+}
+.tumpukan-lapis[data-lapis="1"] {
+  transform: translate3d(0, 14px, 0) scale(0.955) rotate(-1.4deg);
+  opacity: 0.85;
+}
+.tumpukan-lapis[data-lapis="2"] {
+  transform: translate3d(0, 27px, 0) scale(0.912) rotate(1.6deg);
+  opacity: 0.6;
+}
+.tumpukan-lapis[data-lapis="3"] {
+  transform: translate3d(0, 39px, 0) scale(0.872) rotate(-0.9deg);
+  opacity: 0.32;
+}
+
+/* Hanya kartu teratas yang menanggapi kursor; sisanya tumpukan. */
+.tumpukan-lapis:not([data-lapis="0"]) {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tumpukan-lapis {
+    transition: none;
+  }
+}
