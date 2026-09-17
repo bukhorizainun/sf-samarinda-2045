@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
+import { KepalaNongol } from "@/components/KepalaNongol";
 import { Tabs } from "@/components/Tabs";
 import {
   CHALLENGES,
@@ -45,7 +46,11 @@ export default async function Samarinda({
         <p className="t-lead measure mt-6">{t(SAMARINDA_INTRO, lang)}</p>
       </Container>
 
-      <Section className="!pt-6">
+      {/* Kepala yang nongol dari tepi halaman, timbul tenggelam
+          sambil melambai. Bawaannya milik halaman ini. */}
+      <KepalaNongol sosok="hakam" sisi="kiri" bawa="daun" />
+
+      <Section className="border-t rule !pt-6">
         <Tabs tabs={tabs} label={id ? "Bagian halaman" : "Page sections"}>
           {[
             /* ---- Kota & sungai ---- */

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
+import { KepalaNongol } from "@/components/KepalaNongol";
 import { CardCatalog, type Kartu } from "@/components/CardCatalog";
 import cards from "@/content/cards.json";
 import { LANGS, type Lang } from "@/lib/i18n";
@@ -34,7 +35,11 @@ export default async function KatalogKartu({
         </p>
       </Container>
 
-      <Section className="!pt-4">
+      {/* Kepala yang nongol dari tepi halaman, timbul tenggelam
+          sambil melambai. Bawaannya milik halaman ini. */}
+      <KepalaNongol sosok="shelly" sisi="kanan" bawa="kartu" />
+
+      <Section className="border-t rule !pt-4">
         <CardCatalog cards={cards as Kartu[]} lang={lang} />
       </Section>
     </>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
+import { KepalaNongol } from "@/components/KepalaNongol";
 import { FASIL } from "@/content/fasilitator";
 import { INDICATORS, UI } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
@@ -35,7 +36,11 @@ export default async function Fasilitator({
       </Container>
 
       {/* Sebelum mulai */}
-      <Section className="!pt-6">
+      {/* Kepala yang nongol dari tepi halaman, timbul tenggelam
+          sambil melambai. Bawaannya milik halaman ini. */}
+      <KepalaNongol sosok="shelly" sisi="kanan" bawa="pena" />
+
+      <Section className="border-t rule !pt-6">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.25fr] lg:gap-16">
           <div>
             <h2 className="t-h2">{t(FASIL.siapkanJudul, lang)}</h2>

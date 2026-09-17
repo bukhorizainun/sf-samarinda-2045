@@ -26,14 +26,31 @@ const KULIT_B = "#e9c19f"; // Hakam
 
 export type Pose = "lambai" | "amati" | "tanam";
 
+/** Bidang gambar, dipotong ke sosok yang sedang dibutuhkan. Angkanya
+ *  mengikuti pergeseran kedua sosok di dalam adegan. */
+const BIDANG = {
+  keduanya: "0 0 260 200",
+  hakam: "66 0 70 182",
+  shelly: "128 0 70 182",
+  /* Kepala dan bahu, dari ujung bulu enggang sampai pangkal lengan.
+     Tingginya berhenti di 92: di bawah itu lengan sisi dalam mulai
+     tergambar, dan ia masuk potongan sebagai puntung gelap. Dipakai
+     saat sosoknya nongol besar dari tepi halaman. */
+  "kepala-hakam": "72 0 50 92",
+  "kepala-shelly": "134 0 50 92",
+};
+
 export function Maskot({
   pose = "lambai",
   latar = true,
+  sosok = "keduanya",
   sapaan,
   className = "",
 }: {
   pose?: Pose;
   latar?: boolean;
+  /** Satu sosok saja, atau keduanya dalam satu adegan. */
+  sosok?: keyof typeof BIDANG;
   sapaan?: string;
   className?: string;
 }) {
@@ -58,10 +75,16 @@ export function Maskot({
   return (
     <svg
       ref={ref}
-      viewBox="0 0 260 200"
+      viewBox={BIDANG[sosok]}
       className={className}
       role="img"
-      aria-label="Shelly dan Hakam, maskot Samarinda 2045"
+      aria-label={
+        sosok === "keduanya"
+          ? "Shelly dan Hakam, maskot Samarinda 2045"
+          : sosok.endsWith("shelly")
+            ? "Shelly, maskot Samarinda 2045"
+            : "Hakam, maskot Samarinda 2045"
+      }
       onMouseEnter={() => setDekat(true)}
       onMouseLeave={() => setDekat(false)}
     >

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
+import { KepalaNongol } from "@/components/KepalaNongol";
 import { BRAND, UI } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
 
@@ -41,7 +42,11 @@ export default async function Kontak({
         </p>
       </Container>
 
-      <Section className="!pt-6">
+      {/* Kepala yang nongol dari tepi halaman, timbul tenggelam
+          sambil melambai. Bawaannya milik halaman ini. */}
+      <KepalaNongol sosok="shelly" sisi="kanan" bawa="surat" />
+
+      <Section className="border-t rule !pt-6">
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <div className="rounded-2xl border p-8 rule">
             <h2 className="t-h3">

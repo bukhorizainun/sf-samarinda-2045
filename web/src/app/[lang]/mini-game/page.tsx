@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
+import { KepalaNongol } from "@/components/KepalaNongol";
 import { MiniGame } from "@/components/MiniGame";
 import { LANGS, type Lang } from "@/lib/i18n";
 
@@ -33,7 +34,11 @@ export default async function MiniGamePage({
         </p>
       </Container>
 
-      <Section className="!pt-4">
+      {/* Kepala yang nongol dari tepi halaman, timbul tenggelam
+          sambil melambai. Bawaannya milik halaman ini. */}
+      <KepalaNongol sosok="hakam" sisi="kiri" bawa="dadu" />
+
+      <Section className="border-t rule !pt-4">
         <MiniGame lang={lang} />
       </Section>
     </>
