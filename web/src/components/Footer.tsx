@@ -46,6 +46,12 @@ export function Footer({ lang }: { lang: Lang }) {
                 ? "Edisi berjalan. Papan, kartu, dan isunya disusun untuk Samarinda; kerangka permainannya bisa dipindahkan ke kota lain."
                 : "The current edition. Board, cards, and issues are built for Samarinda; the framework itself can travel to other cities."}
             </p>
+            <a
+              href="mailto:shelbot.2026@gmail.com"
+              className="mt-5 inline-block text-sm text-[var(--fg-muted)] underline decoration-[var(--line-strong)] underline-offset-4 transition-colors hover:text-[var(--fg)]"
+            >
+              shelbot.2026@gmail.com
+            </a>
           </div>
         </div>
 

@@ -13,6 +13,10 @@ export const metadata: Metadata = { title: "Kontak" };
 const WHATSAPP = "6281254840507";
 const WHATSAPP_TAMPIL = "+62 812-5484-0507";
 
+/** Surel resmi. Dipakai untuk permintaan yang perlu lampiran atau jejak
+ *  tertulis: undangan sekolah, kerja sama, dan pertanyaan panjang. */
+const SUREL = "shelbot.2026@gmail.com";
+
 export default async function Kontak({
   params,
 }: {
@@ -46,8 +50,8 @@ export default async function Kontak({
 
             <p className="t-body mt-4 text-[0.95rem]">
               {id
-                ? "Cara tercepat lewat WhatsApp. Sebutkan sekolah atau komunitasmu, perkiraan jumlah peserta, dan kapan rencananya dimainkan."
-                : "WhatsApp is the quickest route. Tell us your school or community, roughly how many people, and when you plan to play."}
+                ? "Cara tercepat lewat WhatsApp. Sebutkan sekolah atau komunitasmu, perkiraan jumlah peserta, dan kapan rencananya dimainkan. Untuk surat resmi, undangan bersurat, atau pertanyaan yang perlu lampiran, kirim ke surel."
+                : "WhatsApp is the quickest route. Tell us your school or community, roughly how many people, and when you plan to play. For formal letters, written invitations, or anything needing an attachment, use email."}
             </p>
 
             <a
@@ -61,6 +65,22 @@ export default async function Kontak({
               </svg>
               {WHATSAPP_TAMPIL}
               <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </a>
+
+            <a
+              href={`mailto:${SUREL}?subject=${encodeURIComponent(
+                id
+                  ? "Futures in Action — permintaan sesi"
+                  : "Futures in Action — session request",
+              )}`}
+              className="group mt-3 inline-flex items-center gap-3 rounded-full border px-6 py-3.5 text-[0.9rem] transition-colors duration-[var(--gerak-cepat)] hover:bg-[var(--bg-sunken)] rule"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.6">
+                <rect x="2.75" y="4.75" width="18.5" height="14.5" rx="2.5" />
+                <path d="M3.5 7.5l8.5 6 8.5-6" strokeLinecap="round" />
+              </svg>
+              {SUREL}
+              <span aria-hidden className="transition-transform duration-[var(--gerak-sedang)] group-hover:translate-x-1">→</span>
             </a>
 
             <p className="mt-8 border-t pt-6 text-sm leading-relaxed text-[var(--fg-faint)] rule">
