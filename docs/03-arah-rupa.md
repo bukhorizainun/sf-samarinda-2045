@@ -76,6 +76,63 @@ saat `prefers-reduced-motion` menyala.
 2. Tab di dalam halaman. Isi berganti tanpa memuat ulang, alamat `#` ikut berubah.
 3. Panel rinci yang menimpa. Dipakai di katalog kartu.
 
+## Muka kartu
+
+Kartu di layar mengikuti kartu di meja, bukan kotak isi seragam. Rasio cetak
+63 x 88 mm dipakai utuh di panel rinci; di petak katalog kartunya dipendekkan
+menjadi 63 x 76 karena naskah dek ini pendek-pendek dan rasio penuh menyisakan
+lubang di tengah kartu.
+
+Anatominya tetap sama untuk dua belas jenis: pita jenis 3 px di tepi kiri,
+ornamen keluarga di kepala, judul, prosa yang meredup di batas bawahnya, lalu
+kaki yang membawa zona atau fase dan empat batang dampak. Yang berbeda hanya
+bidang yang memang tertulis di kartu itu. Biaya proyek muncul sebagai keping
+sumber daya, seperti token yang benar-benar dibayarkan.
+
+### Enam keluarga motif
+
+Dua belas jenis dikelompokkan menjadi enam keluarga rupa, masing-masing dengan
+satu motif garis:
+
+| Keluarga | Jenis kartu | Motif |
+|---|---|---|
+| Peran | Role, Special Goal | lima simpul terikat di atas jalinan kepang |
+| Konteks | Samarinda Scenario, Problem Factor | kelokan Mahakam dengan deret pucuk rebung |
+| Gaya dorong | Driver, Uncertainty | tumpal menajam, lalu garis putus |
+| Proyek | Mini-Project, Open Project | kisi anyam dengan sebagian modul terisi |
+| Kesempatan | Opportunity, Event | mata punai yang memancar |
+| Bukti | GenAI Prompt, Action Evidence | tumpal bertingkat dan satu tanda centang |
+
+Motifnya diturunkan dari kosakata anyaman dan dari bentuk sungai, disederhanakan
+menjadi garis geometris. Tidak ada motif upacara yang dikutip: yang dipinjam tata
+jalinannya, bukan lambangnya. Semua digambar dengan `currentColor` dalam kotak
+100 x 100, jadi warnanya selalu datang dari pita jenis kartunya.
+
+## Yang dibuang dari putaran sebelumnya
+
+Tiga hal dicabut karena membuat situs terbaca sebagai halaman bawaan, bukan
+halaman yang dirancang:
+
+1. Aurora yang melayang 26 detik. Bidang warnanya tetap, gerakannya berhenti.
+2. Judul bergradasi berjalan. Huruf kembali bertinta penuh; yang berwarna hanya
+   garis rambut setebal 0,055 em di bawah satu kata yang ditekankan. Di tema
+   terang, huruf bergradasi juga jatuh di bawah ambang kontras.
+3. Tombol utama bergradasi. Diganti tinta pekat dengan bayangan dua tingkat.
+
+Gradasi merek tetap dipakai, tetapi hanya pada tanda SF, garis bawah tab, dan
+penunjuk tab di dalam halaman.
+
+`--fg-faint` digelapkan dari `#72869b` ke `#5f7082` supaya keterangan kecil
+mencapai 4,78:1 di atas dasar terang.
+
+## Halaman sistem rupa
+
+`/id/gaya` dan `/en/gaya` memuat seluruh bahan rupa dalam satu halaman: token
+warna, tangga tipografi, tangga permukaan, kaidah gerak, enam motif, dan dua
+belas muka kartu. Halaman itu dibangun dari komponen yang sama dengan halaman
+sungguhan, jadi ia tidak bisa berbeda dari situsnya. Tidak masuk menu dan tidak
+diindeks; ia rujukan kerja, bukan halaman pengunjung.
+
 ## Yang belum dikerjakan
 
 - Halaman "Rakit Masa Depan" (lapis City Lab): pilih tiga proyek dari dek, empat

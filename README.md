@@ -14,7 +14,7 @@ panduan resmi klien.
 | `docs/` | Halaman siap terbit untuk GitHub Pages, plus catatan internal |
 | `brand/` | Tanda, aturan pakainya, dan arsip empat putaran sebelumnya |
 | `tools/` | Pembangun tanda dan halaman. `build_brand.py` satu-satunya sumber geometri tanda |
-| `web/` | Aplikasi situs. Belum dibuat, menunggu Langkah 02 |
+| `web/` | Aplikasi situs. Next.js 16 + Tailwind 4, terbit statis |
 
 Dua berkas HTML di akar folder adalah dokumen penawaran awal beserta rencana eksekusinya.
 
@@ -26,7 +26,7 @@ Dua berkas HTML di akar folder adalah dokumen penawaran awal beserta rencana eks
 | 01 | Logo & arah visual | Putaran kelima: monogram dirapatkan 2,22 → 1,59 dan bidang ditambahkan, menunggu pilihan bidang |
 | — | Koreksi nama merek dari panduan klien | Selesai |
 | — | Merek utama berpindah ke SF, Futures in Action jadi semboyan | Selesai di sisi rupa |
-| 02 | Halaman inti & isi | Belum mulai |
+| 02 | Halaman inti & isi | Berjalan: katalog kartu, sistem rupa, dan halaman `/gaya` selesai |
 | 03 | Dashboard 4 pilar | Belum mulai |
 | 04 | GenAI Futures Lab Companion | Belum mulai |
 | 05 | Panel admin | Belum mulai |
