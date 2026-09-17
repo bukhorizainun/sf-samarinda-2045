@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
+import { Halaman } from "@/components/Halaman";
 import { Shelbot } from "@/components/Shelbot";
 import { LAB } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
@@ -19,7 +20,7 @@ export default async function HalamanShelbot({
   const id = lang === "id";
 
   return (
-    <>
+    <Halaman motif="enggang" adegan="hutan">
       <Container className="pb-10 pt-14 sm:pt-20">
         <p className="t-eyebrow">
           {id ? "Pemandu permainan" : "Game guide"}
@@ -58,6 +59,6 @@ export default async function HalamanShelbot({
           </aside>
         </div>
       </Section>
-    </>
+    </Halaman>
   );
 }

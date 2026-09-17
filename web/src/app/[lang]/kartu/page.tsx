@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
-import { KepalaNongol } from "@/components/KepalaNongol";
+import { Halaman } from "@/components/Halaman";
 import { CardCatalog, type Kartu } from "@/components/CardCatalog";
 import cards from "@/content/cards.json";
 import { LANGS, type Lang } from "@/lib/i18n";
@@ -20,7 +20,7 @@ export default async function KatalogKartu({
   const id = lang === "id";
 
   return (
-    <>
+    <Halaman motif="tenun" adegan="tenun">
       <Container className="pb-10 pt-14 sm:pt-20">
         <p className="t-eyebrow">{id ? "Katalog Kartu" : "Card Catalogue"}</p>
         <h1 className="t-h1 mt-4 max-w-[18ch]">
@@ -35,13 +35,10 @@ export default async function KatalogKartu({
         </p>
       </Container>
 
-      {/* Kepala yang nongol dari tepi halaman, timbul tenggelam
-          sambil melambai. Bawaannya milik halaman ini. */}
-      <KepalaNongol sosok="shelly" sisi="kanan" bawa="kartu" />
 
       <Section className="border-t rule !pt-4">
         <CardCatalog cards={cards as Kartu[]} lang={lang} />
       </Section>
-    </>
+    </Halaman>
   );
 }

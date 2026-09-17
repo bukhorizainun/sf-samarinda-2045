@@ -406,98 +406,116 @@
 }
 
 /* ============================================================
-   Sosok yang menyandar dari tepi halaman
-   Setinggi sepertiga layar, badannya ikut, dan miring menyandar
-   ke dalam halaman. Timbul, melambai, lalu tenggelam lagi.
-   Tingginya nol di dalam tata letak, jadi ia tidak pernah
-   menggeser isi halaman.
+   Latar bermotif khas Samarinda
+   Gambar garis besar jauh di belakang teks, setipis enam persen.
+   Menahan halaman agar tidak terbaca sebagai lembar putih berisi
+   tulisan saja, tanpa menyentuh kontras teks sedikit pun.
    ============================================================ */
 
-.nongol {
-  position: relative;
-  height: 0;
-  pointer-events: none;
-  /* Di belakang isi halaman: kalau keduanya bertemu, yang menang
-     selalu teks yang sedang dibaca. */
+/* Hanya menempati pita pembuka halaman. Kalau dibiarkan setinggi
+   seluruh halaman, gambarnya jatuh di tengah halaman panjang dan tidak
+   pernah terlihat. */
+.latar-khas {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: clamp(20rem, 42vh, 30rem);
   z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--fg);
 }
 
-.nongol-sosok {
+.latar-khas svg {
   position: absolute;
-  bottom: -2px;
-  right: 0;
-  /* Yang dipatok tingginya, bukan lebarnya: sosok ini jangkung, dan
-     lebar yang dipatok membuatnya menjulang jauh di atas layar. */
-  height: clamp(15rem, 40vh, 26rem);
-  transform-origin: 80% 100%;
-  /* Tenggelam: seluruhnya di balik tepi layar. */
-  transform: translateX(88%) rotate(-3deg);
-  filter: drop-shadow(0 20px 34px rgb(10 20 32 / 0.14));
-}
-
-.nongol-kiri .nongol-sosok {
-  right: auto;
-  left: 0;
-  transform-origin: 20% 100%;
-  transform: scaleX(-1) translateX(88%) rotate(-3deg);
-}
-
-.nongol-sosok-gambar {
-  display: block;
-  height: 100%;
-  width: auto;
-}
-
-/* Benda yang dipegang, menempel pada telapak tangan sisi dalam. */
-.nongol-bawa {
-  position: absolute;
-  left: 9%;
-  top: 60%;
-  width: 21%;
+  right: -3%;
+  top: 52%;
+  width: clamp(22rem, 46vw, 44rem);
   height: auto;
+  transform: translateY(-50%);
+  opacity: 0.16;
 }
 
-/* ---- Timbul tenggelam ----
-   Satu putaran lima belas detik: menyandar masuk, melambai sebentar,
-   lalu mundur lagi dan menunggu lama. Yang jarang terasa hidup; yang
-   terus-menerus mengganggu orang yang sedang membaca.
-
-   Miringnya bertambah saat ia masuk: sosoknya terbaca sedang
-   menjulurkan badan ke dalam halaman, bukan meluncur mendatar. */
-
-@keyframes nongol-timbul {
-  0%, 4% { transform: translateX(88%) rotate(-3deg); }
-  13%, 45% { transform: translateX(14%) rotate(-9deg); }
-  56%, 100% { transform: translateX(88%) rotate(-3deg); }
+:root[data-theme="dark"] .latar-khas svg {
+  opacity: 0.22;
 }
 
-@keyframes nongol-timbul-kiri {
-  0%, 4% { transform: scaleX(-1) translateX(88%) rotate(-3deg); }
-  13%, 45% { transform: scaleX(-1) translateX(14%) rotate(-9deg); }
-  56%, 100% { transform: scaleX(-1) translateX(88%) rotate(-3deg); }
-}
-
-.nongol[data-jalan="ya"] .nongol-sosok {
-  animation: nongol-timbul 15s var(--ease-glide) infinite;
-}
-
-.nongol-kiri[data-jalan="ya"] .nongol-sosok {
-  animation-name: nongol-timbul-kiri;
-}
-
-/* Gerak dikurangi, atau bagian ini di luar pandangan: ia tinggal diam,
-   setengah menyandar, sebagai gambar biasa. */
-.nongol[data-jalan="tidak"] .nongol-sosok {
-  transform: translateX(26%) rotate(-8deg);
-}
-
-.nongol-kiri[data-jalan="tidak"] .nongol-sosok {
-  transform: scaleX(-1) translateX(26%) rotate(-8deg);
-}
-
-/* Layar sempit: sosoknya mengecil, supaya kolom teks tetap lapang. */
-@media (max-width: 40rem) {
-  .nongol-sosok {
-    height: 11rem;
+/* Layar sempit: motifnya menepi dan menipis lagi, supaya prosa tetap
+   berdiri sendiri. */
+@media (max-width: 48rem) {
+  .latar-khas svg {
+    right: -18%;
+    width: 30rem;
+    opacity: 0.12;
   }
+}
+
+
+/* ============================================================
+   Irama halaman
+   Tiap halaman punya satu warna adegan sendiri. Warna itu mengalir
+   ke penanda, garis, dan bidang — tidak pernah ke teks, jadi
+   kontras bacaan tidak berubah sedikit pun.
+   ============================================================ */
+
+.halaman {
+  position: relative;
+}
+
+/* Isi halaman selalu di atas motif latar. */
+.halaman > :not(.latar-khas) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Bagian berselang diberi warna adegan yang sangat tipis, supaya mata
+   punya tempat berhenti saat menggulir halaman panjang. */
+/* Warnanya masuk sebagai gradasi yang memudar ke bawah, bukan bidang
+   rata. Bidang rata pada kadar serendah ini terbaca sebagai abu-abu
+   kotor; gradasi terbaca sebagai cahaya. */
+.halaman > section:nth-of-type(odd) {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--scene) 6%, transparent),
+    color-mix(in oklab, var(--scene) 1.5%, transparent) 62%,
+    transparent
+  );
+}
+
+:root[data-theme="dark"] .halaman > section:nth-of-type(odd) {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--scene) 10%, transparent),
+    transparent 70%
+  );
+}
+
+/* Garis pemisah bagian mengambil warna adegan, memudar di kedua ujung:
+   garis abu-abu lurus membuat halaman terasa seperti borang. */
+.halaman > section {
+  border-top: 0;
+  position: relative;
+}
+
+.halaman > section::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--scene) 38%, transparent) 22%,
+    color-mix(in oklab, var(--scene) 38%, transparent) 78%,
+    transparent
+  );
+}
+
+.halaman > section:first-of-type::before {
+  display: none;
+}
+
+/* Kutipan tebal di tengah prosa memakai warna adegan pada garis tepinya. */
+.halaman blockquote,
+.halaman .kutipan {
+  border-left-color: var(--scene);
 }

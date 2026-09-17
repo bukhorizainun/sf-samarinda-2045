@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
-import { KepalaNongol } from "@/components/KepalaNongol";
+import { Halaman } from "@/components/Halaman";
 import { BRAND, UI } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
 
@@ -27,7 +27,7 @@ export default async function Kontak({
   const id = lang === "id";
 
   return (
-    <>
+    <Halaman motif="amplang" adegan="pangan">
       <Container className="pb-10 pt-14 sm:pt-20">
         <p className="t-eyebrow">{id ? "Kontak" : "Contact"}</p>
         <h1 className="t-h1 mt-4 max-w-[16ch]">
@@ -42,9 +42,6 @@ export default async function Kontak({
         </p>
       </Container>
 
-      {/* Kepala yang nongol dari tepi halaman, timbul tenggelam
-          sambil melambai. Bawaannya milik halaman ini. */}
-      <KepalaNongol sosok="shelly" sisi="kanan" bawa="surat" />
 
       <Section className="border-t rule !pt-6">
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
@@ -132,6 +129,6 @@ export default async function Kontak({
           </div>
         </div>
       </Section>
-    </>
+    </Halaman>
   );
 }

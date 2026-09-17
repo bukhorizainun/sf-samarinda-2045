@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section } from "@/components/Section";
-import { KepalaNongol } from "@/components/KepalaNongol";
+import { Halaman } from "@/components/Halaman";
 import { Tabs } from "@/components/Tabs";
 import { GarisFase } from "@/components/GarisFase";
 import {
@@ -38,7 +38,7 @@ export default async function Permainan({
   ];
 
   return (
-    <>
+    <Halaman motif="lamin" adegan="kayu">
       <Container className="pb-10 pt-14 sm:pt-20">
         <p className="t-eyebrow">{id ? "Tentang Permainan" : "The Game"}</p>
         <h1 className="t-h1 mt-4 max-w-[20ch]">
@@ -53,9 +53,6 @@ export default async function Permainan({
         </p>
       </Container>
 
-      {/* Kepala yang nongol dari tepi halaman, timbul tenggelam
-          sambil melambai. Bawaannya milik halaman ini. */}
-      <KepalaNongol sosok="hakam" sisi="kanan" bawa="dadah" />
 
       <Section className="border-t rule !pt-6">
         <Tabs tabs={tabs} label={id ? "Bagian halaman" : "Page sections"}>
@@ -184,6 +181,6 @@ export default async function Permainan({
           ]}
         </Tabs>
       </Section>
-    </>
+    </Halaman>
   );
 }
