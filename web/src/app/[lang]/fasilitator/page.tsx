@@ -42,6 +42,7 @@ export default async function Fasilitator({
       <Section className="band border-t rule">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.25fr] lg:gap-16">
           <div>
+            <p className="bab mb-6"><b>01 / 03</b>{id ? "Sebelum mulai" : "Before you start"}</p>
             <h2 className="t-h2">{t(FASIL.siapkanJudul, lang)}</h2>
             <p className="t-body mt-4 text-[0.95rem]">
               {id
@@ -62,6 +63,7 @@ export default async function Fasilitator({
 
       {/* Menjaga waktu */}
       <Section className="papan">
+        <p className="bab mb-6"><b>02 / 03</b>{id ? "Selama sesi" : "During the session"}</p>
         <h2 className="t-h2">{t(FASIL.jalanJudul, lang)}</h2>
         <p className="t-body measure mt-4">
           {id
@@ -89,6 +91,7 @@ export default async function Fasilitator({
       <Section className="border-t rule">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
+            <p className="bab mb-6"><b>03 / 03</b>{id ? "Menutup sesi" : "Closing the session"}</p>
             <h2 className="t-h2">{t(FASIL.periksaJudul, lang)}</h2>
             <p className="t-body mt-3 text-[0.95rem]">{t(FASIL.periksaLead, lang)}</p>
             <ul className="mt-8 space-y-4">

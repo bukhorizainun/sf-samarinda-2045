@@ -4,6 +4,9 @@ import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { Tabs } from "@/components/Tabs";
 import { GarisFase } from "@/components/GarisFase";
+import { KomposisiDek } from "@/components/KomposisiDek";
+import cards from "@/content/cards.json";
+import type { Kartu } from "@/lib/kartu";
 import {
   COMPONENTS,
   INDICATORS,
@@ -137,7 +140,7 @@ export default async function Permainan({
                       ))}
                     </dl>
                   </div>
-                  <div className="papan rounded-3xl p-6 sm:p-8">
+                  <div className="papan self-start rounded-3xl p-6 sm:p-8">
                     <p className="t-eyebrow">
                       {id ? "Delapan zona tematik" : "Eight thematic zones"}
                     </p>
@@ -149,11 +152,14 @@ export default async function Permainan({
                         </li>
                       ))}
                     </ul>
-                    <p className="t-body mt-7 text-[0.925rem]">
+                    <p className="t-body mt-7 text-[0.925rem] !text-[var(--fg-muted)]">
                       {id
                         ? "Enam jenis token sumber daya beredar di antara pemain: Nature, Energy, Funds, Knowledge, Community, dan Technology."
                         : "Six kinds of resource token circulate between players: Nature, Energy, Funds, Knowledge, Community, and Technology."}
                     </p>
+                  </div>
+                  <div className="lg:col-span-2">
+                    <KomposisiDek kartu={cards as Kartu[]} lang={lang} />
                   </div>
                 </div>
             ),

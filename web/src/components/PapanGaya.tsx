@@ -137,6 +137,138 @@ export function PapanGaya({ cards, lang }: { cards: Kartu[]; lang: Lang }) {
 
       <Bagian
         lebar
+        judul={id ? "Bahan halaman" : "Page materials"}
+        catatan={
+          id
+            ? "Lima pola yang dipakai ulang di seluruh situs: penanda bab, keping label adegan, tab segmen, ubin dan petak papan, serta jalur data sepuluh sel. Semuanya memakai token yang sama dengan halaman sungguhan."
+            : "Five patterns reused across the site: the chapter marker, the scene label chip, segmented tabs, tiles and board squares, and the ten-cell data track. All of them ride the same tokens the real pages use."
+        }
+      >
+        <div className="space-y-10">
+          <div>
+            <Label kode=".bab" />
+            <p className="bab mt-3">
+              <b>03 / 06</b>
+              {id ? "Papan" : "The board"}
+            </p>
+          </div>
+
+          <div className="grid gap-8 sm:grid-cols-2">
+            <div>
+              <Label kode=".keping-adegan" />
+              <p className="keping-adegan mt-3">
+                {id ? "Latar permainan" : "The setting"}
+              </p>
+            </div>
+            <div>
+              <Label kode=".segmen / .segmen-tab" />
+              <div className="segmen mt-3">
+                <span className="segmen-tab" aria-selected="true">
+                  {id ? "Enam Fase" : "Six Phases"}
+                </span>
+                <span className="segmen-tab">
+                  {id ? "Lima Peran" : "Five Roles"}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-3">
+            <div>
+              <Label kode=".ubin" />
+              <div className="ubin mt-3">
+                <span className="token token-kecil">1</span>
+                <p className="mt-4 text-[0.9rem] font-medium">
+                  {id ? "Ubin isi" : "Content tile"}
+                </p>
+                <p className="t-body mt-1.5 text-[0.85rem]">
+                  {id
+                    ? "Permukaan terang, naik tiga piksel saat disorot."
+                    : "A light surface that lifts three pixels on hover."}
+                </p>
+              </div>
+            </div>
+            <div className="sm:col-span-2">
+              <Label kode=".papan / .petak / .token / .zona" />
+              <div className="papan mt-3 rounded-2xl p-5">
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="petak">
+                    <span className="token">4</span>
+                    <p className="text-[0.9rem] font-medium">
+                      {id ? "Petak papan" : "Board square"}
+                    </p>
+                  </div>
+                  <ul className="grid grid-cols-2 gap-2.5">
+                    <li className="zona">
+                      <span>01</span>
+                      {id ? "Hijau" : "Green"}
+                    </li>
+                    <li className="zona">
+                      <span>07</span>
+                      {id ? "Sungai" : "River"}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <Label kode=".malam / .konsol / .jalur / .peta-lapis" />
+            <div className="malam konsol mt-3">
+              <div className="konsol-kepala">
+                <span className="flex items-center gap-2.5">
+                  <span aria-hidden className="lampu" />
+                  {id ? "Panel data" : "Data panel"}
+                </span>
+                <span className="mono normal-case tracking-normal">
+                  {id ? "contoh" : "sample"}
+                </span>
+              </div>
+              <div className="p-5">
+                <div className="flex flex-wrap gap-2">
+                  <span
+                    className="peta-lapis"
+                    aria-pressed="true"
+                    style={
+                      { "--lapis": "var(--color-mint)" } as React.CSSProperties
+                    }
+                  >
+                    <i aria-hidden />
+                    {id ? "Lapis nyala" : "Layer on"}
+                  </span>
+                  <span className="peta-lapis" aria-pressed="false">
+                    <i aria-hidden />
+                    {id ? "Lapis mati" : "Layer off"}
+                  </span>
+                </div>
+                <div
+                  className="jalur mt-5"
+                  style={
+                    { "--warna": "var(--color-env)" } as React.CSSProperties
+                  }
+                >
+                  {Array.from({ length: 10 }, (_, i) => (
+                    <i
+                      key={i}
+                      data-kritis={i < 3 ? "" : undefined}
+                      data-isi={i < 5 ? "" : undefined}
+                    />
+                  ))}
+                </div>
+                <p className="mono mt-2 text-[0.62rem] text-[var(--fg-faint)]">
+                  {id
+                    ? "sel 0–2 berarsir: rentang kritis"
+                    : "cells 0–2 hatched: the critical range"}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Bagian>
+
+      <Bagian
+        lebar
         judul={id ? "Enam keluarga motif" : "Six ornament families"}
         catatan={
           id
@@ -257,5 +389,15 @@ function Petak({
         ))}
       </ul>
     </div>
+  );
+}
+
+/** Nama kelas di atas tiap contoh, supaya papan ini bisa dipakai
+ *  sebagai rujukan saat menulis halaman baru. */
+function Label({ kode }: { kode: string }) {
+  return (
+    <code className="font-mono text-[0.68rem] text-[var(--fg-faint)]">
+      {kode}
+    </code>
   );
 }
