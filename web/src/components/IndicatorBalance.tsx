@@ -84,7 +84,7 @@ export function IndicatorBalance({ lang }: { lang: Lang }) {
               </div>
               <div className="mono mt-1.5 flex justify-between text-[0.62rem] text-[var(--fg-faint)]">
                 <span>0</span>
-                <span className="text-[#ff9b9b]">
+                <span className="text-[var(--kritis)]">
                   {id ? "kritis di bawah 3" : "critical below 3"}
                 </span>
                 <span>10</span>

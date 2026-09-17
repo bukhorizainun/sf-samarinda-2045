@@ -22,6 +22,7 @@ export default async function MiniGamePage({
   return (
     <Halaman motif="jembatan" adegan="langit">
       <KepalaHalaman
+        pendamping="keduanya"
         eyebrow={id ? "Mini game" : "Mini game"}
         lebar="16ch"
         title={

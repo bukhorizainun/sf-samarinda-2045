@@ -1,4 +1,5 @@
 import { Container } from "./Section";
+import { Pendamping } from "./Pendamping";
 
 /**
  * Pembuka halaman dalam. Satu susunan untuk semua halaman, supaya
@@ -10,6 +11,7 @@ export function KepalaHalaman({
   title,
   lead,
   lebar = "18ch",
+  pendamping,
   children,
 }: {
   eyebrow: string;
@@ -17,10 +19,13 @@ export function KepalaHalaman({
   lead?: string;
   /** Lebar maksimal judul, agar patahan barisnya tetap rapi. */
   lebar?: string;
+  /** Sosok yang menemani kepala halaman ini. Tiap halaman memakai
+   *  sosok dan sikap sendiri, jadi halaman tidak terasa sama. */
+  pendamping?: "shelly" | "hakam" | "keduanya";
   children?: React.ReactNode;
 }) {
   return (
-    <Container className="kepala-halaman pb-12 pt-14 sm:pb-16 sm:pt-20">
+    <Container className="kepala-halaman relative pb-12 pt-14 sm:pb-16 sm:pt-20">
       <p className="keping-adegan rise">{eyebrow}</p>
       <h1
         className="t-h1 rise mt-6 [animation-delay:60ms]"
@@ -32,6 +37,17 @@ export function KepalaHalaman({
         <p className="t-lead measure rise mt-6 [animation-delay:120ms]">{lead}</p>
       )}
       {children && <div className="rise [animation-delay:180ms]">{children}</div>}
+
+      {pendamping && (
+        <Pendamping
+          sosok={pendamping}
+          className={`absolute bottom-6 right-5 sm:right-8 ${
+            pendamping === "keduanya"
+              ? "w-[190px] lg:w-[240px]"
+              : "w-[96px] lg:w-[120px]"
+          }`}
+        />
+      )}
     </Container>
   );
 }

@@ -14,6 +14,8 @@ import { useEffect, useRef, useState } from "react";
  *   lambai — menyambut di dermaga, dipakai di pembuka halaman
  *   amati  — berdiri diam memandang sungai; tidak ada yang ditanam
  *   tanam  — keduanya menanam, dan tunasnya tumbuh dari tanah
+ *   terbang— naik ketinting yang melayang, didampingi enggang
+ *   loncat — meloncat sekali saat bagiannya masuk pandangan
  *
  * `latar` mematikan sungai, perahu, dan papan dermaga, supaya sosoknya bisa
  * ditumpangkan pada adegan lain.
@@ -24,7 +26,7 @@ const ANGGOTA = "#243040";
 const KULIT_A = "#f3d3b8"; // Shelly
 const KULIT_B = "#e9c19f"; // Hakam
 
-export type Pose = "lambai" | "amati" | "tanam";
+export type Pose = "lambai" | "amati" | "tanam" | "terbang" | "loncat";
 
 /** Bidang gambar, dipotong ke sosok yang sedang dibutuhkan. Angkanya
  *  mengikuti pergeseran kedua sosok di dalam adegan. */
@@ -99,7 +101,91 @@ export function Maskot({
         </linearGradient>
       </defs>
 
-      {latar && (
+      {pose === "terbang" && (
+        <g aria-hidden>
+          {/* Awan tipis, bergerak berlawanan arah supaya terasa melintas. */}
+          <g className="mk-awan" fill="var(--fg)" opacity="0.08">
+            <ellipse cx="46" cy="40" rx="30" ry="9" />
+            <ellipse cx="214" cy="26" rx="22" ry="7" />
+            <ellipse cx="120" cy="18" rx="16" ry="5" />
+          </g>
+
+          {/* Enggang gading: badan, sayap yang mengepak, paruh besar
+              dengan balung di atasnya. Itu ciri yang membuatnya
+              enggang, bukan burung mana pun. */}
+          <g className="mk-enggang">
+            {/* Badan dan ekor panjang */}
+            <path
+              d="M30 82 C 30 74, 36 69, 45 69 C 54 69, 60 74, 60 81 C 60 87, 54 91, 45 91 C 36 91, 30 88, 30 82 Z"
+              fill="var(--fg)"
+              opacity="0.62"
+            />
+            <path d="M30 82 L10 88 L14 80 L10 73 Z" fill="var(--fg)" opacity="0.5" />
+            {/* Sayap yang mengepak */}
+            <path
+              className="mk-sayap"
+              d="M44 72 C 40 58, 45 49, 55 45 C 56 57, 52 67, 48 74 Z"
+              fill="var(--color-ember)"
+              opacity="0.8"
+            />
+            {/* Kepala, paruh melengkung, dan balung */}
+            <circle cx="60" cy="76" r="6.5" fill="var(--fg)" opacity="0.62" />
+            <path d="M65 75 C 73 73, 80 75, 84 78 C 78 80, 70 81, 65 80 Z" fill="var(--color-ember)" />
+            <path d="M66 71 C 72 67, 79 68, 83 71 C 77 72, 71 73, 66 74 Z" fill="var(--color-ember)" opacity="0.75" />
+            <circle cx="61" cy="74" r="1.3" fill="var(--bg-raised)" />
+          </g>
+        </g>
+      )}
+
+      {/* Ketinting yang melayang: perahu bermotor kecil, kendaraan
+          sehari-hari di Mahakam. Di sini ia jadi kendaraan terbang. */}
+      {pose === "terbang" && (
+        <g className="mk-ketinting" aria-hidden>
+          {/* Lambung: haluan dan buritan naik, seperti ketinting di
+              Mahakam. Dua nada supaya sisi dalamnya terbaca. */}
+          <path
+            d="M46 162 C 52 182, 90 190, 134 190 C 178 190, 216 182, 224 162 C 196 172, 160 176, 134 176 C 108 176, 74 172, 46 162 Z"
+            fill="var(--color-ulin)"
+            opacity="0.85"
+          />
+          <path
+            d="M46 162 C 74 172, 108 176, 134 176 C 160 176, 196 172, 224 162 L218 158 L52 158 Z"
+            fill="var(--color-ember)"
+            opacity="0.55"
+          />
+          {/* Tumpal: deret pucuk rebung di lambung. */}
+          <g fill="var(--bg-raised)" opacity="0.6">
+            {[70, 92, 114, 136, 158, 180, 200].map((x) => (
+              <path key={x} d={`M${x} 164 l6 0 l-3 6 Z`} />
+            ))}
+          </g>
+          {/* Galah mesin tempel dan baling kecil di buritan. */}
+          <path d="M224 168 L250 152" stroke="var(--fg)" strokeWidth="2.4" opacity="0.5" strokeLinecap="round" />
+          <circle cx="252" cy="150" r="4.5" fill="none" stroke="var(--fg)" strokeWidth="1.8" opacity="0.5" />
+          {/* Riak di bawah lambung: tanda ia benar-benar melayang. */}
+          <g stroke="var(--color-aqua)" strokeWidth="1.6" fill="none" opacity="0.4" strokeLinecap="round">
+            <path d="M66 196 q10 -5 20 0" />
+            <path d="M112 199 q10 -5 20 0" />
+            <path d="M158 196 q10 -5 20 0" />
+          </g>
+        </g>
+      )}
+
+      {/* Bayangan yang memipih saat sosoknya meloncat. */}
+      {pose === "loncat" && (
+        <ellipse
+          className="mk-bayang"
+          cx="130"
+          cy="184"
+          rx="52"
+          ry="6"
+          fill="var(--fg)"
+          opacity="0.14"
+          aria-hidden
+        />
+      )}
+
+      {latar && pose !== "terbang" && (
         <>
           {/* Sungai dan perahu yang lewat */}
           <g opacity="0.5">
@@ -173,7 +259,15 @@ export function Maskot({
       )}
 
       <g
-        className={pose === "amati" ? undefined : "mk-apung"}
+        className={
+          pose === "amati"
+            ? undefined
+            : pose === "terbang"
+              ? "mk-terbang"
+              : pose === "loncat"
+                ? "mk-loncat"
+                : "mk-apung"
+        }
         style={{ transform: `translateX(${lirik * 0.4}px)` }}
       >
         {/* ---------- Hakam ---------- */}
@@ -340,6 +434,20 @@ function Lengan({
     strokeLinecap: "round" as const,
   };
 
+  if (dalam && (pose === "terbang" || pose === "loncat")) {
+    return sisi === "kiri" ? (
+      <>
+        <line x1="8" y1="94" x2="2" y2="112" {...garis} />
+        <circle cx="1" cy="114" r="3.4" fill={kulit} />
+      </>
+    ) : (
+      <>
+        <line x1="38" y1="94" x2="44" y2="112" {...garis} />
+        <circle cx="45" cy="114" r="3.4" fill={kulit} />
+      </>
+    );
+  }
+
   if (dalam) {
     return sisi === "kiri" ? (
       <>
@@ -381,6 +489,21 @@ function Lengan({
         <line x1="38" y1="98" x2="43" y2="120" {...garis} />
         <circle cx="44" cy="122" r="3.4" fill={kulit} />
       </>
+    );
+  }
+
+  // Terbang dan meloncat: kedua tangan terangkat.
+  if (pose === "terbang" || pose === "loncat") {
+    return sisi === "kiri" ? (
+      <g className="mk-angkat-b">
+        <line x1="8" y1="96" x2="-2" y2="74" {...garis} />
+        <circle cx="-3" cy="72" r="3.4" fill={kulit} />
+      </g>
+    ) : (
+      <g className="mk-angkat-a">
+        <line x1="38" y1="96" x2="48" y2="74" {...garis} />
+        <circle cx="49" cy="72" r="3.4" fill={kulit} />
+      </g>
     );
   }
 

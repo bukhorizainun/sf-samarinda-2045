@@ -44,6 +44,7 @@ export default async function Permainan({
   return (
     <Halaman motif="lamin" adegan="kayu">
       <KepalaHalaman
+        pendamping="hakam"
         eyebrow={id ? "Tentang Permainan" : "The Game"}
         lebar="20ch"
         title={

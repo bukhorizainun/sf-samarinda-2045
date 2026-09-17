@@ -25,6 +25,7 @@ export default async function HalamanShelbot({
   return (
     <Halaman motif="enggang" adegan="hutan">
       <KepalaHalaman
+        pendamping="hakam"
         eyebrow={id ? "Pemandu permainan" : "Game guide"}
         title={t(LAB.title, lang)}
         lead={t(LAB.lead, lang)}

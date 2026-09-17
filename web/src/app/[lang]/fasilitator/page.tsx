@@ -28,6 +28,7 @@ export default async function Fasilitator({
   return (
     <Halaman motif="perahu" adegan="hutan">
       <KepalaHalaman
+        pendamping="keduanya"
         eyebrow={id ? "Untuk fasilitator" : "For facilitators"}
         lebar="17ch"
         title={
