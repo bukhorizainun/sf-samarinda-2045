@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../styles/kartu.css";
 
 /* ============================================================
    SF — Sustainable Futures
@@ -57,7 +58,7 @@
   --bg-sunken: var(--color-paper-3);
   --fg: #0a1420;
   --fg-muted: #47586b;
-  --fg-faint: #72869b;
+  --fg-faint: #5f7082;   /* 4,78:1 di atas --bg; AA untuk teks kecil */
   --line: rgb(10 20 32 / 0.09);
   --line-strong: rgb(10 20 32 / 0.2);
   --glow: 0 0 60px -12px var(--scene);
@@ -239,8 +240,8 @@ body::after {
   height: 130%;
   z-index: -1;
   pointer-events: none;
-  filter: blur(80px) saturate(150%);
-  opacity: 0.42;
+  filter: blur(90px) saturate(125%);
+  opacity: 0.22;
 }
 
 :root[data-theme="dark"] .aurora {
@@ -253,7 +254,6 @@ body::after {
   display: block;
   border-radius: 50%;
   mix-blend-mode: multiply;
-  animation: drift 26s var(--ease-glide) infinite alternate;
 }
 
 :root[data-theme="dark"] .aurora span {
@@ -273,8 +273,6 @@ body::after {
   right: -4vw;
   top: -4vw;
   background: radial-gradient(circle, var(--color-iris), transparent 62%);
-  animation-delay: -8s;
-  animation-duration: 32s;
 }
 .aurora span:nth-child(3) {
   width: 52vw;
@@ -282,43 +280,34 @@ body::after {
   left: 22vw;
   top: 18vw;
   background: radial-gradient(circle, var(--color-mint), transparent 64%);
-  animation-delay: -16s;
-  animation-duration: 38s;
-}
-
-@keyframes drift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(4vw, 3vw, 0) scale(1.12);
-  }
-  100% {
-    transform: translate3d(-3vw, 5vw, 0) scale(0.95);
-  }
 }
 
 /* ---------- Teks bergradasi ---------- */
 
-.grad-text {
+/* Penekanan satu kata.
+   Huruf tetap bertinta penuh; yang berwarna hanya garis rambut di
+   bawahnya. Judul besar bergradasi terbaca sebagai hiasan, dan di
+   tema terang kontrasnya jatuh di bawah ambang keterbacaan. */
+.tekan {
+  position: relative;
+  white-space: nowrap;
+}
+
+.tekan::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.06em;
+  height: 0.055em;
+  border-radius: 999px;
   background-image: linear-gradient(
     100deg,
     var(--color-mint),
-    var(--color-aqua) 34%,
-    var(--color-iris) 68%,
+    var(--color-aqua) 38%,
+    var(--color-iris) 74%,
     var(--color-ember)
   );
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: pan 14s linear infinite;
-}
-
-@keyframes pan {
-  to {
-    background-position: 220% 0;
-  }
 }
 
 /* Gradasi merek, dipakai pada tanda dan garis tipis. */

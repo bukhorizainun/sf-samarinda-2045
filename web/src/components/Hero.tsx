@@ -106,12 +106,12 @@ export function Hero({ lang }: { lang: Lang }) {
           <h1 className="t-display mt-7 max-w-[16ch]">
             {id ? (
               <>
-                Hari ini kita <span className="grad-text">memutuskan</span>.
+                Hari ini kita <span className="tekan">memutuskan</span>.
                 Pada 2045, kita melihat akibatnya.
               </>
             ) : (
               <>
-                We <span className="grad-text">decide</span> today. In 2045 we
+                We <span className="tekan">decide</span> today. In 2045 we
                 meet what it made.
               </>
             )}
@@ -122,15 +122,15 @@ export function Hero({ lang }: { lang: Lang }) {
           <div className="mt-11 flex flex-wrap items-center gap-3">
             <Link
               href={`${base}/permainan`}
-              className="group relative overflow-hidden rounded-full px-7 py-3.5 text-[0.9rem] font-medium text-[var(--color-abyss)] transition-transform duration-500 ease-[var(--ease-glide)] hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-[var(--fg)] px-7 py-3.5 text-[0.9rem] font-medium text-[var(--bg)] shadow-[var(--lift-1)] transition-[transform,box-shadow] duration-[var(--gerak-sedang)] ease-[var(--ease-out-soft)] hover:-translate-y-0.5 hover:shadow-[var(--lift-2)]"
             >
-              <span aria-hidden className="absolute inset-0 sf-gradient" />
+              {t(HOME.ctaPrimary, lang)}
               <span
                 aria-hidden
-                className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                style={{ boxShadow: "0 18px 60px -18px var(--color-aqua)" }}
-              />
-              <span className="relative">{t(HOME.ctaPrimary, lang)}</span>
+                className="transition-transform duration-[var(--gerak-sedang)] ease-[var(--ease-out-soft)] group-hover:translate-x-1"
+              >
+                →
+              </span>
             </Link>
 
             <Link

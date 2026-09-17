@@ -417,7 +417,7 @@ export function MiniGame({ lang }: { lang: Lang }) {
         <div className="p-8 sm:p-12">
           <p className="t-eyebrow">{t(MG_UI.hasil, lang)}</p>
           <p className="mt-5 font-display text-6xl tabular-nums">{skor}</p>
-          <h2 className="t-h2 mt-4 sf-gradient-text">{t(tingkat.gelar, lang)}</h2>
+          <h2 className="t-h2 mt-4">{t(tingkat.gelar, lang)}</h2>
           <p className="t-lead measure mt-4">{t(tingkat.pesan, lang)}</p>
 
           <div className="mt-9 flex flex-wrap gap-3">

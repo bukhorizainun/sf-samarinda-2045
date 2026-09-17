@@ -110,7 +110,7 @@ export default async function Home({
       <Section className="border-t rule">
         <div className="measure">
           <h2 className="t-h1">{t(HOME.closingTitle, lang)}</h2>
-          <p className="mt-6 text-xl leading-relaxed sf-gradient-text sm:text-2xl">
+          <p className="mt-6 text-xl leading-relaxed sm:text-2xl">
             {t(HOME.closingBody, lang)}
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
