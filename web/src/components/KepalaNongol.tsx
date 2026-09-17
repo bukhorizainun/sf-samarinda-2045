@@ -5,12 +5,12 @@ import { Maskot } from "./Maskot";
 import { useGerakDikurangi } from "@/lib/gerak";
 
 /**
- * Kepala yang nongol dari tepi halaman.
+ * Sosok besar yang menyandar dari tepi halaman.
  *
- * Satu kepala besar, terpotong tepi layar, timbul lalu tenggelam lagi
- * sambil melambai ke pembaca. Ini unsur desain halaman, bukan tempelan
- * maskot: ukurannya sebesar judul, ia duduk pada garis pemisah bagian,
- * dan warnanya ikut tema.
+ * Bukan tempelan maskot di pojok: tingginya sepertiga layar, badannya
+ * ikut tergambar, dan ia miring menyandar ke dalam halaman seolah
+ * bersandar pada garis pemisah bagian. Ia timbul, melambai, lalu
+ * tenggelam lagi di balik tepi layar.
  *
  * Tiap halaman punya ulahnya sendiri. Yang berbeda bukan cuma sosok dan
  * sisinya, tetapi juga benda yang dibawa: kartu di katalog, daun di
@@ -63,19 +63,16 @@ export function KepalaNongol({
       aria-hidden
     >
       <div className="nongol-sosok">
-        {/* Pose "tanam" dipilih bukan karena ada yang ditanam: hanya
-            pose "amati" yang bermulut datar, jadi semua pose lain
-            memberi senyum — dan pada pose ini kedua lengan adegan
-            menggantung di bawah batas potongan, sehingga tidak ada
-            puntung lengan yang ikut masuk. Tangan yang melambai di
-            sini digambar tersendiri. */}
+        {/* Sosok utuh, dengan lambaian yang sudah menjadi bagian adegan
+            aslinya. Yang ditambahkan di sini hanya benda yang dipegang
+            tangan satunya. */}
         <Maskot
-          pose="tanam"
+          pose="lambai"
           latar={false}
-          sosok={sosok === "shelly" ? "kepala-shelly" : "kepala-hakam"}
-          className="nongol-kepala"
+          sosok={sosok}
+          className="nongol-sosok-gambar"
         />
-        <Tangan bawa={bawa} sosok={sosok} />
+        {bawa !== "dadah" && <Bawa bawa={bawa} />}
       </div>
     </div>
   );
@@ -87,118 +84,59 @@ export function KepalaNongol({
 const KERTAS = "#f7f9fc";
 const TINTA = "#243040";
 
-/** Tangan yang melambai, beserta benda yang dibawanya. */
-function Tangan({ bawa, sosok }: { bawa: Bawaan; sosok: "shelly" | "hakam" }) {
-  const kulit = sosok === "shelly" ? "#f3d3b8" : "#e9c19f";
-
-  /* Warna baju mengikuti sosoknya, seperti di adegan dermaga. */
-  const baju = sosok === "shelly" ? "var(--color-env)" : "var(--color-future)";
-
+/**
+ * Benda yang dipegang tangan sisi dalam.
+ *
+ * Letaknya menempel pada telapak tangan itu, yang di adegan asli
+ * menggantung di sisi badan. Persentasenya diambil dari titik telapak
+ * di dalam bidang gambar, jadi ia tetap pas berapa pun ukuran sosoknya.
+ */
+function Bawa({ bawa }: { bawa: Exclude<Bawaan, "dadah"> }) {
   return (
-    <svg viewBox="0 0 40 52" className="nongol-tangan">
-      {/* Lengan berbaju, naik dari balik bahu. */}
-      <path
-        d="M20 52 L20 30"
-        stroke={baju}
-        strokeWidth="9"
-        strokeLinecap="round"
-        opacity="0.9"
-      />
-      <path
-        d="M20 33 L20 20"
-        stroke={kulit}
-        strokeWidth="6"
-        strokeLinecap="round"
-      />
-      {/* Telapak terbuka menghadap pembaca, dengan tiga jari. */}
-      <circle cx="20" cy="15" r="6.5" fill={kulit} />
-      {bawa === "dadah" && (
-        <g stroke={kulit} strokeWidth="3.2" strokeLinecap="round">
-          <line x1="16.5" y1="12" x2="15.5" y2="7" />
-          <line x1="20" y1="11" x2="20" y2="5.5" />
-          <line x1="23.5" y1="12" x2="24.5" y2="7" />
-        </g>
-      )}
+    <svg viewBox="0 0 40 30" className="nongol-bawa">
       {bawa === "kartu" && (
-        <g transform="rotate(-14 20 10)">
-          <rect
-            x="10"
-            y="-6"
-            width="20"
-            height="26"
-            rx="3"
-            fill={KERTAS}
-            stroke={TINTA}
-            strokeWidth="1.2"
-          />
-          <rect x="10" y="-6" width="2.4" height="26" rx="1.2" fill="var(--color-economy)" />
-          <g stroke={TINTA} strokeWidth="1.1" strokeLinecap="round" opacity="0.7">
-            <line x1="16" y1="2" x2="26" y2="2" />
-            <line x1="16" y1="7" x2="26" y2="7" />
-            <line x1="16" y1="12" x2="22" y2="12" />
+        <g transform="rotate(-12 20 15)">
+          <rect x="9" y="2" width="20" height="26" rx="3" fill={KERTAS} stroke={TINTA} strokeWidth="1.2" />
+          <rect x="9" y="2" width="2.4" height="26" rx="1.2" fill="var(--color-economy)" />
+          <g stroke={TINTA} strokeWidth="1.1" strokeLinecap="round" opacity="0.65">
+            <line x1="15" y1="10" x2="25" y2="10" />
+            <line x1="15" y1="15" x2="25" y2="15" />
+            <line x1="15" y1="20" x2="21" y2="20" />
           </g>
         </g>
       )}
 
       {bawa === "daun" && (
-        <g transform="translate(20 8)">
-          <path
-            d="M0 6 C -10 2, -12 -8, -2 -12 C 4 -6, 4 0, 0 6 Z"
-            fill="var(--color-env)"
-            opacity="0.85"
-          />
-          <path d="M-1 5 C -3 -2, -3 -7, -2 -11" stroke={KERTAS} strokeWidth="1.1" fill="none" />
+        <g transform="translate(20 16)">
+          <path d="M0 10 C -11 5, -13 -6, -2 -11 C 5 -4, 5 3, 0 10 Z" fill="var(--color-env)" opacity="0.9" />
+          <path d="M-1 9 C -3 1, -3 -5, -2 -10" stroke={KERTAS} strokeWidth="1.1" fill="none" />
         </g>
       )}
 
       {bawa === "dadu" && (
-        <g transform="rotate(-12 20 4)">
-          <rect
-            x="10"
-            y="-6"
-            width="20"
-            height="20"
-            rx="4.5"
-            fill={KERTAS}
-            stroke={TINTA}
-            strokeWidth="1.2"
-          />
+        <g transform="rotate(-10 20 15)">
+          <rect x="10" y="5" width="20" height="20" rx="4.5" fill={KERTAS} stroke={TINTA} strokeWidth="1.2" />
           <g fill={TINTA}>
-            <circle cx="15.5" cy="-0.5" r="1.7" />
-            <circle cx="24.5" cy="-0.5" r="1.7" />
-            <circle cx="20" cy="4" r="1.7" />
-            <circle cx="15.5" cy="8.5" r="1.7" />
-            <circle cx="24.5" cy="8.5" r="1.7" />
+            <circle cx="15.5" cy="10.5" r="1.7" />
+            <circle cx="24.5" cy="10.5" r="1.7" />
+            <circle cx="20" cy="15" r="1.7" />
+            <circle cx="15.5" cy="19.5" r="1.7" />
+            <circle cx="24.5" cy="19.5" r="1.7" />
           </g>
         </g>
       )}
 
       {bawa === "surat" && (
-        <g transform="rotate(-8 20 4)">
-          <rect
-            x="8"
-            y="-4"
-            width="24"
-            height="17"
-            rx="2.5"
-            fill={KERTAS}
-            stroke={TINTA}
-            strokeWidth="1.2"
-          />
-          <path
-            d="M9 -3 L20 6 L31 -3"
-            fill="none"
-            stroke="var(--color-future)"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-          />
+        <g transform="rotate(-7 20 15)">
+          <rect x="8" y="7" width="24" height="17" rx="2.5" fill={KERTAS} stroke={TINTA} strokeWidth="1.2" />
+          <path d="M9 8 L20 17 L31 8" fill="none" stroke="var(--color-future)" strokeWidth="1.4" strokeLinecap="round" />
         </g>
       )}
 
       {bawa === "pena" && (
-        <g transform="rotate(38 20 8)">
-          <rect x="18.6" y="-10" width="3" height="20" rx="1.4" fill="var(--color-iris)" />
-          <path d="M18.6 10 L21.6 10 L20.1 14 Z" fill={TINTA} />
+        <g transform="rotate(34 20 15)">
+          <rect x="18.6" y="2" width="3" height="20" rx="1.4" fill="var(--color-iris)" />
+          <path d="M18.6 22 L21.6 22 L20.1 26 Z" fill={TINTA} />
         </g>
       )}
     </svg>
