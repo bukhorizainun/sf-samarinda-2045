@@ -1,334 +1,418 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import { KartuMuka } from "./kartu/KartuMuka";
+import { PanelKartu } from "./kartu/PanelKartu";
+import {
+  besarDampak,
+  labelFase,
+  namaJenis,
+  namaZona,
+  pita,
+  type Kartu,
+} from "@/lib/kartu";
 import type { Lang } from "@/lib/i18n";
 
-export type Kartu = {
-  code: string;
-  type: string;
-  title: string;
-  body: string;
-  zone?: string;
-  cost?: string;
-  /** Dampak pada Environment / Society / Economy / Future Readiness. */
-  impact?: number[];
-  risk?: string;
-  action?: string;
+export type { Kartu };
+
+type Urutan = "kode" | "judul" | "dampak";
+type Saring = {
+  jenis: string;
+  zona: string;
+  fase: string;
+  q: string;
+  urut: Urutan;
 };
 
-const INDIKATOR = [
-  { nama: { id: "Lingkungan", en: "Environment" }, warna: "var(--color-env)" },
-  { nama: { id: "Masyarakat", en: "Society" }, warna: "var(--color-society)" },
-  { nama: { id: "Ekonomi", en: "Economy" }, warna: "var(--color-economy)" },
-  { nama: { id: "Masa Depan", en: "Future Readiness" }, warna: "var(--color-future)" },
-];
+const KOSONG: Saring = { jenis: "", zona: "", fase: "", q: "", urut: "kode" };
 
-/** Warna per jenis kartu, diambil dari empat warna City Indicator. */
-const WARNA: Record<string, string> = {
-  "ROLE CARD": "var(--color-society)",
-  "SPECIAL GOAL": "var(--color-society)",
-  "SAMARINDA SCENARIO": "var(--color-future)",
-  "PROBLEM FACTOR": "var(--color-env)",
-  DRIVER: "var(--color-env)",
-  UNCERTAINTY: "var(--color-future)",
-  "MINI-PROJECT": "var(--color-economy)",
-  "OPEN PROJECT": "var(--color-economy)",
-  OPPORTUNITY: "var(--color-economy)",
-  EVENT: "var(--color-future)",
-  "GENAI PROMPT": "var(--color-society)",
-  "ACTION EVIDENCE": "var(--color-env)",
-};
+/** Berapa kartu dirender lebih dulu. Sisanya menyusul saat digulir,
+ *  supaya 184 kartu berornamen tidak dipasang sekaligus di ponsel. */
+const SEKALI_MUAT = 48;
 
-const NAMA_ID: Record<string, string> = {
-  "ROLE CARD": "Kartu Peran",
-  "SPECIAL GOAL": "Tujuan Khusus",
-  "SAMARINDA SCENARIO": "Skenario Samarinda",
-  "PROBLEM FACTOR": "Faktor Masalah",
-  DRIVER: "Pendorong",
-  UNCERTAINTY: "Ketidakpastian",
-  "MINI-PROJECT": "Proyek Kecil",
-  "OPEN PROJECT": "Proyek Terbuka",
-  OPPORTUNITY: "Peluang",
-  EVENT: "Kejadian",
-  "GENAI PROMPT": "Prompt GenAI",
-  "ACTION EVIDENCE": "Bukti Aksi",
-};
+/* ---------- Penyaring tinggal di alamat halaman ----------
 
-const judul = (jenis: string, lang: Lang) =>
-  lang === "id" ? (NAMA_ID[jenis] ?? jenis) : jenis;
+   Alamat adalah satu-satunya sumber kebenaran, bukan salinan dari
+   keadaan komponen. Fasilitator bisa membagikan tautan ke satu himpunan
+   kartu, tombol kembali peramban bekerja, dan tidak ada dua nilai yang
+   bisa berselisih. React membacanya lewat useSyncExternalStore, jadi
+   halaman ini boleh terbit sebagai HTML statis tanpa bagian tanya dan
+   tetap terhidrasi dengan benar. */
 
-export function CardCatalog({
-  cards,
-  lang,
-}: {
-  cards: Kartu[];
-  lang: Lang;
-}) {
+const pendengar = new Set<() => void>();
+
+function langgan(kabari: () => void) {
+  pendengar.add(kabari);
+  window.addEventListener("popstate", kabari);
+  return () => {
+    pendengar.delete(kabari);
+    window.removeEventListener("popstate", kabari);
+  };
+}
+
+const bacaPeramban = () => window.location.search;
+const bacaTerbitan = () => "";
+
+function urai(tanya: string): Saring {
+  const p = new URLSearchParams(tanya);
+  return {
+    jenis: p.get("jenis") ?? "",
+    zona: p.get("zona") ?? "",
+    fase: p.get("fase") ?? "",
+    q: p.get("q") ?? "",
+    urut: (p.get("urut") as Urutan) ?? "kode",
+  };
+}
+
+function tulis(saring: Saring) {
+  const p = new URLSearchParams();
+  for (const [k, v] of Object.entries(saring)) {
+    if (v && !(k === "urut" && v === "kode")) p.set(k, v);
+  }
+  window.history.replaceState(
+    null,
+    "",
+    p.toString() ? `${window.location.pathname}?${p}` : window.location.pathname,
+  );
+  for (const kabari of [...pendengar]) kabari();
+}
+
+export function CardCatalog({ cards, lang }: { cards: Kartu[]; lang: Lang }) {
   const id = lang === "id";
-  const [jenis, setJenis] = useState<string>("SEMUA");
-  const [cari, setCari] = useState("");
-  const [buka, setBuka] = useState<Kartu | null>(null);
-  const tombolRef = useRef<HTMLElement | null>(null);
+  const tanya = useSyncExternalStore(langgan, bacaPeramban, bacaTerbitan);
+  const saring = useMemo(() => urai(tanya), [tanya]);
 
-  const jenisAda = useMemo(() => {
-    const urut: string[] = [];
-    for (const c of cards) if (!urut.includes(c.type)) urut.push(c.type);
-    return urut;
+  const ubah = useCallback(
+    (bidang: Partial<Saring>) =>
+      tulis({ ...urai(window.location.search), ...bidang }),
+    [],
+  );
+
+  const sumbu = useMemo(() => {
+    const jenis: string[] = [];
+    const zona: string[] = [];
+    const fase = new Set<number>();
+    for (const c of cards) {
+      if (!jenis.includes(c.type)) jenis.push(c.type);
+      if (c.zone && !zona.includes(c.zone)) zona.push(c.zone);
+      for (const f of c.phases) fase.add(f);
+    }
+    return { jenis, zona, fase: [...fase].sort((a, b) => a - b) };
   }, [cards]);
 
   const hasil = useMemo(() => {
-    const q = cari.trim().toLowerCase();
-    return cards.filter(
+    const q = saring.q.trim().toLowerCase();
+    const fase = saring.fase ? Number(saring.fase) : null;
+
+    const cocok = cards.filter(
       (c) =>
-        (jenis === "SEMUA" || c.type === jenis) &&
+        (!saring.jenis || c.type === saring.jenis) &&
+        (!saring.zona || c.zone === saring.zona) &&
+        (fase === null || c.phases.includes(fase)) &&
         (!q ||
           c.title.toLowerCase().includes(q) ||
           c.body.toLowerCase().includes(q) ||
           c.code.toLowerCase().includes(q)),
     );
-  }, [cards, jenis, cari]);
 
-  /* Lapis 3: panel rinci. Esc menutup, fokus kembali ke kartu asalnya. */
-  useEffect(() => {
-    if (!buka) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setBuka(null);
-    };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-      tombolRef.current?.focus();
-    };
-  }, [buka]);
+    if (saring.urut === "judul") {
+      return [...cocok].sort((a, b) => a.title.localeCompare(b.title));
+    }
+    if (saring.urut === "dampak") {
+      return [...cocok].sort((a, b) => besarDampak(b) - besarDampak(a));
+    }
+    return cocok;
+  }, [cards, saring]);
+
+  const bersih = !!(saring.jenis || saring.zona || saring.fase || saring.q);
 
   return (
     <div>
-      {/* Penyaring jenis + pencarian */}
-      <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-        <div
-          role="tablist"
-          aria-label={id ? "Jenis kartu" : "Card types"}
-          className="-mx-5 flex gap-2 overflow-x-auto px-5 lg:mx-0 lg:flex-wrap lg:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {["SEMUA", ...jenisAda].map((j) => {
-            const on = j === jenis;
-            return (
-              <button
-                key={j}
-                role="tab"
-                aria-selected={on}
-                onClick={() => setJenis(j)}
-                className={`shrink-0 rounded-full border px-4 py-2 text-[0.8rem] transition-colors rule ${
-                  on
-                    ? "border-[var(--fg)] bg-[var(--fg)] text-[var(--bg)]"
-                    : "text-[var(--fg-muted)] hover:bg-[var(--bg-sunken)]"
-                }`}
-              >
-                {j === "SEMUA"
-                  ? id
-                    ? "Semua"
-                    : "All"
-                  : judul(j, lang)}
-              </button>
-            );
-          })}
-        </div>
+      <Penyaring
+        lang={lang}
+        sumbu={sumbu}
+        saring={saring}
+        ubah={ubah}
+        jumlah={hasil.length}
+        bersih={bersih}
+      />
 
-        <div className="lg:w-64">
-          <label htmlFor="cari" className="sr-only">
-            {id ? "Cari kartu" : "Search cards"}
-          </label>
-          <input
-            id="cari"
-            type="search"
-            value={cari}
-            onChange={(e) => setCari(e.target.value)}
-            placeholder={id ? "Cari kartu…" : "Search cards…"}
-            className="w-full rounded-full border bg-transparent px-4 py-2.5 text-[0.875rem] outline-none placeholder:text-[var(--fg-faint)] rule"
-          />
-        </div>
-      </div>
-
-      <p className="mt-5 text-xs tabular-nums text-[var(--fg-faint)]">
-        {hasil.length} {id ? "kartu" : "cards"}
-        {" · "}
-        {id
-          ? "naskah kartu masih berbahasa Inggris, mengikuti dek resmi"
-          : "card text follows the official English deck"}
-      </p>
-
-      {/* Petak kartu */}
-      <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {hasil.map((c) => (
-          <li key={c.code}>
-            <button
-              onClick={(e) => {
-                tombolRef.current = e.currentTarget;
-                setBuka(c);
-              }}
-              className="group h-full w-full rounded-2xl border bg-[var(--bg-raised)] p-6 text-left transition-transform duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-1 rule"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <span
-                  className="t-eyebrow !text-[0.6rem]"
-                  style={{ color: WARNA[c.type] ?? "var(--fg-faint)" }}
-                >
-                  {judul(c.type, lang)}
-                </span>
-                <span className="font-mono text-[0.7rem] text-[var(--fg-faint)]">
-                  {c.code}
-                </span>
-              </div>
-              <h3 className="t-h3 mt-4 text-[1.02rem]">{c.title}</h3>
-              <p className="mt-2.5 line-clamp-3 text-[0.85rem] leading-relaxed text-[var(--fg-muted)]">
-                {c.body}
-              </p>
-
-              {(c.zone || c.impact) && (
-                <div className="mt-5 flex items-center justify-between gap-3 border-t pt-4 rule">
-                  {c.zone && (
-                    <span className="text-[0.7rem] uppercase tracking-[0.12em] text-[var(--fg-faint)]">
-                      {c.zone}
-                    </span>
-                  )}
-                  {c.impact && <Dampak nilai={c.impact} />}
-                </div>
-              )}
-            </button>
-          </li>
-        ))}
-      </ul>
+      {/* Petak dipasang ulang setiap penyaring berubah, jadi jumlah kartu
+          yang sudah dimuat kembali ke awal tanpa efek tambahan. */}
+      <Petak key={tanya} hasil={hasil} lang={lang} />
 
       {hasil.length === 0 && (
-        <p className="t-body mt-12">
-          {id
-            ? "Tidak ada kartu yang cocok dengan pencarian itu."
-            : "No card matches that search."}
-        </p>
-      )}
-
-      {/* Lapis 3 */}
-      {buka && (
-        <div
-          className="fixed inset-0 z-[60] flex items-end justify-center bg-[var(--bg-sunken)]/70 p-0 backdrop-blur-sm sm:items-center sm:p-6"
-          onClick={() => setBuka(null)}
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="judul-kartu"
-            onClick={(e) => e.stopPropagation()}
-            className="rise w-full max-w-lg rounded-t-3xl border bg-[var(--bg-raised)] p-8 sm:rounded-3xl sm:p-10 rule"
+        <div className="mt-16 text-center">
+          <p className="t-body">
+            {id
+              ? "Tidak ada kartu yang cocok dengan penyaring itu."
+              : "No card matches those filters."}
+          </p>
+          <button
+            type="button"
+            onClick={() => ubah(KOSONG)}
+            className="mt-5 rounded-full border px-5 py-2.5 text-[0.8rem] transition-colors hover:bg-[var(--bg-sunken)] rule"
           >
-            <div className="flex items-start justify-between gap-6">
-              <div>
-                <span
-                  className="t-eyebrow"
-                  style={{ color: WARNA[buka.type] ?? "var(--fg-faint)" }}
-                >
-                  {judul(buka.type, lang)}
-                </span>
-                <h2 id="judul-kartu" className="t-h2 mt-3">
-                  {buka.title}
-                </h2>
-              </div>
-              <button
-                onClick={() => setBuka(null)}
-                className="grid h-9 w-9 shrink-0 place-items-center rounded-full border transition-colors hover:bg-[var(--bg-sunken)] rule"
-                aria-label={id ? "Tutup" : "Close"}
-              >
-                <svg viewBox="0 0 20 20" className="h-4 w-4" aria-hidden>
-                  <path
-                    d="M5 5l10 10M15 5L5 15"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            {buka.impact ? (
-              <div className="mt-7">
-                <p className="t-eyebrow">
-                  {id ? "Dampak pada indikator" : "Impact on indicators"}
-                </p>
-                <ul className="mt-4 space-y-2.5">
-                  {buka.impact.map((n, i) => (
-                    <li key={i} className="flex items-center gap-3 text-[0.9rem]">
-                      <span
-                        aria-hidden
-                        className="h-2.5 w-2.5 shrink-0 rounded-full"
-                        style={{ background: INDIKATOR[i].warna }}
-                      />
-                      <span className="flex-1 text-[var(--fg-muted)]">
-                        {INDIKATOR[i].nama[lang]}
-                      </span>
-                      <span className="tabular-nums font-semibold">
-                        {n > 0 ? `+${n}` : n}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {buka.cost && (
-                  <p className="mt-6 text-[0.9rem] text-[var(--fg-muted)]">
-                    <span className="t-eyebrow mr-2 !inline">
-                      {id ? "Biaya" : "Cost"}
-                    </span>
-                    {buka.cost}
-                  </p>
-                )}
-                {buka.risk && (
-                  <p className="mt-3 text-[0.9rem] text-[var(--fg-muted)]">
-                    <span className="t-eyebrow mr-2 !inline">
-                      {id ? "Risiko" : "Risk"}
-                    </span>
-                    {buka.risk}
-                  </p>
-                )}
-                {buka.action && (
-                  <p className="mt-3 text-[0.9rem] text-[var(--fg-muted)]">
-                    <span className="t-eyebrow mr-2 !inline">
-                      {id ? "Aksi nyata" : "Real-world action"}
-                    </span>
-                    {buka.action}
-                  </p>
-                )}
-              </div>
-            ) : (
-              <p className="t-body mt-6 text-[0.975rem]">{buka.body}</p>
-            )}
-
-            <p className="mt-8 flex items-center justify-between border-t pt-5 font-mono text-[0.7rem] text-[var(--fg-faint)] rule">
-              <span>{buka.code}</span>
-              {buka.zone && <span>{buka.zone}</span>}
-            </p>
-          </div>
+            {id ? "Kosongkan penyaring" : "Clear filters"}
+          </button>
         </div>
       )}
     </div>
   );
 }
 
-/** Empat angka dampak sebagai batang kecil. Nilainya dikutip dari kartu. */
-function Dampak({ nilai }: { nilai: number[] }) {
+/* ---------- Petak kartu ---------- */
+
+function Petak({ hasil, lang }: { hasil: Kartu[]; lang: Lang }) {
+  const id = lang === "id";
+  const [tampil, setTampil] = useState(SEKALI_MUAT);
+  const [buka, setBuka] = useState<Kartu | null>(null);
+  const asal = useRef<HTMLElement | null>(null);
+  const ujung = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const sen = ujung.current;
+    if (!sen || tampil >= hasil.length) return;
+    const mata = new IntersectionObserver(
+      ([e]) => e.isIntersecting && setTampil((n) => n + SEKALI_MUAT),
+      { rootMargin: "800px" },
+    );
+    mata.observe(sen);
+    return () => mata.disconnect();
+  }, [tampil, hasil.length]);
+
   return (
-    <span className="flex items-end gap-1" aria-hidden>
-      {nilai.map((n, i) => (
-        <span
-          key={i}
-          className="w-1.5 rounded-full transition-all duration-500"
-          style={{
-            height: `${6 + Math.abs(n) * 7}px`,
-            background: INDIKATOR[i].warna,
-            opacity: n === 0 ? 0.25 : 1,
+    <>
+      {/* Lebar kolom tetap supaya rasio kartu terjaga di tiap lebar layar. */}
+      <ul className="mt-9 grid grid-cols-[repeat(auto-fill,minmax(15.5rem,1fr))] gap-5 sm:gap-6">
+        {hasil.slice(0, tampil).map((c) => (
+          <li key={c.code}>
+            <button
+              type="button"
+              onClick={(e) => {
+                asal.current = e.currentTarget;
+                setBuka(c);
+              }}
+              className="block w-full rounded-[14px] text-left"
+              aria-label={`${namaJenis(c.type, lang)} ${c.code}: ${c.title}`}
+            >
+              <KartuMuka kartu={c} lang={lang} />
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <div ref={ujung} aria-hidden className="h-px" />
+
+      {tampil < hasil.length && (
+        <p className="mt-10 text-center text-xs text-[var(--fg-faint)]">
+          {id
+            ? `Menampilkan ${tampil} dari ${hasil.length} kartu`
+            : `Showing ${tampil} of ${hasil.length} cards`}
+        </p>
+      )}
+
+      {buka && (
+        <PanelKartu
+          /* Dikunci pada kode kartu: panel yang baru selalu mulai dari
+             muka kartu, tanpa menyetel ulang keadaan di dalam efek. */
+          key={buka.code}
+          kartu={buka}
+          lang={lang}
+          tutup={() => {
+            setBuka(null);
+            asal.current?.focus();
           }}
+          pindah={(arah) => {
+            const i = hasil.findIndex((c) => c.code === buka.code);
+            setBuka(hasil[(i + arah + hasil.length) % hasil.length]);
+          }}
+          posisi={[
+            hasil.findIndex((c) => c.code === buka.code) + 1,
+            hasil.length,
+          ]}
         />
-      ))}
-    </span>
+      )}
+    </>
+  );
+}
+
+/* ---------- Penyaring ---------- */
+
+function Penyaring({
+  lang,
+  sumbu,
+  saring,
+  ubah,
+  jumlah,
+  bersih,
+}: {
+  lang: Lang;
+  sumbu: { jenis: string[]; zona: string[]; fase: number[] };
+  saring: Saring;
+  ubah: (b: Partial<Saring>) => void;
+  jumlah: number;
+  bersih: boolean;
+}) {
+  const id = lang === "id";
+
+  return (
+    <div className="rounded-2xl border bg-[var(--surface-2)] p-5 shadow-[var(--lift-1)] sm:p-6 rule">
+      {/* Sumbu satu: jenis kartu. */}
+      <div
+        role="tablist"
+        aria-label={id ? "Jenis kartu" : "Card types"}
+        className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        <Keping
+          on={!saring.jenis}
+          pilih={() => ubah({ jenis: "" })}
+          label={id ? "Semua jenis" : "All types"}
+        />
+        {sumbu.jenis.map((j) => (
+          <Keping
+            key={j}
+            on={saring.jenis === j}
+            pilih={() => ubah({ jenis: saring.jenis === j ? "" : j })}
+            label={namaJenis(j, lang)}
+            warna={pita(j)}
+            ikon={
+              <span className="block h-[7px] w-[7px] rounded-full bg-current" />
+            }
+          />
+        ))}
+      </div>
+
+      {/* Sumbu dua: fase permainan dan zona tematik, plus pencarian. */}
+      <div className="mt-5 flex flex-col gap-4 border-t pt-5 rule lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="t-eyebrow !text-[0.6rem] mr-1">
+            {id ? "Fase" : "Phase"}
+          </span>
+          {sumbu.fase.map((f) => (
+            <Keping
+              key={f}
+              kecil
+              on={saring.fase === String(f)}
+              pilih={() =>
+                ubah({ fase: saring.fase === String(f) ? "" : String(f) })
+              }
+              label={f === 0 ? labelFase(0, lang) : String(f)}
+            />
+          ))}
+
+          <span className="t-eyebrow !text-[0.6rem] ml-3 mr-1">
+            {id ? "Zona" : "Zone"}
+          </span>
+          <select
+            value={saring.zona}
+            onChange={(e) => ubah({ zona: e.target.value })}
+            aria-label={id ? "Zona tematik" : "Thematic zone"}
+            className="rounded-full border bg-transparent px-3.5 py-2 text-[0.78rem] rule"
+          >
+            <option value="">{id ? "Semua" : "All"}</option>
+            {sumbu.zona.map((z) => (
+              <option key={z} value={z}>
+                {namaZona(z, lang)}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <label htmlFor="cari" className="sr-only">
+            {id ? "Cari kartu" : "Search cards"}
+          </label>
+          <input
+            id="cari"
+            type="search"
+            value={saring.q}
+            onChange={(e) => ubah({ q: e.target.value })}
+            placeholder={id ? "Cari kartu…" : "Search cards…"}
+            className="w-full min-w-0 rounded-full border bg-transparent px-4 py-2 text-[0.82rem] outline-none placeholder:text-[var(--fg-faint)] rule lg:w-52"
+          />
+          <select
+            value={saring.urut}
+            onChange={(e) => ubah({ urut: e.target.value as Urutan })}
+            aria-label={id ? "Urutan" : "Sort order"}
+            className="shrink-0 rounded-full border bg-transparent px-3.5 py-2 text-[0.78rem] rule"
+          >
+            <option value="kode">{id ? "Urut kode" : "By code"}</option>
+            <option value="judul">{id ? "Urut judul" : "By title"}</option>
+            <option value="dampak">
+              {id ? "Dampak terbesar" : "Largest impact"}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs tabular-nums text-[var(--fg-faint)]">
+        <span>
+          {jumlah} {id ? "kartu" : "cards"}
+        </span>
+        <span aria-hidden>·</span>
+        <span>
+          {id
+            ? "naskah kartu berbahasa Inggris, mengikuti dek resmi"
+            : "card text follows the official English deck"}
+        </span>
+        {bersih && (
+          <button
+            type="button"
+            onClick={() => ubah(KOSONG)}
+            className="underline underline-offset-4 transition-colors hover:text-[var(--fg)]"
+          >
+            {id ? "kosongkan" : "clear"}
+          </button>
+        )}
+      </p>
+    </div>
+  );
+}
+
+function Keping({
+  on,
+  pilih,
+  label,
+  warna,
+  ikon,
+  kecil,
+}: {
+  on: boolean;
+  pilih: () => void;
+  label: string;
+  warna?: string;
+  ikon?: React.ReactNode;
+  kecil?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={on}
+      onClick={pilih}
+      style={on && warna ? { borderColor: warna } : undefined}
+      className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border transition-colors duration-[var(--gerak-cepat)] rule ${
+        kecil ? "px-3 py-1.5 text-[0.75rem]" : "px-3.5 py-2 text-[0.78rem]"
+      } ${
+        on
+          ? "bg-[var(--fg)] text-[var(--bg)]"
+          : "text-[var(--fg-muted)] hover:bg-[var(--bg-sunken)]"
+      }`}
+    >
+      {ikon && (
+        <span style={{ color: on ? "var(--bg)" : warna }} aria-hidden>
+          {ikon}
+        </span>
+      )}
+      {label}
+    </button>
   );
 }
