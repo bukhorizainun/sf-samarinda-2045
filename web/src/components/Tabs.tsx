@@ -61,8 +61,9 @@ export function Tabs({
         role="tablist"
         aria-label={label}
         onKeyDown={onKey}
-        className="-mx-5 flex gap-1 overflow-x-auto px-5 pb-px sm:mx-0 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="-mx-5 overflow-x-auto px-5 py-1 sm:mx-0 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
+        <div className="segmen">
         {tabs.map((tab) => {
           const on = tab.id === active;
           return (
@@ -74,25 +75,14 @@ export function Tabs({
               aria-controls={`panel-${tab.id}`}
               tabIndex={on ? 0 : -1}
               onClick={() => pick(tab.id)}
-              className={`relative shrink-0 whitespace-nowrap rounded-t-lg px-4 py-3 text-[0.9rem] transition-colors duration-200 ${
-                on
-                  ? "text-[var(--fg)]"
-                  : "text-[var(--fg-faint)] hover:text-[var(--fg-muted)]"
-              }`}
+              className="segmen-tab"
             >
               {tab.label}
-              <span
-                aria-hidden
-                className={`absolute inset-x-2 bottom-0 h-0.5 rounded-full transition-all duration-300 ease-[var(--ease-out-soft)] sf-gradient ${
-                  on ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
-                }`}
-              />
             </button>
           );
         })}
+        </div>
       </div>
-
-      <div className="border-t rule" />
 
       {tabs.map((tab, i) => (
         <div

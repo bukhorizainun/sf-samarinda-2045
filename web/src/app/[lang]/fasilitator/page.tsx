@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Container, Section } from "@/components/Section";
+import { Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
+import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { FASIL } from "@/content/fasilitator";
 import { INDICATORS, UI } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
@@ -25,19 +26,20 @@ export default async function Fasilitator({
 
   return (
     <Halaman motif="perahu" adegan="hutan">
-      <Container className="pb-10 pt-14 sm:pt-20">
-        <p className="t-eyebrow">{id ? "Untuk fasilitator" : "For facilitators"}</p>
-        <h1 className="t-h1 mt-4 max-w-[17ch]">
-          {id
+      <KepalaHalaman
+        eyebrow={id ? "Untuk fasilitator" : "For facilitators"}
+        lebar="17ch"
+        title={
+          id
             ? "Membawakan satu sesi, dari meja sampai aksi nyata"
-            : "Running one session, from table to real action"}
-        </h1>
-        <p className="t-lead measure mt-6">{t(FASIL.lead, lang)}</p>
-      </Container>
+            : "Running one session, from table to real action"
+        }
+        lead={t(FASIL.lead, lang)}
+      />
 
       {/* Sebelum mulai */}
 
-      <Section className="border-t rule !pt-6">
+      <Section className="band border-t rule">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.25fr] lg:gap-16">
           <div>
             <h2 className="t-h2">{t(FASIL.siapkanJudul, lang)}</h2>
@@ -47,13 +49,11 @@ export default async function Fasilitator({
                 : "Five minutes of setup that decide the next ninety."}
             </p>
           </div>
-          <ol className="space-y-5">
+          <ol className="space-y-3">
             {FASIL.siapkan[lang].map((x, i) => (
-              <li key={i} className="flex gap-5 border-t pt-5 rule">
-                <span className="font-display text-xl tabular-nums text-[var(--fg-faint)]">
-                  {i + 1}
-                </span>
-                <p className="t-body text-[0.95rem]">{x}</p>
+              <li key={i} className="ubin flex items-start gap-4 !p-5">
+                <span className="token token-kecil">{i + 1}</span>
+                <p className="t-body pt-0.5 text-[0.95rem]">{x}</p>
               </li>
             ))}
           </ol>
@@ -61,7 +61,7 @@ export default async function Fasilitator({
       </Section>
 
       {/* Menjaga waktu */}
-      <Section className="border-t rule">
+      <Section className="papan">
         <h2 className="t-h2">{t(FASIL.jalanJudul, lang)}</h2>
         <p className="t-body measure mt-4">
           {id
@@ -69,19 +69,17 @@ export default async function Fasilitator({
             : "Six phases, 15–18 minutes each. When time is short, shorten the discussion inside a phase — do not drop the phase, because each one prepares what the next needs."}
         </p>
 
-        <ol className="mt-12 grid gap-px overflow-hidden rounded-2xl border bg-[var(--line)] rule sm:grid-cols-2">
+        <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {FASIL.jalan.map((p, i) => (
-            <li key={i} className="bg-[var(--bg)] p-7 sm:p-8">
-              <div className="flex items-baseline justify-between gap-4">
-                <span className="font-display text-2xl tabular-nums text-[var(--fg-faint)]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="text-xs tabular-nums text-[var(--fg-faint)]">
+            <li key={i} className="petak">
+              <div className="flex items-center justify-between gap-4">
+                <span className="token">{i + 1}</span>
+                <span className="rounded-full border px-2.5 py-1 text-xs tabular-nums text-[var(--fg-muted)] rule">
                   {t(p.waktu, lang)}
                 </span>
               </div>
-              <h3 className="t-h3 mt-4">{t(p.judul, lang)}</h3>
-              <p className="t-body mt-2.5 text-[0.925rem]">{t(p.isi, lang)}</p>
+              <h3 className="t-h3 mt-1">{t(p.judul, lang)}</h3>
+              <p className="t-body text-[0.925rem]">{t(p.isi, lang)}</p>
             </li>
           ))}
         </ol>
@@ -96,10 +94,7 @@ export default async function Fasilitator({
             <ul className="mt-8 space-y-4">
               {FASIL.periksa[lang].map((x, i) => (
                 <li key={i} className="flex gap-4 border-t pt-4 rule">
-                  <span
-                    aria-hidden
-                    className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded border text-[0.7rem] rule"
-                  />
+                  <span aria-hidden className="centang" />
                   <p className="text-[0.925rem] leading-relaxed text-[var(--fg-muted)]">
                     {x}
                   </p>

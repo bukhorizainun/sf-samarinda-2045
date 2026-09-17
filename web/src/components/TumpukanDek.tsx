@@ -82,7 +82,7 @@ export function TumpukanDek({
         <button
           type="button"
           onClick={maju}
-          className="rounded-full border px-4 py-2 text-[0.78rem] text-[var(--fg-muted)] transition-colors duration-[var(--gerak-cepat)] hover:bg-[var(--bg-sunken)] rule"
+          className="shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-[0.78rem] text-[var(--fg-muted)] transition-colors duration-[var(--gerak-cepat)] hover:bg-[var(--bg-sunken)] rule"
         >
           {id ? "Kartu berikutnya" : "Next card"}
         </button>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Container, Section } from "@/components/Section";
+import { Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
+import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { Shelbot } from "@/components/Shelbot";
 import { LAB } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
@@ -21,22 +22,21 @@ export default async function HalamanShelbot({
 
   return (
     <Halaman motif="enggang" adegan="hutan">
-      <Container className="pb-10 pt-14 sm:pt-20">
-        <p className="t-eyebrow">
-          {id ? "Pemandu permainan" : "Game guide"}
-        </p>
-        <h1 className="t-h1 mt-4 max-w-[18ch]">{t(LAB.title, lang)}</h1>
-        <p className="t-lead measure mt-6">{t(LAB.lead, lang)}</p>
-        <p className="measure mt-5 border-l-2 pl-5 text-[0.9rem] leading-relaxed text-[var(--fg-faint)] rule">
+      <KepalaHalaman
+        eyebrow={id ? "Pemandu permainan" : "Game guide"}
+        title={t(LAB.title, lang)}
+        lead={t(LAB.lead, lang)}
+      >
+        <p className="kutipan measure mt-7 !py-5 text-[0.9rem] leading-relaxed text-[var(--fg-muted)] before:!content-none">
           {t(LAB.catatanMeja, lang)}
         </p>
-      </Container>
+      </KepalaHalaman>
 
       <Section className="!pt-4">
         <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
           <Shelbot lang={lang} />
 
-          <aside>
+          <aside className="ubin self-start hover:!translate-y-0 sm:!p-8">
             <h2 className="t-h3">{t(LAB.limitsTitle, lang)}</h2>
             <ul className="mt-6 space-y-5">
               {LAB.limits[lang].map((l, i) => (

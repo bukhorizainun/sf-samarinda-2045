@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { HOME } from "@/content/site";
+import { BRAND, HOME } from "@/content/site";
 import { Maskot } from "./Maskot";
 import { t, type Lang } from "@/lib/i18n";
 
@@ -95,7 +95,12 @@ export function Hero({ lang }: { lang: Lang }) {
       {/* Lapis 4 — tulisan */}
       <div className="mx-auto w-full max-w-6xl px-5 pb-28 pt-20 sm:px-8 sm:pb-36 sm:pt-28">
         <div className="rise">
-          <p className="t-eyebrow flex items-center gap-3">
+          <p className="lockup">
+            <span>{t(BRAND.name, lang)}</span>
+            <span>{t(BRAND.edition, lang)}</span>
+          </p>
+
+          <p className="t-eyebrow mt-6 flex items-center gap-3">
             <span
               aria-hidden
               className="pulse-soft inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-mint)]"
@@ -122,7 +127,7 @@ export function Hero({ lang }: { lang: Lang }) {
           <div className="mt-11 flex flex-wrap items-center gap-3">
             <Link
               href={`${base}/permainan`}
-              className="group inline-flex items-center gap-2.5 rounded-full bg-[var(--fg)] px-7 py-3.5 text-[0.9rem] font-medium text-[var(--bg)] shadow-[var(--lift-1)] transition-[transform,box-shadow] duration-[var(--gerak-sedang)] ease-[var(--ease-out-soft)] hover:-translate-y-0.5 hover:shadow-[var(--lift-2)]"
+              className="btn btn-utama group px-7"
             >
               {t(HOME.ctaPrimary, lang)}
               <span
@@ -135,7 +140,7 @@ export function Hero({ lang }: { lang: Lang }) {
 
             <Link
               href={`${base}/shelbot`}
-              className="glass rounded-full px-7 py-3.5 text-[0.9rem] font-medium transition-colors duration-300 hover:border-[var(--line-strong)]"
+              className="btn btn-garis px-7 backdrop-blur-md"
             >
               {t(HOME.ctaSecondary, lang)}
             </Link>

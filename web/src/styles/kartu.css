@@ -10,9 +10,9 @@
    semua. Nol adalah halaman, tiga adalah lapis yang menimpa. */
 
 :root {
-  --surface-1: #ffffff;
-  --surface-2: #fbfcfe;
-  --surface-3: #ffffff;
+  --surface-1: #fffdf8;
+  --surface-2: #fbf8f1;
+  --surface-3: #fffdf8;
 
   --lift-1:
     0 1px 2px rgb(10 20 32 / 0.05),
@@ -33,7 +33,7 @@
 :root[data-theme="dark"] {
   --surface-1: rgb(255 255 255 / 0.035);
   --surface-2: rgb(255 255 255 / 0.055);
-  --surface-3: #0d1725;
+  --surface-3: #0e1a18;
 
   --lift-1: inset 0 1px 0 0 rgb(255 255 255 / 0.05);
   --lift-2:

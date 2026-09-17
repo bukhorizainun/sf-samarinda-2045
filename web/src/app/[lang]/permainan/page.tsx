@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Container, Section } from "@/components/Section";
+import { Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
+import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { Tabs } from "@/components/Tabs";
 import { GarisFase } from "@/components/GarisFase";
 import {
@@ -39,22 +40,23 @@ export default async function Permainan({
 
   return (
     <Halaman motif="lamin" adegan="kayu">
-      <Container className="pb-10 pt-14 sm:pt-20">
-        <p className="t-eyebrow">{id ? "Tentang Permainan" : "The Game"}</p>
-        <h1 className="t-h1 mt-4 max-w-[20ch]">
-          {id
+      <KepalaHalaman
+        eyebrow={id ? "Tentang Permainan" : "The Game"}
+        lebar="20ch"
+        title={
+          id
             ? "Permainan kolaboratif, bukan adu cepat menjawab"
-            : "A collaborative game, not a race to answer first"}
-        </h1>
-        <p className="t-lead measure mt-6">
-          {id
+            : "A collaborative game, not a race to answer first"
+        }
+        lead={
+          id
             ? "Lima pemain memegang peran yang berbeda dan menempuh enam fase bersama-sama. Kamu perlu berdiskusi, menimbang kepentingan pihak lain, mengelola sumber daya, menghadapi kejadian tak terduga, lalu menentukan tindakan bersama."
-            : "Five players hold different roles and move through six phases together. You discuss, weigh other parties' interests, manage resources, absorb unexpected events, and settle on shared action."}
-        </p>
-      </Container>
+            : "Five players hold different roles and move through six phases together. You discuss, weigh other parties' interests, manage resources, absorb unexpected events, and settle on shared action."
+        }
+      />
 
 
-      <Section className="border-t rule !pt-6">
+      <Section className="band border-t rule !pt-10">
         <Tabs tabs={tabs} label={id ? "Bagian halaman" : "Page sections"}>
           {[
             /* ---- Enam fase ---- */
@@ -65,17 +67,16 @@ export default async function Permainan({
             /* ---- Lima peran ---- */
             (
                 <div key="peran">
-                  <div className="grid gap-px overflow-hidden rounded-2xl border bg-[var(--line)] rule sm:grid-cols-2 lg:grid-cols-3">
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {ROLES.map((r, i) => (
-                      <div key={i} className="bg-[var(--bg)] p-7">
-                        <span
-                          aria-hidden
-                          className="block h-1 w-8 rounded-full"
-                          style={{
-                            background:
-                              INDICATORS[i % INDICATORS.length].color,
-                          }}
-                        />
+                      <div
+                        key={i}
+                        className="ubin"
+                        style={{
+                          "--pita": INDICATORS[i % INDICATORS.length].color,
+                        } as React.CSSProperties}
+                      >
+                        <span className="token token-kecil">{i + 1}</span>
                         <h3 className="t-h3 mt-5 text-[1.05rem]">
                           {t(r.name, lang)}
                         </h3>
@@ -92,9 +93,13 @@ export default async function Permainan({
             /* ---- Empat indikator ---- */
             (
                 <div key="indikator">
-                  <div className="grid gap-px overflow-hidden rounded-2xl border bg-[var(--line)] rule sm:grid-cols-2">
+                  <div className="grid gap-4 sm:grid-cols-2">
                     {INDICATORS.map((ind) => (
-                      <div key={ind.key} className="bg-[var(--bg)] p-7 sm:p-8">
+                      <div
+                        key={ind.key}
+                        className="ubin sm:p-8"
+                        style={{ "--pita": ind.color } as React.CSSProperties}
+                      >
                         <div className="flex items-center gap-3">
                           <span
                             aria-hidden
@@ -117,11 +122,11 @@ export default async function Permainan({
 
             /* ---- Komponen ---- */
             (
-                <div key="komponen" className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
+                <div key="komponen" className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
                   <div>
-                    <dl className="grid grid-cols-2 gap-x-8 gap-y-7 sm:grid-cols-3">
+                    <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                       {COMPONENTS.map((c, i) => (
-                        <div key={i} className="border-t pt-4 rule">
+                        <div key={i} className="ubin !p-5">
                           <dt className="font-display text-3xl tabular-nums">
                             {c.count}
                           </dt>
@@ -132,16 +137,14 @@ export default async function Permainan({
                       ))}
                     </dl>
                   </div>
-                  <div>
+                  <div className="papan rounded-3xl p-6 sm:p-8">
                     <p className="t-eyebrow">
                       {id ? "Delapan zona tematik" : "Eight thematic zones"}
                     </p>
-                    <ul className="mt-5 flex flex-wrap gap-2">
+                    <ul className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
                       {ZONES.map((z, i) => (
-                        <li
-                          key={i}
-                          className="rounded-full border px-3.5 py-1.5 text-[0.85rem] text-[var(--fg-muted)] rule"
-                        >
+                        <li key={i} className="zona">
+                          <span>{String(i + 1).padStart(2, "0")}</span>
                           {t(z, lang)}
                         </li>
                       ))}
@@ -163,13 +166,11 @@ export default async function Permainan({
                     ? "Koalisi menang bersama-sama, atau tidak sama sekali. Empat syarat harus terpenuhi:"
                     : "The coalition wins together, or not at all. Four conditions must hold:"}
                 </p>
-                <ol className="mt-8 space-y-6">
+                <ol className="mt-8 space-y-3">
                   {WIN_CONDITIONS[lang].map((w, i) => (
-                    <li key={i} className="flex gap-5 border-t pt-5 rule">
-                      <span className="font-display text-xl tabular-nums text-[var(--fg-faint)]">
-                        {i + 1}
-                      </span>
-                      <p className="t-body">{w}</p>
+                    <li key={i} className="ubin flex items-start gap-4 !p-5">
+                      <span className="token token-kecil">{i + 1}</span>
+                      <p className="t-body pt-0.5">{w}</p>
                     </li>
                   ))}
                 </ol>

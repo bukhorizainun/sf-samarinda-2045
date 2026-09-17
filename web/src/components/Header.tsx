@@ -70,7 +70,7 @@ export function Header({ lang }: { lang: Lang }) {
         <nav
           ref={navRef}
           aria-label={t(UI.menu, lang)}
-          className="ml-auto hidden lg:block"
+          className="ml-auto hidden xl:block"
         >
           <ul className="flex items-center gap-0.5">
             {NAV.map((item) => {
@@ -80,7 +80,7 @@ export function Header({ lang }: { lang: Lang }) {
                   <Link
                     href={href(item.slug)}
                     aria-current={active ? "page" : undefined}
-                    className={`relative block rounded-full px-3 py-2 text-[0.85rem] transition-colors duration-200 ${
+                    className={`relative block whitespace-nowrap rounded-full px-3 py-2 text-[0.85rem] transition-colors duration-200 ${
                       active
                         ? "text-[var(--fg)]"
                         : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
@@ -100,7 +100,7 @@ export function Header({ lang }: { lang: Lang }) {
           </ul>
         </nav>
 
-        <div className="ml-auto flex items-center gap-1 lg:ml-3">
+        <div className="ml-auto flex items-center gap-1 xl:ml-3">
           <div className="flex items-center rounded-full border p-0.5 rule">
             {LANGS.map((l) => (
               <Link
@@ -126,7 +126,7 @@ export function Header({ lang }: { lang: Lang }) {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="menu-kecil"
-            className="ml-0.5 grid h-9 w-9 place-items-center rounded-full border transition-colors hover:bg-[var(--bg-sunken)] rule lg:hidden"
+            className="ml-0.5 grid h-9 w-9 place-items-center rounded-full border transition-colors hover:bg-[var(--bg-sunken)] rule xl:hidden"
           >
             <span className="sr-only">{t(UI.menu, lang)}</span>
             <svg viewBox="0 0 20 20" className="h-4 w-4" aria-hidden>
@@ -156,7 +156,7 @@ export function Header({ lang }: { lang: Lang }) {
       <div
         id="menu-kecil"
         hidden={!open}
-        className="border-t bg-[var(--bg)] rule lg:hidden"
+        className="border-t bg-[var(--bg)] rule xl:hidden"
       >
         <ul className="mx-auto max-w-6xl px-5 py-2 sm:px-8">
           {NAV.map((item) => {

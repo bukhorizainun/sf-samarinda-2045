@@ -8,7 +8,7 @@ export function Footer({ lang }: { lang: Lang }) {
   const year = 2026;
 
   return (
-    <footer className="mt-28 border-t rule">
+    <footer className="band mt-28 border-t rule">
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>

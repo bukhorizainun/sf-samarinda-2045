@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Container, Section } from "@/components/Section";
+import { Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
+import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { Tabs } from "@/components/Tabs";
 import {
   CHALLENGES,
@@ -36,31 +37,31 @@ export default async function Samarinda({
 
   return (
     <Halaman motif="pesut" adegan="sungai">
-      <Container className="pb-10 pt-14 sm:pt-20">
-        <p className="t-eyebrow">{id ? "Latar Permainan" : "The Setting"}</p>
-        <h1 className="t-h1 mt-4 max-w-[18ch]">
-          {id
+      <KepalaHalaman
+        eyebrow={id ? "Latar Permainan" : "The Setting"}
+        title={
+          id
             ? "Kota yang tumbuh bersama Sungai Mahakam"
-            : "A city that grew with the Mahakam"}
-        </h1>
-        <p className="t-lead measure mt-6">{t(SAMARINDA_INTRO, lang)}</p>
-      </Container>
+            : "A city that grew with the Mahakam"
+        }
+        lead={t(SAMARINDA_INTRO, lang)}
+      />
 
 
-      <Section className="border-t rule !pt-6">
+      <Section className="band border-t rule !pt-10">
         <Tabs tabs={tabs} label={id ? "Bagian halaman" : "Page sections"}>
           {[
             /* ---- Kota & sungai ---- */
             <div key="kota" className="grid gap-12 lg:grid-cols-[1.15fr_1fr]">
               <div className="measure">
                 <p className="t-body">{t(SAMARINDA_LINK, lang)}</p>
-                <blockquote className="mt-10 border-l-2 pl-6 rule">
+                <blockquote className="kutipan mt-10">
                   <p className="t-h3 font-normal leading-relaxed">
                     {t(SAMARINDA_QUESTION, lang)}
                   </p>
                 </blockquote>
               </div>
-              <aside className="rounded-2xl border p-7 rule sm:p-8">
+              <aside className="papan self-start rounded-3xl p-7 sm:p-9">
                 <p className="t-eyebrow">
                   {id
                     ? "Mengapa Samarinda dipilih"
@@ -75,9 +76,13 @@ export default async function Samarinda({
             </div>,
 
             /* ---- Empat tantangan ---- */
-            <div key="tantangan" className="grid gap-px overflow-hidden rounded-2xl border bg-[var(--line)] rule sm:grid-cols-2">
+            <div key="tantangan" className="grid gap-4 sm:grid-cols-2">
               {CHALLENGES.map((c, i) => (
-                <article key={i} className="bg-[var(--bg)] p-7 sm:p-9">
+                <article
+                  key={i}
+                  className="ubin sm:p-9"
+                  style={{ "--pita": INDICATORS[i].color } as React.CSSProperties}
+                >
                   <div className="flex items-center gap-3">
                     <span
                       aria-hidden
@@ -108,7 +113,7 @@ export default async function Samarinda({
               </h2>
               <p className="t-body mt-4">{t(SDG_NOTE, lang)}</p>
 
-              <blockquote className="mt-12 border-l-2 pl-6 rule">
+              <blockquote className="kutipan mt-12">
                 <p className="t-eyebrow">
                   {id ? "Untuk dipikirkan" : "Worth thinking about"}
                 </p>

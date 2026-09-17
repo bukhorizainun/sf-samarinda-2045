@@ -27,10 +27,18 @@
   --color-deep-2: #0b1420;
   --color-deep-3: #12203040;
 
-  /* Terang, untuk tema siang. */
-  --color-paper: #f6f8fb;
-  --color-paper-2: #ffffff;
-  --color-paper-3: #e9eef5;
+  /* Terang, untuk tema siang. Kertas meja permainan, bukan layar
+     putih: krem hangat yang sedikit bersemu lumpur Mahakam. */
+  --color-paper: #f4f0e7;
+  --color-paper-2: #fffdf8;
+  --color-paper-3: #ebe5d8;
+
+  /* Bahan meja: air sungai, tanah liat, ulin. Untuk bidang papan
+     dan penanda, bukan untuk data. */
+  --color-mahakam: #0e4f52;
+  --color-mahakam-2: #0a3b3d;
+  --color-clay: #b4613a;
+  --color-ulin: #2b211b;
 
   /* Warna data. Milik panduan permainan; hanya untuk indikator,
      grafik, dan penanda jenis kartu. Bukan warna rupa situs. */
@@ -54,13 +62,13 @@
   /* Dasar terang bersemu dingin. Bukan putih mati: ada kabut
      kebiruan tipis supaya aurora di atasnya punya tempat berpijak. */
   --bg: var(--color-paper);
-  --bg-raised: #ffffff;
+  --bg-raised: var(--color-paper-2);
   --bg-sunken: var(--color-paper-3);
-  --fg: #0a1420;
-  --fg-muted: #47586b;
-  --fg-faint: #5f7082;   /* 4,78:1 di atas --bg; AA untuk teks kecil */
-  --line: rgb(10 20 32 / 0.09);
-  --line-strong: rgb(10 20 32 / 0.2);
+  --fg: #10201e;
+  --fg-muted: #45544f;
+  --fg-faint: #5b6863;   /* kira-kira 5:1 di atas --bg; AA untuk teks kecil */
+  --line: rgb(30 36 28 / 0.11);
+  --line-strong: rgb(30 36 28 / 0.22);
   --glow: 0 0 60px -12px var(--scene);
 
   /* Warna adegan. Berpindah mengikuti bagian yang sedang dilihat. */
@@ -71,12 +79,12 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: var(--color-deep);
+  --bg: #09110f;
   --bg-raised: rgb(255 255 255 / 0.035);
-  --bg-sunken: var(--color-abyss);
-  --fg: #eaf2f8;
-  --fg-muted: #9fb2c4;
-  --fg-faint: #6b8098;
+  --bg-sunken: #050a09;
+  --fg: #ecf1ea;
+  --fg-muted: #a7b5ad;
+  --fg-faint: #7f8f87;
   --line: rgb(255 255 255 / 0.09);
   --line-strong: rgb(255 255 255 / 0.18);
 }
@@ -241,7 +249,7 @@ body::after {
   z-index: -1;
   pointer-events: none;
   filter: blur(90px) saturate(125%);
-  opacity: 0.22;
+  opacity: 0.16;
 }
 
 :root[data-theme="dark"] .aurora {
@@ -580,4 +588,338 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
   .mk-tanam-a, .mk-tanam-b, .mk-tumbuh { animation: none; }
+}
+
+/* ============================================================
+   Lapis meja: irama bagian, papan, tombol taktil
+   ============================================================ */
+
+/* Bagian berselang di atas kertas yang sedikit lebih gelap. */
+.band {
+  background: var(--bg-sunken);
+}
+:root[data-theme="dark"] .band {
+  background: rgb(255 255 255 / 0.018);
+}
+
+/* Papan permainan: bidang air Mahakam dengan kisi petak samar,
+   seperti papan cetak yang dibentangkan di meja. Token teks
+   ditimpa di sini supaya semua komponen di dalamnya ikut terang. */
+.papan {
+  --fg: #eef3ec;
+  --fg-muted: #bccbc4;
+  --fg-faint: #9db1a9;
+  --line: rgb(255 255 255 / 0.13);
+  --line-strong: rgb(255 255 255 / 0.28);
+  --bg: var(--color-mahakam-2);
+  --bg-raised: rgb(255 255 255 / 0.065);
+  --bg-sunken: rgb(0 0 0 / 0.18);
+  --scene: var(--color-mint);
+  position: relative;
+  isolation: isolate;
+  color: var(--fg);
+  background:
+    radial-gradient(120% 90% at 85% 0%, rgb(79 240 192 / 0.12), transparent 60%),
+    linear-gradient(180deg, var(--color-mahakam), var(--color-mahakam-2));
+}
+.papan::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(120% 100% at 50% 40%, #000 30%, transparent 85%);
+}
+:root[data-theme="dark"] .papan {
+  background:
+    radial-gradient(120% 90% at 85% 0%, rgb(79 240 192 / 0.08), transparent 60%),
+    linear-gradient(180deg, #0b2a2b, #07191a);
+}
+
+/* Petak lintasan fase: ubin tebal yang bisa ditekan. */
+.petak {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 1.35rem 1.35rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  box-shadow: 0 4px 0 0 rgb(0 0 0 / 0.22);
+  transition:
+    transform var(--gerak-sedang) var(--ease-out-soft),
+    box-shadow var(--gerak-sedang) var(--ease-out-soft),
+    border-color var(--gerak-sedang) var(--ease-out-soft);
+}
+.petak:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  box-shadow: 0 7px 0 0 rgb(0 0 0 / 0.22);
+}
+
+/* Token nomor: keping bundar seperti penanda di papan. */
+.token {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ulin);
+  background: radial-gradient(circle at 35% 30%, #fff6e3, #e6c48a 70%);
+  box-shadow:
+    inset 0 -2px 0 rgb(0 0 0 / 0.18),
+    0 2px 0 rgb(0 0 0 / 0.25);
+}
+
+/* Tombol. Ditekan terasa turun sedikit, seperti keping di meja. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: var(--tap);
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    transform var(--gerak-sedang) var(--ease-out-soft),
+    box-shadow var(--gerak-sedang) var(--ease-out-soft),
+    background-color var(--gerak-sedang) var(--ease-out-soft),
+    border-color var(--gerak-sedang) var(--ease-out-soft);
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn:active,
+.petak:active,
+.kartu:active {
+  transform: translateY(1px) scale(0.985);
+  transition-duration: var(--gerak-cepat);
+}
+.btn-utama {
+  background: var(--fg);
+  color: var(--bg);
+  box-shadow: 0 3px 0 0 color-mix(in oklab, var(--fg) 55%, #000), var(--lift-1);
+}
+.btn-utama:hover {
+  box-shadow: 0 5px 0 0 color-mix(in oklab, var(--fg) 55%, #000), var(--lift-2);
+}
+.btn-garis {
+  border: 1px solid var(--line-strong);
+  background: color-mix(in oklab, var(--bg-raised) 70%, transparent);
+}
+.btn-garis:hover {
+  background: var(--bg-raised);
+}
+
+/* Lockup nama di pembuka: dua keping yang bersambung. */
+.lockup {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: color-mix(in oklab, var(--bg-raised) 75%, transparent);
+}
+.lockup > span {
+  padding: 0.55rem 0.85rem;
+}
+.lockup > span + span {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover, .petak:hover, .btn:active, .petak:active, .kartu:active {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Halaman dalam: kepala, tab segmen, ubin
+   ============================================================ */
+
+/* Keping label: titik berwarna adegan di dalam pil. */
+.keping-adegan {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.85rem 0.4rem 0.6rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid color-mix(in oklab, var(--scene) 35%, var(--line));
+  background: color-mix(in oklab, var(--scene) 9%, var(--bg-raised));
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.keping-adegan::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--scene);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--scene) 22%, transparent);
+}
+
+/* Tab segmen: rel cekung, tab aktif menjadi keping yang terangkat. */
+.segmen {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--bg-sunken);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.06);
+}
+.segmen-tab {
+  position: relative;
+  flex: none;
+  white-space: nowrap;
+  min-height: 2.5rem;
+  padding: 0.5rem 1.05rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  color: var(--fg-faint);
+  transition:
+    color var(--gerak-sedang) var(--ease-out-soft),
+    background-color var(--gerak-sedang) var(--ease-out-soft),
+    box-shadow var(--gerak-sedang) var(--ease-out-soft),
+    transform var(--gerak-cepat) var(--ease-out-soft);
+}
+.segmen-tab:hover {
+  color: var(--fg);
+}
+.segmen-tab:active {
+  transform: scale(0.97);
+}
+.segmen-tab[aria-selected="true"] {
+  color: var(--fg);
+  font-weight: 500;
+  background: var(--bg-raised);
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, var(--scene) 70%, transparent),
+    var(--lift-1);
+}
+:root[data-theme="dark"] .segmen-tab[aria-selected="true"] {
+  background: rgb(255 255 255 / 0.09);
+}
+
+/* Ubin: permukaan kartu terang untuk isi yang berdiri sendiri. */
+.ubin {
+  position: relative;
+  padding: 1.6rem 1.6rem 1.75rem;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+  box-shadow: var(--lift-1);
+  overflow: hidden;
+  transition:
+    transform var(--gerak-sedang) var(--ease-out-soft),
+    box-shadow var(--gerak-sedang) var(--ease-out-soft),
+    border-color var(--gerak-sedang) var(--ease-out-soft);
+}
+.ubin:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--lift-2);
+  border-color: var(--line-strong);
+}
+/* Pita warna di kepala ubin, diisi lewat --pita. */
+.ubin[style*="--pita"]::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--pita);
+}
+
+/* Token versi terang: dipakai di luar papan. */
+.token-kecil {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Kotak centang lembar validasi. */
+.centang {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-top: 0.1rem;
+  border-radius: 6px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--bg-raised);
+}
+
+/* Petak zona papan: bujur sangkar bernomor. */
+.zona {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1;
+  padding: 0.8rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 3px 0 0 rgb(0 0 0 / 0.2);
+  transition:
+    transform var(--gerak-sedang) var(--ease-out-soft),
+    border-color var(--gerak-sedang) var(--ease-out-soft);
+}
+.zona:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+}
+.zona span {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: var(--fg-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Kutipan editorial. */
+.kutipan {
+  position: relative;
+  padding: 2rem 2rem 2rem 2.25rem;
+  border-radius: 16px;
+  background: color-mix(in oklab, var(--scene) 8%, var(--bg-raised));
+  border: 1px solid color-mix(in oklab, var(--scene) 25%, var(--line));
+}
+.kutipan::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.2rem;
+  left: 1rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 4.5rem;
+  line-height: 1;
+  color: color-mix(in oklab, var(--scene) 60%, var(--fg-faint));
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ubin:hover, .zona:hover, .segmen-tab:active { transform: none; }
 }
