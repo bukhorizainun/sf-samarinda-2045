@@ -12,6 +12,16 @@ import { LANGS, LANG_SHORT, t, type Lang } from "@/lib/i18n";
 export function Header({ lang }: { lang: Lang }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
+  /** Tab mana yang sedang membuka lapis keduanya. */
+  const [lapis, setLapis] = useState<string | null>(null);
+  /* Lapis kedua tertutup sendiri saat halaman berpindah. Disetel saat
+     render, bukan di dalam efek: begitu alamat berubah, panelnya tidak
+     boleh sempat tergambar sekali pun dalam keadaan terbuka. */
+  const [jalurTerakhir, setJalurTerakhir] = useState(pathname);
+  if (pathname !== jalurTerakhir) {
+    setJalurTerakhir(pathname);
+    setLapis(null);
+  }
   const [lifted, setLifted] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
@@ -32,6 +42,21 @@ export function Header({ lang }: { lang: Lang }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
+  /* Escape menutupnya, dan menekan di luar kepala halaman juga. */
+  useEffect(() => {
+    if (!lapis) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setLapis(null);
+    const onDown = (e: PointerEvent) => {
+      if (!navRef.current?.contains(e.target as Node)) setLapis(null);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", onDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", onDown);
+    };
+  }, [lapis]);
 
   const base = `/${lang}`;
   const href = (slug: string) => (slug ? `${base}/${slug}` : base);
@@ -74,26 +99,101 @@ export function Header({ lang }: { lang: Lang }) {
         >
           <ul className="flex items-center gap-0.5">
             {NAV.map((item) => {
-              const active = isActive(item.slug);
+              const anak = item.anak ?? [];
+              /* Tab bercabang dianggap aktif bila salah satu anaknya
+                 yang sedang dibuka. */
+              const active =
+                isActive(item.slug) || anak.some((x) => isActive(x.slug));
+              const terbuka = lapis === item.slug;
+
+              const garis = (
+                <span
+                  aria-hidden
+                  className={`absolute inset-x-3 -bottom-px h-px origin-left transition-transform duration-300 ease-[var(--ease-out-soft)] sf-gradient ${
+                    active ? "scale-x-100" : "scale-x-0"
+                  }`}
+                />
+              );
+              const gaya = `relative block whitespace-nowrap rounded-full px-3 py-2 text-[0.85rem] transition-colors duration-200 ${
+                active
+                  ? "text-[var(--fg)]"
+                  : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
+              }`;
+
+              if (!anak.length) {
+                return (
+                  <li key={item.slug || "home"}>
+                    <Link
+                      href={href(item.slug)}
+                      aria-current={active ? "page" : undefined}
+                      className={gaya}
+                    >
+                      {t(item.label, lang)}
+                      {garis}
+                    </Link>
+                  </li>
+                );
+              }
+
               return (
-                <li key={item.slug || "home"}>
-                  <Link
-                    href={href(item.slug)}
-                    aria-current={active ? "page" : undefined}
-                    className={`relative block whitespace-nowrap rounded-full px-3 py-2 text-[0.85rem] transition-colors duration-200 ${
-                      active
-                        ? "text-[var(--fg)]"
-                        : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
-                    }`}
+                <li key={item.slug} className="relative">
+                  <button
+                    type="button"
+                    aria-expanded={terbuka}
+                    aria-controls={`lapis-${item.slug}`}
+                    onClick={() => setLapis(terbuka ? null : item.slug)}
+                    className={`${gaya} inline-flex items-center gap-1.5`}
                   >
                     {t(item.label, lang)}
-                    <span
+                    <svg
+                      viewBox="0 0 12 12"
                       aria-hidden
-                      className={`absolute inset-x-3 -bottom-px h-px origin-left transition-transform duration-300 ease-[var(--ease-out-soft)] sf-gradient ${
-                        active ? "scale-x-100" : "scale-x-0"
+                      className={`h-2.5 w-2.5 transition-transform duration-[var(--gerak-sedang)] ease-[var(--ease-out-soft)] ${
+                        terbuka ? "rotate-180" : ""
                       }`}
-                    />
-                  </Link>
+                    >
+                      <path
+                        d="M2 4.5 L6 8 L10 4.5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    {garis}
+                  </button>
+
+                  {/* Lapis kedua: satu baris satu halaman, dengan
+                      keterangan pendek supaya pilihannya jelas. */}
+                  <div
+                    id={`lapis-${item.slug}`}
+                    hidden={!terbuka}
+                    className="lapis-dua"
+                  >
+                    <ul>
+                      {anak.map((x) => {
+                        const on = isActive(x.slug);
+                        return (
+                          <li key={x.slug}>
+                            <Link
+                              href={href(x.slug)}
+                              aria-current={on ? "page" : undefined}
+                              onClick={() => setLapis(null)}
+                              className={`lapis-tautan ${on ? "lapis-aktif" : ""}`}
+                            >
+                              <span className="block text-[0.9rem] font-medium">
+                                {t(x.label, lang)}
+                              </span>
+                              <span className="mt-0.5 block text-[0.78rem] leading-snug text-[var(--fg-faint)]">
+                                {t(x.catatan, lang)}
+                              </span>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </li>
               );
             })}
@@ -160,25 +260,60 @@ export function Header({ lang }: { lang: Lang }) {
       >
         <ul className="mx-auto max-w-6xl px-5 py-2 sm:px-8">
           {NAV.map((item) => {
-            const active = isActive(item.slug);
+            const anak = item.anak ?? [];
+            const active =
+              isActive(item.slug) || anak.some((x) => isActive(x.slug));
             return (
-              <li key={item.slug || "home"}>
-                <Link
-                  href={href(item.slug)}
-                  onClick={() => setOpen(false)}
-                  aria-current={active ? "page" : undefined}
-                  className={`flex items-center gap-3 border-b py-3 text-[0.95rem] last:border-b-0 rule ${
-                    active ? "text-[var(--fg)]" : "text-[var(--fg-muted)]"
-                  }`}
-                >
-                  <span
-                    aria-hidden
-                    className={`h-4 w-0.5 rounded-full transition-opacity sf-gradient ${
-                      active ? "opacity-100" : "opacity-0"
+              <li key={item.slug || "home"} className="border-b last:border-b-0 rule">
+                {anak.length === 0 ? (
+                  <Link
+                    href={href(item.slug)}
+                    onClick={() => setOpen(false)}
+                    aria-current={active ? "page" : undefined}
+                    className={`flex items-center gap-3 py-3 text-[0.95rem] ${
+                      active ? "text-[var(--fg)]" : "text-[var(--fg-muted)]"
                     }`}
-                  />
-                  {t(item.label, lang)}
-                </Link>
+                  >
+                    <span
+                      aria-hidden
+                      className={`h-4 w-0.5 rounded-full transition-opacity sf-gradient ${
+                        active ? "opacity-100" : "opacity-0"
+                      }`}
+                    />
+                    {t(item.label, lang)}
+                  </Link>
+                ) : (
+                  <div className="py-3">
+                    <p className="t-eyebrow !text-[0.6rem]">
+                      {t(item.label, lang)}
+                    </p>
+                    <ul className="mt-2 space-y-1">
+                      {anak.map((x) => {
+                        const on = isActive(x.slug);
+                        return (
+                          <li key={x.slug}>
+                            <Link
+                              href={href(x.slug)}
+                              onClick={() => setOpen(false)}
+                              aria-current={on ? "page" : undefined}
+                              className={`flex items-center gap-3 rounded-lg py-2 text-[0.95rem] ${
+                                on ? "text-[var(--fg)]" : "text-[var(--fg-muted)]"
+                              }`}
+                            >
+                              <span
+                                aria-hidden
+                                className={`h-4 w-0.5 rounded-full transition-opacity sf-gradient ${
+                                  on ? "opacity-100" : "opacity-0"
+                                }`}
+                              />
+                              {t(x.label, lang)}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
               </li>
             );
           })}

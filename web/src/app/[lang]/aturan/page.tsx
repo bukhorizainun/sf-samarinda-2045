@@ -3,6 +3,7 @@ import { Container } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { TombolCetak } from "@/components/TombolCetak";
+import { Reveal } from "@/components/Reveal";
 import {
   BRAND,
   COMPONENTS,
@@ -109,15 +110,15 @@ export default async function Aturan({
           />
           <p className="tanpa-cetak text-xs text-[var(--fg-faint)]">
             {id
-              ? "Sekitar lima halaman A4, tanpa menu dan tanpa hiasan."
-              : "About five A4 pages, without the menu and the decoration."}
+              ? "Empat halaman A4 berwarna, tanpa menu dan tanpa hiasan."
+              : "Four A4 pages in full colour, without the menu and the decoration."}
           </p>
         </div>
       </KepalaHalaman>
 
       <Container className="lembar pb-24">
         {/* Kepala lembar. Hanya tampil saat dicetak. */}
-        <header className="hanya-cetak mb-8 border-b pb-4 rule">
+        <header className="hanya-cetak lembar-kepala mb-6">
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em]">
             {BRAND.mark} — {t(BRAND.name, lang)} · {t(BRAND.tagline, lang)}
           </p>
@@ -129,7 +130,7 @@ export default async function Aturan({
 
         <div className="grid gap-12">
           {/* 1. Profil permainan */}
-          <section>
+          <Reveal as="section" className="w-full">
             <p className="bab mb-5">
               <b>01</b>
               {id ? "Profil permainan" : "Game profile"}
@@ -147,10 +148,10 @@ export default async function Aturan({
                 </div>
               ))}
             </dl>
-          </section>
+          </Reveal>
 
           {/* 2. Enam fase beserta waktunya */}
-          <section>
+          <Reveal as="section" className="w-full">
             <p className="bab mb-5">
               <b>02</b>
               {id ? "Enam fase" : "Six phases"}
@@ -159,9 +160,14 @@ export default async function Aturan({
               {PHASES.map((p) => (
                 <li
                   key={p.no}
-                  className="grid gap-1 border-b bg-[var(--surface-1)] px-5 py-4 last:border-b-0 rule sm:grid-cols-[2.5rem_1fr_5.5rem] sm:items-baseline sm:gap-4"
+                  className="baris-fase grid gap-2 border-b bg-[var(--surface-1)] px-5 py-4 last:border-b-0 rule sm:grid-cols-[2.5rem_1fr_5.5rem] sm:items-center sm:gap-4"
+                  style={
+                    {
+                      "--pita": INDICATORS[(p.no - 1) % INDICATORS.length].color,
+                    } as React.CSSProperties
+                  }
                 >
-                  <span className="mono text-[0.85rem] text-[var(--fg-faint)]">
+                  <span className="nomor-fase">
                     {String(p.no).padStart(2, "0")}
                   </span>
                   <span>
@@ -183,17 +189,25 @@ export default async function Aturan({
                 ? "Penyiapan 10–15 menit berjalan sebelum Fase 1 dan tidak dihitung sebagai fase."
                 : "A 10–15 minute setup runs before Phase 1 and does not count as a phase."}
             </p>
-          </section>
+          </Reveal>
 
           {/* 3. Lima peran */}
-          <section>
+          <Reveal as="section" className="w-full">
             <p className="bab mb-5">
               <b>03</b>
               {id ? "Lima peran" : "Five roles"}
             </p>
             <ol className="grid gap-3 sm:grid-cols-2">
               {ROLES.map((r, i) => (
-                <li key={i} className="ubin !p-5">
+                <li
+                  key={i}
+                  className="ubin !p-5"
+                  style={
+                    {
+                      "--pita": INDICATORS[i % INDICATORS.length].color,
+                    } as React.CSSProperties
+                  }
+                >
                   <div className="flex items-start gap-3">
                     <span className="token token-kecil">{i + 1}</span>
                     <span>
@@ -211,10 +225,10 @@ export default async function Aturan({
             <p className="t-body measure mt-4 text-[0.9rem]">
               {t(ROLES_NOTE, lang)}
             </p>
-          </section>
+          </Reveal>
 
           {/* 4. Empat City Indicator */}
-          <section>
+          <Reveal as="section" className="w-full">
             <p className="bab mb-5">
               <b>04</b>City Indicators
             </p>
@@ -244,18 +258,29 @@ export default async function Aturan({
             <p className="t-body measure mt-4 text-[0.9rem]">
               {t(INDICATOR_SCALE, lang)}
             </p>
-          </section>
+          </Reveal>
 
           {/* 5. Komponen dan zona */}
-          <section>
+          <Reveal as="section" className="w-full">
             <p className="bab mb-5">
               <b>05</b>
               {id ? "Komponen" : "Components"}
             </p>
             <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {COMPONENTS.map((c, i) => (
-                <div key={i} className="ubin !p-4">
-                  <dt className="font-display text-2xl tabular-nums">
+                <div
+                  key={i}
+                  className="ubin !p-4"
+                  style={
+                    {
+                      "--pita": INDICATORS[i % INDICATORS.length].color,
+                    } as React.CSSProperties
+                  }
+                >
+                  <dt
+                    className="font-display text-2xl tabular-nums"
+                    style={{ color: INDICATORS[i % INDICATORS.length].color }}
+                  >
                     {c.count}
                   </dt>
                   <dd className="mt-1 text-[0.8rem] leading-snug text-[var(--fg-muted)]">
@@ -271,7 +296,11 @@ export default async function Aturan({
               {ZONES.map((z, i) => (
                 <li
                   key={i}
-                  className="rounded-full border px-3 py-1.5 text-[0.85rem] text-[var(--fg-muted)] rule"
+                  className="rounded-full border px-3 py-1.5 text-[0.85rem]"
+                  style={{
+                    borderColor: `color-mix(in oklab, ${INDICATORS[i % INDICATORS.length].color} 45%, transparent)`,
+                    background: `color-mix(in oklab, ${INDICATORS[i % INDICATORS.length].color} 9%, transparent)`,
+                  }}
                 >
                   {t(z, lang)}
                 </li>
@@ -282,10 +311,10 @@ export default async function Aturan({
                 ? "Enam jenis token sumber daya beredar di antara pemain: Nature, Energy, Funds, Knowledge, Community, dan Technology."
                 : "Six kinds of resource token circulate between players: Nature, Energy, Funds, Knowledge, Community, and Technology."}
             </p>
-          </section>
+          </Reveal>
 
           {/* 6. Aturan GenAI di meja */}
-          <section>
+          <Reveal as="section" className="w-full">
             <p className="bab mb-5">
               <b>06</b>
               {id ? "Aturan GenAI di meja" : "GenAI rules at the table"}
@@ -305,10 +334,10 @@ export default async function Aturan({
                 </li>
               ))}
             </ul>
-          </section>
+          </Reveal>
 
           {/* 7. Syarat menang */}
-          <section>
+          <Reveal as="section" className="w-full">
             <p className="bab mb-5">
               <b>07</b>
               {id ? "Syarat menang" : "Win conditions"}
@@ -320,16 +349,24 @@ export default async function Aturan({
             </p>
             <ol className="mt-5 space-y-3">
               {WIN_CONDITIONS[lang].map((w, i) => (
-                <li key={i} className="ubin flex items-start gap-4 !p-5">
+                <li
+                  key={i}
+                  className="ubin flex items-start gap-4 !p-5"
+                  style={
+                    {
+                      "--pita": INDICATORS[i % INDICATORS.length].color,
+                    } as React.CSSProperties
+                  }
+                >
                   <span className="token token-kecil">{i + 1}</span>
                   <p className="t-body pt-0.5 text-[0.92rem]">{w}</p>
                 </li>
               ))}
             </ol>
-          </section>
+          </Reveal>
 
           {/* Asal-usul lembar ini. */}
-          <section className="border-t pt-6 rule">
+          <Reveal as="section" className="w-full border-t pt-6 rule">
             <p className="t-eyebrow !text-[0.62rem]">
               {id ? "Asal lembar ini" : "Where this sheet comes from"}
             </p>
@@ -342,7 +379,7 @@ export default async function Aturan({
               {t(UI.prototypeNote, lang)} · {t(BRAND.edition, lang)} ·{" "}
               {BRAND.studio}
             </p>
-          </section>
+          </Reveal>
         </div>
       </Container>
     </Halaman>

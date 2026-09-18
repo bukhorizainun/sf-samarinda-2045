@@ -123,8 +123,9 @@ export function Hero({ lang }: { lang: Lang }) {
           </p>
         </div>
 
-        <div className="relative">
-          <h1 className="panggung-judul rise mt-12 max-w-[13ch] [animation-delay:80ms] sm:mt-16">
+        <div className="relative mt-10 grid items-center gap-8 sm:mt-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12">
+          <div>
+          <h1 className="panggung-judul rise max-w-[18ch] [animation-delay:80ms]">
             {id ? (
               <>
                 Hari ini kita <span className="tekan">memutuskan</span>.
@@ -138,9 +139,8 @@ export function Hero({ lang }: { lang: Lang }) {
             )}
           </h1>
 
-          <div className="mt-10 grid gap-10 pb-14 sm:pb-16 lg:grid-cols-[minmax(0,34rem)_1fr] lg:items-end">
-            <div className="rise [animation-delay:160ms]">
-              <p className="t-lead">{t(HOME.heroLead, lang)}</p>
+          <div className="rise mt-8 [animation-delay:160ms]">
+              <p className="t-lead measure">{t(HOME.heroLead, lang)}</p>
 
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <Link href={`${base}/permainan`} className="btn btn-utama group px-7">
@@ -172,25 +172,24 @@ export function Hero({ lang }: { lang: Lang }) {
                   {t(HOME.ctaSecondary, lang)}
                 </Link>
               </div>
-            </div>
+          </div>
+          </div>
 
-            {/* Maskot di dermaga. Di layar sempit ia berdiri di bawah
-                tombol, bukan menimpanya. */}
-            <div
-              className="relative flex justify-end"
-              style={{ transform: `translate3d(0, ${y * 0.05}px, 0)` }}
-            >
-              {/* Naik ketinting yang melayang, didampingi enggang. */}
-              <Maskot
-                pose="terbang"
-                sapaan={id ? "Selamat datang" : "Welcome"}
-                className="h-[210px] w-auto sm:h-[270px] lg:h-[320px]"
-              />
-            </div>
+          {/* Adegan maskot mengisi kolom kanan, bergerak sedikit lebih
+              lambat dari tulisan saat digulir. */}
+          <div
+            className="relative flex justify-center lg:justify-end"
+            style={{ transform: `translate3d(0, ${y * 0.05}px, 0)` }}
+          >
+            <Maskot
+              pose="terbang"
+              sapaan={id ? "Selamat datang" : "Welcome"}
+              className="h-[240px] w-auto sm:h-[300px] lg:h-[380px]"
+            />
           </div>
         </div>
 
-        <dl className="fakta rise [animation-delay:240ms]">
+        <dl className="fakta rise mt-12 [animation-delay:240ms] sm:mt-16">
           {fakta.map((f) => (
             <div key={f.l}>
               <dt>{f.n}</dt>

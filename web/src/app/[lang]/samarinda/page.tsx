@@ -43,7 +43,7 @@ export default async function Samarinda({
   return (
     <Halaman motif="pesut" adegan="sungai">
       <KepalaHalaman
-        sikap="amati"
+        sikap="renang"
         pendamping="shelly"
         eyebrow={id ? "Latar Permainan" : "The Setting"}
         title={

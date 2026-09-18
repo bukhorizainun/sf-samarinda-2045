@@ -117,8 +117,13 @@ export function Dasbor({ kartu, lang }: { kartu: Kartu[]; lang: Lang }) {
             <span aria-hidden className="lampu" />
             {id ? "Profil dampak" : "Impact profile"}
           </span>
+          {/* Keterangan skala ditulis sekali di sini, bukan diulang di
+              bawah keempat jalur. */}
           <span className="mono normal-case tracking-normal">
-            {terpilih.length}/{SLOT_MINI} {id ? "mini-project" : "mini-projects"}
+            0–10 · {id ? "mulai 5" : "starts 5"} ·{" "}
+            <span className="text-[var(--fg)]">
+              {terpilih.length}/{SLOT_MINI}
+            </span>
           </span>
         </div>
 
@@ -141,29 +146,35 @@ export function Dasbor({ kartu, lang }: { kartu: Kartu[]; lang: Lang }) {
                     />
                     {t(ind.name, lang)}
                   </h3>
-                  <span className="mono flex items-baseline gap-2 text-[1.4rem] leading-none">
+                  <span className="mono flex items-baseline gap-1.5 text-[1.25rem] leading-none">
                     {delta !== 0 && (
-                      <span
-                        className="text-[0.75rem]"
-                        style={{
-                          color:
-                            delta > 0 ? "var(--color-mint)" : "var(--kritis)",
-                        }}
-                      >
-                        {delta > 0 ? `+${delta}` : delta}
-                      </span>
+                      <>
+                        <span className="text-[0.8rem] text-[var(--fg-faint)]">
+                          {String(AWAL).padStart(2, "0")}
+                        </span>
+                        <span
+                          aria-hidden
+                          className="text-[0.75rem]"
+                          style={{
+                            color:
+                              delta > 0 ? "var(--color-env)" : "var(--kritis)",
+                          }}
+                        >
+                          →
+                        </span>
+                      </>
                     )}
                     <span style={kritis ? { color: "var(--kritis)" } : undefined}>
                       {String(akhir).padStart(2, "0")}
                     </span>
-                    <span className="text-[0.8rem] text-[var(--fg-faint)]">
-                      /{SKALA}
-                    </span>
                   </span>
                 </div>
 
+                {/* Sel ke-5 diberi tanda: itu titik awal tiap jalur,
+                    jadi kenaikan dan penurunan terbaca tanpa keterangan
+                    tambahan di bawahnya. */}
                 <div
-                  className="jalur mt-3"
+                  className="jalur mt-2.5"
                   role="img"
                   aria-label={`${t(ind.name, lang)}: ${akhir} / ${SKALA}`}
                 >
@@ -172,16 +183,10 @@ export function Dasbor({ kartu, lang }: { kartu: Kartu[]; lang: Lang }) {
                       key={s}
                       data-kritis={s < BATAS_KRITIS ? "" : undefined}
                       data-isi={s < akhir ? "" : undefined}
+                      data-awal={s === AWAL - 1 ? "" : undefined}
                       style={{ transitionDelay: `${s * 22}ms` }}
                     />
                   ))}
-                </div>
-                <div className="mono mt-1.5 flex justify-between text-[0.6rem] text-[var(--fg-faint)]">
-                  <span>0</span>
-                  <span>
-                    {id ? "mulai di" : "starts at"} {AWAL}
-                  </span>
-                  <span>{SKALA}</span>
                 </div>
               </div>
             );
@@ -189,34 +194,29 @@ export function Dasbor({ kartu, lang }: { kartu: Kartu[]; lang: Lang }) {
         </div>
 
         {/* Biaya sumber daya, dijumlahkan dari kartu terpilih. */}
-        <div className="border-t p-5 rule">
+        <div className="border-t px-5 py-4 rule">
           <p className="t-eyebrow !text-[0.6rem]">
             {id ? "Biaya sumber daya" : "Resource cost"}
           </p>
-          <ul className="mono mt-3 grid grid-cols-2 gap-2 text-[0.72rem] sm:grid-cols-3">
+          <ul className="deret-biaya mt-2.5">
             {SUMBER.map((s) => (
-              <li
-                key={s}
-                className="flex min-w-0 items-center justify-between gap-1.5 rounded-md border px-2 py-1.5 rule"
-                style={
-                  biaya[s]
-                    ? { borderColor: "var(--line-strong)", color: "var(--fg)" }
-                    : { color: "var(--fg-faint)" }
-                }
-              >
-                <span className="min-w-0 truncate">{id ? SUMBER_ID[s] : s}</span>
-                <span>{biaya[s] ?? 0}</span>
+              <li key={s} data-nol={biaya[s] ? undefined : ""}>
+                <span className="mono">{biaya[s] ?? 0}</span>
+                <span>{id ? SUMBER_ID[s] : s}</span>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Empat syarat menang: dua bisa diperiksa di sini, dua milik meja. */}
-        <div className="border-t p-5 rule">
+        <div className="border-t px-5 py-4 rule">
           <p className="t-eyebrow !text-[0.6rem]">
-            {id ? "Syarat menang" : "Win conditions"}
+            {id ? "Syarat menang" : "Win conditions"} ·{" "}
+            <span className="normal-case tracking-normal text-[var(--fg-faint)]">
+              {id ? "dua diperiksa di sini, dua di meja" : "two checked here, two at the table"}
+            </span>
           </p>
-          <ul className="mt-3 space-y-2 text-[0.82rem]">
+          <ul className="mt-2.5 space-y-1.5 text-[0.8rem]">
             <Syarat
               lulus={zonaTercakup.length >= 2}
               teks={
@@ -237,8 +237,8 @@ export function Dasbor({ kartu, lang }: { kartu: Kartu[]; lang: Lang }) {
               meja
               teks={
                 id
-                  ? "Minimal satu proyek didukung tiga peran atau lebih — diputuskan di meja"
-                  : "At least one project backed by three or more roles — decided at the table"
+                  ? "Minimal satu proyek didukung tiga peran atau lebih"
+                  : "At least one project backed by three or more roles"
               }
             />
             <Syarat

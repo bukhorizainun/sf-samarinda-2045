@@ -22,7 +22,21 @@ export const BRAND = {
 
 /* ---------- Lapis 1: tab utama ---------- */
 
-export type NavItem = { slug: string; label: T };
+export type NavItem = {
+  slug: string;
+  label: T;
+  /** Halaman anak. Bila ada, tab ini membuka lapis kedua, dan
+   *  slug-nya tetap bisa dibuka sebagai halaman sendiri. */
+  anak?: { slug: string; label: T; catatan: T }[];
+};
+
+/** Seluruh halaman menu, dipipihkan: dipakai peta situs dan footer. */
+export function navRata(): { slug: string; label: T }[] {
+  return NAV.flatMap((x) => [
+    { slug: x.slug, label: x.label },
+    ...(x.anak ?? []).map((a) => ({ slug: a.slug, label: a.label })),
+  ]);
+}
 
 /* ---------- Jalur menghubungi ----------
    Nomor dan surat resmi dari klien, ditulis satu kali di sini supaya
@@ -49,10 +63,47 @@ export function tautanPesan(lang: "id" | "en") {
 
 export const NAV: NavItem[] = [
   { slug: "", label: { id: "Beranda", en: "Home" } },
-  { slug: "permainan", label: { id: "Board Game", en: "Board Game" } },
-  { slug: "aturan", label: { id: "Aturan", en: "Rules" } },
-  { slug: "dasbor", label: { id: "Dasbor", en: "Dashboard" } },
-  { slug: "kartu", label: { id: "Katalog Kartu", en: "Card Catalogue" } },
+  {
+    slug: "permainan",
+    label: { id: "Permainan", en: "The Game" },
+    /* Empat halaman yang semuanya menjawab "permainannya seperti apa".
+       Dipisah jadi lapis kedua supaya kepala halaman tidak memuat
+       sepuluh tab sejajar. */
+    anak: [
+      {
+        slug: "permainan",
+        label: { id: "Board Game", en: "Board Game" },
+        catatan: {
+          id: "Enam fase, lima peran, empat indikator, komponen",
+          en: "Six phases, five roles, four indicators, components",
+        },
+      },
+      {
+        slug: "aturan",
+        label: { id: "Aturan Ringkas", en: "Rules Summary" },
+        catatan: {
+          id: "Satu lembar untuk dicetak atau disimpan sebagai PDF",
+          en: "One sheet to print or save as PDF",
+        },
+      },
+      {
+        slug: "dasbor",
+        label: { id: "Dasbor Indikator", en: "Indicator Dashboard" },
+        catatan: {
+          id: "Pilih dua proyek, lihat keempat jalur bergerak",
+          en: "Pick two projects, watch the four tracks move",
+        },
+      },
+      {
+        slug: "kartu",
+        label: { id: "Katalog Kartu", en: "Card Catalogue" },
+        catatan: {
+          id: "Seluruh 184 kartu, bisa disaring dan dibaca utuh",
+          en: "All 184 cards, filterable and readable in full",
+        },
+      },
+    ],
+  },
   { slug: "samarinda", label: { id: "Samarinda", en: "Samarinda" } },
   { slug: "shelbot", label: { id: "Shelbot", en: "Shelbot" } },
   { slug: "mini-game", label: { id: "Mini Game", en: "Mini Game" } },

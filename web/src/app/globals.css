@@ -985,9 +985,9 @@ body::after {
 }
 .panggung-judul {
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(2.9rem, 1.2rem + 6.4vw, 7.4rem);
-  line-height: 0.92;
-  letter-spacing: -0.045em;
+  font-size: clamp(2.4rem, 1.1rem + 3.6vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.032em;
   font-weight: 450;
   font-variation-settings: "opsz" 144;
   text-wrap: balance;
@@ -2457,25 +2457,34 @@ section.border-t {
     display: block;
   }
 
-  /* Kertas putih, tinta hitam, tanpa bayangan dan tanpa bidang warna. */
+  /* Kertas putih dan tinta gelap, tetapi warna permainan tetap
+     tercetak. Tanpa print-color-adjust, peramban membuang seluruh
+     bidang berwarna dan lembar ini kembali jadi abu-abu. */
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   :root,
   :root[data-theme="dark"] {
     --bg: #fff;
     --bg-raised: #fff;
-    --bg-sunken: #fff;
+    --bg-sunken: #f6f7f2;
     --surface-1: #fff;
-    --fg: #000;
-    --fg-muted: #1f2a26;
-    --fg-faint: #45514c;
-    --line: rgb(0 0 0 / 0.22);
-    --line-strong: rgb(0 0 0 / 0.42);
+    --fg: #101a17;
+    --fg-muted: #35423d;
+    --fg-faint: #5c6a64;
+    --line: rgb(16 26 23 / 0.16);
+    --line-strong: rgb(16 26 23 / 0.34);
     --bayang-keping: transparent;
     --bayang-panel: transparent;
   }
 
   body {
     background: #fff !important;
-    color: #000 !important;
+    color: var(--fg) !important;
   }
   body::after {
     display: none !important;
@@ -2485,7 +2494,12 @@ section.border-t {
   .konsol,
   .petak {
     box-shadow: none !important;
-    background: #fff !important;
+  }
+
+  /* Pita warna di kepala ubin tetap dicetak; itu yang membuat lembar
+     ini terbaca sebagai bagian dari permainan, bukan fotokopi. */
+  .ubin[style*="--pita"]::before {
+    height: 4px;
   }
 
   .kepala-halaman {
@@ -2496,8 +2510,20 @@ section.border-t {
     font-size: 1.6rem;
   }
 
-  /* Kertas menuntut kerapatan yang lain: jarak antarbagian dan isi
-     ubin dipendekkan, dan tangga huruf diturunkan satu tingkat. */
+  /* Kepala lembar: pita gradasi merek di atas judul. */
+  .lembar-kepala {
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    background: linear-gradient(
+      100deg,
+      color-mix(in oklab, var(--color-mint) 22%, #fff),
+      color-mix(in oklab, var(--color-aqua) 18%, #fff) 45%,
+      color-mix(in oklab, var(--color-iris) 16%, #fff) 78%,
+      color-mix(in oklab, var(--color-ember) 20%, #fff)
+    );
+  }
+
+  /* Kertas menuntut kerapatan yang lain. */
   .lembar .grid.gap-12 { gap: 1.4rem !important; }
   .lembar .ubin { padding: 0.7rem 0.85rem !important; border-radius: 8px; }
   .lembar li, .lembar dd, .lembar dt, .lembar p { font-size: 0.82rem !important; }
@@ -2508,21 +2534,283 @@ section.border-t {
   .lembar .token { width: 1.4rem; height: 1.4rem; font-size: 0.7rem; }
   .lembar section > p, .lembar section > ol, .lembar section > ul, .lembar section > dl { margin-top: 0.4rem !important; }
 
-  /* Satu bagian tidak dipotong di tengah halaman kertas. */
+  /* Munculan tidak berlaku di kertas: isinya harus tampil penuh. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Judul halaman tidak dicetak: kepala lembar di bawahnya sudah
+     membawa nama dan edisi. */
+  .kepala-halaman h1 {
+    display: none;
+  }
+
+  /* Yang dijaga utuh adalah satuan kecil — satu baris fase, satu ubin,
+     satu sel angka. Bagian besar boleh menyeberang halaman; memaksanya
+     utuh justru meninggalkan separuh halaman kosong. */
   .lembar section {
+    break-inside: auto;
+  }
+  .lembar li,
+  .lembar .ubin,
+  .lembar dl > div {
     break-inside: avoid;
     page-break-inside: avoid;
+  }
+  /* Judul bagian tidak pernah ditinggal sendirian di kaki halaman. */
+  .lembar .bab {
+    break-after: avoid;
+    page-break-after: avoid;
   }
   .lembar {
     padding-bottom: 0 !important;
   }
 
-  /* Tautan di dalam prosa kehilangan gunanya di kertas. */
   a[href]::after {
     content: "";
   }
 
   @page {
-    margin: 14mm 12mm;
+    margin: 12mm 11mm;
   }
+}
+
+/* ============================================================
+   Lapis kedua menu
+   Empat halaman permainan tinggal satu tingkat di bawah tab
+   "Permainan", supaya kepala halaman tidak memuat sepuluh tab
+   sejajar. Panelnya menimpa halaman, bukan mendorongnya.
+   ============================================================ */
+
+@keyframes lapis-turun {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+.lapis-dua {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 0.7rem);
+  z-index: 60;
+  width: 20rem;
+  max-width: calc(100vw - 2rem);
+  transform: translateX(-50%);
+  padding: 0.45rem;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--bg-raised) 92%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: var(--lift-3);
+  animation: lapis-turun var(--gerak-sedang) var(--ease-out-soft);
+}
+/* Segitiga kecil yang menyambung ke tabnya. */
+.lapis-dua::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%) rotate(45deg);
+  border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  background: inherit;
+}
+.lapis-tautan {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  transition:
+    background-color var(--gerak-cepat) var(--ease-out-soft),
+    transform var(--gerak-sedang) var(--ease-out-soft);
+}
+.lapis-tautan:hover {
+  background: color-mix(in oklab, var(--scene) 10%, transparent);
+  transform: translateX(3px);
+}
+.lapis-aktif {
+  background: color-mix(in oklab, var(--scene) 14%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lapis-dua { animation: none; }
+  .lapis-tautan:hover { transform: none; }
+}
+
+/* ============================================================
+   Dua sikap maskot lagi: berenang dan berbaring
+   ============================================================ */
+
+/* Berenang: sosoknya tetap tegak, hanya naik-turun kecil mengikuti
+   air. Yang membuatnya terbaca sebagai berenang adalah pita air di
+   depan badan dan lengan yang mengayuh — bukan sosok yang diputar. */
+@keyframes mk-renang {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-4px) rotate(1.5deg); }
+}
+.mk-renang {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: mk-renang 3.4s var(--ease-out-soft) infinite;
+}
+@keyframes mk-kayuh {
+  0%, 100% { transform: rotate(-16deg); }
+  50% { transform: rotate(22deg); }
+}
+.mk-kayuh-a {
+  transform-box: fill-box;
+  transform-origin: 20% 20%;
+  animation: mk-kayuh 1.6s var(--ease-out-soft) infinite;
+}
+.mk-kayuh-b {
+  transform-box: fill-box;
+  transform-origin: 80% 20%;
+  animation: mk-kayuh 1.6s var(--ease-out-soft) infinite;
+  animation-delay: -0.8s;
+}
+
+/* Permukaan air bergerak menyamping pelan. */
+@keyframes mk-permukaan {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-18px); }
+}
+.mk-permukaan { animation: mk-permukaan 6s var(--ease-out-soft) infinite; }
+
+/* Riak air berjalan ke samping, lalu kembali. */
+@keyframes mk-riak {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-16px); }
+}
+.mk-riak { animation: mk-riak 5s var(--ease-out-soft) infinite; }
+
+/* Percikan kecil muncul dan hilang di dekat tangan yang mengayuh. */
+@keyframes mk-percik {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(0.8); }
+  40% { opacity: 0.5; transform: translateY(-6px) scale(1); }
+}
+.mk-percik {
+  transform-box: fill-box;
+  animation: mk-percik 1.6s var(--ease-out-soft) infinite;
+}
+
+/* Duduk di rakit: badan bergoyang sangat pelan bersama rakitnya. */
+@keyframes mk-duduk {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-3px) rotate(1deg); }
+}
+.mk-duduk {
+  transform-box: fill-box;
+  transform-origin: 50% 85%;
+  animation: mk-duduk 6.5s var(--ease-out-soft) infinite;
+}
+@keyframes mk-rakit {
+  0%, 100% { transform: translateY(0) rotate(-0.7deg); }
+  50% { transform: translateY(-3px) rotate(0.7deg); }
+}
+.mk-rakit {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: mk-rakit 6.5s var(--ease-out-soft) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-renang, .mk-kayuh-a, .mk-kayuh-b, .mk-riak, .mk-percik,
+  .mk-permukaan, .mk-duduk, .mk-rakit { animation: none; }
+}
+
+/* ============================================================
+   Lembar aturan yang berwarna
+   Tiap bagian membawa satu warna permainan: nomor fase, pita di tepi
+   baris, dan keping peran. Warnanya milik City Indicator, jadi lembar
+   ini terbaca sebagai bagian dari permainan yang sama.
+   ============================================================ */
+
+.baris-fase {
+  position: relative;
+  border-left: 4px solid var(--pita, var(--line));
+}
+.baris-fase .nomor-fase {
+  display: inline-grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--pita);
+  background: color-mix(in oklab, var(--pita) 14%, transparent);
+  border: 1px solid color-mix(in oklab, var(--pita) 38%, transparent);
+}
+
+/* Pita gradasi merek di kepala lembar cetak. */
+.lembar-kepala {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem 1.15rem;
+  background: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--color-mint) 18%, var(--bg-raised)),
+    color-mix(in oklab, var(--color-aqua) 14%, var(--bg-raised)) 45%,
+    color-mix(in oklab, var(--color-iris) 12%, var(--bg-raised)) 78%,
+    color-mix(in oklab, var(--color-ember) 16%, var(--bg-raised))
+  );
+}
+
+/* ============================================================
+   Panel profil dampak
+   Dirapatkan supaya muat satu layar saat dilengketkan, dan dibersihkan
+   dari keterangan yang berulang di tiap jalur.
+   ============================================================ */
+
+/* Sel ke-5: titik awal tiap jalur, ditandai garis tipis di tepinya. */
+.jalur > i[data-awal] {
+  position: relative;
+}
+.jalur > i[data-awal]::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  right: -2.5px;
+  width: 1px;
+  background: var(--line-strong);
+}
+
+/* Biaya sumber daya: satu deret bergaris rambut, bukan enam kotak. */
+.deret-biaya {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+@media (min-width: 640px) {
+  .deret-biaya { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+.deret-biaya > li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  padding: 0.5rem 0.4rem;
+  background: var(--bg);
+  text-align: center;
+}
+.deret-biaya > li > span:first-child {
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--fg);
+}
+.deret-biaya > li > span:last-child {
+  /* Nama sumber daya boleh turun baris. Dipangkas jadi "Pengetahu…"
+     lebih buruk daripada dua baris pendek. */
+  font-size: 0.6rem;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--fg-faint);
+  hyphens: auto;
+}
+.deret-biaya > li[data-nol] > span:first-child {
+  color: var(--fg-faint);
+  opacity: 0.55;
 }

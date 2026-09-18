@@ -36,7 +36,7 @@ export default async function Privasi({
   return (
     <Halaman motif="tenun" adegan="langit">
       <KepalaHalaman
-        sikap="amati"
+        sikap="duduk"
         pendamping="hakam"
         eyebrow={t(PRIVASI.eyebrow, lang)}
         lebar="20ch"

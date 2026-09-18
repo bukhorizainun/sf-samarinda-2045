@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { BRAND, NAV, UI } from "@/content/site";
+import { BRAND, navRata, UI } from "@/content/site";
 import { t, type Lang } from "@/lib/i18n";
 
 export function Footer({ lang }: { lang: Lang }) {
@@ -26,7 +26,7 @@ export function Footer({ lang }: { lang: Lang }) {
           <nav aria-label={t(UI.menu, lang)}>
             <p className="t-eyebrow">{t(UI.menu, lang)}</p>
             <ul className="mt-4 space-y-2.5">
-              {NAV.map((item) => (
+              {navRata().map((item) => (
                 <li key={item.slug || "home"}>
                   <Link
                     href={item.slug ? `${base}/${item.slug}` : base}

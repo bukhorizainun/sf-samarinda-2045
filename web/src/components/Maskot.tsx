@@ -18,6 +18,8 @@ import { useEffect, useRef, useState } from "react";
  *   loncat — meloncat sekali saat bagiannya masuk pandangan
  *   tunjuk — menunjuk ke arah isi halaman, badan bergoyang pelan
  *   kartu  — memegang satu kartu permainan, dibolak-balik pelan
+ *   renang — berenang di Mahakam, badan sebatas dada di atas air
+ *   duduk  — duduk di tepi rakit, kaki terjuntai ke air
  *
  * `latar` mematikan sungai, perahu, dan papan dermaga, supaya sosoknya bisa
  * ditumpangkan pada adegan lain.
@@ -35,7 +37,9 @@ export type Pose =
   | "terbang"
   | "loncat"
   | "tunjuk"
-  | "kartu";
+  | "kartu"
+  | "renang"
+  | "duduk";
 
 /** Bidang gambar, dipotong ke sosok yang sedang dibutuhkan. Angkanya
  *  mengikuti pergeseran kedua sosok di dalam adegan. */
@@ -65,6 +69,9 @@ export function Maskot({
   sapaan?: string;
   className?: string;
 }) {
+  /* Bidang yang sedang tampil, dipakai mask peluruh tepi. */
+  const [vx, vy, vw, vh] = BIDANG[sosok].split(" ").map(Number);
+
   const [dekat, setDekat] = useState(false);
   const [lirik, setLirik] = useState(0);
   const ref = useRef<SVGSVGElement>(null);
@@ -104,6 +111,18 @@ export function Maskot({
           <stop offset="0" stopColor="var(--color-aqua)" />
           <stop offset="1" stopColor="var(--color-mint)" />
         </linearGradient>
+        <linearGradient id="mk-luruh" x1="0" y1="0" x2="1" y2="0">
+          {/* Mask memakai luminansi: putih berarti tampak, hitam
+              berarti hilang. Jadi peluruhannya ditulis sebagai putih
+              yang memudar, bukan hitam. */}
+          <stop offset="0" stopColor="#fff" stopOpacity="0" />
+          <stop offset="0.16" stopColor="#fff" stopOpacity="1" />
+          <stop offset="0.84" stopColor="#fff" stopOpacity="1" />
+          <stop offset="1" stopColor="#fff" stopOpacity="0" />
+        </linearGradient>
+        <mask id="mk-tepi" maskUnits="userSpaceOnUse" x={vx} y={vy} width={vw} height={vh + 40}>
+          <rect x={vx} y={vy} width={vw} height={vh + 40} fill="url(#mk-luruh)" />
+        </mask>
         <linearGradient id="mk-manik" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="var(--color-ember)" />
           <stop offset="1" stopColor="var(--color-rose)" />
@@ -170,6 +189,23 @@ export function Maskot({
             <path d="M112 199 q10 -5 20 0" />
             <path d="M158 196 q10 -5 20 0" />
           </g>
+        </g>
+      )}
+
+      {/* Riak di belakang sosok. Air yang menutup badannya digambar
+          setelah sosok, supaya benar-benar berada di depan. */}
+      {(pose === "renang" || pose === "duduk") && (
+        <g aria-hidden mask="url(#mk-tepi)" stroke="var(--color-aqua)" fill="none" strokeLinecap="round">
+          {[150, 166, 182].map((y, i) => (
+            <path
+              key={y}
+              className="mk-riak"
+              style={{ animationDelay: `${i * -1.5}s` }}
+              d={`M-10 ${y} q16 -7 32 0 t32 0 t32 0 t32 0 t32 0 t32 0 t32 0 t32 0`}
+              strokeWidth={2 - i * 0.4}
+              opacity={0.45 - i * 0.1}
+            />
+          ))}
         </g>
       )}
 
@@ -270,7 +306,11 @@ export function Maskot({
                 ? "mk-loncat"
                 : pose === "tunjuk"
                   ? "mk-goyang"
-                  : "mk-apung"
+                  : pose === "renang"
+                    ? "mk-renang"
+                    : pose === "duduk"
+                      ? "mk-duduk"
+                      : "mk-apung"
         }
         style={{ transform: `translateX(${lirik * 0.4}px)` }}
       >
@@ -391,6 +431,59 @@ export function Maskot({
           </g>
         </g>
       </g>
+
+      {/* Air Mahakam yang menutup badan sampai dada. Pita ini digambar
+          setelah kedua sosok, jadi kaki dan pinggang benar-benar
+          tersembunyi di bawah permukaan. */}
+      {pose === "renang" && (
+        <g aria-hidden mask="url(#mk-tepi)">
+          <path
+            className="mk-permukaan"
+            d="M-10 122 q18 -8 36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 L290 210 L-10 210 Z"
+            fill="var(--color-aqua)"
+            opacity="0.3"
+          />
+          <path
+            className="mk-permukaan"
+            style={{ animationDelay: "-2.4s" }}
+            d="M-10 134 q18 -7 36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 L290 210 L-10 210 Z"
+            fill="var(--color-aqua)"
+            opacity="0.22"
+          />
+          {/* Percikan kecil di sisi tangan yang mengayuh. */}
+          <g className="mk-percik" fill="var(--color-aqua)" opacity="0.5">
+            <circle cx="72" cy="112" r="2.6" />
+            <circle cx="63" cy="104" r="1.7" />
+            <circle cx="196" cy="110" r="2.2" />
+          </g>
+        </g>
+      )}
+
+      {/* Rakit bambu, digambar di depan kaki yang terjuntai. */}
+      {pose === "duduk" && (
+        <g className="mk-rakit" aria-hidden mask="url(#mk-tepi)">
+          {/* Bambu, bukan ulin: warnanya hangat supaya tidak terbaca
+              sebagai pagar hitam melintang. */}
+          <g stroke="#c89a5b" strokeWidth="7" strokeLinecap="round">
+            {[158, 167].map((y) => (
+              <line key={y} x1="40" y1={y} x2="220" y2={y} />
+            ))}
+          </g>
+          <g stroke="#a87c43" strokeWidth="1.6" opacity="0.8">
+            <line x1="40" y1="162.5" x2="220" y2="162.5" />
+          </g>
+          <g stroke="var(--color-ember)" strokeWidth="2.4" opacity="0.8">
+            <line x1="62" y1="153" x2="62" y2="172" />
+            <line x1="198" y1="153" x2="198" y2="172" />
+          </g>
+          {/* Tumpal kecil di sisi rakit, kosakata anyaman yang sama. */}
+          <g fill="var(--color-mint)" opacity="0.45">
+            {[78, 104, 130, 156, 182].map((x) => (
+              <path key={x} d={`M${x} 172 l7 0 l-3.5 6 Z`} />
+            ))}
+          </g>
+        </g>
+      )}
 
       {sapaan && (
         <g className="mk-sapa" style={{ opacity: dekat ? 1 : 0 }} aria-hidden>
@@ -544,6 +637,39 @@ function Lengan({
       <>
         <line x1="38" y1="98" x2="34" y2="116" {...garis} />
         <circle cx="33" cy="118" r="3.4" fill={kulit} />
+      </>
+    );
+  }
+
+  // Berenang: satu tangan menjulur ke depan, satunya mengayuh ke
+  // belakang, bergantian seperti gaya bebas.
+  if (pose === "renang") {
+    return sisi === "kiri" ? (
+      <g className="mk-kayuh-b">
+        <line x1="8" y1="96" x2="-14" y2="86" {...garis} />
+        <circle cx="-16" cy="85" r="3.4" fill={kulit} />
+      </g>
+    ) : (
+      <g className="mk-kayuh-a">
+        <line x1="38" y1="96" x2="56" y2="104" {...garis} />
+        <circle cx="58" cy="105" r="3.4" fill={kulit} />
+      </g>
+    );
+  }
+
+  // Duduk santai: satu tangan bertumpu di rakit, satunya di lutut.
+  if (pose === "duduk") {
+    return sisi === "kiri" ? (
+      <>
+        <line x1="8" y1="96" x2="-4" y2="86" {...garis} />
+        <line x1="-4" y1="86" x2="6" y2="74" {...garis} />
+        <circle cx="7" cy="73" r="3.4" fill={kulit} />
+      </>
+    ) : (
+      <>
+        <line x1="38" y1="96" x2="50" y2="86" {...garis} />
+        <line x1="50" y1="86" x2="40" y2="74" {...garis} />
+        <circle cx="39" cy="73" r="3.4" fill={kulit} />
       </>
     );
   }

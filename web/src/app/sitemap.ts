@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { NAV } from "@/content/site";
+import { navRata } from "@/content/site";
 import { LANGS } from "@/lib/i18n";
 import { SITUS } from "@/lib/situs";
 
@@ -11,7 +11,7 @@ const PENDUKUNG = [{ slug: "privasi" }];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return LANGS.flatMap((lang) =>
-    [...NAV, ...PENDUKUNG].map((item) => {
+    [...navRata(), ...PENDUKUNG].map((item) => {
       const jalur = item.slug ? `${lang}/${item.slug}` : lang;
       return {
         url: `${SITUS}/${jalur}/`,
