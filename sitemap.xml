@@ -15,6 +15,13 @@
 <priority>0.7</priority>
 </url>
 <url>
+<loc>https://bukhorizainun.github.io/sf-samarinda-2045/id/dasbor/</loc>
+<xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/dasbor/" />
+<xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/dasbor/" />
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
 <loc>https://bukhorizainun.github.io/sf-samarinda-2045/id/kartu/</loc>
 <xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/kartu/" />
 <xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/kartu/" />
@@ -57,6 +64,13 @@
 <priority>0.7</priority>
 </url>
 <url>
+<loc>https://bukhorizainun.github.io/sf-samarinda-2045/id/privasi/</loc>
+<xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/privasi/" />
+<xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/privasi/" />
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
 <loc>https://bukhorizainun.github.io/sf-samarinda-2045/en/</loc>
 <xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/" />
 <xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/" />
@@ -67,6 +81,13 @@
 <loc>https://bukhorizainun.github.io/sf-samarinda-2045/en/permainan/</loc>
 <xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/permainan/" />
 <xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/permainan/" />
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
+<loc>https://bukhorizainun.github.io/sf-samarinda-2045/en/dasbor/</loc>
+<xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/dasbor/" />
+<xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/dasbor/" />
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
@@ -109,6 +130,13 @@
 <loc>https://bukhorizainun.github.io/sf-samarinda-2045/en/kontak/</loc>
 <xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/kontak/" />
 <xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/kontak/" />
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
+<loc>https://bukhorizainun.github.io/sf-samarinda-2045/en/privasi/</loc>
+<xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/privasi/" />
+<xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/privasi/" />
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
