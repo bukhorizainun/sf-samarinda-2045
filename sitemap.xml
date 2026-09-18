@@ -15,6 +15,13 @@
 <priority>0.7</priority>
 </url>
 <url>
+<loc>https://bukhorizainun.github.io/sf-samarinda-2045/id/permainan/</loc>
+<xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/permainan/" />
+<xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/permainan/" />
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+<url>
 <loc>https://bukhorizainun.github.io/sf-samarinda-2045/id/aturan/</loc>
 <xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/aturan/" />
 <xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/aturan/" />
@@ -83,6 +90,13 @@
 <xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/" />
 <changefreq>monthly</changefreq>
 <priority>1</priority>
+</url>
+<url>
+<loc>https://bukhorizainun.github.io/sf-samarinda-2045/en/permainan/</loc>
+<xhtml:link rel="alternate" hreflang="id" href="https://bukhorizainun.github.io/sf-samarinda-2045/id/permainan/" />
+<xhtml:link rel="alternate" hreflang="en" href="https://bukhorizainun.github.io/sf-samarinda-2045/en/permainan/" />
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 <url>
 <loc>https://bukhorizainun.github.io/sf-samarinda-2045/en/permainan/</loc>
