@@ -70,7 +70,11 @@ export function Maskot({
   className?: string;
 }) {
   /* Bidang yang sedang tampil, dipakai mask peluruh tepi. */
-  const [vx, vy, vw, vh] = BIDANG[sosok].split(" ").map(Number);
+  const [vx, vy, vw, vh] = (
+    pose === "renang" ? "0 0 240 120" : BIDANG[sosok]
+  )
+    .split(" ")
+    .map(Number);
 
   const [dekat, setDekat] = useState(false);
   const [lirik, setLirik] = useState(0);
@@ -93,7 +97,7 @@ export function Maskot({
   return (
     <svg
       ref={ref}
-      viewBox={BIDANG[sosok]}
+      viewBox={pose === "renang" ? "0 0 240 120" : BIDANG[sosok]}
       className={className}
       role="img"
       aria-label={
@@ -194,7 +198,7 @@ export function Maskot({
 
       {/* Riak di belakang sosok. Air yang menutup badannya digambar
           setelah sosok, supaya benar-benar berada di depan. */}
-      {(pose === "renang" || pose === "duduk") && (
+      {pose === "duduk" && (
         <g aria-hidden mask="url(#mk-tepi)" stroke="var(--color-aqua)" fill="none" strokeLinecap="round">
           {[150, 166, 182].map((y, i) => (
             <path
@@ -296,6 +300,7 @@ export function Maskot({
         </g>
       )}
 
+      {pose !== "renang" && (
       <g
         className={
           pose === "amati"
@@ -306,11 +311,9 @@ export function Maskot({
                 ? "mk-loncat"
                 : pose === "tunjuk"
                   ? "mk-goyang"
-                  : pose === "renang"
-                    ? "mk-renang"
-                    : pose === "duduk"
-                      ? "mk-duduk"
-                      : "mk-apung"
+                  : pose === "duduk"
+                    ? "mk-duduk"
+                    : "mk-apung"
         }
         style={{ transform: `translateX(${lirik * 0.4}px)` }}
       >
@@ -431,30 +434,71 @@ export function Maskot({
           </g>
         </g>
       </g>
+      )}
 
-      {/* Air Mahakam yang menutup badan sampai dada. Pita ini digambar
-          setelah kedua sosok, jadi kaki dan pinggang benar-benar
-          tersembunyi di bawah permukaan. */}
+      {/* Adegan berenang. Sosok berdiri tidak dipakai di sini: orang
+          yang berenang dilihat dari samping, badan mendatar, satu
+          tangan menjulur ke depan dan satunya mengayuh ke belakang.
+          Bajunya pakaian renang biasa — kain adat tidak dipakai masuk
+          sungai. */}
       {pose === "renang" && (
-        <g aria-hidden mask="url(#mk-tepi)">
-          <path
-            className="mk-permukaan"
-            d="M-10 122 q18 -8 36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 L290 210 L-10 210 Z"
+        <g aria-hidden>
+          {/* Air di belakang perenang */}
+          <g mask="url(#mk-tepi)">
+            <g stroke="var(--color-aqua)" fill="none" strokeLinecap="round">
+              {[70, 84, 98].map((y, i) => (
+                <path
+                  key={y}
+                  className="mk-riak"
+                  style={{ animationDelay: `${i * -1.6}s` }}
+                  d={`M-20 ${y} q20 -8 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0`}
+                  strokeWidth={2 - i * 0.4}
+                  opacity={0.45 - i * 0.1}
+                />
+              ))}
+            </g>
+          </g>
+
+          <g className="mk-renang">
+            <Perenang
+              baju={sosok === "hakam" ? "var(--color-future)" : "var(--color-env)"}
+              kulit={sosok === "hakam" ? KULIT_B : KULIT_A}
+            />
+          </g>
+
+          {/* Permukaan air menutupi badan bagian bawah, jadi yang
+              terlihat hanya punggung, kepala, dan lengan. */}
+          <g mask="url(#mk-tepi)">
+            <path
+              className="mk-permukaan"
+              d="M-20 72 q20 -7 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 L280 130 L-20 130 Z"
+              fill="var(--color-aqua)"
+              opacity="0.34"
+            />
+            <path
+              className="mk-permukaan"
+              style={{ animationDelay: "-2.6s" }}
+              d="M-20 82 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 L280 130 L-20 130 Z"
+              fill="var(--color-aqua)"
+              opacity="0.24"
+            />
+          </g>
+
+          {/* Percikan: di depan tangan yang masuk air, dan di kaki. */}
+          <g className="mk-percik" fill="var(--color-aqua)" opacity="0.6">
+            <circle cx="186" cy="62" r="3" />
+            <circle cx="196" cy="55" r="2" />
+            <circle cx="178" cy="54" r="1.6" />
+          </g>
+          <g
+            className="mk-percik"
+            style={{ animationDelay: "-0.8s" }}
             fill="var(--color-aqua)"
-            opacity="0.3"
-          />
-          <path
-            className="mk-permukaan"
-            style={{ animationDelay: "-2.4s" }}
-            d="M-10 134 q18 -7 36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 L290 210 L-10 210 Z"
-            fill="var(--color-aqua)"
-            opacity="0.22"
-          />
-          {/* Percikan kecil di sisi tangan yang mengayuh. */}
-          <g className="mk-percik" fill="var(--color-aqua)" opacity="0.5">
-            <circle cx="72" cy="112" r="2.6" />
-            <circle cx="63" cy="104" r="1.7" />
-            <circle cx="196" cy="110" r="2.2" />
+            opacity="0.5"
+          >
+            <circle cx="46" cy="66" r="3.4" />
+            <circle cx="34" cy="58" r="2.2" />
+            <circle cx="54" cy="56" r="1.8" />
           </g>
         </g>
       )}
@@ -764,6 +808,69 @@ function KartuPegang({ warna = "var(--color-env)" }: { warna?: string }) {
         <line x1="16" y1="114" x2="32" y2="114" />
         <line x1="16" y1="120" x2="32" y2="120" />
         <line x1="16" y1="126" x2="28" y2="126" />
+      </g>
+    </g>
+  );
+}
+
+/**
+ * Perenang, dilihat dari samping.
+ *
+ * Gaya bebas: badan mendatar tepat di bawah permukaan, satu tangan
+ * menjulur ke depan dan satunya mengayuh ke belakang, kepala menoleh
+ * untuk mengambil napas, kaki mengibas kecil. Digambar terpisah dari
+ * sosok berdiri karena memutar sosok berdiri hanya menghasilkan orang
+ * yang tampak tenggelam, bukan berenang.
+ *
+ * Bajunya pakaian renang biasa: kain adat tidak dipakai masuk sungai.
+ */
+function Perenang({ baju, kulit }: { baju: string; kulit: string }) {
+  const anggota = {
+    stroke: kulit,
+    strokeWidth: 7,
+    strokeLinecap: "round" as const,
+    fill: "none",
+  };
+
+  return (
+    <g>
+      {/* Kaki: dua tungkai yang mengibas bergantian */}
+      <g className="mk-kibas-a">
+        <path d="M78 62 C 62 60, 50 56, 40 50" {...anggota} />
+      </g>
+      <g className="mk-kibas-b">
+        <path d="M78 66 C 62 70, 50 74, 42 78" {...anggota} />
+      </g>
+
+      {/* Badan: punggung mendatar, dari pinggul ke bahu */}
+      <path
+        d="M76 58 C 96 52, 126 50, 148 54 C 152 58, 152 66, 148 70 C 126 74, 96 72, 76 66 Z"
+        fill={baju}
+      />
+      {/* Garis pinggang, penanda pakaian renang */}
+      <path d="M96 52 C 98 58, 98 66, 96 72" stroke="var(--bg)" strokeWidth="1.6" fill="none" opacity="0.5" />
+
+      {/* Leher dan kepala, menoleh ke atas untuk bernapas */}
+      <path d="M148 58 C 156 56, 160 58, 163 60" {...anggota} strokeWidth="9" />
+      <circle cx="170" cy="56" r="11" fill={kulit} />
+      {/* Rambut basah menempel, dengan ikat kepala warna merek */}
+      <path
+        d="M160 50 C 162 42, 176 40, 181 47 C 183 51, 182 56, 180 58 C 176 52, 168 50, 160 54 Z"
+        fill={RAMBUT}
+      />
+      <path d="M161 53 q10 -5 19 0 l0 3 q-10 -4 -19 0 Z" fill="url(#mk-manik)" />
+      <circle cx="173" cy="57" r="1.6" fill={RAMBUT} />
+      {/* Mulut terbuka kecil: sedang mengambil napas */}
+      <path d="M177 61 q3 2 5 0" stroke={RAMBUT} strokeWidth="1.4" fill="none" strokeLinecap="round" />
+
+      {/* Lengan depan menjulur, lengan belakang mengayuh */}
+      <g className="mk-ayun-depan">
+        <path d="M146 58 C 164 48, 178 44, 190 44" {...anggota} />
+        <circle cx="193" cy="44" r="4.4" fill={kulit} />
+      </g>
+      <g className="mk-ayun-belakang">
+        <path d="M100 58 C 84 50, 70 48, 58 50" {...anggota} />
+        <circle cx="55" cy="50" r="4.4" fill={kulit} />
       </g>
     </g>
   );

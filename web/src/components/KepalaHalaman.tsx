@@ -48,9 +48,13 @@ export function KepalaHalaman({
           sosok={pendamping}
           pose={sikap}
           className={`absolute bottom-6 right-5 sm:right-8 ${
-            pendamping === "keduanya"
-              ? "w-[190px] lg:w-[240px]"
-              : "w-[96px] lg:w-[120px]"
+            /* Perenang dilihat dari samping, jadi bidangnya mendatar
+               dan butuh lebar lebih dari sosok yang berdiri. */
+            sikap === "renang"
+              ? "w-[210px] lg:w-[270px]"
+              : pendamping === "keduanya"
+                ? "w-[190px] lg:w-[240px]"
+                : "w-[96px] lg:w-[120px]"
           }`}
         />
       )}

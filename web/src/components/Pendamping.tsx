@@ -50,12 +50,14 @@ export function Pendamping({
       ref={ref}
       className={`hidden sm:block ${jalan ? "loncat-jalan" : ""} ${className}`}
     >
+      {/* Dudukan dan bayangan bidak hanya masuk akal untuk sosok yang
+          berdiri. Yang sedang berenang tidak berdiri di atas apa pun. */}
       <div className="bidak w-full">
-        <span aria-hidden className="bidak-bayang" />
+        {pose !== "renang" && <span aria-hidden className="bidak-bayang" />}
         <div className="bidak-sosok">
           <Maskot pose={pose} sosok={sosok} latar={false} sapaan={sapaan} />
         </div>
-        <span aria-hidden className="bidak-dudukan" />
+        {pose !== "renang" && <span aria-hidden className="bidak-dudukan" />}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { TombolCetak } from "@/components/TombolCetak";
 import { Reveal } from "@/components/Reveal";
+import { Maskot } from "@/components/Maskot";
 import {
   BRAND,
   COMPONENTS,
@@ -118,14 +119,31 @@ export default async function Aturan({
 
       <Container className="lembar pb-24">
         {/* Kepala lembar. Hanya tampil saat dicetak. */}
+        {/* Hiasan sudut kertas. Ditaruh sebagai lapis tetap, dan
+            peramban mengulangnya di tiap halaman cetak — jadi Shelly
+            dan Hakam menemani seluruh lembar, bukan hanya halaman
+            pertama. Kadarnya rendah supaya tidak melawan tulisan. */}
+        <div className="hanya-cetak cetak-hiasan" aria-hidden>
+        </div>
+
         <header className="hanya-cetak lembar-kepala mb-6">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em]">
-            {BRAND.mark} — {t(BRAND.name, lang)} · {t(BRAND.tagline, lang)}
-          </p>
-          <h1 className="t-h2 mt-2">
-            {id ? "Aturan Ringkas" : "Rules Summary"} ·{" "}
-            {t(BRAND.edition, lang)}
-          </h1>
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em]">
+                {BRAND.mark} — {t(BRAND.name, lang)} · {t(BRAND.tagline, lang)}
+              </p>
+              <h1 className="t-h2 mt-2">
+                {id ? "Aturan Ringkas" : "Rules Summary"} ·{" "}
+                {t(BRAND.edition, lang)}
+              </h1>
+            </div>
+            {/* Sepasang maskot di kepala lembar, ukuran kecil. */}
+            <Maskot
+              pose="terbang"
+              latar={false}
+              className="h-[62px] w-auto shrink-0"
+            />
+          </div>
         </header>
 
         <div className="grid gap-12">
@@ -379,6 +397,30 @@ export default async function Aturan({
               {t(UI.prototypeNote, lang)} · {t(BRAND.edition, lang)} ·{" "}
               {BRAND.studio}
             </p>
+
+            {/* Penutup lembar: Shelly dan Hakam melambai di tepi sungai.
+                Digambar sebagai isi biasa, bukan lapis tetap, karena
+                elemen tetap tidak selalu ikut tercetak. */}
+            <div className="penutup-lembar">
+              <Maskot pose="lambai" latar={false} className="h-[92px] w-auto" />
+              <svg
+                viewBox="0 0 600 26"
+                preserveAspectRatio="none"
+                aria-hidden
+                className="penutup-riak"
+              >
+                {[0, 8, 16].map((d, i) => (
+                  <path
+                    key={d}
+                    d={`M0 ${8 + d} q30 -8 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0`}
+                    fill="none"
+                    stroke="var(--color-aqua)"
+                    strokeWidth={1.6 - i * 0.4}
+                    opacity={0.55 - i * 0.15}
+                  />
+                ))}
+              </svg>
+            </div>
           </Reveal>
         </div>
       </Container>

@@ -2571,8 +2571,40 @@ section.border-t {
     content: "";
   }
 
+  /* Hiasan kertas: sosok di sudut bawah dan riak di kakinya. Lapis
+     tetap seperti ini diulang peramban di tiap halaman cetak. */
+  .cetak-hiasan {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 92px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .cetak-riak {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 26px;
+    opacity: 0.6;
+  }
+  /* Isi lembar berdiri di atas hiasan itu. */
+  .lembar {
+    position: relative;
+    z-index: 1;
+  }
+  /* Kaki halaman disediakan ruang, supaya tulisan tidak menimpa sosok. */
   @page {
-    margin: 12mm 11mm;
+    margin-bottom: 22mm;
+  }
+
+  @page {
+    /* Kaki halaman lebih lapang: di sanalah sepasang maskot dan riak
+       sungai dicetak, jadi tulisan tidak boleh turun sampai ke sana. */
+    margin: 12mm 11mm 26mm;
   }
 }
 
@@ -2640,32 +2672,53 @@ section.border-t {
    Dua sikap maskot lagi: berenang dan berbaring
    ============================================================ */
 
-/* Berenang: sosoknya tetap tegak, hanya naik-turun kecil mengikuti
-   air. Yang membuatnya terbaca sebagai berenang adalah pita air di
-   depan badan dan lengan yang mengayuh — bukan sosok yang diputar. */
+/* Berenang: badan meluncur naik-turun kecil mengikuti riak. */
 @keyframes mk-renang {
-  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
-  50% { transform: translateY(-4px) rotate(1.5deg); }
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-3px) rotate(1deg); }
 }
 .mk-renang {
   transform-box: fill-box;
-  transform-origin: 50% 80%;
-  animation: mk-renang 3.4s var(--ease-out-soft) infinite;
+  transform-origin: 50% 60%;
+  animation: mk-renang 3.2s var(--ease-out-soft) infinite;
 }
-@keyframes mk-kayuh {
-  0%, 100% { transform: rotate(-16deg); }
-  50% { transform: rotate(22deg); }
+
+/* Gaya bebas: lengan depan menarik ke bawah, lengan belakang
+   terangkat keluar air, bergantian. */
+@keyframes mk-ayun-depan {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(16deg) translateY(4px); }
 }
-.mk-kayuh-a {
+@keyframes mk-ayun-belakang {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(-16deg) translateY(-5px); }
+}
+.mk-ayun-depan {
   transform-box: fill-box;
-  transform-origin: 20% 20%;
-  animation: mk-kayuh 1.6s var(--ease-out-soft) infinite;
+  transform-origin: 10% 60%;
+  animation: mk-ayun-depan 1.8s var(--ease-out-soft) infinite;
 }
-.mk-kayuh-b {
+.mk-ayun-belakang {
   transform-box: fill-box;
-  transform-origin: 80% 20%;
-  animation: mk-kayuh 1.6s var(--ease-out-soft) infinite;
-  animation-delay: -0.8s;
+  transform-origin: 90% 60%;
+  animation: mk-ayun-belakang 1.8s var(--ease-out-soft) infinite;
+}
+
+/* Kaki mengibas kecil dan cepat, bergantian. */
+@keyframes mk-kibas {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(7deg); }
+}
+.mk-kibas-a {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: mk-kibas 0.7s var(--ease-out-soft) infinite;
+}
+.mk-kibas-b {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: mk-kibas 0.7s var(--ease-out-soft) infinite;
+  animation-delay: -0.35s;
 }
 
 /* Permukaan air bergerak menyamping pelan. */
@@ -2713,8 +2766,9 @@ section.border-t {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mk-renang, .mk-kayuh-a, .mk-kayuh-b, .mk-riak, .mk-percik,
-  .mk-permukaan, .mk-duduk, .mk-rakit { animation: none; }
+  .mk-renang, .mk-ayun-depan, .mk-ayun-belakang, .mk-kibas-a,
+  .mk-kibas-b, .mk-riak, .mk-percik, .mk-permukaan, .mk-duduk,
+  .mk-rakit { animation: none; }
 }
 
 /* ============================================================
@@ -2813,4 +2867,22 @@ section.border-t {
 .deret-biaya > li[data-nol] > span:first-child {
   color: var(--fg-faint);
   opacity: 0.55;
+}
+
+/* Penutup lembar aturan: sepasang maskot berdiri di atas riak. */
+.penutup-lembar {
+  position: relative;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 1.25rem;
+}
+.penutup-riak {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  z-index: -1;
 }
