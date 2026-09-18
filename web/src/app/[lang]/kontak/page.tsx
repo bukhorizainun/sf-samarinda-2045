@@ -3,7 +3,7 @@ import { Container, Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { Tilt } from "@/components/Tilt";
-import { BRAND, PHASES, ROLES, UI } from "@/content/site";
+import { BRAND, KONTAK, PHASES, ROLES, UI } from "@/content/site";
 import { LANGS, t, type Lang } from "@/lib/i18n";
 
 export function generateStaticParams() {
@@ -12,13 +12,11 @@ export function generateStaticParams() {
 
 export const metadata: Metadata = { title: "Kontak" };
 
-/** Nomor resmi dari klien. Format wa.me menuntut angka saja, tanpa tanda. */
-const WHATSAPP = "6281254840507";
-const WHATSAPP_TAMPIL = "+62 812-5484-0507";
-
-/** Surel resmi. Dipakai untuk permintaan yang perlu lampiran atau jejak
- *  tertulis: undangan sekolah, kerja sama, dan pertanyaan panjang. */
-const SUREL = "shelbot.2026@gmail.com";
+/* Nomor dan surel resmi tinggal di content/site.ts, dipakai bersama
+   oleh halaman ini, tombol pesan di beranda, dan Shelbot. */
+const WHATSAPP = KONTAK.wa;
+const WHATSAPP_TAMPIL = KONTAK.waTampil;
+const SUREL = KONTAK.surel;
 
 export default async function Kontak({
   params,
@@ -99,8 +97,8 @@ export default async function Kontak({
     {
       q: id ? "Berapa lama satu sesi?" : "How long is a session?",
       a: id
-        ? "Enam fase, masing-masing lima belas sampai delapan belas menit. Sekitar sembilan puluh menit ditambah waktu penutup."
-        : "Six phases at fifteen to eighteen minutes each. Around ninety minutes, plus a closing discussion.",
+        ? "Enam fase dengan waktu berbeda-beda, dari sepuluh sampai dua puluh delapan menit. Seluruhnya sekitar seratus sampai seratus dua puluh menit, termasuk penyiapan dan penutup."
+        : "Six phases of differing length, from ten to twenty-eight minutes. Around 100 to 120 minutes in total, including setup and the closing discussion.",
     },
     {
       q: id ? "Perlu alat digital?" : "Do we need any digital tools?",
@@ -124,8 +122,8 @@ export default async function Kontak({
         }
         lead={
           id
-            ? "Permainan ini dipakai di sekolah, kampus, dan komunitas. Satu sesi penuh berjalan sekitar sembilan puluh menit dengan lima pemain, dan bisa difasilitasi oleh guru tanpa pelatihan panjang."
-            : "The game is used in schools, universities, and community groups. A full session runs about ninety minutes with five players, and a teacher can facilitate it without lengthy training."
+            ? "Permainan ini dipakai di sekolah, kampus, dan komunitas. Satu sesi penuh berjalan sekitar seratus sampai seratus dua puluh menit dengan lima pemain, dan bisa difasilitasi oleh guru tanpa pelatihan panjang."
+            : "The game is used in schools, universities, and community groups. A full session runs about 100 to 120 minutes with five players, and a teacher can facilitate it without lengthy training."
         }
       />
 

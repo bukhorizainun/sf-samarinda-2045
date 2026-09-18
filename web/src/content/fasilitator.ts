@@ -36,7 +36,7 @@ export const FASIL = {
   jalanJudul: { id: "Menjaga waktu", en: "Keeping time" } as T,
   jalan: [
     {
-      waktu: { id: "15–18 menit", en: "15–18 min" },
+      waktu: { id: "12–15 menit", en: "12–15 min" },
       judul: { id: "Amati Masa Kini", en: "Observe the Present" },
       isi: {
         id: "Tujuannya peta sistem, bukan daftar masalah. Kalau kelompok mulai mengusulkan solusi, ingatkan bahwa fase ini hanya untuk melihat kaitan.",
@@ -52,7 +52,7 @@ export const FASIL = {
       },
     },
     {
-      waktu: { id: "15–18 menit", en: "15–18 min" },
+      waktu: { id: "10–12 menit", en: "10–12 min" },
       judul: { id: "Pilih Masa Depan", en: "Choose a Future" },
       isi: {
         id: "Pilihan sah bila didukung minimal empat dari lima peran dan tidak ada kerugian berat yang dibiarkan. Kalau baru tiga peran yang setuju, itu bukan kebuntuan — itu permainannya sedang bekerja.",
@@ -60,7 +60,7 @@ export const FASIL = {
       },
     },
     {
-      waktu: { id: "15–18 menit", en: "15–18 min" },
+      waktu: { id: "22–28 menit", en: "22–28 min" },
       judul: { id: "Ambil Keputusan", en: "Make Decisions" },
       isi: {
         id: "Fase kedua yang sering molor, karena tawar-menawar sumber daya dimulai di sini. Tiap peran punya satu kemampuan khusus yang hanya bisa dipakai sekali, dan hanya di fase ini.",

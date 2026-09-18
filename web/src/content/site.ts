@@ -24,9 +24,33 @@ export const BRAND = {
 
 export type NavItem = { slug: string; label: T };
 
+/* ---------- Jalur menghubungi ----------
+   Nomor dan surat resmi dari klien, ditulis satu kali di sini supaya
+   tidak ada dua nilai yang bisa berselisih. Format wa.me menuntut
+   angka saja, tanpa tanda. */
+
+export const KONTAK = {
+  wa: "6281254840507",
+  waTampil: "+62 812-5484-0507",
+  surel: "shelbot.2026@gmail.com",
+  /** Pesan yang sudah terisi saat tombol pesan ditekan. */
+  pesanPesan: {
+    id: "Halo, saya ingin memesan board game Futures in Action edisi Samarinda 2045.",
+    en: "Hello, I would like to order the Futures in Action board game, Samarinda 2045 Edition.",
+  } as T,
+};
+
+/** Alamat WhatsApp lengkap beserta pesan pembuka. */
+export function tautanPesan(lang: "id" | "en") {
+  return `https://wa.me/${KONTAK.wa}?text=${encodeURIComponent(
+    KONTAK.pesanPesan[lang],
+  )}`;
+}
+
 export const NAV: NavItem[] = [
   { slug: "", label: { id: "Beranda", en: "Home" } },
   { slug: "permainan", label: { id: "Board Game", en: "Board Game" } },
+  { slug: "aturan", label: { id: "Aturan", en: "Rules" } },
   { slug: "dasbor", label: { id: "Dasbor", en: "Dashboard" } },
   { slug: "kartu", label: { id: "Katalog Kartu", en: "Card Catalogue" } },
   { slug: "samarinda", label: { id: "Samarinda", en: "Samarinda" } },
@@ -161,7 +185,7 @@ export type Phase = { no: number; name: T; time: string; output: T };
 export const PHASES: Phase[] = [
   {
     no: 1,
-    time: "15–18",
+    time: "12–15",
     name: { id: "Amati Masa Kini", en: "Observe the Present" },
     output: {
       id: "Peta sistem: memahami kondisi kota dan bagaimana masalahnya saling terkait.",
@@ -179,7 +203,7 @@ export const PHASES: Phase[] = [
   },
   {
     no: 3,
-    time: "15–18",
+    time: "10–12",
     name: { id: "Pilih Masa Depan", en: "Choose a Future" },
     output: {
       id: "Satu skenario dipilih. Disetujui bila didukung minimal 4 dari 5 peran, tanpa kerugian berat yang dibiarkan.",
@@ -188,7 +212,7 @@ export const PHASES: Phase[] = [
   },
   {
     no: 4,
-    time: "15–18",
+    time: "22–28",
     name: { id: "Ambil Keputusan", en: "Make Decisions" },
     output: {
       id: "Tindakan dipilih, risikonya ditimbang, dan dampaknya disimulasikan.",

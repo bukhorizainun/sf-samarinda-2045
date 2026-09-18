@@ -2428,3 +2428,101 @@ section.border-t {
 
 /* Jari yang menunjuk ke kiri menekan ke arah sebaliknya. */
 .mk-tunjuk-kiri { animation-direction: reverse; }
+
+/* ============================================================
+   Lembar cetak
+   Dipakai halaman Aturan Ringkas. Saat dicetak, situs berhenti jadi
+   situs: latar dibuang, warna teks dijadikan hitam, dan yang tersisa
+   hanya isi yang memang perlu dibawa ke meja.
+   ============================================================ */
+
+.hanya-cetak {
+  display: none;
+}
+
+@media print {
+  /* Semua yang bukan isi lembar dibuang. */
+  header:not(.hanya-cetak),
+  footer,
+  .aliran,
+  .latar-khas,
+  .tanpa-cetak,
+  .bidak,
+  .kepala-halaman .keping-adegan,
+  .kepala-halaman .t-lead {
+    display: none !important;
+  }
+
+  .hanya-cetak {
+    display: block;
+  }
+
+  /* Kertas putih, tinta hitam, tanpa bayangan dan tanpa bidang warna. */
+  :root,
+  :root[data-theme="dark"] {
+    --bg: #fff;
+    --bg-raised: #fff;
+    --bg-sunken: #fff;
+    --surface-1: #fff;
+    --fg: #000;
+    --fg-muted: #1f2a26;
+    --fg-faint: #45514c;
+    --line: rgb(0 0 0 / 0.22);
+    --line-strong: rgb(0 0 0 / 0.42);
+    --bayang-keping: transparent;
+    --bayang-panel: transparent;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  body::after {
+    display: none !important;
+  }
+
+  .ubin,
+  .konsol,
+  .petak {
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  .kepala-halaman {
+    padding-top: 0 !important;
+    padding-bottom: 0.5rem !important;
+  }
+  .kepala-halaman h1 {
+    font-size: 1.6rem;
+  }
+
+  /* Kertas menuntut kerapatan yang lain: jarak antarbagian dan isi
+     ubin dipendekkan, dan tangga huruf diturunkan satu tingkat. */
+  .lembar .grid.gap-12 { gap: 1.4rem !important; }
+  .lembar .ubin { padding: 0.7rem 0.85rem !important; border-radius: 8px; }
+  .lembar li, .lembar dd, .lembar dt, .lembar p { font-size: 0.82rem !important; }
+  .lembar .t-h3, .lembar h2, .lembar h3 { font-size: 0.92rem !important; }
+  .lembar .font-display { font-size: 1.15rem !important; }
+  .lembar .bab { margin-bottom: 0.55rem !important; font-size: 0.64rem; }
+  .lembar ol li, .lembar ul li { padding: 0.5rem 0.85rem !important; }
+  .lembar .token { width: 1.4rem; height: 1.4rem; font-size: 0.7rem; }
+  .lembar section > p, .lembar section > ol, .lembar section > ul, .lembar section > dl { margin-top: 0.4rem !important; }
+
+  /* Satu bagian tidak dipotong di tengah halaman kertas. */
+  .lembar section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .lembar {
+    padding-bottom: 0 !important;
+  }
+
+  /* Tautan di dalam prosa kehilangan gunanya di kertas. */
+  a[href]::after {
+    content: "";
+  }
+
+  @page {
+    margin: 14mm 12mm;
+  }
+}

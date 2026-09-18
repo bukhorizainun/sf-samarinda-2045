@@ -49,8 +49,8 @@ export default async function Fasilitator({
             <h2 className="t-h2">{t(FASIL.siapkanJudul, lang)}</h2>
             <p className="t-body mt-4 text-[0.95rem]">
               {id
-                ? "Lima menit persiapan yang menentukan sembilan puluh menit berikutnya."
-                : "Five minutes of setup that decide the next ninety."}
+                ? "Lima menit persiapan yang menentukan seratus menit berikutnya."
+                : "Five minutes of setup that decide the next hundred."}
             </p>
           </div>
           <ol className="space-y-3">

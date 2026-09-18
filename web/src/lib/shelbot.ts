@@ -170,8 +170,8 @@ const NIAT: Niat[] = [
           (p) => `${p.no}. ${t(p.name, l)} — ${t(p.output, l)}`,
         ).join("\n") +
         (l === "id"
-          ? "\n\nSatu sesi penuh sekitar sembilan puluh menit."
-          : "\n\nA full session runs about ninety minutes."),
+          ? "\n\nSatu sesi penuh sekitar seratus sampai seratus dua puluh menit."
+          : "\n\nA full session runs about 100 to 120 minutes."),
       lanjutan:
         l === "id"
           ? ["Apa itu tiga masa depan?", "Bagaimana cara menang?", "Apa saja perannya?"]

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { BRAND, COMPONENTS, HOME, PHASES, ROLES } from "@/content/site";
+import { BRAND, COMPONENTS, HOME, PHASES, ROLES, tautanPesan } from "@/content/site";
 import { Maskot } from "./Maskot";
 import { Ombak } from "./Ombak";
 import { t, type Lang } from "@/lib/i18n";
@@ -152,7 +152,23 @@ export function Hero({ lang }: { lang: Lang }) {
                     →
                   </span>
                 </Link>
-                <Link href={`${base}/shelbot`} className="btn btn-garis px-7">
+                {/* Pemesanan berjalan lewat WhatsApp yang sama dengan
+                    halaman kontak, dengan pesan pembuka sudah terisi. */}
+                <a
+                  href={tautanPesan(lang)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-garis px-7"
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden fill="currentColor">
+                    <path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.74.46 3.44 1.32 4.94L2 22l5.36-1.4a9.8 9.8 0 0 0 4.68 1.2h.01c5.43 0 9.84-4.4 9.84-9.84 0-2.63-1.02-5.1-2.88-6.96A9.78 9.78 0 0 0 12.04 2Zm0 1.8c2.15 0 4.17.84 5.69 2.36a7.99 7.99 0 0 1 2.35 5.68c0 4.44-3.6 8.04-8.04 8.04a8.05 8.05 0 0 1-4.1-1.12l-.29-.17-3.05.8.81-2.98-.19-.31a7.98 7.98 0 0 1-1.22-4.26c0-4.44 3.6-8.04 8.04-8.04Zm-2.4 4.03c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29 0 1.35.98 2.65 1.12 2.84.14.18 1.9 2.9 4.62 3.96 2.26.88 2.72.7 3.21.66.49-.05 1.58-.64 1.8-1.27.22-.63.22-1.16.16-1.27-.07-.11-.25-.18-.52-.32-.27-.13-1.58-.78-1.83-.87-.25-.09-.42-.14-.6.14-.18.27-.69.87-.84 1.05-.16.18-.31.2-.58.07-.27-.14-1.13-.42-2.16-1.33-.8-.71-1.34-1.59-1.49-1.86-.16-.27-.02-.42.12-.55.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.13-.6-1.45-.82-1.99-.22-.52-.44-.45-.6-.46l-.5-.01Z" />
+                  </svg>
+                  {id ? "Pesan lewat WhatsApp" : "Order on WhatsApp"}
+                </a>
+                <Link
+                  href={`${base}/shelbot`}
+                  className="text-[0.88rem] font-medium underline decoration-[var(--line-strong)] underline-offset-4 transition-colors hover:text-[var(--fg)]"
+                >
                   {t(HOME.ctaSecondary, lang)}
                 </Link>
               </div>

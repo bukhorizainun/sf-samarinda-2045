@@ -13,6 +13,7 @@ import type { Kartu } from "@/lib/kartu";
 import {
   BRAND,
   HOME,
+  tautanPesan,
   INDICATORS,
   INDICATOR_SCALE,
   PHASES,
@@ -212,10 +213,17 @@ export default async function Home({
             {t(HOME.closingBody, lang)}
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link
-              href={`${base}/mini-game`}
+            <a
+              href={tautanPesan(lang)}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-utama"
             >
+              {lang === "id"
+                ? "Pesan lewat WhatsApp"
+                : "Order on WhatsApp"}
+            </a>
+            <Link href={`${base}/mini-game`} className="btn btn-garis">
               {lang === "id" ? "Main mini game" : "Play the mini game"}
             </Link>
             <Link
