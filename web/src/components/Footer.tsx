@@ -59,7 +59,15 @@ export function Footer({ lang }: { lang: Lang }) {
           <p>
             © {year} {t(BRAND.name, lang)} · {t(BRAND.edition, lang)}
           </p>
-          <p>{BRAND.studio}</p>
+          <div className="flex items-center gap-4">
+            <Link
+              href={`${base}/privasi`}
+              className="transition-colors hover:text-[var(--fg)]"
+            >
+              {lang === "id" ? "Kebijakan privasi" : "Privacy"}
+            </Link>
+            <p>{BRAND.studio}</p>
+          </div>
         </div>
       </div>
     </footer>

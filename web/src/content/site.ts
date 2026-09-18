@@ -27,6 +27,7 @@ export type NavItem = { slug: string; label: T };
 export const NAV: NavItem[] = [
   { slug: "", label: { id: "Beranda", en: "Home" } },
   { slug: "permainan", label: { id: "Board Game", en: "Board Game" } },
+  { slug: "dasbor", label: { id: "Dasbor", en: "Dashboard" } },
   { slug: "kartu", label: { id: "Katalog Kartu", en: "Card Catalogue" } },
   { slug: "samarinda", label: { id: "Samarinda", en: "Samarinda" } },
   { slug: "shelbot", label: { id: "Shelbot", en: "Shelbot" } },

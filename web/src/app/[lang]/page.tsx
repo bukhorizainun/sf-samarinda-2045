@@ -64,9 +64,22 @@ export default async function Home({
             <IndicatorBalance lang={lang} />
           </Tilt>
         </div>
-        <p className="mt-8 text-sm text-[var(--fg-faint)] measure">
-          {t(INDICATOR_SCALE, lang)}
-        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-6">
+          <Link href={`${base}/dasbor`} className="btn btn-garis group">
+            {lang === "id"
+              ? "Coba di dasbor indikator"
+              : "Try the indicator dashboard"}
+            <span
+              aria-hidden
+              className="transition-transform duration-[var(--gerak-sedang)] ease-[var(--ease-out-soft)] group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </Link>
+          <p className="text-sm text-[var(--fg-faint)] measure">
+            {t(INDICATOR_SCALE, lang)}
+          </p>
+        </div>
       </Section>
 
       {/* ---------- Peta papan ---------- */}
