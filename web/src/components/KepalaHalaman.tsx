@@ -1,5 +1,6 @@
 import { Container } from "./Section";
 import { Pendamping } from "./Pendamping";
+import type { Pose } from "./Maskot";
 
 /**
  * Pembuka halaman dalam. Satu susunan untuk semua halaman, supaya
@@ -12,6 +13,7 @@ export function KepalaHalaman({
   lead,
   lebar = "18ch",
   pendamping,
+  sikap = "loncat",
   children,
 }: {
   eyebrow: string;
@@ -22,6 +24,9 @@ export function KepalaHalaman({
   /** Sosok yang menemani kepala halaman ini. Tiap halaman memakai
    *  sosok dan sikap sendiri, jadi halaman tidak terasa sama. */
   pendamping?: "shelly" | "hakam" | "keduanya";
+  /** Sikap sosok itu. Tiap halaman memakai sikap yang cocok dengan
+   *  isinya, jadi tidak semuanya meloncat. */
+  sikap?: Pose;
   children?: React.ReactNode;
 }) {
   return (
@@ -41,6 +46,7 @@ export function KepalaHalaman({
       {pendamping && (
         <Pendamping
           sosok={pendamping}
+          pose={sikap}
           className={`absolute bottom-6 right-5 sm:right-8 ${
             pendamping === "keduanya"
               ? "w-[190px] lg:w-[240px]"

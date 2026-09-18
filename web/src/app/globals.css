@@ -1835,8 +1835,11 @@ body::after {
    tertimpa lengkungan. */
 .berombak {
   position: relative;
-  padding-top: clamp(3.5rem, 7vw, 7rem);
-  padding-bottom: clamp(3.5rem, 7vw, 7rem);
+  /* Ruang bagi lengkungan ombak di kedua tepi. Nilainya harus lebih
+     besar dari tinggi ombak (maksimal 92px), supaya tombol dan teks di
+     kaki bagian tidak pernah bersinggungan dengan lengkungannya. */
+  padding-top: clamp(5rem, 8vw, 8.5rem);
+  padding-bottom: clamp(5rem, 8vw, 8.5rem);
 }
 
 /* ---------- 3. Corak yang mengalir ----------
@@ -2334,3 +2337,94 @@ section.border-t {
     transform: none;
   }
 }
+
+/* ============================================================
+   Perbaikan: papan pucat dan ombak yang tidak menimpa isi
+   ============================================================ */
+
+/* Bidang papan di tema terang sudah pucat, jadi tokennya harus tinta —
+   bukan lagi warisan dari masa ketika papannya gelap. Tanpa ini,
+   tulisan di bagian enam fase terbaca pucat dan hampir tembus pandang. */
+.papan {
+  --fg: #16241f;
+  --fg-muted: #42544d;
+  --fg-faint: #5a6a62;
+  --line: rgb(22 36 31 / 0.12);
+  --line-strong: rgb(22 36 31 / 0.24);
+  --bg: #e9ede3;
+  --bg-raised: #f5f7ef;
+  --bg-sunken: #e0e5d9;
+  --scene: var(--color-env);
+}
+
+:root[data-theme="dark"] .papan {
+  --fg: #eef3ec;
+  --fg-muted: #bccbc4;
+  --fg-faint: #9db1a9;
+  --line: var(--garis-kaca);
+  --line-strong: var(--garis-kaca-2);
+  --bg: var(--tinta-2);
+  --bg-raised: var(--kaca);
+  --bg-sunken: var(--bayang-keping);
+  --scene: var(--color-mint);
+}
+
+/* Petak papan: di tema terang ia kartu terang dengan bayangan tinta,
+   bukan keping gelap. */
+.petak {
+  background: var(--bg-raised);
+  box-shadow: 0 4px 0 0 var(--bayang-keping);
+}
+.petak:hover {
+  box-shadow: 0 7px 0 0 var(--bayang-keping);
+}
+
+/* Ombak duduk di belakang isi.
+   Dua hal yang salah sebelumnya: z-index 3 membuatnya menimpa tombol,
+   dan memberi position: relative pada wadah isi membuat ombak
+   berpatokan pada wadah itu — bukan pada bagiannya — sehingga
+   lengkungannya jatuh di tengah isi. Cukup satu aturan: ombak
+   berpatokan pada .berombak dan duduk di lapis negatif, jadi ia
+   tergambar di atas latar bagian tetapi di bawah seluruh teks. */
+.ombak {
+  z-index: -1;
+}
+
+/* Menunjuk: badan bergoyang pelan, dan jarinya menekan sedikit ke
+   arah isi yang ditunjuk. */
+@keyframes mk-goyang {
+  0%, 100% { transform: rotate(-0.8deg); }
+  50% { transform: rotate(1deg); }
+}
+.mk-goyang {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: mk-goyang 7s var(--ease-out-soft) infinite;
+}
+@keyframes mk-tunjuk {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(2.5px); }
+}
+.mk-tunjuk {
+  transform-box: fill-box;
+  animation: mk-tunjuk 3.6s var(--ease-out-soft) infinite;
+}
+
+/* Kartu yang dipegang: dibolak-balik pelan, seperti pemain yang
+   sedang menimbang kartunya. */
+@keyframes mk-kartu {
+  0%, 100% { transform: rotateY(0deg) rotate(-2deg); }
+  50% { transform: rotateY(24deg) rotate(2deg); }
+}
+.mk-kartu {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: mk-kartu 8s var(--ease-out-soft) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-goyang, .mk-tunjuk, .mk-kartu { animation: none; }
+}
+
+/* Jari yang menunjuk ke kiri menekan ke arah sebaliknya. */
+.mk-tunjuk-kiri { animation-direction: reverse; }

@@ -16,6 +16,8 @@ import { useEffect, useRef, useState } from "react";
  *   tanam  — keduanya menanam, dan tunasnya tumbuh dari tanah
  *   terbang— naik ketinting yang melayang, didampingi enggang
  *   loncat — meloncat sekali saat bagiannya masuk pandangan
+ *   tunjuk — menunjuk ke arah isi halaman, badan bergoyang pelan
+ *   kartu  — memegang satu kartu permainan, dibolak-balik pelan
  *
  * `latar` mematikan sungai, perahu, dan papan dermaga, supaya sosoknya bisa
  * ditumpangkan pada adegan lain.
@@ -26,14 +28,21 @@ const ANGGOTA = "#243040";
 const KULIT_A = "#f3d3b8"; // Shelly
 const KULIT_B = "#e9c19f"; // Hakam
 
-export type Pose = "lambai" | "amati" | "tanam" | "terbang" | "loncat";
+export type Pose =
+  | "lambai"
+  | "amati"
+  | "tanam"
+  | "terbang"
+  | "loncat"
+  | "tunjuk"
+  | "kartu";
 
 /** Bidang gambar, dipotong ke sosok yang sedang dibutuhkan. Angkanya
  *  mengikuti pergeseran kedua sosok di dalam adegan. */
 const BIDANG = {
   keduanya: "0 0 260 200",
-  hakam: "66 0 70 182",
-  shelly: "128 0 70 182",
+  hakam: "50 0 90 182",
+  shelly: "124 0 92 182",
   /* Kepala dan bahu, dari ujung bulu enggang sampai pangkal lengan.
      Tingginya berhenti di 92: di bawah itu lengan sisi dalam mulai
      tergambar, dan ia masuk potongan sebagai puntung gelap. Dipakai
@@ -259,7 +268,9 @@ export function Maskot({
               ? "mk-terbang"
               : pose === "loncat"
                 ? "mk-loncat"
-                : "mk-apung"
+                : pose === "tunjuk"
+                  ? "mk-goyang"
+                  : "mk-apung"
         }
         style={{ transform: `translateX(${lirik * 0.4}px)` }}
       >
@@ -294,6 +305,7 @@ export function Maskot({
           </g>
 
           <Lengan pose={pose} sisi="kiri" kulit={KULIT_B} />
+          {pose === "kartu" && <KartuPegang />}
 
           <path
             d="M8 66 C 8 54, 15 48, 24 48 C 33 48, 40 54, 40 66 L40 74 C 40 82, 33 88, 24 88 C 15 88, 8 82, 8 74 Z"
@@ -351,6 +363,7 @@ export function Maskot({
           </g>
 
           <Lengan pose={pose} sisi="kanan" kulit={KULIT_A} />
+          {pose === "kartu" && <KartuPegang warna="var(--color-future)" />}
 
           <path
             d="M6 66 C 6 54, 13 48, 22 48 C 31 48, 38 54, 38 66 L38 74 C 38 82, 31 88, 22 88 C 13 88, 6 82, 6 74 Z"
@@ -485,6 +498,56 @@ function Lengan({
     );
   }
 
+  // Menunjuk: lengan sisi luar menunjuk keluar adegan, lengan sisi
+  // dalam bertumpu di pinggang. Arahnya mengikuti sisi, jadi kedua
+  // sosok menunjuk ke arah yang berbeda dan tidak saling menutupi.
+  if (pose === "tunjuk") {
+    if (dalam) {
+      return sisi === "kiri" ? (
+        <>
+          <line x1="8" y1="98" x2="2" y2="110" {...garis} />
+          <line x1="2" y1="110" x2="13" y2="116" {...garis} />
+          <circle cx="14" cy="117" r="3.4" fill={kulit} />
+        </>
+      ) : (
+        <>
+          <line x1="38" y1="98" x2="44" y2="110" {...garis} />
+          <line x1="44" y1="110" x2="33" y2="116" {...garis} />
+          <circle cx="32" cy="117" r="3.4" fill={kulit} />
+        </>
+      );
+    }
+
+    return sisi === "kiri" ? (
+      <g className="mk-tunjuk mk-tunjuk-kiri">
+        <line x1="8" y1="98" x2="-12" y2="92" {...garis} />
+        <circle cx="-14" cy="91" r="3.4" fill={kulit} />
+        <line x1="-16" y1="90" x2="-24" y2="88" stroke={kulit} strokeWidth="2.6" strokeLinecap="round" />
+      </g>
+    ) : (
+      <g className="mk-tunjuk">
+        <line x1="38" y1="98" x2="58" y2="92" {...garis} />
+        <circle cx="60" cy="91" r="3.4" fill={kulit} />
+        <line x1="62" y1="90" x2="70" y2="88" stroke={kulit} strokeWidth="2.6" strokeLinecap="round" />
+      </g>
+    );
+  }
+
+  // Memegang kartu: kedua tangan ke depan, sejajar.
+  if (pose === "kartu") {
+    return sisi === "kiri" ? (
+      <>
+        <line x1="8" y1="98" x2="12" y2="116" {...garis} />
+        <circle cx="13" cy="118" r="3.4" fill={kulit} />
+      </>
+    ) : (
+      <>
+        <line x1="38" y1="98" x2="34" y2="116" {...garis} />
+        <circle cx="33" cy="118" r="3.4" fill={kulit} />
+      </>
+    );
+  }
+
   // Terbang dan meloncat: kedua tangan terangkat.
   if (pose === "terbang" || pose === "loncat") {
     return sisi === "kiri" ? (
@@ -545,6 +608,37 @@ function Enggang({ jeda = "0s" }: { jeda?: string }) {
       <path d="M65 75 C 73 73, 80 75, 84 78 C 78 80, 70 81, 65 80 Z" fill="var(--color-ember)" />
       <path d="M66 71 C 72 67, 79 68, 83 71 C 77 72, 71 73, 66 74 Z" fill="var(--color-ember)" opacity="0.75" />
       <circle cx="61" cy="74" r="1.3" fill="var(--bg-raised)" />
+    </g>
+  );
+}
+
+/**
+ * Kartu permainan yang dipegang sosok.
+ *
+ * Koordinatnya lokal terhadap kelompok sosok, bukan terhadap adegan,
+ * supaya ia ikut terpotong bersama sosoknya saat hanya satu sosok yang
+ * ditampilkan. Rasionya mengikuti kartu cetak, dan pita jenis di tepi
+ * kiri sama seperti kartu di katalog.
+ */
+function KartuPegang({ warna = "var(--color-env)" }: { warna?: string }) {
+  return (
+    <g className="mk-kartu" aria-hidden>
+      <rect
+        x="9"
+        y="104"
+        width="27"
+        height="38"
+        rx="3"
+        fill="var(--bg-raised)"
+        stroke="var(--line-strong)"
+        strokeWidth="1.2"
+      />
+      <rect x="9" y="104" width="3" height="38" rx="1.5" fill={warna} />
+      <g stroke="var(--fg-faint)" strokeWidth="1.1" opacity="0.5">
+        <line x1="16" y1="114" x2="32" y2="114" />
+        <line x1="16" y1="120" x2="32" y2="120" />
+        <line x1="16" y1="126" x2="28" y2="126" />
+      </g>
     </g>
   );
 }

@@ -28,6 +28,7 @@ export default async function Fasilitator({
   return (
     <Halaman motif="perahu" adegan="hutan">
       <KepalaHalaman
+        sikap="tunjuk"
         pendamping="keduanya"
         eyebrow={id ? "Untuk fasilitator" : "For facilitators"}
         lebar="17ch"
@@ -64,7 +65,7 @@ export default async function Fasilitator({
       </Section>
 
       {/* Menjaga waktu */}
-      <Section className="papan berombak relative !py-0">
+      <Section className="papan berombak relative">
         <Ombak posisi="atas" />
         <p className="bab mb-6"><b>02 / 03</b>{id ? "Selama sesi" : "During the session"}</p>
         <h2 className="t-h2">{t(FASIL.jalanJudul, lang)}</h2>

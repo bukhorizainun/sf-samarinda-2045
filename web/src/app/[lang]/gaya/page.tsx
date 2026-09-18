@@ -35,6 +35,7 @@ export default async function Gaya({
   return (
     <>
       <KepalaHalaman
+        sikap="kartu"
         pendamping="hakam"
         eyebrow={id ? "Rujukan kerja" : "Working reference"}
         lebar="17ch"

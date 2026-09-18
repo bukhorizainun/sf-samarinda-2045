@@ -108,7 +108,7 @@ export default async function Home({
       </Section>
 
       {/* ---------- Enam fase, sekilas ---------- */}
-      <Section className="papan berombak relative !py-0">
+      <Section className="papan berombak relative">
         <Ombak posisi="atas" />
         <SectionHead
           bab="05 / 06"

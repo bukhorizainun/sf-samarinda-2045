@@ -113,6 +113,7 @@ export default async function Kontak({
   return (
     <Halaman motif="amplang" adegan="pangan">
       <KepalaHalaman
+        sikap="lambai"
         pendamping="shelly"
         eyebrow={id ? "Kontak" : "Contact"}
         lebar="16ch"

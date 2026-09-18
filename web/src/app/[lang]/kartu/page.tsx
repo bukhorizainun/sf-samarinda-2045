@@ -26,6 +26,7 @@ export default async function KatalogKartu({
   return (
     <Halaman motif="tenun" adegan="tenun">
       <KepalaHalaman
+        sikap="kartu"
         pendamping="shelly"
         eyebrow={id ? "Katalog Kartu" : "Card Catalogue"}
         title={
