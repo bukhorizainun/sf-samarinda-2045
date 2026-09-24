@@ -12,7 +12,7 @@ export function Footer({ lang }: { lang: Lang }) {
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Logo className="h-8 w-auto" />
+            <Logo mono className="h-8 w-auto" />
             {/* Satu-satunya tempat nama panjang muncul selain kepala halaman. */}
             <p className="mt-4 text-[0.95rem] font-medium">
               {t(BRAND.name, lang)}

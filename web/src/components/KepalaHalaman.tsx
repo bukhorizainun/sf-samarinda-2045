@@ -1,5 +1,4 @@
 import { Container } from "./Section";
-import { Pendamping } from "./Pendamping";
 import type { Pose } from "./Maskot";
 
 /**
@@ -12,8 +11,6 @@ export function KepalaHalaman({
   title,
   lead,
   lebar = "18ch",
-  pendamping,
-  sikap = "loncat",
   children,
 }: {
   eyebrow: string;
@@ -21,11 +18,9 @@ export function KepalaHalaman({
   lead?: string;
   /** Lebar maksimal judul, agar patahan barisnya tetap rapi. */
   lebar?: string;
-  /** Sosok yang menemani kepala halaman ini. Tiap halaman memakai
-   *  sosok dan sikap sendiri, jadi halaman tidak terasa sama. */
+  /** Sosok pendamping. Sejak rupa v2 tidak lagi digambar di kepala
+   *  halaman; props dibiarkan supaya halaman tidak perlu diubah. */
   pendamping?: "shelly" | "hakam" | "keduanya";
-  /** Sikap sosok itu. Tiap halaman memakai sikap yang cocok dengan
-   *  isinya, jadi tidak semuanya meloncat. */
   sikap?: Pose;
   children?: React.ReactNode;
 }) {
@@ -42,22 +37,6 @@ export function KepalaHalaman({
         <p className="t-lead measure rise mt-6 [animation-delay:120ms]">{lead}</p>
       )}
       {children && <div className="rise [animation-delay:180ms]">{children}</div>}
-
-      {pendamping && (
-        <Pendamping
-          sosok={pendamping}
-          pose={sikap}
-          className={`absolute bottom-6 right-5 sm:right-8 ${
-            /* Perenang dilihat dari samping, jadi bidangnya mendatar
-               dan butuh lebar lebih dari sosok yang berdiri. */
-            sikap === "renang"
-              ? "w-[210px] lg:w-[270px]"
-              : pendamping === "keduanya"
-                ? "w-[190px] lg:w-[240px]"
-                : "w-[96px] lg:w-[120px]"
-          }`}
-        />
-      )}
     </Container>
   );
 }

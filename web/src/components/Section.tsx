@@ -49,10 +49,10 @@ export function SectionHead({
           {eyebrow}
         </p>
       )}
-      <div className="measure">
+      <div className="max-w-3xl">
       {eyebrow && !bab && <p className="t-eyebrow">{eyebrow}</p>}
       <h2 className={`${bab ? "t-h1" : "t-h2"} ${eyebrow && !bab ? "mt-4" : ""}`}>{title}</h2>
-      {lead && <p className="t-lead mt-5">{lead}</p>}
+      {lead && <p className="t-lead measure mt-5">{lead}</p>}
       </div>
     </div>
   );

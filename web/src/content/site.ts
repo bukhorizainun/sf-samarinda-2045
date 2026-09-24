@@ -191,7 +191,10 @@ export const HOME = {
     en: "A decision that lifts one indicator almost always presses on another. That is where the game lives.",
   } as T,
 
-  whatTitle: { id: "Apa ini sebenarnya", en: "What this actually is" } as T,
+  whatTitle: {
+    id: "Dimainkan di meja, tentang kota yang nyata",
+    en: "Played at a table, about a real city",
+  } as T,
   what: [
     {
       title: { id: "Board game fisik", en: "A physical board game" } as T,
@@ -213,8 +216,8 @@ export const HOME = {
         en: "GenAI inside the game",
       } as T,
       body: {
-        id: "Di meja, GenAI dipakai sebagai teman berpikir: memetakan sebab-akibat dan membandingkan pilihan. Pemakaiannya dijatah lewat token, dan ia tidak punya suara dalam keputusan. Shelbot di situs ini hal yang berbeda — pemandu di luar meja.",
-        en: "At the table, GenAI serves as a thinking partner: mapping causes and effects, comparing options. Its use is rationed through tokens, and it holds no vote in the decision. Shelbot on this site is a different thing — a guide away from the table.",
+        id: "Di meja, GenAI dipakai sebagai teman berpikir: memetakan sebab-akibat dan membandingkan pilihan. Pemakaiannya dijatah lewat token, dan ia tidak punya suara dalam keputusan. Shelbot di situs ini hal yang berbeda: pemandu di luar meja.",
+        en: "At the table, GenAI serves as a thinking partner: mapping causes and effects, comparing options. Its use is rationed through tokens, and it holds no vote in the decision. Shelbot on this site is a different thing: a guide away from the table.",
       } as T,
     },
   ],

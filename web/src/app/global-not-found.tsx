@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Fraunces, Inter } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 import { THEME_SCRIPT } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
@@ -19,17 +19,13 @@ import { Maskot } from "@/components/Maskot";
  * pernah memilih bahasa, jadi keduanya ditulis sekaligus.
  */
 
-const display = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  axes: ["opsz"],
-});
-
-const body = Inter({
+/* Satu keluarga untuk seluruh situs. Judul memakai sumbu lebarnya
+   (melebar, berat), isi memakai lebar normal; lihat globals.css. */
+const huruf = Archivo({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+  axes: ["wdth"],
 });
 
 export const metadata: Metadata = {
@@ -51,7 +47,7 @@ export default function GlobalNotFound() {
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body className={`${display.variable} ${body.variable}`}>
+      <body className={`${huruf.variable}`}>
         <main className="malam panggung relative min-h-screen overflow-hidden">
           <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 py-10 sm:px-8 sm:py-14">
             <Link href="/id/" className="inline-flex w-fit items-center gap-2.5">

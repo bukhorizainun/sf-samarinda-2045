@@ -2886,3 +2886,470 @@ section.border-t {
   height: 20px;
   z-index: -1;
 }
+
+/* ============================================================
+   RUPA v2 — "Meja Sungai"  (24 Sep 2026)
+
+   Lapis terakhir, sengaja ditulis sebagai satu blok supaya bisa
+   dibandingkan atau dicabut utuh. Arah sebelumnya (serif display di
+   atas krem, aurora, pil, panel kaca, label bernomor bab) adalah rupa
+   bawaan yang sudah terlalu sering muncul; lapis ini menggantinya
+   dengan bahasa kotak board game dan barang cetak:
+
+   - Satu keluarga huruf. Archivo melebar dan berat untuk judul,
+     lebar normal untuk isi. Angka memakai huruf yang sama, bukan mono.
+   - Tiga bahan warna: kertas, air Mahakam, dan tanah liat. Warna
+     indikator tetap milik data dan tidak dipakai sebagai hiasan.
+   - Sudut nyaris tegak (4–6 px), bidang rata tanpa gradasi dan kaca,
+     bayangan hanya untuk benda yang memang terangkat (kartu).
+   - Bidang gelap adalah air sungai, dipakai penuh selebar layar,
+     bukan kotak yang mengambang.
+   ============================================================ */
+
+:root {
+  --sungai: #0d3533;
+  --sungai-2: #092826;
+  --sungai-3: #144541;
+  --tanah: #c2532a;
+  --tanah-2: #a3431f;
+  --kuningan: #dcaa4a;
+
+  --adegan-sungai: #1d6a68;
+  --adegan-hutan: #2e7a4c;
+  --adegan-kayu: #a3601f;
+  --adegan-tenun: #7b4b86;
+  --adegan-langit: #2c5d93;
+  --adegan-pangan: #a9473a;
+
+  --bg: #f2ede3;
+  --bg-raised: #faf7f0;
+  --bg-sunken: #e9e2d4;
+  --bg-halaman: #f2ede3;
+  --fg: #121a18;
+  --fg-muted: #434c48;
+  --fg-faint: #5b635f;
+  --line: rgb(18 26 24 / 0.13);
+  --line-strong: rgb(18 26 24 / 0.3);
+  --scene: var(--tanah);
+
+  --surface-1: #faf7f0;
+  --surface-2: #f5f1e8;
+  --surface-3: #faf7f0;
+  --lift-1: 0 1px 0 rgb(18 26 24 / 0.06);
+  --lift-2: 0 1px 0 rgb(18 26 24 / 0.06), 0 14px 30px -18px rgb(18 26 24 / 0.38);
+  --lift-3: 0 2px 4px rgb(18 26 24 / 0.08), 0 34px 70px -30px rgb(18 26 24 / 0.5);
+
+  --radius-card: 6px;
+  --radius-pill: 4px;
+
+  /* Palet aurora lama dipetakan ulang ke bahan yang sama: hijau daun,
+     air Mahakam, tenun, kunyit, dan buah. Semua pemakainya ikut. */
+  --color-mint: #3f9a78;
+  --color-aqua: #3a8ca3;
+  --color-iris: #7d5a9e;
+  --color-ember: #d39a3e;
+  --color-rose: #b85c6e;
+}
+
+:root[data-theme="dark"] {
+  --tanah: #e0764a;
+  --tanah-2: #c9602f;
+
+  --adegan-sungai: #6bb8b2;
+  --adegan-hutan: #74c08f;
+  --adegan-kayu: #e0a45e;
+  --adegan-tenun: #bb91c6;
+  --adegan-langit: #86acdc;
+  --adegan-pangan: #e38e7c;
+
+  --bg: #0c1312;
+  --bg-raised: #141d1b;
+  --bg-sunken: #080d0c;
+  --bg-halaman: #0c1312;
+  --fg: #ece6da;
+  --fg-muted: #b5b6ab;
+  --fg-faint: #8f938b;
+  --line: rgb(236 230 218 / 0.12);
+  --line-strong: rgb(236 230 218 / 0.27);
+
+  --surface-1: #141d1b;
+  --surface-2: #18221f;
+  --surface-3: #141d1b;
+  --lift-1: inset 0 1px 0 rgb(255 255 255 / 0.04);
+  --lift-2: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 18px 40px -24px rgb(0 0 0 / 0.8);
+  --lift-3: 0 34px 70px -30px rgb(0 0 0 / 0.9);
+
+  --color-mint: #6cc39f;
+  --color-aqua: #6fb3c8;
+  --color-iris: #ad8fd0;
+  --color-ember: #e3b060;
+  --color-rose: #d98b9a;
+}
+
+body {
+  --font-display: var(--font-body);
+  --font-mono: var(--font-body);
+  background: var(--bg);
+}
+
+/* ---------- Huruf ---------- */
+
+.t-display,
+.t-h1,
+.t-h2,
+.panggung-judul,
+.font-display {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: "wdth" 116;
+}
+.t-display {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+.t-h1 {
+  font-size: clamp(2rem, 1.2rem + 2.7vw, 3.5rem);
+  font-weight: 760;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+.t-h2 {
+  font-weight: 720;
+  letter-spacing: -0.028em;
+  line-height: 1.06;
+  font-variation-settings: "wdth" 110;
+}
+.t-h3 {
+  font-weight: 650;
+  letter-spacing: -0.012em;
+}
+.t-lead {
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+.t-body {
+  line-height: 1.65;
+}
+.t-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  font-weight: 650;
+  color: var(--fg-muted);
+}
+.mono {
+  font-family: var(--font-body), ui-sans-serif, sans-serif;
+  letter-spacing: 0;
+}
+
+/* Penanda bagian: garis pendek berwarna adegan, lalu nama bagian.
+   Nomor bab dan garis panjang dicabut. */
+.bab {
+  gap: 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+}
+.bab b,
+.bab::after {
+  display: none;
+}
+.bab::before {
+  content: "";
+  flex: none;
+  width: 1.75rem;
+  height: 2px;
+  background: var(--scene);
+}
+
+.keping-adegan {
+  padding: 0;
+  gap: 0.8rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+}
+.keping-adegan::before {
+  width: 1.75rem;
+  height: 2px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Penekanan: satu garis tanah liat, tanpa pelangi. */
+.tekan::after,
+.panggung .tekan::after {
+  height: 0.07em;
+  bottom: 0.02em;
+  border-radius: 0;
+  background: var(--scene);
+}
+.sf-gradient {
+  background: var(--scene);
+}
+.sf-gradient-text {
+  background: none;
+  color: inherit;
+}
+.hairline {
+  background: var(--line);
+}
+.aurora,
+.latar-khas,
+.ombak {
+  display: none;
+}
+::selection {
+  background: color-mix(in oklab, var(--tanah) 26%, transparent);
+}
+
+/* ---------- Tombol ---------- */
+
+.btn {
+  min-height: 3rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: 4px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.btn:hover {
+  transform: none;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-utama,
+.btn-utama:hover {
+  box-shadow: none;
+}
+.btn-utama {
+  background: var(--tanah);
+  color: #fff;
+}
+.btn-utama:hover {
+  background: var(--tanah-2);
+}
+.btn-garis {
+  border: 1.5px solid var(--fg);
+  background: transparent;
+  color: var(--fg);
+}
+.btn-garis:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* ---------- Permukaan: rata, bersudut kecil ---------- */
+
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl {
+  border-radius: 6px;
+}
+
+.glass,
+:root[data-theme="dark"] .glass,
+.konsol,
+:root[data-theme="dark"] .konsol,
+.ubin,
+.obrolan,
+.saluran {
+  border-radius: 6px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.edge-glow {
+  box-shadow: 0 0 0 1.5px var(--scene);
+}
+.lampu {
+  background: var(--scene);
+  box-shadow: none;
+}
+.kolom-fase b {
+  border-radius: 2px 2px 0 0;
+  background: var(--fg);
+}
+.kartu,
+.cabang-pilih,
+.baris-kartu,
+.saran,
+.pilihan,
+.paddle,
+.peta-lapis {
+  border-radius: 6px;
+}
+.lockup {
+  border-radius: 3px;
+}
+
+.segmen {
+  border-radius: 5px;
+  background: transparent;
+  box-shadow: none;
+}
+.segmen-tab {
+  border-radius: 3px;
+}
+.segmen-tab[aria-selected="true"],
+.segmen-tab[aria-pressed="true"],
+:root[data-theme="dark"] .segmen-tab[aria-selected="true"] {
+  background: var(--fg);
+  color: var(--bg);
+  box-shadow: none;
+}
+
+/* Bagian berselang: kertas yang sedikit lebih gelap, rata. */
+.band,
+:root[data-theme="dark"] .band {
+  background: var(--bg-sunken);
+}
+.berombak {
+  padding-top: clamp(5rem, 7vw, 7rem);
+  padding-bottom: clamp(5rem, 7vw, 7rem);
+}
+
+/* ---------- Air sungai: bidang gelap ----------
+   Satu bidang gelap untuk pembuka dan papan, sama di tema terang
+   maupun gelap. Token teks ditimpa agar isi di dalamnya terbaca. */
+
+:root .panggung,
+:root[data-theme="dark"] .panggung,
+:root .papan,
+:root[data-theme="dark"] .papan {
+  --fg: #f3eee3;
+  --fg-muted: #c2ccc5;
+  --fg-faint: #9aaaa3;
+  --line: rgb(255 255 255 / 0.14);
+  --line-strong: rgb(255 255 255 / 0.34);
+  --bg: var(--sungai);
+  --bg-raised: rgb(255 255 255 / 0.06);
+  --bg-sunken: rgb(0 0 0 / 0.16);
+  --surface-1: rgb(255 255 255 / 0.06);
+  --kisi: rgb(255 255 255 / 0.045);
+  --scene: var(--kuningan);
+  color: var(--fg);
+  background: var(--sungai);
+}
+:root .panggung,
+:root[data-theme="dark"] .panggung {
+  background:
+    radial-gradient(70% 85% at 88% 30%, var(--sungai-3) 0%, transparent 70%),
+    var(--sungai);
+}
+.panggung .btn-garis:hover,
+.papan .btn-garis:hover {
+  color: var(--sungai);
+}
+
+.panggung-judul {
+  font-size: clamp(2.6rem, 1.1rem + 4.4vw, 5.4rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-variation-settings: "wdth" 118;
+}
+
+.fakta dt {
+  font-family: var(--font-body), sans-serif;
+  font-weight: 760;
+  font-variation-settings: "wdth" 118;
+  letter-spacing: -0.04em;
+}
+.fakta dd {
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+/* Lintasan fase di atas papan: petak menjadi baris cetak, bukan kotak. */
+.papan .petak {
+  gap: 0.6rem;
+  padding: 1.25rem 0 0;
+  border: 0;
+  border-top: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.papan .petak:hover {
+  transform: none;
+  box-shadow: none;
+  border-top-color: var(--scene);
+}
+.token,
+:root .token,
+:root[data-theme="dark"] .token {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font-family: var(--font-body), sans-serif;
+  font-weight: 760;
+  font-variation-settings: "wdth" 118;
+  font-size: 1.05rem;
+  color: var(--scene);
+}
+.papan .token {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* ---------- Kaki situs: tinta ---------- */
+
+footer.band,
+:root[data-theme="dark"] footer.band {
+  --fg: #efe9dc;
+  --fg-muted: #b9bdb4;
+  --fg-faint: #8e948c;
+  --line: rgb(255 255 255 / 0.12);
+  --line-strong: rgb(255 255 255 / 0.28);
+  color: var(--fg);
+  background: #101614;
+}
+
+/* ---------- Kipas kartu di pembuka ---------- */
+
+.kipas {
+  position: relative;
+  width: min(100%, 36rem);
+  aspect-ratio: 36 / 31;
+  margin-inline: auto;
+}
+.kipas > div {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  width: 48%;
+  /* Kartu di sini selalu kertas terang, di tema apa pun. */
+  --fg: #121a18;
+  --fg-muted: #434c48;
+  --fg-faint: #5b635f;
+  --line: rgb(18 26 24 / 0.13);
+  --line-strong: rgb(18 26 24 / 0.3);
+  --surface-1: #faf7f0;
+  --kartu-rasio: 63 / 88;
+  color: var(--fg);
+  transform-origin: 50% 110%;
+  transition: transform var(--gerak-lambat) var(--ease-out-soft);
+}
+.kipas > div .kartu {
+  box-shadow: 0 2px 3px rgb(0 0 0 / 0.2), 0 30px 50px -24px rgb(0 0 0 / 0.65);
+  border-color: rgb(0 0 0 / 0.1);
+}
+.kipas > div:nth-child(1) { transform: translateX(-96%) rotate(-11deg) translateY(5%); }
+.kipas > div:nth-child(2) { transform: translateX(-50%); z-index: 2; }
+.kipas > div:nth-child(3) { transform: translateX(-4%) rotate(11deg) translateY(5%); }
+.kipas:hover > div:nth-child(1) { transform: translateX(-104%) rotate(-14deg) translateY(4%); }
+.kipas:hover > div:nth-child(3) { transform: translateX(4%) rotate(14deg) translateY(4%); }
+@media (max-width: 639px) {
+  .kipas { width: 74%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kipas > div { transition: none; }
+}

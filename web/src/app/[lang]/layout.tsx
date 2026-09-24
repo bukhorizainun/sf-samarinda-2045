@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Fraunces, Inter } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "../globals.css";
-import { Aliran } from "@/components/Aliran";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { THEME_SCRIPT } from "@/components/ThemeToggle";
@@ -10,17 +9,13 @@ import { UI } from "@/content/site";
 import { LANGS, isLang, t, type Lang } from "@/lib/i18n";
 import { SITUS } from "@/lib/situs";
 
-const display = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  axes: ["opsz"],
-});
-
-const body = Inter({
+/* Satu keluarga untuk seluruh situs. Judul memakai sumbu lebarnya
+   (melebar, berat), isi memakai lebar normal; lihat globals.css. */
+const huruf = Archivo({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+  axes: ["wdth"],
 });
 
 const JUDUL = "SF — Sustainable Futures · Futures in Action";
@@ -61,8 +56,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f5f1" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1013" },
+    { media: "(prefers-color-scheme: light)", color: "#f2ede3" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c1312" },
   ],
 };
 
@@ -87,14 +82,13 @@ export default async function LangLayout({
         {/* Menetapkan tampilan sebelum halaman tergambar, supaya tidak ada kedip. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body className={`${display.variable} ${body.variable}`}>
+      <body className={`${huruf.variable}`}>
         <a
           href="#isi"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:border focus:bg-[var(--bg-raised)] focus:px-4 focus:py-2 focus:text-sm rule"
         >
           {t(UI.skip, lang)}
         </a>
-        <Aliran />
         <Header lang={lang} />
         <main id="isi">{children}</main>
         <Footer lang={lang} />

@@ -19,14 +19,16 @@ import { LatarKhas, type Motif } from "./LatarKhas";
  * garis, dan penanda.
  */
 
-/** Warna adegan tiap halaman, diambil dari palet permainan. */
+/** Warna adegan tiap halaman. Diturunkan dari bahan, bukan dari layar:
+ *  air Mahakam, daun, ulin, tenun, langit, dan tanah. Cukup gelap untuk
+ *  garis dan penanda di atas kertas; warna data tetap milik indikator. */
 export const ADEGAN = {
-  sungai: "var(--color-aqua)",
-  hutan: "var(--color-env)",
-  kayu: "var(--color-ember)",
-  tenun: "var(--color-iris)",
-  langit: "var(--color-future)",
-  pangan: "var(--color-rose)",
+  sungai: "var(--adegan-sungai)",
+  hutan: "var(--adegan-hutan)",
+  kayu: "var(--adegan-kayu)",
+  tenun: "var(--adegan-tenun)",
+  langit: "var(--adegan-langit)",
+  pangan: "var(--adegan-pangan)",
 } as const;
 
 export function Halaman({

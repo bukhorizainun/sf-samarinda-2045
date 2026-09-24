@@ -14,7 +14,6 @@ import {
   BRAND,
   HOME,
   tautanPesan,
-  INDICATORS,
   INDICATOR_SCALE,
   PHASES,
   UI,
@@ -101,23 +100,23 @@ export default async function Home({
 
       {/* ---------- Apa ini ---------- */}
       <Section className="band border-t rule">
-        <SectionHead
-          bab="04 / 06"
-          eyebrow={lang === "id" ? "Tentang" : "About"}
-          title={t(HOME.whatTitle, lang)}
-        />
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border bg-[var(--line)] rule sm:grid-cols-3">
-          {HOME.what.map((item, i) => (
-            <div key={i} className="bg-[var(--surface-1)] p-7 transition-colors duration-300 hover:bg-[var(--bg-raised)] sm:p-8">
-              <span
-                aria-hidden
-                className="block h-1 w-10 rounded-full"
-                style={{ background: INDICATORS[i].color }}
-              />
-              <h3 className="t-h3 mt-6">{t(item.title, lang)}</h3>
-              <p className="t-body mt-3 text-[0.95rem]">{t(item.body, lang)}</p>
-            </div>
-          ))}
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
+          <SectionHead
+            bab="04 / 06"
+            eyebrow={lang === "id" ? "Tentang" : "About"}
+            title={t(HOME.whatTitle, lang)}
+          />
+          <dl className="lg:pt-14">
+            {HOME.what.map((item, i) => (
+              <div
+                key={i}
+                className="grid gap-2 border-t py-7 rule sm:grid-cols-[12rem_1fr] sm:gap-8"
+              >
+                <dt className="t-h3">{t(item.title, lang)}</dt>
+                <dd className="t-body">{t(item.body, lang)}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </Section>
 
@@ -207,8 +206,8 @@ export default async function Home({
 
       {/* ---------- Penutup ---------- */}
       <Section className="band border-t rule">
-        <div className="measure">
-          <h2 className="t-h1">{t(HOME.closingTitle, lang)}</h2>
+        <div>
+          <h2 className="t-display max-w-[15ch]">{t(HOME.closingTitle, lang)}</h2>
           <p className="mt-6 text-xl leading-relaxed sm:text-2xl">
             {t(HOME.closingBody, lang)}
           </p>

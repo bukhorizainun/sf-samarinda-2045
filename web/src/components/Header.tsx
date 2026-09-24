@@ -86,7 +86,7 @@ export function Header({ lang }: { lang: Lang }) {
           className="group flex shrink-0 items-center gap-2.5"
           aria-label={`${BRAND.mark} — ${t(BRAND.name, lang)}`}
         >
-          <Logo className="h-6 w-auto transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:-translate-y-px sm:h-7" />
+          <Logo mono className="h-6 w-auto transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:-translate-y-px sm:h-7" />
           <span className="hidden text-[0.7rem] font-semibold uppercase leading-tight tracking-[0.14em] text-[var(--fg-faint)] sm:block">
             {t(BRAND.headerLine, lang)}
           </span>
