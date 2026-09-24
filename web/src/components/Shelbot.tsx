@@ -13,6 +13,22 @@ type Pesan =
 /** Jeda menjawab, dibuat sebanding panjang jawaban supaya terasa wajar. */
 const jeda = (teks: string) => Math.min(1500, 420 + teks.length * 3.2);
 
+/* Shelbot+ (lapis satu): Worker terpisah yang memakai Llama. Alamatnya
+   ditanam saat build; tanpa alamat, tombol fasilitator tidak muncul dan
+   Shelbot tetap sepenuhnya naskah. */
+const API = process.env.NEXT_PUBLIC_SHELBOT_API?.replace(/\/$/, "");
+const SIMPAN = "sf-shelbot-tiket";
+type Sesi = { tiket: string; berlaku: number };
+
+function bacaSesi(): Sesi | null {
+  try {
+    const s = JSON.parse(sessionStorage.getItem(SIMPAN) || "null") as Sesi | null;
+    return s && s.berlaku > Date.now() / 1000 ? s : null;
+  } catch {
+    return null;
+  }
+}
+
 export function Shelbot({ lang }: { lang: Lang }) {
   const id = lang === "id";
   const [pesan, setPesan] = useState<Pesan[]>([]);
@@ -23,8 +39,51 @@ export function Shelbot({ lang }: { lang: Lang }) {
   const hidupRef = useRef(true);
   // Apa yang barusan dibicarakan, supaya "kenapa?" tetap nyambung.
   const ingatanRef = useRef<Ingatan | undefined>(undefined);
+  const [sesi, setSesi] = useState<Sesi | null>(null);
+  const [bukaSandi, setBukaSandi] = useState(false);
+  const [sandi, setSandi] = useState("");
+  const [galatSandi, setGalatSandi] = useState("");
 
   useEffect(() => () => void (hidupRef.current = false), []);
+  // Tiket dibaca setelah terpasang, karena sessionStorage tidak ada saat build.
+  useEffect(() => {
+    if (!API) return;
+    const f = requestAnimationFrame(() => setSesi(bacaSesi()));
+    return () => cancelAnimationFrame(f);
+  }, []);
+
+  async function masuk(e: React.FormEvent) {
+    e.preventDefault();
+    setGalatSandi("");
+    try {
+      const r = await fetch(`${API}/sesi`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ sandi }),
+      });
+      if (!r.ok) throw new Error(String(r.status));
+      const s = (await r.json()) as Sesi;
+      try {
+        sessionStorage.setItem(SIMPAN, JSON.stringify(s));
+      } catch {}
+      setSesi(s);
+      setBukaSandi(false);
+      setSandi("");
+    } catch (err) {
+      setGalatSandi(
+        String(err).includes("401")
+          ? id ? "Kata sandi salah." : "Wrong password."
+          : id ? "Shelbot+ tidak bisa dihubungi." : "Shelbot+ cannot be reached.",
+      );
+    }
+  }
+
+  function keluar() {
+    try {
+      sessionStorage.removeItem(SIMPAN);
+    } catch {}
+    setSesi(null);
+  }
   useEffect(() => {
     if (pesan.length) akhirRef.current?.scrollIntoView({ block: "nearest" });
   }, [pesan, mengetik]);
@@ -38,10 +97,50 @@ export function Shelbot({ lang }: { lang: Lang }) {
     setLanjutan([]);
     setMengetik(true);
 
-    // Jawabannya dihitung di sini juga, di dalam peramban. Tidak ada
-    // permintaan jaringan, jadi tidak ada yang bisa gagal di tengah jalan.
+    // Jawaban naskah selalu dihitung di peramban. Di mode biasa ia yang
+    // tampil; di Shelbot+ ia menjadi pijakan model sekaligus cadangan.
     const jawab: Jawaban = tanya(bersih, lang, ingatanRef.current);
     ingatanRef.current = jawab.ingatan;
+
+    if (API && sesi) {
+      const riwayat = [...pesan, { dari: "orang" as const, teks: bersih }].map((m) => ({
+        role: m.dari === "orang" ? "user" : "assistant",
+        content: m.teks,
+      }));
+      fetch(`${API}/chat`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ tiket: sesi.tiket, lang, pesan: riwayat, naskah: jawab.teks }),
+      })
+        .then(async (r) => {
+          if (r.status === 401) keluar();
+          if (!r.ok) throw new Error(String(r.status));
+          return (await r.json()) as { teks: string; model: string };
+        })
+        .then((d) => {
+          if (!hidupRef.current) return;
+          setPesan((p) => [
+            ...p,
+            { dari: "shelbot", teks: d.teks, sumber: `Shelbot+ · ${d.model}${jawab.sumber ? ` · ${jawab.sumber}` : ""}` },
+          ]);
+          setLanjutan(jawab.lanjutan ?? []);
+          setMengetik(false);
+        })
+        .catch(() => {
+          if (!hidupRef.current) return;
+          setPesan((p) => [
+            ...p,
+            {
+              dari: "shelbot",
+              teks: jawab.teks,
+              sumber: `${id ? "Naskah (Shelbot+ tidak menjawab)" : "Script (Shelbot+ did not answer)"}${jawab.sumber ? ` · ${jawab.sumber}` : ""}`,
+            },
+          ]);
+          setLanjutan(jawab.lanjutan ?? []);
+          setMengetik(false);
+        });
+      return;
+    }
 
     setTimeout(() => {
       if (!hidupRef.current) return;
@@ -70,12 +169,51 @@ export function Shelbot({ lang }: { lang: Lang }) {
               aria-hidden
               className="pulse-soft inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-mint)]"
             />
-            {id
-              ? "Berjalan di peramban kamu, tanpa server"
-              : "Runs in your browser, no server"}
+            {sesi
+              ? id
+                ? `Shelbot+ · mode kelas aktif sampai ${jam(sesi.berlaku)}`
+                : `Shelbot+ · class mode on until ${jam(sesi.berlaku)}`
+              : id
+                ? "Berjalan di peramban kamu, tanpa server"
+                : "Runs in your browser, no server"}
           </p>
         </div>
+        {API && (
+          <button
+            type="button"
+            onClick={() => (sesi ? keluar() : setBukaSandi((b) => !b))}
+            className="ml-auto self-start rounded-full border px-3 py-1.5 text-[0.75rem] text-[var(--fg-muted)] transition-colors hover:text-[var(--fg)] rule"
+          >
+            {sesi
+              ? id ? "Kembali ke naskah" : "Back to script"
+              : id ? "Mode fasilitator" : "Facilitator mode"}
+          </button>
+        )}
       </div>
+
+      {bukaSandi && !sesi && (
+        <form onSubmit={masuk} className="flex flex-wrap items-center gap-2 border-b px-6 py-4 rule sm:px-7">
+          <label htmlFor="sandi-fasilitator" className="text-[0.8rem] text-[var(--fg-muted)]">
+            {id ? "Kata sandi fasilitator" : "Facilitator password"}
+          </label>
+          <input
+            id="sandi-fasilitator"
+            type="password"
+            autoComplete="off"
+            value={sandi}
+            onChange={(e) => setSandi(e.target.value)}
+            className="min-w-0 flex-1 rounded-md border bg-transparent px-3 py-2 text-[0.9rem] rule"
+          />
+          <button type="submit" disabled={!sandi} className="btn btn-utama !min-h-0 !px-4 !py-2 text-[0.8rem] disabled:opacity-40">
+            {id ? "Nyalakan" : "Turn on"}
+          </button>
+          {galatSandi && (
+            <p role="alert" className="w-full text-[0.8rem] text-[var(--kritis)]">
+              {galatSandi}
+            </p>
+          )}
+        </form>
+      )}
 
       {/* Percakapan */}
       <div className="max-h-[62vh] min-h-[24rem] space-y-6 overflow-y-auto overscroll-contain p-6 sm:p-7">
@@ -198,6 +336,10 @@ export function Shelbot({ lang }: { lang: Lang }) {
     </div>
   );
 }
+
+/** Jam berakhirnya sesi, menurut jam perangkat pengunjung. */
+const jam = (detik: number) =>
+  new Date(detik * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
 /** Wajah kecil di samping tiap jawaban. */
 function Wajah({ bicara = false }: { bicara?: boolean }) {
