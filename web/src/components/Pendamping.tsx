@@ -28,6 +28,8 @@ export function Pendamping({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [jalan, setJalan] = useState(false);
+  /* Sekali saja: saat pertama terlihat, sosoknya melenting masuk. */
+  const [pernah, setPernah] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -35,7 +37,10 @@ export function Pendamping({
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const mata = new IntersectionObserver(
-      ([e]) => setJalan(e.isIntersecting),
+      ([e]) => {
+        setJalan(e.isIntersecting);
+        if (e.isIntersecting) setPernah(true);
+      },
       { threshold: 0.4 },
     );
     mata.observe(el);
@@ -48,7 +53,7 @@ export function Pendamping({
        dengan position: relative milik .bidak. */
     <div
       ref={ref}
-      className={`hidden sm:block ${jalan ? "loncat-jalan" : ""} ${className}`}
+      className={`hidden sm:block ${jalan ? "loncat-jalan" : ""} ${pernah ? "bidak-muncul" : ""} ${className}`}
     >
       {/* Dudukan dan bayangan bidak hanya masuk akal untuk sosok yang
           berdiri. Yang sedang berenang tidak berdiri di atas apa pun. */}

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { BRAND, COMPONENTS, HOME, PHASES, ROLES, tautanPesan } from "@/content/site";
 import { Maskot } from "./Maskot";
 import { Ombak } from "./Ombak";
+import { Hitung } from "./Hitung";
 import { t, type Lang } from "@/lib/i18n";
 
 /**
@@ -184,7 +185,7 @@ export function Hero({ lang }: { lang: Lang }) {
             <Maskot
               pose="terbang"
               sapaan={id ? "Selamat datang" : "Welcome"}
-              className="h-[240px] w-auto sm:h-[300px] lg:h-[380px]"
+              className="mk-masuk h-[240px] w-auto sm:h-[300px] lg:h-[380px]"
             />
           </div>
         </div>
@@ -192,7 +193,7 @@ export function Hero({ lang }: { lang: Lang }) {
         <dl className="fakta rise mt-12 [animation-delay:240ms] sm:mt-16">
           {fakta.map((f) => (
             <div key={f.l}>
-              <dt>{f.n}</dt>
+              <dt><Hitung nilai={f.n} /></dt>
               <dd>{f.l}</dd>
             </div>
           ))}

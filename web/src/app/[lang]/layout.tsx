@@ -94,6 +94,7 @@ export default async function LangLayout({
         >
           {t(UI.skip, lang)}
         </a>
+        <span aria-hidden className="progres-gulir" />
         <Aliran />
         <Header lang={lang} />
         <main id="isi">{children}</main>

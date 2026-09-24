@@ -8,6 +8,8 @@ import { PetaPapan } from "@/components/PetaPapan";
 import { KomposisiDek } from "@/components/KomposisiDek";
 import { Tilt } from "@/components/Tilt";
 import { Ombak } from "@/components/Ombak";
+import { Reveal } from "@/components/Reveal";
+import { Pawai } from "@/components/Pawai";
 import cards from "@/content/cards.json";
 import type { Kartu } from "@/lib/kartu";
 import {
@@ -59,6 +61,8 @@ export default async function Home({
           eyebrow={lang === "id" ? "City Indicators" : "City Indicators"}
           title={t(HOME.pillarsTitle, lang)}
           lead={t(HOME.pillarsLead, lang)}
+          pendamping="hakam"
+          sikap="tunjuk"
         />
         <div className="mt-12">
           <Tilt derajat={3}>
@@ -93,6 +97,8 @@ export default async function Home({
               ? "Delapan zona kota di satu papan"
               : "Eight city zones on one board"
           }
+          pendamping="hakam"
+          sikap="renang"
         />
         <div className="mt-12">
           <PetaPapan kartu={cards as Kartu[]} lang={lang} />
@@ -105,10 +111,13 @@ export default async function Home({
           bab="04 / 06"
           eyebrow={lang === "id" ? "Tentang" : "About"}
           title={t(HOME.whatTitle, lang)}
+          pendamping="keduanya"
+          sikap="kartu"
+          lebarPendamping="w-[130px]"
         />
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border bg-[var(--line)] rule sm:grid-cols-3">
           {HOME.what.map((item, i) => (
-            <div key={i} className="bg-[var(--surface-1)] p-7 transition-colors duration-300 hover:bg-[var(--bg-raised)] sm:p-8">
+            <Reveal key={i} delay={i * 90} className="bg-[var(--surface-1)] p-7 transition-colors duration-300 hover:bg-[var(--bg-raised)] sm:p-8">
               <span
                 aria-hidden
                 className="block h-1 w-10 rounded-full"
@@ -116,7 +125,7 @@ export default async function Home({
               />
               <h3 className="t-h3 mt-6">{t(item.title, lang)}</h3>
               <p className="t-body mt-3 text-[0.95rem]">{t(item.body, lang)}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -132,11 +141,13 @@ export default async function Home({
               ? "Enam fase, dari mengamati kota sampai bertindak di luar meja"
               : "Six phases, from reading the city to acting beyond the table"
           }
+          pendamping="keduanya"
+          sikap="duduk"
         />
         {/* Lintasan papan: enam petak berurutan, tiap petak satu fase. */}
         <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {PHASES.map((p) => (
-            <li key={p.no}>
+          {PHASES.map((p, i) => (
+            <Reveal as="li" key={p.no} delay={(i % 3) * 80 + Math.floor(i / 3) * 60}>
               <div className="petak">
                 <div className="flex items-center gap-3">
                   <span className="token">{p.no}</span>
@@ -144,7 +155,7 @@ export default async function Home({
                 </div>
                 <p className="t-body text-[0.925rem]">{t(p.output, lang)}</p>
               </div>
-            </li>
+            </Reveal>
           ))}
         </ol>
         <div className="mt-12">
@@ -237,6 +248,9 @@ export default async function Home({
             {t(UI.prototypeNote, lang)} · {t(BRAND.edition, lang)}
           </p>
         </div>
+        {/* Shelly dan Hakam berjalan menuju masa depan yang baru saja
+            diajak untuk dimulai. */}
+        <Pawai className="mt-14" />
       </Section>
     </>
   );

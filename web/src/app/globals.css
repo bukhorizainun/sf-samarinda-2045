@@ -2886,3 +2886,261 @@ section.border-t {
   height: 20px;
   z-index: -1;
 }
+
+/* ============================================================
+   Gerak kartun dan sentuhan akhir
+   Shelly dan Hakam kini melenting masuk, bersorak saat diklik,
+   melirik mengikuti kursor, dan berjalan di penutup beranda. Sisanya
+   penghalus: garis kemajuan gulir, munculan yang lebih lembut, dan
+   kilau pada tombol utama. Rupa dan isi tidak berubah.
+   ============================================================ */
+
+/* Pembuka: ketinting meluncur masuk dari kiri dan sedikit melewati
+   tempatnya sebelum berlabuh, seperti perahu yang direm arus. */
+@keyframes mk-masuk {
+  0% { opacity: 0; transform: translateX(-56px) rotate(-3deg); }
+  55% { opacity: 1; transform: translateX(8px) rotate(1.2deg); }
+  78% { transform: translateX(-3px) rotate(-0.4deg); }
+  100% { opacity: 1; transform: none; }
+}
+.mk-masuk {
+  animation: mk-masuk 1.4s var(--ease-out-soft) 0.15s both;
+}
+
+/* Pupil bergeser halus menuju kursor. */
+.mk-pupil {
+  transition: transform 0.35s var(--ease-out-soft);
+}
+
+/* Sorakan: pipih sebentar, meloncat, lalu mendarat dengan pantulan. */
+@keyframes mk-sorak {
+  0% { transform: translateY(0) scale(1, 1); }
+  14% { transform: translateY(0) scale(1.06, 0.9); }
+  42% { transform: translateY(-16px) scale(0.96, 1.06); }
+  70% { transform: translateY(0) scale(1.04, 0.95); }
+  84% { transform: translateY(-3px) scale(1, 1); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+.mk-sorak {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: mk-sorak 0.8s var(--ease-out-soft);
+}
+
+/* Keping percikan terlempar ke arahnya masing-masing lalu jatuh. */
+@keyframes mk-keping {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.3) rotate(0deg); }
+  15% { opacity: 1; }
+  60% { opacity: 1; transform: translate(var(--dx), var(--dy)) scale(1) rotate(120deg); }
+  100% { opacity: 0; transform: translate(calc(var(--dx) * 1.15), calc(var(--dy) + 22px)) scale(0.7) rotate(200deg); }
+}
+.mk-keping {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: mk-keping 0.85s var(--ease-out-soft) both;
+}
+
+/* Berjalan: badan naik tiap langkah, kaki dan lengan berayun
+   berlawanan. Satu siklus sama dengan dua langkah. */
+@keyframes mk-melangkah {
+  0%, 50%, 100% { transform: translateY(0); }
+  25%, 75% { transform: translateY(-2.5px); }
+}
+.mk-melangkah {
+  animation: mk-melangkah 0.72s ease-in-out infinite;
+}
+@keyframes mk-kaki {
+  0%, 100% { transform: rotate(16deg); }
+  50% { transform: rotate(-16deg); }
+}
+.mk-kaki-a,
+.mk-kaki-b {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: mk-kaki 0.72s ease-in-out infinite;
+}
+.mk-kaki-b { animation-delay: -0.36s; }
+@keyframes mk-ayun {
+  0%, 100% { transform: rotate(-14deg); }
+  50% { transform: rotate(14deg); }
+}
+.mk-ayun-a,
+.mk-ayun-b {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: mk-ayun 0.72s ease-in-out infinite;
+}
+.mk-ayun-b { animation-delay: -0.36s; }
+
+/* Pendamping melenting masuk saat pertama terlihat. */
+@keyframes bidak-muncul {
+  0% { opacity: 0; transform: translateY(28px) scale(0.82); }
+  55% { opacity: 1; transform: translateY(-6px) scale(1.03); }
+  78% { transform: translateY(2px) scale(0.99); }
+  100% { opacity: 1; transform: none; }
+}
+.bidak-muncul .bidak {
+  animation: bidak-muncul 0.9s var(--ease-out-soft) both;
+}
+
+/* Pawai di penutup beranda: jalur selebar bagian, tanah bergaris
+   putus-putus yang memudar di kedua tepi. */
+.pawai {
+  position: relative;
+  height: 124px;
+  overflow: hidden;
+  container-type: inline-size;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.pawai-sosok {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  transform: translateX(-100%);
+  animation: pawai-lintas 46s linear infinite;
+  /* Mulai di sepertiga jalur, supaya saat pertama terlihat mereka
+     sudah ada di sana, bukan jalur kosong yang menunggu. */
+  animation-delay: -13s;
+  animation-play-state: paused;
+}
+@media (max-width: 639px) {
+  .pawai-sosok {
+    animation-duration: 24s;
+    animation-delay: -6s;
+  }
+}
+.pawai-jalan .pawai-sosok {
+  animation-play-state: running;
+}
+@media (min-width: 1024px) {
+  .pawai { height: 156px; }
+  .pawai-tanah { bottom: 23px; }
+}
+@keyframes pawai-lintas {
+  0% { transform: translateX(-100%); }
+  84%, 100% { transform: translateX(100cqw); }
+}
+.pawai-tanah {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  height: 2px;
+  z-index: -1;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--line-strong) 0 12px,
+    transparent 12px 24px
+  );
+}
+/* Selama pawai berhenti, langkahnya juga berhenti. */
+.pawai:not(.pawai-jalan) .mk-melangkah,
+.pawai:not(.pawai-jalan) .mk-kaki-a,
+.pawai:not(.pawai-jalan) .mk-kaki-b,
+.pawai:not(.pawai-jalan) .mk-ayun-a,
+.pawai:not(.pawai-jalan) .mk-ayun-b {
+  animation-play-state: paused;
+}
+
+/* Garis kemajuan gulir di tepi atas, dalam gradasi merek. Digerakkan
+   oleh gulir itu sendiri lewat CSS, tanpa JavaScript. Peramban yang
+   belum mengenal linimasa gulir tidak menampilkannya sama sekali. */
+.progres-gulir {
+  display: none;
+}
+@supports (animation-timeline: scroll()) {
+  .progres-gulir {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 60;
+    pointer-events: none;
+    transform-origin: 0 50%;
+    background-image: linear-gradient(
+      90deg,
+      var(--color-mint),
+      var(--color-aqua) 38%,
+      var(--color-iris) 72%,
+      var(--color-ember)
+    );
+    animation: progres-gulir linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes progres-gulir {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Munculan lebih lembut: isi naik sambil menajam dari kabur tipis. */
+[data-reveal] {
+  filter: blur(6px);
+  transition:
+    opacity 0.9s var(--ease-glide),
+    transform 0.9s var(--ease-glide),
+    filter 0.9s var(--ease-glide);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal="in"] {
+  filter: none;
+}
+
+/* Tombol utama: kilau tipis melintas saat disorot. */
+.btn-utama {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-utama::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    color-mix(in oklab, var(--bg) 26%, transparent) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.8s var(--ease-glide);
+  pointer-events: none;
+}
+.btn-utama:hover::after {
+  transform: translateX(120%);
+}
+
+/* Paragraf tidak meninggalkan satu kata sendirian di baris akhir. */
+.t-body,
+.t-lead {
+  text-wrap: pretty;
+}
+
+/* Batang gulir tipis yang mengikuti tinta halaman. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-masuk, .mk-sorak, .mk-keping, .bidak-muncul .bidak,
+  .mk-melangkah, .mk-kaki-a, .mk-kaki-b, .mk-ayun-a, .mk-ayun-b {
+    animation: none;
+  }
+  .pawai-sosok {
+    animation: none;
+    transform: translateX(calc(100cqw - 100%));
+  }
+  .progres-gulir { display: none; }
+  [data-reveal] { filter: none; }
+  .btn-utama::after { display: none; }
+}
+
+@media print {
+  .pawai, .progres-gulir { display: none !important; }
+}

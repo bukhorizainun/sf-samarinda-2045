@@ -1,3 +1,7 @@
+import { Reveal } from "./Reveal";
+import { Pendamping } from "./Pendamping";
+import type { Pose } from "./Maskot";
+
 export function Container({
   children,
   className = "",
@@ -34,26 +38,52 @@ export function SectionHead({
   title,
   lead,
   bab,
+  pendamping,
+  sikap = "loncat",
+  lebarPendamping,
 }: {
   eyebrow?: string;
   title: string;
   lead?: string;
   /** Nomor bab editorial, mis. "02 / 06". Label bab memakai eyebrow. */
   bab?: string;
+  /** Sosok maskot yang mengisi ruang kosong di kanan judul. Hanya tampil
+   *  di layar lebar, supaya di ponsel teks tetap memegang seluruh lebar. */
+  pendamping?: "shelly" | "hakam" | "keduanya";
+  sikap?: Pose;
+  /** Lebar sosok, untuk kepala bagian yang pendek. Tanpa ini sosoknya
+   *  bisa lebih tinggi dari kepala bagian dan menabrak garis bab. */
+  lebarPendamping?: string;
 }) {
   return (
-    <div>
+    <div className="relative">
       {bab && (
         <p className="bab mb-8">
           <b>{bab}</b>
           {eyebrow}
         </p>
       )}
-      <div className="measure">
+      <Reveal className="measure">
       {eyebrow && !bab && <p className="t-eyebrow">{eyebrow}</p>}
       <h2 className={`${bab ? "t-h1" : "t-h2"} ${eyebrow && !bab ? "mt-4" : ""}`}>{title}</h2>
       {lead && <p className="t-lead mt-5">{lead}</p>}
-      </div>
+      </Reveal>
+
+      {pendamping && (
+        <div
+          className={`absolute bottom-0 right-2 hidden lg:block ${
+            lebarPendamping
+              ? lebarPendamping
+              : sikap === "renang"
+              ? "w-[250px]"
+              : pendamping === "keduanya"
+                ? "w-[220px]"
+                : "w-[112px]"
+          }`}
+        >
+          <Pendamping sosok={pendamping} pose={sikap} />
+        </div>
+      )}
     </div>
   );
 }

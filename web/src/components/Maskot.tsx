@@ -20,6 +20,12 @@ import { useEffect, useRef, useState } from "react";
  *   kartu  — memegang satu kartu permainan, dibolak-balik pelan
  *   renang — berenang di Mahakam, badan sebatas dada di atas air
  *   duduk  — duduk di tepi rakit, kaki terjuntai ke air
+ *   jalan  — melangkah di tempat: kaki dan lengan berayun bergantian,
+ *            badan naik-turun tiap langkah. Pembungkusnya yang
+ *            memindahkan sosok melintasi halaman.
+ *
+ * Diklik atau diketuk, keduanya bersorak: meloncat kecil dan
+ * memercikkan empat warna City Indicator. Pupil mengikuti kursor.
  *
  * `latar` mematikan sungai, perahu, dan papan dermaga, supaya sosoknya bisa
  * ditumpangkan pada adegan lain.
@@ -39,7 +45,8 @@ export type Pose =
   | "tunjuk"
   | "kartu"
   | "renang"
-  | "duduk";
+  | "duduk"
+  | "jalan";
 
 /** Bidang gambar, dipotong ke sosok yang sedang dibutuhkan. Angkanya
  *  mengikuti pergeseran kedua sosok di dalam adegan. */
@@ -78,6 +85,33 @@ export function Maskot({
 
   const [dekat, setDekat] = useState(false);
   const [lirik, setLirik] = useState(0);
+  /* Hitungan sorakan. Tiap klik menaikkannya; angka itu jadi key
+     percikan, jadi percikan yang berurutan selalu mulai dari awal. */
+  const [sorak, setSorak] = useState(0);
+  const waktuSorak = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /* Kelompok yang meloncat. Kelas animasinya dicabut lalu dipasang
+     lagi langsung di DOM, supaya loncatan bisa diulang tanpa membuat
+     ulang seluruh sosok. */
+  const loncatRef = useRef<SVGGElement>(null);
+
+  const bersorak = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const g = loncatRef.current;
+    if (g) {
+      g.classList.remove("mk-sorak");
+      void g.getBoundingClientRect();
+      g.classList.add("mk-sorak");
+    }
+    setSorak((n) => n + 1);
+    if (waktuSorak.current) clearTimeout(waktuSorak.current);
+    waktuSorak.current = setTimeout(() => {
+      loncatRef.current?.classList.remove("mk-sorak");
+      setSorak(0);
+    }, 950);
+  };
+  useEffect(() => () => {
+    if (waktuSorak.current) clearTimeout(waktuSorak.current);
+  }, []);
   const ref = useRef<SVGSVGElement>(null);
 
   // Mereka menoleh ke arah kursor, tapi hanya sedikit.
@@ -109,6 +143,8 @@ export function Maskot({
       }
       onMouseEnter={() => setDekat(true)}
       onMouseLeave={() => setDekat(false)}
+      onClick={bersorak}
+      style={{ cursor: "pointer" }}
     >
       <defs>
         <linearGradient id="mk-air" x1="0" y1="0" x2="1" y2="0">
@@ -301,6 +337,7 @@ export function Maskot({
       )}
 
       {pose !== "renang" && (
+      <g ref={loncatRef}>
       <g
         className={
           pose === "amati"
@@ -313,7 +350,9 @@ export function Maskot({
                   ? "mk-goyang"
                   : pose === "duduk"
                     ? "mk-duduk"
-                    : "mk-apung"
+                    : pose === "jalan"
+                      ? "mk-melangkah"
+                      : "mk-apung"
         }
         style={{ transform: `translateX(${lirik * 0.4}px)` }}
       >
@@ -343,8 +382,8 @@ export function Maskot({
           />
 
           <g stroke={ANGGOTA} strokeWidth="4" strokeLinecap="round">
-            <line x1="16" y1="148" x2="16" y2="170" />
-            <line x1="32" y1="148" x2="32" y2="170" />
+            <line className={pose === "jalan" ? "mk-kaki-a" : undefined} x1="16" y1="148" x2="16" y2="170" />
+            <line className={pose === "jalan" ? "mk-kaki-b" : undefined} x1="32" y1="148" x2="32" y2="170" />
           </g>
 
           <Lengan pose={pose} sisi="kiri" kulit={KULIT_B} />
@@ -360,8 +399,10 @@ export function Maskot({
           />
           <path d="M7 62 q17 -8 34 0 l0 6 q-17 -7 -34 0 Z" fill="url(#mk-manik)" />
           <g className="mk-kedip-b" fill={RAMBUT}>
-            <circle cx="18" cy="71" r="2.2" />
-            <circle cx="30" cy="71" r="2.2" />
+            <g className="mk-pupil" style={{ transform: `translateX(${lirik * 0.7}px)` }}>
+              <circle cx="18" cy="71" r="2.2" />
+              <circle cx="30" cy="71" r="2.2" />
+            </g>
           </g>
           <path
             d={pose === "amati" ? "M20 79 h8" : "M20 78 q4 4 8 0"}
@@ -401,8 +442,8 @@ export function Maskot({
           </g>
 
           <g stroke={ANGGOTA} strokeWidth="4" strokeLinecap="round">
-            <line x1="15" y1="150" x2="15" y2="170" />
-            <line x1="29" y1="150" x2="29" y2="170" />
+            <line className={pose === "jalan" ? "mk-kaki-b" : undefined} x1="15" y1="150" x2="15" y2="170" />
+            <line className={pose === "jalan" ? "mk-kaki-a" : undefined} x1="29" y1="150" x2="29" y2="170" />
           </g>
 
           <Lengan pose={pose} sisi="kanan" kulit={KULIT_A} />
@@ -418,8 +459,10 @@ export function Maskot({
           />
           <path d="M5 62 q17 -8 34 0 l0 6 q-17 -7 -34 0 Z" fill="url(#mk-manik)" />
           <g className="mk-kedip-a" fill={RAMBUT}>
-            <circle cx="16" cy="71" r="2.2" />
-            <circle cx="28" cy="71" r="2.2" />
+            <g className="mk-pupil" style={{ transform: `translateX(${lirik * 0.7}px)` }}>
+              <circle cx="16" cy="71" r="2.2" />
+              <circle cx="28" cy="71" r="2.2" />
+            </g>
           </g>
           <path
             d={pose === "amati" ? "M18 79 h8" : "M18 78 q4 4 8 0"}
@@ -434,7 +477,9 @@ export function Maskot({
           </g>
         </g>
       </g>
+      </g>
       )}
+
 
       {/* Adegan berenang. Sosok berdiri tidak dipakai di sini: orang
           yang berenang dilihat dari samping, badan mendatar, satu
@@ -459,11 +504,13 @@ export function Maskot({
             </g>
           </g>
 
+          <g ref={loncatRef}>
           <g className="mk-renang">
             <Perenang
               baju={sosok === "hakam" ? "var(--color-future)" : "var(--color-env)"}
               kulit={sosok === "hakam" ? KULIT_B : KULIT_A}
             />
+          </g>
           </g>
 
           {/* Permukaan air menutupi badan bagian bawah, jadi yang
@@ -554,6 +601,16 @@ export function Maskot({
           </text>
         </g>
       )}
+      {/* Percikan sorakan: empat warna City Indicator memancar dari atas
+          kepala, lalu hilang. Hanya ada selama sorakan berjalan, dan
+          digambar paling akhir supaya tidak tertutup gelembung sapaan. */}
+      {sorak > 0 && (
+        <Percik
+          key={sorak}
+          cx={pose === "renang" ? 170 : sosok === "hakam" || sosok === "kepala-hakam" ? 102 : sosok === "shelly" || sosok === "kepala-shelly" ? 162 : 132}
+          cy={pose === "renang" ? 40 : 40}
+        />
+      )}
     </svg>
   );
 }
@@ -591,7 +648,7 @@ function Lengan({
     );
   }
 
-  if (dalam) {
+  if (dalam && pose !== "jalan") {
     return sisi === "kiri" ? (
       <>
         <line x1="8" y1="94" x2="1" y2="120" {...garis} />
@@ -715,6 +772,21 @@ function Lengan({
         <line x1="50" y1="86" x2="40" y2="74" {...garis} />
         <circle cx="39" cy="73" r="3.4" fill={kulit} />
       </>
+    );
+  }
+
+  // Berjalan: lengan menggantung dan berayun berlawanan dengan kaki.
+  if (pose === "jalan") {
+    return sisi === "kiri" ? (
+      <g className={dalam ? "mk-ayun-b" : "mk-ayun-a"}>
+        <line x1="8" y1="96" x2="3" y2="118" {...garis} />
+        <circle cx="2" cy="120" r="3.4" fill={kulit} />
+      </g>
+    ) : (
+      <g className={dalam ? "mk-ayun-a" : "mk-ayun-b"}>
+        <line x1="38" y1="96" x2="43" y2="118" {...garis} />
+        <circle cx="44" cy="120" r="3.4" fill={kulit} />
+      </g>
     );
   }
 
@@ -872,6 +944,49 @@ function Perenang({ baju, kulit }: { baju: string; kulit: string }) {
         <path d="M100 58 C 84 50, 70 48, 58 50" {...anggota} />
         <circle cx="55" cy="50" r="4.4" fill={kulit} />
       </g>
+    </g>
+  );
+}
+
+/**
+ * Percikan sorakan: delapan keping kecil dalam empat warna City
+ * Indicator, memancar dari satu titik lalu jatuh dan memudar.
+ * Arah tiap keping ditulis tetap, bukan acak, supaya gambar yang
+ * terbit sama dengan yang terhidrasi.
+ */
+const KEPING = [
+  { dx: -46, dy: -26, w: "var(--color-env)" },
+  { dx: -26, dy: -46, w: "var(--color-society)" },
+  { dx: 0, dy: -54, w: "var(--color-economy)" },
+  { dx: 26, dy: -46, w: "var(--color-future)" },
+  { dx: 46, dy: -26, w: "var(--color-env)" },
+  { dx: -56, dy: -4, w: "var(--color-economy)" },
+  { dx: 56, dy: -4, w: "var(--color-society)" },
+  { dx: 12, dy: -34, w: "var(--color-future)" },
+];
+
+function Percik({ cx, cy }: { cx: number; cy: number }) {
+  return (
+    <g aria-hidden transform={`translate(${cx} ${cy})`}>
+      {KEPING.map((k, i) => (
+        <g
+          key={i}
+          className="mk-keping"
+          style={
+            {
+              "--dx": `${k.dx}px`,
+              "--dy": `${k.dy}px`,
+              animationDelay: `${(i % 3) * 30}ms`,
+            } as React.CSSProperties
+          }
+        >
+          {i % 2 === 0 ? (
+            <circle r="4.2" fill={k.w} />
+          ) : (
+            <path d="M0 -6 L1.8 -1.8 L6 0 L1.8 1.8 L0 6 L-1.8 1.8 L-6 0 L-1.8 -1.8 Z" fill={k.w} />
+          )}
+        </g>
+      ))}
     </g>
   );
 }
