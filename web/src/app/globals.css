@@ -3151,31 +3151,87 @@ html {
 .sosok-akhir { margin-top: 2.5rem; margin-bottom: -0.5rem; position: relative; z-index: 1; }
 
 /* ---------- Kepala mengintip di tepi kanan bawah ----------
-   Shelly atau Hakam bergantian; menyelinap turun sebelum berganti,
-   dan turun juga saat footer terlihat. */
-.intip {
+   Shelly atau Hakam bergantian; menyelinap turun sebelum berganti.
+   Sapaan satu kalimat di atasnya. Keduanya turun saat footer terlihat. */
+.intip-wadah {
   position: fixed;
   right: 0;
   bottom: 0;
   z-index: 40;
-  width: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
   pointer-events: none;
+}
+.intip-wadah > * { pointer-events: auto; }
+.intip {
+  display: block;
+  width: 76px;
   transform: translate(6px, 8px) rotate(-6deg);
   transform-origin: bottom right;
   transition: transform 0.32s ease;
   filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.18));
 }
-.intip svg { display: block; width: 100%; height: auto; pointer-events: auto; cursor: pointer; }
-.intip:hover { transform: translate(0, 2px) rotate(-3deg); }
+.intip svg { display: block; width: 100%; height: auto; }
+.intip:hover,
+.intip:focus-visible { transform: translate(0, 2px) rotate(-3deg); }
 .intip-keluar,
-.intip-keluar:hover { transform: translate(24px, 110%) rotate(8deg); }
+.intip-keluar:hover,
+.intip-wadah-sembunyi .intip { transform: translate(24px, 110%) rotate(8deg); }
+
+.intip-sapa {
+  position: relative;
+  max-width: 250px;
+  margin-right: 18px;
+  padding: 11px 32px 11px 13px;
+  border-radius: 14px 14px 4px 14px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  box-shadow: var(--lift-2);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--fg);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  animation: intip-sapa-masuk 0.4s ease-out both;
+}
+.intip-sapa p { margin: 0; }
+.intip-ajak {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 4px;
+}
+.intip-ajak:hover { text-decoration-color: var(--fg); }
+.intip-x {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  color: var(--fg-faint);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.intip-x:hover { color: var(--fg); background: var(--bg-sunken); }
+.intip-wadah-sembunyi .intip-sapa { opacity: 0; transform: translateY(12px); pointer-events: none; }
+
+@keyframes intip-sapa-masuk {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
 @media (max-width: 640px) {
   /* Di layar kecil dinaikkan sedikit supaya dagu tidak terpotong tepi bawah. */
   .intip { width: 58px; transform: translate(4px, -2px) rotate(-6deg); }
+  .intip-sapa { max-width: 210px; font-size: 0.8rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .intip { transition: none; }
+  .intip, .intip-sapa { transition: none; animation: none; }
 }
 @media print {
-  .intip { display: none; }
+  .intip-wadah { display: none; }
 }
