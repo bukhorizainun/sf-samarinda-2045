@@ -3149,3 +3149,33 @@ html {
    Berdiri di kanan, tepat di atas footer; kaki bidaknya sedikit
    menumpang garis footer supaya terasa berdiri di atasnya. */
 .sosok-akhir { margin-top: 2.5rem; margin-bottom: -0.5rem; position: relative; z-index: 1; }
+
+/* ---------- Kepala mengintip di tepi kanan bawah ----------
+   Shelly atau Hakam bergantian; menyelinap turun sebelum berganti,
+   dan turun juga saat footer terlihat. */
+.intip {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  width: 76px;
+  pointer-events: none;
+  transform: translate(6px, 8px) rotate(-6deg);
+  transform-origin: bottom right;
+  transition: transform 0.32s ease;
+  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.18));
+}
+.intip svg { display: block; width: 100%; height: auto; pointer-events: auto; cursor: pointer; }
+.intip:hover { transform: translate(0, 2px) rotate(-3deg); }
+.intip-keluar,
+.intip-keluar:hover { transform: translate(24px, 110%) rotate(8deg); }
+@media (max-width: 640px) {
+  /* Di layar kecil dinaikkan sedikit supaya dagu tidak terpotong tepi bawah. */
+  .intip { width: 58px; transform: translate(4px, -2px) rotate(-6deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intip { transition: none; }
+}
+@media print {
+  .intip { display: none; }
+}
