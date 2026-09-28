@@ -122,7 +122,14 @@ export function StudioFase2({ lang }: { lang: Lang }) {
               }
               className="mt-2 w-full resize-y rounded-xl border bg-transparent px-4 py-3 text-[0.95rem] leading-relaxed outline-none rule placeholder:text-[var(--fg-faint)] focus:border-[var(--fg-muted)]"
             />
-            <p className="mt-1 text-right text-[0.72rem] text-[var(--fg-faint)]">{deskripsi.length}/400</p>
+            <p className="mt-1 flex justify-between gap-4 text-[0.72rem] text-[var(--fg-faint)]">
+              <span>
+                {id
+                  ? "Boleh dikosongkan: Shelbot memakai bayangan bawaan skenario ini."
+                  : "You may leave it empty: Shelbot uses this scenario's default vision."}
+              </span>
+              <span>{deskripsi.length}/400</span>
+            </p>
           </div>
 
           <button type="submit" disabled={sibuk} className="btn btn-utama disabled:opacity-50">

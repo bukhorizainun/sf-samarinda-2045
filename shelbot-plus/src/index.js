@@ -81,6 +81,38 @@ async function aman(env, teks) {
   }
 }
 
+/** Gaya lukisan ditaruh paling depan: Flux paling menurut pada awal prompt,
+    dan hasilnya harus jelas lukisan, tidak boleh bisa disangka foto Samarinda. */
+const bergaya = (isi) =>
+  `Hand-painted watercolour and ink illustration in a storybook style, visible brush strokes, simplified shapes, not photorealistic, wordless. ${isi} Painted illustration, soft washes of colour, calm palette. No letters, no numbers, no signature, no watermark, no brand logos, not a photograph.`;
+
+/** Bayangan bawaan bila siswa tidak menulis apa pun. */
+const BAWAAN = {
+  expected:
+    "Samarinda on the Mahakam River in 2045, much like today: busy roads, crowded stilt houses along the riverbank, coal barges on the brown river, some streets flooded after rain.",
+  alternative:
+    "Samarinda on the Mahakam River in 2045 after some changes: a cleaner riverbank with a few small parks, old stilt houses next to newer buildings, water buses sharing the river with barges.",
+  transformative:
+    "Samarinda on the Mahakam River in 2045, transformed: a clear river, quiet electric boats, green parks and ponds on former mining pits, stilt houses with solar roofs, people walking and cycling along the river.",
+};
+
+/** Pesan galat dalam bahasa halaman. */
+const PESAN = {
+  jenuh: { id: "Terlalu banyak gambar. Coba lagi sebentar.", en: "Too many images. Try again shortly." },
+  tidakAman: {
+    id: "Deskripsi ini tidak bisa digambar. Coba tulis bayangan kotamu dengan cara lain.",
+    en: "This description cannot be drawn. Try describing your city another way.",
+  },
+  bukanKota: {
+    id: "Tulis bayangan tentang kota Samarinda di 2045, misalnya sungainya, jalannya, atau kampungnya.",
+    en: "Describe Samarinda in 2045, for example its river, its streets, or its neighbourhoods.",
+  },
+  gagal: {
+    id: "Studio gambar sedang tidak bisa dipakai. Jatah harian mungkin sudah habis.",
+    en: "The image studio is not available right now. The daily allowance may be used up.",
+  },
+};
+
 /** Susun prompt Flux. Mengembalikan "" bila permintaan tidak cocok untuk digambar. */
 async function susunPrompt(env, skenario, deskripsi) {
   const system = `You write prompts for an image model. A secondary-school student describes how Samarinda (a river city on the Mahakam River, East Kalimantan, Indonesia) might look in 2045 under ${SKENARIO[skenario]}.
@@ -114,7 +146,7 @@ Reply with the prompt only.`;
   // Flux schnell tidak punya prompt negatif, jadi larangan teks ditulis di awal dan di akhir.
   // Gaya ditaruh paling depan karena Flux paling menurut pada awal prompt:
   // hasilnya harus jelas lukisan, tidak boleh bisa disangka foto Samarinda.
-  return `Hand-painted watercolour and ink illustration in a storybook style, visible brush strokes, simplified shapes, not photorealistic, wordless. ${teks} Painted illustration, soft washes of colour, calm palette. No letters, no numbers, no signature, no watermark, no brand logos, not a photograph.`;
+  return bergaya(teks);
 }
 
 async function jawabLlama(env, jalur, messages) {
@@ -320,26 +352,26 @@ export default {
       if (env.MODE_TERBUKA !== "1" && !(await tiketSah(env, badan?.tiket))) {
         return balas(401, { galat: "Sesi fasilitator tidak aktif." });
       }
+      const bhs = badan?.lang === "en" ? "en" : "id";
       const ip = request.headers.get("cf-connecting-ip") || "tanpa-ip";
       if (env.BATAS_GAMBAR) {
         const { success } = await env.BATAS_GAMBAR.limit({ key: ip });
-        if (!success) return balas(429, { galat: "Terlalu banyak gambar. Coba lagi sebentar." });
+        if (!success) return balas(429, { galat: PESAN.jenuh[bhs] });
       }
       const skenario = SKENARIO[badan?.skenario] ? badan.skenario : "alternative";
       const deskripsi = String(badan?.deskripsi ?? "").slice(0, MAX_DESKRIPSI).trim();
       if (deskripsi && !(await aman(env, deskripsi))) {
-        return balas(422, { galat: "Deskripsi ini tidak bisa digambar. Coba tulis bayangan kotamu dengan cara lain." });
+        return balas(422, { galat: PESAN.tidakAman[bhs] });
       }
       try {
-        const prompt = await susunPrompt(env, skenario, deskripsi);
-        if (!prompt) {
-          return balas(422, { galat: "Tulis bayangan tentang kota Samarinda di 2045, misalnya sungainya, jalannya, atau kampungnya." });
-        }
+        // Kolom kosong: pakai bayangan bawaan skenario itu, tanpa memanggil model teks.
+        const prompt = deskripsi ? await susunPrompt(env, skenario, deskripsi) : bergaya(BAWAAN[skenario]);
+        if (!prompt) return balas(422, { galat: PESAN.bukanKota[bhs] });
         const out = await env.AI.run(MODEL_GAMBAR, { prompt, steps: 4 });
         if (!out?.image) throw new Error("kosong");
-        return balas(200, { gambar: out.image, prompt });
+        return balas(200, { gambar: out.image, prompt, bawaan: !deskripsi });
       } catch {
-        return balas(503, { galat: "Studio gambar sedang tidak bisa dipakai. Jatah harian mungkin sudah habis." });
+        return balas(503, { galat: PESAN.gagal[bhs] });
       }
     }
 
