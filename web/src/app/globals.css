@@ -3144,3 +3144,171 @@ html {
 @media print {
   .pawai, .progres-gulir { display: none !important; }
 }
+
+/* ---------- Pojok Shelly & Hakam ----------
+   Tiga rupa sedang dibandingkan (a mengintip, b lencana, c dok).
+   Dicabut utuh dengan menghapus blok ini dan PojokPendamping. */
+
+.pojok {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.pojok > * { pointer-events: auto; }
+.pojok-sembunyi { transform: translateY(28px); opacity: 0; }
+.pojok-sembunyi > * { pointer-events: none; }
+
+.pojok-sapa {
+  position: relative;
+  max-width: 264px;
+  padding: 12px 34px 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  box-shadow: var(--lift-2);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--fg);
+  animation: pojok-masuk 0.4s ease-out both;
+}
+.pojok-sapa p { margin: 0; }
+.pojok-ajak {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 4px;
+}
+.pojok-ajak:hover { text-decoration-color: var(--fg); }
+.pojok-x {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  color: var(--fg-faint);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.pojok-x:hover { color: var(--fg); background: var(--bg-sunken); }
+
+/* a — mengintip dari tepi kanan */
+.pojok-a { right: 0; }
+.pojok-a .pojok-sapa { margin-right: 16px; }
+.pojok-intip {
+  width: 70px;
+  transform: translateX(6px) rotate(-6deg);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.18));
+}
+.pojok-intip:hover,
+.pojok-intip:focus-visible { transform: translateX(2px) rotate(-3deg); }
+.pojok-intip svg { display: block; width: 100%; height: auto; }
+
+/* b — lencana bundar */
+.pojok-lencana {
+  width: 80px;
+  height: 80px;
+  border-radius: 999px;
+  padding: 6px 4px 0;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  box-shadow: var(--lift-2);
+  overflow: hidden;
+  transition: transform 0.25s ease;
+}
+.pojok-lencana:hover,
+.pojok-lencana:focus-visible { transform: translateY(-3px); }
+.pojok-lencana svg { display: block; width: 150%; height: auto; margin: 2px 0 0 -25%; }
+
+/* c — dok: keduanya berdiri di atas bilah */
+.pojok-c { gap: 48px; }
+.pojok-dok {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 46px;
+  padding: 0 18px 0 6px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  box-shadow: var(--lift-2);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: transform 0.25s ease;
+}
+.pojok-dok:hover,
+.pojok-dok:focus-visible { transform: translateY(-2px); }
+.pojok-dok-sosok { width: 118px; margin-top: -52px; margin-left: -8px; }
+.pojok-dok-sosok svg { display: block; width: 100%; height: auto; }
+.pojok-dok-teks { align-self: center; }
+
+/* Panel Shelbot */
+.pojok-panel {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  width: min(420px, calc(100vw - 32px));
+  max-height: min(680px, calc(100dvh - 32px));
+  overflow: auto;
+  border-radius: 22px;
+  background: var(--bg);
+  box-shadow: var(--lift-2), 0 24px 60px rgb(0 0 0 / 0.22);
+  animation: pojok-masuk 0.3s ease-out both;
+}
+.pojok-panel-tutup {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+@keyframes pojok-masuk {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 640px) {
+  .pojok-intip { width: 54px; }
+  .pojok-lencana { width: 62px; height: 62px; }
+  .pojok-dok { height: 42px; padding-right: 14px; }
+  .pojok-dok-sosok { width: 98px; margin-top: -42px; }
+  .pojok-sapa { max-width: 220px; font-size: 0.82rem; }
+  .pojok-panel {
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    max-height: 88dvh;
+    border-radius: 22px 22px 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pojok,
+  .pojok-sapa,
+  .pojok-panel,
+  .pojok-intip,
+  .pojok-lencana,
+  .pojok-dok { animation: none; transition: none; }
+}
+
+@media print {
+  .pojok { display: none; }
+}

@@ -53,7 +53,8 @@ function bacaSesi(): Sesi | null {
   }
 }
 
-export function Shelbot({ lang }: { lang: Lang }) {
+/** `ringkas`: versi pendek untuk panel pojok, supaya muat di layar kecil. */
+export function Shelbot({ lang, ringkas = false }: { lang: Lang; ringkas?: boolean }) {
   const id = lang === "id";
   const [pesan, setPesan] = useState<Pesan[]>([]);
   const [teks, setTeks] = useState("");
@@ -364,7 +365,11 @@ export function Shelbot({ lang }: { lang: Lang }) {
       )}
 
       {/* Percakapan */}
-      <div className="max-h-[62vh] min-h-[24rem] space-y-6 overflow-y-auto overscroll-contain p-6 sm:p-7">
+      <div
+        className={`space-y-6 overflow-y-auto overscroll-contain ${
+          ringkas ? "max-h-[46vh] min-h-[12rem] p-5" : "max-h-[62vh] min-h-[24rem] p-6 sm:p-7"
+        }`}
+      >
         {kosong && (
           <div className="flex gap-4">
             <Wajah />
