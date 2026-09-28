@@ -7,15 +7,16 @@ import type { T, TL } from "@/lib/i18n";
    obrolan. Isinya hanya menyatakan apa yang benar-benar dilakukan
    kode di repositori ini, dan sudah diperiksa satu per satu:
 
-   - tidak ada satu pun permintaan jaringan di seluruh src/ (Shelbot
-     menjawab dari isi situs, dihitung di peramban)
+   - satu-satunya permintaan jaringan di src/ ada di Shelbot.tsx, dan
+     hanya saat Shelbot+ dinyalakan fasilitator (ke Worker shelbot-plus);
+     mode biasa menjawab dari isi situs, dihitung di peramban
    - huruf Fraunces dan Inter disajikan dari server situs sendiri,
      jadi tidak ada permintaan ke Google saat halaman dibuka
-   - satu-satunya yang disimpan di peramban adalah pilihan tema
-     terang atau gelap, dengan kunci sf-theme
+   - yang disimpan di peramban: pilihan tema (localStorage sf-theme),
+     dan tiket Shelbot+ selama sesi kelas (sessionStorage sf-shelbot-tiket)
    - tidak ada pengukur kunjungan, tidak ada kuki iklan
 
-   Bila kelak pendamping AI berpindah ke fungsi server, halaman ini
+   Bila ada bagian lain yang mulai mengirim data keluar, halaman ini
    wajib diperbarui lebih dulu.
    ============================================================ */
 
@@ -35,8 +36,8 @@ export const PRIVASI = {
     en: "If this changes",
   } as T,
   perubahan: {
-    id: "Situs ini masih berkembang. Bila pendamping AI kelak dipindahkan ke server supaya bisa menjawab lebih luas, pertanyaan yang kamu kirim akan meninggalkan peramban, dan halaman ini diperbarui lebih dulu sebelum perubahan itu dinyalakan.",
-    en: "The site is still growing. If the AI companion later moves to a server so it can answer more widely, the questions you send will leave your browser, and this page will be updated before that change is switched on.",
+    id: "Situs ini masih berkembang. Bila ada bagian lain yang mulai mengirim data keluar dari peramban, halaman ini diperbarui lebih dulu sebelum perubahan itu dinyalakan.",
+    en: "The site is still growing. If another part of it starts sending data out of your browser, this page will be updated before that change is switched on.",
   } as T,
 
   tanyaJudul: { id: "Bertanya soal ini", en: "Asking about this" } as T,
@@ -59,8 +60,16 @@ export const PRIVASI = {
       jenis: "ya",
       judul: { id: "Obrolan Shelbot", en: "The Shelbot conversation" } as T,
       isi: {
-        id: "Shelbot berjalan sepenuhnya di peramban kamu. Jawabannya disusun dari naskah situs, panduan permainan, dan 184 kartu yang sudah ikut terkirim bersama halaman. Tidak ada pertanyaan yang dikirim ke server, dan percakapannya hilang begitu halaman ditutup.",
-        en: "Shelbot runs entirely in your browser. Its answers come from the site text, the game guide, and the 184 cards that ship with the page. No question is sent to a server, and the conversation is gone once you close the page.",
+        id: "Di mode biasa, Shelbot berjalan sepenuhnya di peramban kamu. Jawabannya disusun dari naskah situs, panduan permainan, dan 184 kartu yang ikut terkirim bersama halaman. Tidak ada pertanyaan yang dikirim ke server, dan percakapannya hilang begitu halaman ditutup.",
+        en: "In normal mode, Shelbot runs entirely in your browser. Its answers come from the site text, the game guide, and the 184 cards that ship with the page. No question is sent to a server, and the conversation is gone once you close the page.",
+      } as T,
+    },
+    {
+      jenis: "catatan",
+      judul: { id: "Shelbot+ saat sesi kelas", en: "Shelbot+ during a class session" } as T,
+      isi: {
+        id: "Shelbot+ hanya menyala setelah fasilitator memasukkan kata sandi. Selama menyala, pertanyaan kamu, riwayat obrolan di halaman itu, dan jawaban naskahnya dikirim ke layanan kami di Cloudflare untuk dijawab oleh model Llama (Cloudflare Workers AI). Kami tidak menyimpan percakapan itu. Tiket sesi disimpan di peramban dengan kunci sf-shelbot-tiket, berlaku paling lama empat jam, dan hilang saat tab ditutup. Jangan menulis data pribadi di obrolan.",
+        en: "Shelbot+ only switches on after the facilitator enters a password. While it is on, your question, the chat history on that page, and the script answer are sent to our service on Cloudflare to be answered by a Llama model (Cloudflare Workers AI). We do not store that conversation. The session ticket is kept in your browser under the key sf-shelbot-tiket, lasts at most four hours, and is gone when you close the tab. Do not write personal data in the chat.",
       } as T,
     },
     {
@@ -112,14 +121,14 @@ export const PRIVASI = {
     id: [
       "Tidak ada akun dan tidak ada borang.",
       "Tidak ada pengukur kunjungan dan tidak ada kuki iklan.",
-      "Obrolan dan skor dihitung di peramban kamu.",
-      "Yang disimpan hanya pilihan tema terang atau gelap.",
+      "Obrolan mode biasa dan skor dihitung di peramban kamu. Shelbot+ saat sesi kelas mengirim pertanyaan ke Cloudflare.",
+      "Yang disimpan hanya pilihan tema, dan tiket Shelbot+ selama sesi kelas.",
     ],
     en: [
       "No accounts and no forms.",
       "No analytics and no advertising cookies.",
-      "The conversation and the score are computed in your browser.",
-      "The only stored thing is your light or dark preference.",
+      "The normal-mode conversation and the score are computed in your browser. Shelbot+ during class sends questions to Cloudflare.",
+      "The only stored things are your theme choice and, during class, the Shelbot+ ticket.",
     ],
   } as TL,
 };

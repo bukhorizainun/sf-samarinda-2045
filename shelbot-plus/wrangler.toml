@@ -1,0 +1,11 @@
+name = "shelbot-plus"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# Workers AI. Tidak ada kunci API: Worker memakai jatah akun Cloudflare.
+[ai]
+binding = "AI"
+
+# Dua rahasia, dipasang sekali lewat:
+#   npx wrangler secret put SANDI_FASILITATOR
+#   npx wrangler secret put KUNCI_TIKET

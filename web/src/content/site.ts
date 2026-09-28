@@ -462,8 +462,8 @@ export const REFLECT_QUESTION: T = {
 export const LAB = {
   title: { id: "Shelbot", en: "Shelbot" } as T,
   lead: {
-    id: "Pemandu permainan yang tinggal di dalam situs ini. Shelbot hafal enam fase, kelima peran, empat indikator kota, dan seluruh 184 kartu. Tanya cara bermain, cari kartu tertentu, atau tanyakan isu keberlanjutan di Samarinda. Semuanya berjalan di peramban kamu, tanpa mengirim apa pun ke server.",
-    en: "A game guide that lives inside this site. Shelbot knows the six phases, the five roles, the four city indicators, and all 184 cards. Ask how it plays, look up a card, or ask about Samarinda's sustainability issues. It all runs in your browser, with nothing sent to a server.",
+    id: "Pemandu permainan yang tinggal di dalam situs ini. Shelbot hafal enam fase, kelima peran, empat indikator kota, dan seluruh 184 kartu. Tanya cara bermain, cari kartu tertentu, atau tanyakan isu keberlanjutan di Samarinda. Di mode biasa semuanya berjalan di peramban kamu. Saat sesi kelas, fasilitator bisa menyalakan Shelbot+ yang menjawab lebih luwes.",
+    en: "A game guide that lives inside this site. Shelbot knows the six phases, the five roles, the four city indicators, and all 184 cards. Ask how it plays, look up a card, or ask about Samarinda's sustainability issues. In normal mode it all runs in your browser. During a class session, the facilitator can switch on Shelbot+, which answers more flexibly.",
   } as T,
   catatanMeja: {
     id: "Shelbot pemandu di luar meja — untuk belajar sebelum bermain dan menengok kembali sesudahnya. Selama sesi berlangsung, yang berlaku tetap aturan permainan: pemakaian GenAI dijatah lewat GenAI Access Token, dan keputusan tetap milik kelima peran.",
@@ -477,15 +477,17 @@ export const LAB = {
     id: [
       "Jawabannya diambil dari panduan resmi, naskah situs, dan 184 kartu. Bukan karangan baru.",
       "Shelbot tidak punya suara di meja. Ia tidak menetapkan biaya proyek dan tidak memilih prioritas.",
-      "Kalau pertanyaannya di luar isi permainan, ia bilang tidak tahu.",
-      "Percakapan berjalan di peramban kamu. Tidak ada yang dikirim atau disimpan di server.",
+      "Mode biasa menjawab dari naskah saja. Kalau pertanyaannya di luar isi permainan, ia bilang tidak tahu.",
+      "Shelbot+ hanya menyala lewat kata sandi fasilitator. Ia memakai model Llama di Cloudflare, berpijak pada jawaban naskah, dan boleh membahas isu Samarinda seperti tambang, sungai, dan banjir. Pertanyaan di luar dunia permainan tetap ditolak.",
+      "Di mode biasa tidak ada yang dikirim ke server. Di Shelbot+, pertanyaan dikirim untuk dijawab dan tidak kami simpan.",
       "Untuk pemakaian GenAI di dalam permainan, aturannya terpisah dan tertulis di panduan.",
     ],
     en: [
       "Answers come from the official guide, the site text, and the 184 cards. Nothing is invented.",
       "Shelbot holds no vote at the table. It does not price projects and does not pick priorities.",
-      "When a question falls outside the game, it says it does not know.",
-      "The conversation runs in your browser. Nothing is sent to or stored on a server.",
+      "Normal mode answers from the script only. When a question falls outside the game, it says it does not know.",
+      "Shelbot+ only switches on with the facilitator's password. It uses a Llama model on Cloudflare, builds on the script answer, and may discuss Samarinda issues such as mining, the river, and flooding. Questions outside the game's world are still declined.",
+      "In normal mode nothing is sent to a server. In Shelbot+, questions are sent to be answered and we do not store them.",
       "GenAI use inside the game is a separate matter, with its own rules in the guide.",
     ],
   } as TL,
@@ -506,8 +508,8 @@ export const LAB = {
     en: "Ask about the rules, a card, or Samarinda…",
   } as T,
   disclaimer: {
-    id: "Shelbot menjawab dari isi permainan yang sudah tertulis, bukan mengarang kalimat baru. Kalau pertanyaannya di luar itu, ia akan bilang tidak tahu. Keputusan di meja tetap milik kamu dan kelompokmu.",
-    en: "Shelbot answers from what the game already says rather than composing new claims. Outside that, it will tell you it does not know. Decisions at the table stay with you and your group.",
+    id: "Mode biasa menjawab dari isi permainan yang sudah tertulis. Shelbot+ memakai model bahasa dan bisa keliru, jadi periksa angka penting bersama fasilitator. Keputusan di meja tetap milik kamu dan kelompokmu.",
+    en: "Normal mode answers from what the game already says. Shelbot+ uses a language model and can be wrong, so check important numbers with your facilitator. Decisions at the table stay with you and your group.",
   } as T,
 };
 
