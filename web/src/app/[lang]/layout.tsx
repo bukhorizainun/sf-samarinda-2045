@@ -5,7 +5,7 @@ import "../globals.css";
 import { Aliran } from "@/components/Aliran";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { PojokPendamping } from "@/components/PojokPendamping";
+import { SosokAkhir } from "@/components/SosokAkhir";
 import { THEME_SCRIPT } from "@/components/ThemeToggle";
 import { UI } from "@/content/site";
 import { LANGS, isLang, t, type Lang } from "@/lib/i18n";
@@ -99,8 +99,8 @@ export default async function LangLayout({
         <Aliran />
         <Header lang={lang} />
         <main id="isi">{children}</main>
+        <SosokAkhir />
         <Footer lang={lang} />
-        <PojokPendamping lang={lang} />
       </body>
     </html>
   );

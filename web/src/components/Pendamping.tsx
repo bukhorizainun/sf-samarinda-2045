@@ -19,11 +19,14 @@ export function Pendamping({
   sosok = "shelly",
   pose = "loncat",
   sapaan,
+  selaluTampil = false,
   className = "",
 }: {
   sosok?: "shelly" | "hakam" | "keduanya";
   pose?: Pose;
   sapaan?: string;
+  /** Tampil juga di layar sempit (misalnya di ujung halaman, bukan di samping teks). */
+  selaluTampil?: boolean;
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,7 +56,7 @@ export function Pendamping({
        dengan position: relative milik .bidak. */
     <div
       ref={ref}
-      className={`hidden sm:block ${jalan ? "loncat-jalan" : ""} ${pernah ? "bidak-muncul" : ""} ${className}`}
+      className={`${selaluTampil ? "block" : "hidden sm:block"} ${jalan ? "loncat-jalan" : ""} ${pernah ? "bidak-muncul" : ""} ${className}`}
     >
       {/* Dudukan dan bayangan bidak hanya masuk akal untuk sosok yang
           berdiri. Yang sedang berenang tidak berdiri di atas apa pun. */}
