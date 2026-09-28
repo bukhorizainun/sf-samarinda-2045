@@ -8,12 +8,15 @@ import type { T, TL } from "@/lib/i18n";
    kode di repositori ini, dan sudah diperiksa satu per satu:
 
    - satu-satunya permintaan jaringan di src/ ada di Shelbot.tsx, dan
-     hanya saat Shelbot+ dinyalakan fasilitator (ke Worker shelbot-plus);
+     saat Shelbot+ menyala (ke Worker shelbot-plus; menyala sejak awal di
+     mode terbuka, bisa dimatikan dengan memilih "Naskah"; pilihan Claude,
+     bila tersedia, diteruskan Worker ke Anthropic);
      mode biasa menjawab dari isi situs, dihitung di peramban
    - huruf Fraunces dan Inter disajikan dari server situs sendiri,
      jadi tidak ada permintaan ke Google saat halaman dibuka
    - yang disimpan di peramban: pilihan tema (localStorage sf-theme),
-     dan tiket Shelbot+ selama sesi kelas (sessionStorage sf-shelbot-tiket)
+     dan, hanya di mode kata sandi fasilitator, tiket Shelbot+
+     (sessionStorage sf-shelbot-tiket); mode terbuka tidak menyimpan apa pun
    - tidak ada pengukur kunjungan, tidak ada kuki iklan
 
    Bila ada bagian lain yang mulai mengirim data keluar, halaman ini
@@ -66,10 +69,10 @@ export const PRIVASI = {
     },
     {
       jenis: "catatan",
-      judul: { id: "Shelbot+ saat sesi kelas", en: "Shelbot+ during a class session" } as T,
+      judul: { id: "Shelbot+", en: "Shelbot+" } as T,
       isi: {
-        id: "Shelbot+ hanya menyala setelah fasilitator memasukkan kata sandi. Selama menyala, pertanyaan kamu, riwayat obrolan di halaman itu, dan jawaban naskahnya dikirim ke layanan kami di Cloudflare untuk dijawab oleh model Llama (Cloudflare Workers AI). Kami tidak menyimpan percakapan itu. Tiket sesi disimpan di peramban dengan kunci sf-shelbot-tiket, berlaku paling lama empat jam, dan hilang saat tab ditutup. Jangan menulis data pribadi di obrolan.",
-        en: "Shelbot+ only switches on after the facilitator enters a password. While it is on, your question, the chat history on that page, and the script answer are sent to our service on Cloudflare to be answered by a Llama model (Cloudflare Workers AI). We do not store that conversation. The session ticket is kept in your browser under the key sf-shelbot-tiket, lasts at most four hours, and is gone when you close the tab. Do not write personal data in the chat.",
+        id: "Shelbot+ menyala sejak halaman dibuka. Selama menyala, pertanyaan kamu, riwayat obrolan di halaman itu, dan jawaban naskahnya dikirim ke layanan kami di Cloudflare untuk dijawab oleh model yang kamu pilih: Llama (Cloudflare Workers AI), atau Claude bila tersedia, yang diteruskan ke Anthropic. Mode \u201cBandingkan semua\u201d mengirim pertanyaan yang sama ke semua model itu. Kami tidak menyimpan percakapan itu. Untuk membatasi penyalahgunaan, layanan itu menghitung jumlah pertanyaan per alamat IP selama satu menit, tanpa menyimpannya. Pilih \u201cNaskah\u201d kalau kamu tidak ingin ada yang dikirim. Jangan menulis data pribadi di obrolan.",
+        en: "Shelbot+ is on from the moment the page opens. While it is on, your question, the chat history on that page, and the script answer are sent to our service on Cloudflare to be answered by the model you pick: Llama (Cloudflare Workers AI), or Claude when available, which is passed on to Anthropic. \u201cCompare all\u201d sends the same question to all of those models. We do not store that conversation. To limit abuse, the service counts questions per IP address over one minute, without storing them. Choose \u201cScript\u201d if you do not want anything sent. Do not write personal data in the chat.",
       } as T,
     },
     {
@@ -121,14 +124,14 @@ export const PRIVASI = {
     id: [
       "Tidak ada akun dan tidak ada borang.",
       "Tidak ada pengukur kunjungan dan tidak ada kuki iklan.",
-      "Obrolan mode biasa dan skor dihitung di peramban kamu. Shelbot+ saat sesi kelas mengirim pertanyaan ke Cloudflare.",
-      "Yang disimpan hanya pilihan tema, dan tiket Shelbot+ selama sesi kelas.",
+      "Skor dihitung di peramban kamu. Shelbot+ mengirim pertanyaan ke Cloudflare; pilih \u201cNaskah\u201d untuk menjawab di peramban.",
+      "Yang disimpan hanya pilihan tema.",
     ],
     en: [
       "No accounts and no forms.",
       "No analytics and no advertising cookies.",
-      "The normal-mode conversation and the score are computed in your browser. Shelbot+ during class sends questions to Cloudflare.",
-      "The only stored things are your theme choice and, during class, the Shelbot+ ticket.",
+      "The score is computed in your browser. Shelbot+ sends questions to Cloudflare; choose \u201cScript\u201d to answer in your browser.",
+      "The only stored thing is your theme choice.",
     ],
   } as TL,
 };

@@ -6,6 +6,32 @@ compatibility_date = "2026-09-01"
 [ai]
 binding = "AI"
 
-# Dua rahasia, dipasang sekali lewat:
+# "1" = Shelbot+ terbuka untuk semua pengunjung, tanpa kata sandi.
+# Kosongkan (atau "0") untuk kembali ke mode kata sandi fasilitator; mode itu
+# butuh dua rahasia, dipasang sekali lewat:
 #   npx wrangler secret put SANDI_FASILITATOR
 #   npx wrangler secret put KUNCI_TIKET
+[vars]
+MODE_TERBUKA = "1"
+# Model Claude untuk pilihan "Claude" (hanya aktif bila secret ANTHROPIC_API_KEY
+# terpasang lewat: npx wrangler secret put ANTHROPIC_API_KEY).
+# Contoh lain: "claude-sonnet-5", "claude-haiku-4-5".
+CLAUDE_MODEL = "claude-opus-5"
+
+# Batas pertanyaan per alamat IP di mode terbuka: 8 pertanyaan per 60 detik.
+[[ratelimits]]
+name = "BATAS"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 8
+  period = 60
+
+# Claude berbayar: batas tambahan 3 pertanyaan per 60 detik per alamat IP.
+[[ratelimits]]
+name = "BATAS_CLAUDE"
+namespace_id = "1002"
+
+  [ratelimits.simple]
+  limit = 3
+  period = 60

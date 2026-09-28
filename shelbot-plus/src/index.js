@@ -4,20 +4,88 @@
  * Cloudflare Worker terpisah dari situs. Situsnya tetap statis di GitHub
  * Pages; Worker ini hanya menjawab dua permintaan:
  *
- *   POST /sesi  { sandi }                         → { tiket, berlaku }
- *   POST /chat  { tiket, lang, pesan, naskah }    → { teks, model }
+ *   GET  /model                                         → { model: [...] }
+ *   POST /sesi  { sandi }                               → { tiket, berlaku }
+ *   POST /chat  { tiket, lang, pesan, naskah, model }   → { teks, model, ms }
  *
- * Mode ini hanya menyala lewat kata sandi fasilitator. Sandi diperiksa di
- * sini (secret SANDI_FASILITATOR), lalu ditukar dengan tiket bertanda
- * tangan HMAC yang berumur pendek. Tanpa tiket sah, /chat menolak.
+ * "model" memilih otak: llama-70b, llama-8b, atau claude (hanya bila
+ * secret ANTHROPIC_API_KEY terpasang). Tanpa "model", Llama besar dicoba
+ * lebih dulu dan Llama kecil menjadi cadangan. Bila model dipilih
+ * langsung, tidak ada cadangan, supaya perbandingan akurasi tetap jujur.
+ *
+ * Dua cara menyala, dipilih lewat variabel MODE_TERBUKA di wrangler.toml:
+ * - MODE_TERBUKA = "1": /chat terbuka untuk semua pengunjung situs, tanpa
+ *   tiket. Pengamannya batas pertanyaan per alamat IP (binding BATAS) dan
+ *   pemeriksaan asal halaman.
+ * - selain itu: hanya lewat kata sandi fasilitator. Sandi diperiksa di sini
+ *   (secret SANDI_FASILITATOR), lalu ditukar dengan tiket bertanda tangan
+ *   HMAC yang berumur pendek. Tanpa tiket sah, /chat menolak.
  *
  * Model: Llama di Workers AI. Jatah gratis 10.000 Neuron per hari; kalau
  * habis di paket Free, permintaan gagal dan tidak menagih. Model besar
  * dicoba lebih dulu, model kecil menjadi cadangan.
  */
 
+import Anthropic from "@anthropic-ai/sdk";
+
 const MODEL_UTAMA = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 const MODEL_CADANGAN = "@cf/meta/llama-3.1-8b-instruct-fast";
+
+/** Otak yang bisa dipilih pengunjung. Claude hanya muncul bila kuncinya ada. */
+function daftarModel(env) {
+  const daftar = [
+    { id: "llama-70b", nama: "Llama 3.3 70B", penyedia: "Cloudflare", berbayar: false },
+    { id: "llama-8b", nama: "Llama 3.1 8B", penyedia: "Cloudflare", berbayar: false },
+  ];
+  if (env.ANTHROPIC_API_KEY) {
+    daftar.push({ id: "claude", nama: namaClaude(env), penyedia: "Anthropic", berbayar: true });
+  }
+  return daftar;
+}
+
+const modelClaude = (env) => env.CLAUDE_MODEL || "claude-opus-5";
+const namaClaude = (env) =>
+  modelClaude(env)
+    .replace(/^claude-/, "Claude ")
+    .replace(/-(\d+)-(\d+)$/, " $1.$2")
+    .replace(/-(\d+)$/, " $1")
+    .replace(/\b(opus|sonnet|haiku|fable)\b/, (k) => k[0].toUpperCase() + k.slice(1));
+
+const JALUR_LLAMA = { "llama-70b": MODEL_UTAMA, "llama-8b": MODEL_CADANGAN };
+
+async function jawabLlama(env, jalur, messages) {
+  const hasil = await env.AI.run(jalur, { messages, max_tokens: 700, temperature: 0.4 });
+  return String(hasil?.response ?? "").trim();
+}
+
+/** Satu jawaban dari Claude. Mengembalikan "" bila ditolak atau kosong. */
+async function jawabClaude(env, system, pesan) {
+  const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
+  const model = modelClaude(env);
+  const params = {
+    model,
+    max_tokens: 2048,
+    cache_control: { type: "ephemeral" },
+    system,
+    messages: pesan,
+  };
+  // Model generasi 5 berpikir secara adaptif; untuk obrolan singkat cukup usaha rendah.
+  if (/^claude-(opus|sonnet)-5/.test(model)) params.output_config = { effort: "low" };
+  const res =
+    model === "claude-opus-5"
+      ? await client.beta.messages.create({
+          ...params,
+          betas: ["server-side-fallback-2026-07-01"],
+          fallbacks: "default",
+        })
+      : await client.messages.create(params);
+  if (res.stop_reason === "refusal") return "";
+  return res.content
+    .filter((b) => b.type === "text")
+    .map((b) => b.text)
+    .join("")
+    .trim();
+}
 
 const UMUR_TIKET = 4 * 60 * 60; // detik; satu sesi kelas dengan kelonggaran
 const MAX_PESAN = 12; // riwayat yang diteruskan ke model
@@ -34,8 +102,11 @@ const ASAL_DIIZINKAN = [
    suara, tidak menetapkan biaya, tidak memilih proyek prioritas) dan dari
    keputusan lingkup: masih dalam konteks permainan, tetapi luwes. */
 
-function aturan(lang) {
-  const umum = `You are Shelbot+, the companion of "Futures in Action — Samarinda 2045", a collaborative sustainability board game by SF (Sustainable Futures). You are used during a class session, with a facilitator in the room.
+function aturan(lang, terbuka) {
+  const konteks = terbuka
+    ? "You answer any visitor of the game's website: students, teachers, facilitators, or the public."
+    : "You are used during a class session, with a facilitator in the room.";
+  const umum = `You are Shelbot+, the companion of "Futures in Action — Samarinda 2045", a collaborative sustainability board game by SF (Sustainable Futures). ${konteks}
 
 THE GAME
 - Five roles: Government & City Planners; Business & Industry; River Communities & Food Producers; Residents, Youth & Local Communities; Scientists, Educators & Environmental Groups.
@@ -124,7 +195,7 @@ function kepalaCors(asal) {
   const izin = ASAL_DIIZINKAN.includes(asal) ? asal : ASAL_DIIZINKAN[0];
   return {
     "access-control-allow-origin": izin,
-    "access-control-allow-methods": "POST, OPTIONS",
+    "access-control-allow-methods": "GET, POST, OPTIONS",
     "access-control-allow-headers": "content-type",
     "access-control-max-age": "86400",
     vary: "origin",
@@ -146,9 +217,13 @@ export default {
       });
 
     if (request.method === "OPTIONS") return new Response(null, { headers: cors });
-    if (request.method !== "POST") return balas(405, { galat: "Hanya POST." });
 
     const { pathname } = new URL(request.url);
+    if (request.method === "GET" && pathname === "/model") {
+      return balas(200, { model: daftarModel(env), terbuka: env.MODE_TERBUKA === "1" });
+    }
+    if (request.method !== "POST") return balas(405, { galat: "Hanya POST." });
+
     let badan;
     try {
       badan = await request.json();
@@ -167,8 +242,28 @@ export default {
     }
 
     if (pathname === "/chat") {
-      if (!(await tiketSah(env, badan?.tiket))) {
+      const terbuka = env.MODE_TERBUKA === "1";
+      const pilihan = typeof badan?.model === "string" ? badan.model : "";
+      const ip = request.headers.get("cf-connecting-ip") || "tanpa-ip";
+      if (terbuka) {
+        if (!ASAL_DIIZINKAN.includes(asal)) {
+          return balas(403, { galat: "Asal halaman tidak dikenal." });
+        }
+        if (env.BATAS) {
+          const { success } = await env.BATAS.limit({ key: ip });
+          if (!success) return balas(429, { galat: "Terlalu banyak pertanyaan. Coba lagi sebentar." });
+        }
+      } else if (!(await tiketSah(env, badan?.tiket))) {
         return balas(401, { galat: "Sesi fasilitator tidak aktif." });
+      }
+
+      if (pilihan && !daftarModel(env).some((m) => m.id === pilihan)) {
+        return balas(400, { galat: "Model tidak tersedia." });
+      }
+      // Claude berbayar: batas tambahan yang lebih ketat.
+      if (pilihan === "claude" && env.BATAS_CLAUDE) {
+        const { success } = await env.BATAS_CLAUDE.limit({ key: ip });
+        if (!success) return balas(429, { galat: "Batas pertanyaan untuk Claude tercapai. Coba lagi sebentar." });
       }
 
       const lang = badan?.lang === "en" ? "en" : "id";
@@ -181,6 +276,8 @@ export default {
       if (!pesan.length || pesan[pesan.length - 1].role !== "user") {
         return balas(400, { galat: "Tidak ada pertanyaan." });
       }
+      // Claude menolak riwayat yang diawali jawaban asisten.
+      while (pesan.length && pesan[0].role !== "user") pesan.shift();
 
       // Jawaban naskah ditempelkan pada pertanyaan terakhir sebagai pijakan.
       const naskah = String(badan?.naskah ?? "").slice(0, MAX_NASKAH).trim();
@@ -189,13 +286,25 @@ export default {
         akhir.content = `${akhir.content}\n\n[Script answer]\n${naskah}`;
       }
 
-      const messages = [{ role: "system", content: aturan(lang) }, ...pesan];
+      const system = aturan(lang, terbuka);
+      const mulai = Date.now();
 
-      for (const model of [MODEL_UTAMA, MODEL_CADANGAN]) {
+      if (pilihan === "claude") {
         try {
-          const hasil = await env.AI.run(model, { messages, max_tokens: 700, temperature: 0.4 });
-          const teks = String(hasil?.response ?? "").trim();
-          if (teks) return balas(200, { teks, model: model.split("/").pop() });
+          const teks = await jawabClaude(env, system, pesan);
+          if (teks) return balas(200, { teks, model: namaClaude(env), ms: Date.now() - mulai });
+        } catch {
+          // kunci salah, batas belanja, atau layanan sibuk
+        }
+        return balas(503, { galat: "Claude sedang tidak bisa menjawab." });
+      }
+
+      const messages = [{ role: "system", content: system }, ...pesan];
+      const urutan = pilihan ? [JALUR_LLAMA[pilihan]] : [MODEL_UTAMA, MODEL_CADANGAN];
+      for (const jalur of urutan) {
+        try {
+          const teks = await jawabLlama(env, jalur, messages);
+          if (teks) return balas(200, { teks, model: jalur.split("/").pop(), ms: Date.now() - mulai });
         } catch {
           // Jatah habis atau model sibuk: coba model berikutnya.
         }
