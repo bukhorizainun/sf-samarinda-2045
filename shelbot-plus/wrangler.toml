@@ -35,3 +35,12 @@ namespace_id = "1002"
   [ratelimits.simple]
   limit = 3
   period = 60
+
+# Studio gambar Fase 2: 3 gambar per 60 detik per alamat IP.
+[[ratelimits]]
+name = "BATAS_GAMBAR"
+namespace_id = "1003"
+
+  [ratelimits.simple]
+  limit = 3
+  period = 60

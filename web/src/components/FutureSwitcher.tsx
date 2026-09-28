@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FUTURES, FUTURES_NOTE } from "@/content/site";
 import { Maskot, type Pose } from "./Maskot";
@@ -97,6 +98,15 @@ export function FutureSwitcher({ lang }: { lang: Lang }) {
         <p className="mt-12 max-w-[52ch] border-t pt-6 text-sm leading-relaxed text-[var(--fg-faint)] rule">
           {t(FUTURES_NOTE, lang)}
         </p>
+        {process.env.NEXT_PUBLIC_SHELBOT_API && (
+          <Link
+            href={`/${lang}/shelbot/#studio`}
+            className="mt-5 inline-flex items-center gap-2 text-[0.9rem] font-semibold underline decoration-[var(--line-strong)] underline-offset-4 hover:decoration-[var(--fg)]"
+          >
+            {lang === "id" ? "Gambarkan Samarinda 2045 versimu di Studio Fase 2" : "Draw your Samarinda 2045 in the Phase 2 studio"}
+            <span aria-hidden>→</span>
+          </Link>
+        )}
       </div>
     </div>
   );

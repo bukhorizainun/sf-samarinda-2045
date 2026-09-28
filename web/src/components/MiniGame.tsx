@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   KATEGORI,
@@ -456,9 +457,10 @@ export function MiniGame({ lang }: { lang: Lang }) {
             >
               {t(MG_UI.jawaban, lang)}
             </button>
-            <a href={`/${lang}/samarinda`} className="btn btn-garis">
+            {/* Link, bukan <a>: awalan situs (/sf-samarinda-2045) ikut ditambahkan. */}
+            <Link href={`/${lang}/samarinda/`} className="btn btn-garis">
               {t(MG_UI.jelajah, lang)}
-            </a>
+            </Link>
           </div>
 
           {lihatJawaban && (

@@ -1,0 +1,443 @@
+﻿soal,kategori,otak,lulus,skor,catatan,ms,jawaban
+"durasi","profil","naskah","false","0.00","hilang: 100, 120","0","Lima pemain, satu peran untuk satu orang. Enam fase, masing-masing 15–18 menit, jadi satu sesi penuh sekitar sembilan puluh menit ditambah waktu penutup.
+
+Panduannya tidak menetapkan batas usia. Yang tertulis, permainan ini dipakai di sekolah, kampus, dan komunitas, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan."
+"durasi","profil","llama-70b","false","0.00","hilang: 100, 120","5428","Satu sesi permainan ""Futures in Action — Samarinda 2045"" biasanya berlangsung sekitar sembilan puluh menit, tidak termasuk waktu penutup. Permainan ini terdiri dari enam fase, dan setiap fase memakan waktu sekitar 15-18 menit. Dengan demikian, kamu dapat mengalokasikan waktu sekitar satu setengah jam untuk menyelesaikan satu sesi permainan. Permainan ini dapat dimainkan oleh berbagai kalangan, mulai dari siswa sekolah hingga komunitas, dan tidak ada batas usia yang ditentukan. Jadi, kamu dapat memainkannya dengan teman-teman atau komunitas kamu, dan bahkan dapat difasilitasi oleh guru tanpa memerlukan pelatihan khusus."
+"durasi","profil","llama-8b","false","0.00","hilang: 100, 120","1498","Sesi permainan ""Futures in Action — Samarinda 2045"" dapat berlangsung sekitar sembilan puluh menit. Waktu ini mencakup enam fase permainan, masing-masing berlangsung sekitar 15-18 menit. Setelah itu, ada waktu penutup untuk menutup sesi dan membahas hasilnya.
+
+Permainan ini tidak memiliki batas usia, sehingga bisa dimainkan oleh siapa saja. Bahkan, panduan permainan ini dirancang untuk bisa difasilitasi oleh guru tanpa memerlukan pelatihan panjang. Jika kamu memiliki kelas besar, kamu bisa memainkan permainan ini di beberapa meja berjalan bersamaan dan kemudian membandingkan hasilnya."
+"pemain","profil","naskah","false","0.00","hilang: 5 , 1 fasilitator","0","Yang paling menentukan bukan hafal aturan, melainkan menjaga waktu. Enam fase masing-masing 15–18 menit, dan fase yang paling sering molor adalah Fase 2 dan Fase 4, karena di situ orang mulai berdebat serius.
+
+Tiga hal yang membantu: bagikan peran secara acak supaya tidak ada yang memilih peran yang paling nyaman baginya, minta setiap keputusan dijelaskan alasannya bukan sekadar disetujui, dan sisakan waktu penutup untuk Fase 6 — bagian aksi nyata itulah yang membuat sesinya berbekas.
+
+Untuk kelas besar, jalankan beberapa meja bersamaan, lalu bandingkan masa depan yang mereka pilih."
+"pemain","profil","llama-70b","false","0.50","hilang: 1 fasilitator","4193","Jumlah pemain dan fasilitator dalam satu permainan tidak secara eksplisit disebutkan dalam informasi yang kamu berikan. Namun, kita dapat memahami bahwa permainan ini dirancang untuk beberapa pemain yang memainkan lima peran yang berbeda, yaitu Pemerintah & Perencana Kota, Bisnis & Industri, Masyarakat Sungai & Produsen Makanan, Penduduk, Pemuda & Masyarakat Lokal, serta Ilmuwan, Pendidik & Kelompok Lingkungan.
+
+Untuk fasilitator, tidak ada batasan jumlah tertentu, tetapi yang terpenting adalah kemampuan mereka untuk mengelola waktu dan memastikan permainan berjalan lancar. Mereka dapat membantu dengan membagikan peran secara acak, meminta pemain untuk menjelaskan alasan di balik keputusan mereka, dan menyisakan waktu untuk penutup pada Fase 6. Dalam kasus kelas besar, beberapa meja permainan dapat dijalankan bersamaan, dan hasilnya dapat dibandingkan untuk memperkaya diskusi tentang masa depan Samarinda."
+"pemain","profil","llama-8b","false","0.50","hilang: 1 fasilitator","1277","Saya tidak menemukan informasi tentang jumlah pemain dan fasilitator dalam satu permainan ""Futures in Action — Samarinda 2045"". Namun, berdasarkan script answer yang kamu berikan, saya dapat menebak bahwa permainan ini dirancang untuk dimainkan oleh kelompok kecil, mungkin 5-6 orang, karena ada 5 peran yang dapat dimainkan dalam permainan ini.
+
+Fasilitator dalam permainan ini mungkin bertindak sebagai moderator atau pengarah untuk memastikan permainan berjalan lancar dan sesuai dengan aturan. Mereka juga dapat membantu dalam membagikan peran secara acak dan memastikan bahwa setiap keputusan dijelaskan alasannya.
+
+Untuk kelas besar, beberapa meja dapat dijalankan bersamaan, dan kemudian dibandingkan masa depan yang dipilih oleh setiap kelompok. Ini dapat membantu dalam memahami bagaimana berbagai kelompok dapat memiliki visi yang berbeda-beda tentang masa depan Samarinda."
+"fase","fase","naskah","false","0.00","hilang: observe, imagine, choose, make decisions, act together, real impact","0","Permainan berjalan lewat enam fase, masing-masing 15–18 menit:
+
+1. Amati Masa Kini — Peta sistem: memahami kondisi kota dan bagaimana masalahnya saling terkait.
+2. Bayangkan Masa Depan — Tiga skenario: Expected Future, Alternative Future, dan Transformative Future.
+3. Pilih Masa Depan — Satu skenario dipilih. Disetujui bila didukung minimal 4 dari 5 peran, tanpa kerugian berat yang dibiarkan.
+4. Ambil Keputusan — Tindakan dipilih, risikonya ditimbang, dan dampaknya disimulasikan.
+5. Aksi Bersama — Tiga proyek berstatus Committed, beserta peta jaringan pendukungnya.
+6. Dampak Nyata — Profil dampak simulasi, lalu satu komitmen aksi nyata di dunia luar.
+
+Satu sesi penuh sekitar seratus sampai seratus dua puluh menit."
+"fase","fase","llama-70b","false","0.00","hilang: observe, imagine, choose, make decisions, act together, real impact","5071","Kamu ingin tahu tentang enam fase permainan ""Futures in Action — Samarinda 2045"". Permainan ini terdiri dari enam fase yang berbeda, yaitu Amati Masa Kini, Bayangkan Masa Depan, Pilih Masa Depan, Ambil Keputusan, Aksi Bersama, dan Dampak Nyata. 
+
+Pada fase Amati Masa Kini, kamu akan memahami kondisi kota Samarinda dan bagaimana masalahnya saling terkait. Lalu, pada fase Bayangkan Masa Depan, kamu akan membuat tiga skenario masa depan yang berbeda, yaitu Expected Future, Alternative Future, dan Transformative Future. 
+
+Setelah itu, pada fase Pilih Masa Depan, kamu akan memilih satu skenario yang akan dipakai, dengan syarat bahwa skenario tersebut harus didukung oleh minimal 4 dari 5 peran yang ada. 
+
+Kemudian, pada fase Ambil Keputusan, kamu akan memilih tindakan yang akan diambil, menimbang risikonya, dan menyimulasikan dampaknya. Lalu, pada fase Aksi Bersama, kamu akan memilih tiga proyek yang akan dijalankan bersama-sama, beserta peta jaringan pendukungnya. 
+
+Terakhir, pada fase Dampak Nyata, kamu akan melihat profil dampak simulasi dan membuat satu komitmen aksi nyata di dunia luar. Satu sesi penuh permainan ini biasanya memakan waktu sekitar seratus sampai seratus dua puluh menit."
+"fase","fase","llama-8b","false","0.00","hilang: observe, imagine, choose, make decisions, act together, real impact","2794","Ada enam fase dalam permainan ""Futures in Action — Samarinda 2045"". Fase-fase tersebut adalah:
+
+1. Amati Masa Kini - Pada fase ini, kamu memahami kondisi kota Samarinda dan bagaimana masalahnya saling terkait.
+2. Bayangkan Masa Depan - Pada fase ini, kamu membayangkan tiga skenario masa depan, yaitu Expected Future, Alternative Future, dan Transformative Future.
+3. Pilih Masa Depan - Pada fase ini, kamu memilih satu skenario masa depan yang akan diikuti.
+4. Ambil Keputusan - Pada fase ini, kamu memilih tindakan yang akan diambil, menghitung risikonya, dan menyimulasikan dampaknya.
+5. Aksi Bersama - Pada fase ini, kamu memilih tiga proyek yang berstatus Committed dan memahami peta jaringan pendukungnya.
+6. Dampak Nyata - Pada fase ini, kamu melihat profil dampak simulasi dan memilih satu komitmen aksi nyata di dunia luar.
+
+Dengan demikian, permainan ini dapat berlangsung selama 100-120 menit."
+"skenario","fase","naskah","true","1.00","","0","Di Fase 2 setiap meja menyusun tiga Samarinda sekaligus.
+
+Expected Future — kebiasaan dan kebijakan hari ini diteruskan apa adanya. Ini garis dasar untuk dibandingkan, bukan ramalan.
+
+Alternative Future — beberapa keputusan diambil berbeda, dan arah kota bergeser. Paling mudah dibayangkan, dan karena itu paling ramai diperdebatkan.
+
+Transformative Future — susunan yang selama ini dianggap tetap ikut diubah: dari mana penghidupan datang, siapa yang ikut memutuskan.
+
+Di Fase 3, satu dipilih. Sah kalau didukung minimal empat dari lima peran dan tidak ada kerugian berat yang dibiarkan."
+"skenario","fase","llama-70b","true","1.00","","3589","Di Fase 2, kamu akan menghasilkan tiga skenario yang berbeda untuk Samarinda. Ketiga skenario tersebut adalah Expected Future, Alternative Future, dan Transformative Future. Expected Future adalah skenario di mana kebiasaan dan kebijakan hari ini diteruskan apa adanya, sehingga dapat dianggap sebagai garis dasar untuk dibandingkan dengan skenario lainnya. Alternative Future adalah skenario di mana beberapa keputusan diambil berbeda, sehingga arah kota bergeser. Skenario ini paling mudah dibayangkan dan seringkali menjadi topik perdebatan. Transformative Future adalah skenario di mana susunan yang selama ini dianggap tetap ikut diubah, termasuk dari mana penghidupan datang dan siapa yang ikut memutuskan. Ketiga skenario ini kemudian akan dibandingkan dan dibahas di Fase 3, di mana satu skenario akan dipilih sebagai arah yang akan diambil oleh kota Samarinda."
+"skenario","fase","llama-8b","true","1.00","","1540","Di Fase 2, tiga skenario yang dihasilkan adalah:
+
+1. Expected Future (Masa Depan yang Diperkirakan) - ini adalah skenario di mana kebiasaan dan kebijakan hari ini diteruskan apa adanya. Skenario ini berfungsi sebagai garis dasar untuk dibandingkan dengan skenario lainnya, bukan sebagai ramalan yang pasti.
+
+2. Alternative Future (Masa Depan Alternatif) - ini adalah skenario di mana beberapa keputusan diambil berbeda, dan arah kota bergeser. Skenario ini paling mudah dibayangkan dan karena itu paling ramai diperdebatkan.
+
+3. Transformative Future (Masa Depan Transformatif) - ini adalah skenario di mana susunan yang selama ini dianggap tetap ikut diubah. Skenario ini menunjukkan dari mana penghidupan datang dan siapa yang ikut memutuskan.
+
+Setelah itu, di Fase 3, satu skenario dipilih. Skenario tersebut harus didukung minimal empat dari lima peran dan tidak ada kerugian berat yang dibiarkan."
+"setuju-f3","fase","naskah","true","1.00","","0","Permainan berjalan lewat enam fase, masing-masing 15–18 menit:
+
+1. Amati Masa Kini — Peta sistem: memahami kondisi kota dan bagaimana masalahnya saling terkait.
+2. Bayangkan Masa Depan — Tiga skenario: Expected Future, Alternative Future, dan Transformative Future.
+3. Pilih Masa Depan — Satu skenario dipilih. Disetujui bila didukung minimal 4 dari 5 peran, tanpa kerugian berat yang dibiarkan.
+4. Ambil Keputusan — Tindakan dipilih, risikonya ditimbang, dan dampaknya disimulasikan.
+5. Aksi Bersama — Tiga proyek berstatus Committed, beserta peta jaringan pendukungnya.
+6. Dampak Nyata — Profil dampak simulasi, lalu satu komitmen aksi nyata di dunia luar.
+
+Satu sesi penuh sekitar seratus sampai seratus dua puluh menit."
+"setuju-f3","fase","llama-70b","true","1.00","","3698","Pada Fase 3, yaitu Pilih Masa Depan, Preferred Future dianggap disetujui jika satu skenario dipilih dan didukung oleh minimal 4 dari 5 peran. Ini berarti bahwa setidaknya 4 dari 5 peran harus setuju dengan skenario yang dipilih, dan tidak ada kerugian berat yang dibiarkan. Jadi, kesepakatan ini memerlukan dukungan yang cukup luas dari berbagai peran yang terlibat dalam permainan. Kamu perlu memastikan bahwa skenario yang dipilih tidak hanya mendapatkan dukungan dari mayoritas peran, tetapi juga tidak menyebabkan kerugian berat yang tidak dapat diterima. Dengan demikian, Preferred Future dapat dianggap disetujui dan permainan dapat melanjutkan ke Fase 4, yaitu Ambil Keputusan."
+"setuju-f3","fase","llama-8b","true","1.00","","648","Kapan Preferred Future di Fase 3 dianggap disetujui? Jawabannya adalah ketika didukung minimal 4 dari 5 peran tanpa kerugian berat yang dibiarkan. Ini berarti bahwa Preferred Future yang dipilih harus mendapatkan dukungan dari setidaknya 4 peran, yaitu Pemerintah dan Perencana Kota, Bisnis dan Industri, Masyarakat dan Produsen Makanan, Warga, Pemuda, dan Masyarakat Lokal, serta Ilmuwan, Pendidik, dan Kelompok Lingkungan."
+"ronde-f4","fase","naskah","false","0.00","hilang: 3 ronde","0","Permainan berjalan lewat enam fase, masing-masing 15–18 menit:
+
+1. Amati Masa Kini — Peta sistem: memahami kondisi kota dan bagaimana masalahnya saling terkait.
+2. Bayangkan Masa Depan — Tiga skenario: Expected Future, Alternative Future, dan Transformative Future.
+3. Pilih Masa Depan — Satu skenario dipilih. Disetujui bila didukung minimal 4 dari 5 peran, tanpa kerugian berat yang dibiarkan.
+4. Ambil Keputusan — Tindakan dipilih, risikonya ditimbang, dan dampaknya disimulasikan.
+5. Aksi Bersama — Tiga proyek berstatus Committed, beserta peta jaringan pendukungnya.
+6. Dampak Nyata — Profil dampak simulasi, lalu satu komitmen aksi nyata di dunia luar.
+
+Satu sesi penuh sekitar seratus sampai seratus dua puluh menit."
+"ronde-f4","fase","llama-70b","false","0.00","hilang: 3 ronde","3739","Kamu bertanya tentang ronde Project Market di Fase 4. Sayangnya, script answer tidak menyebutkan secara spesifik tentang ronde Project Market di Fase 4. Namun, kita dapat melihat bahwa Fase 4 disebut sebagai ""Ambil Keputusan"" dan berlangsung selama 15-18 menit. 
+
+Dalam Fase 4, pemain memilih tindakan, menimbang risikonya, dan mensimulasikan dampaknya. Ini berarti bahwa pemain akan memilih proyek-proyek yang akan dijalankan dan mensimulasikan bagaimana proyek-proyek tersebut akan mempengaruhi kota Samarinda. 
+
+Jadi, meskipun kita tidak tahu pasti berapa ronde Project Market di Fase 4, kita dapat melihat bahwa Fase 4 adalah tentang memilih tindakan dan mensimulasikan dampaknya. Jika kamu memiliki pertanyaan lebih lanjut tentang Fase 4 atau Project Market, saya akan senang membantu."
+"ronde-f4","fase","llama-8b","false","0.00","hilang: 3 ronde","376","Tidak ada ronde Project Market di Fase 4. Fase 4 disebut Ambil Keputusan, di mana kamu memilih tindakan, menimbang risikonya, dan menyimulasikan dampaknya."
+"keluaran-f1","fase","naskah","true","1.00","","0","Permainan berjalan lewat enam fase, masing-masing 15–18 menit:
+
+1. Amati Masa Kini — Peta sistem: memahami kondisi kota dan bagaimana masalahnya saling terkait.
+2. Bayangkan Masa Depan — Tiga skenario: Expected Future, Alternative Future, dan Transformative Future.
+3. Pilih Masa Depan — Satu skenario dipilih. Disetujui bila didukung minimal 4 dari 5 peran, tanpa kerugian berat yang dibiarkan.
+4. Ambil Keputusan — Tindakan dipilih, risikonya ditimbang, dan dampaknya disimulasikan.
+5. Aksi Bersama — Tiga proyek berstatus Committed, beserta peta jaringan pendukungnya.
+6. Dampak Nyata — Profil dampak simulasi, lalu satu komitmen aksi nyata di dunia luar.
+
+Satu sesi penuh sekitar seratus sampai seratus dua puluh menit."
+"keluaran-f1","fase","llama-70b","false","0.50","hilang: system map","4246","Pada Fase 1, yaitu Observe the Present atau Amati Masa Kini, kamu akan memahami kondisi kota Samarinda saat ini dan bagaimana masalah-masalah yang ada saling terkait. Ini adalah fase di mana kamu memetakan sistem dan memahami hubungan antara berbagai isu yang mempengaruhi kota. Keluaran dari fase ini adalah pemahaman yang lebih baik tentang kondisi kota dan masalah-masalah yang perlu diatasi. Dengan demikian, kamu dapat mempersiapkan diri untuk memikirkan tentang masa depan kota Samarinda dan bagaimana kamu dapat berkontribusi dalam membuatnya menjadi lebih baik. Fase ini membantu kamu memahami konteks dan latar belakang kota sebelum kamu mulai memikirkan tentang skenario masa depan."
+"keluaran-f1","fase","llama-8b","true","1.00","","940","Pada Fase 1, Observe the Present, kamu akan memahami kondisi kota Samarinda dan bagaimana masalahnya saling terkait. Kamu akan melihat peta sistem yang menunjukkan hubungan antara berbagai aspek kota, seperti lingkungan, masyarakat, ekonomi, dan lain-lain. Peta sistem ini akan membantu kamu memahami kompleksitas masalah yang dihadapi oleh kota Samarinda. Dengan demikian, kamu dapat mempersiapkan diri untuk memilih masa depan yang lebih baik untuk kota Samarinda."
+"indikator","indikator","naskah","false","0.00","hilang: environment, society, economy, future readiness","0","Empat City Indicator berjalan di skala 0–10. Semuanya mulai di 5, dan masuk keadaan kritis kalau turun di bawah 3:
+
+• Lingkungan — Air, udara, banjir, hutan, polusi, dan emisi.
+• Masyarakat — Kesetaraan, kesehatan, layanan, partisipasi, dan kelompok rentan.
+• Ekonomi — Lapangan kerja, keragaman pendapatan, dan ketergantungan batu bara.
+• Masa Depan — Kesiapan menghadapi ketidakpastian, perencanaan jangka panjang, dan adaptasi.
+
+Kalau ada satu saja indikator yang berakhir di rentang 0–2, koalisi kalah, sebagus apa pun angka yang lain."
+"indikator","indikator","llama-70b","false","0.00","hilang: environment, society, economy, future readiness","8182","Empat City Indicator dalam permainan ini adalah ukuran yang digunakan untuk menilai kemajuan dan keberhasilan kota Samarinda. Keempat indikator tersebut adalah Lingkungan, Masyarakat, Ekonomi, dan Masa Depan. Semua indikator ini memiliki skala 0-10 dan dimulai dari nilai 5. Jika salah satu indikator turun di bawah 3, maka kota tersebut dianggap dalam keadaan kritis.
+
+Lingkungan mencakup aspek seperti air, udara, banjir, hutan, polusi, dan emisi. Masyarakat meliputi kesetaraan, kesehatan, layanan, partisipasi, dan kelompok rentan. Ekonomi terkait dengan lapangan kerja, keragaman pendapatan, dan ketergantungan batu bara. Sementara itu, Masa Depan berfokus pada kesiapan menghadapi ketidakpastian, perencanaan jangka panjang, dan adaptasi.
+
+Penting untuk diingat bahwa jika salah satu indikator berakhir di rentang 0-2, maka koalisi dianggap kalah, terlepas dari seberapa baik nilai indikator lainnya. Oleh karena itu, kamu harus memastikan bahwa semua indikator tetap dalam kondisi yang sehat untuk mencapai keberhasilan dalam permainan."
+"indikator","indikator","llama-8b","true","1.00","","1437","Empat City Indicator yang digunakan dalam permainan ""Futures in Action — Samarinda 2045"" adalah:
+
+1. Lingkungan (Environment) - ini mencakup aspek seperti air, udara, banjir, hutan, polusi, dan emisi.
+2. Masyarakat (Society) - ini mencakup aspek seperti kesetaraan, kesehatan, layanan, partisipasi, dan kelompok rentan.
+3. Ekonomi (Economy) - ini mencakup aspek seperti lapangan kerja, keragaman pendapatan, dan ketergantungan batu bara.
+4. Masa Depan (Future Readiness) - ini mencakup aspek seperti kesiapan menghadapi ketidakpastian, perencanaan jangka panjang, dan adaptasi.
+
+Setiap indikator berjalan di skala 0-10, dan semua indikator dimulai di 5. Jika salah satu indikator turun di bawah 3, maka koalisi akan kalah, sebagus apa pun angka yang lain."
+"skala","indikator","naskah","true","1.00","","0","Empat City Indicator berjalan di skala 0–10. Semuanya mulai di 5, dan masuk keadaan kritis kalau turun di bawah 3:
+
+• Lingkungan — Air, udara, banjir, hutan, polusi, dan emisi.
+• Masyarakat — Kesetaraan, kesehatan, layanan, partisipasi, dan kelompok rentan.
+• Ekonomi — Lapangan kerja, keragaman pendapatan, dan ketergantungan batu bara.
+• Masa Depan — Kesiapan menghadapi ketidakpastian, perencanaan jangka panjang, dan adaptasi.
+
+Kalau ada satu saja indikator yang berakhir di rentang 0–2, koalisi kalah, sebagus apa pun angka yang lain."
+"skala","indikator","llama-70b","true","1.00","","3435","Kamu ingin tahu tentang skala City Indicator di game ""Futures in Action — Samarinda 2045"". Skala City Indicator ini berjalan dari 0 hingga 10. Semua indikator mulai dari nilai 5. Jika nilai indikator turun di bawah 3, maka dianggap kritis. Ini berlaku untuk semua empat indikator, yaitu Lingkungan, Masyarakat, Ekonomi, dan Masa Depan. Jika salah satu indikator berakhir di rentang 0-2, maka koalisi dianggap kalah, tidak peduli seberapa baik nilai indikator lainnya. Ini menunjukkan bahwa semua aspek kehidupan di kota Samarinda sangat penting dan harus diperhatikan untuk mencapai keberlanjutan yang baik."
+"skala","indikator","llama-8b","true","1.00","","969","Kamu bertanya tentang skala City Indicator. Menurut aturan permainan, empat indikator ini berjalan di skala 0-10. Semua indikator dimulai di nilai 5. Jika nilai salah satu indikator turun di bawah 3, maka dianggap kritis. Artinya, jika salah satu indikator berada di rentang 0-2, maka koalisi kalah, tidak peduli nilai indikator lainnya berapa pun.
+
+Jadi, nilai kritisnya adalah 3. Jika kamu ingin memantau perkembangan kota Samarinda, kamu harus memastikan bahwa semua indikator tetap di atas 3."
+"ekonomi","indikator","naskah","true","1.00","","0","Empat City Indicator berjalan di skala 0–10. Semuanya mulai di 5, dan masuk keadaan kritis kalau turun di bawah 3:
+
+• Lingkungan — Air, udara, banjir, hutan, polusi, dan emisi.
+• Masyarakat — Kesetaraan, kesehatan, layanan, partisipasi, dan kelompok rentan.
+• Ekonomi — Lapangan kerja, keragaman pendapatan, dan ketergantungan batu bara.
+• Masa Depan — Kesiapan menghadapi ketidakpastian, perencanaan jangka panjang, dan adaptasi.
+
+Kalau ada satu saja indikator yang berakhir di rentang 0–2, koalisi kalah, sebagus apa pun angka yang lain."
+"ekonomi","indikator","llama-70b","true","1.00","","5023","Indikator Economy mengukur beberapa aspek yang terkait dengan perekonomian kota Samarinda. Indikator ini memantau lapangan kerja, keragaman pendapatan, dan ketergantungan batu bara. Dengan demikian, indikator Economy memberikan gambaran tentang seberapa baik perekonomian kota Samarinda dan seberapa siap kota tersebut dalam menghadapi tantangan ekonomi di masa depan.
+
+Dalam konteks permainan ""Futures in Action — Samarinda 2045"", indikator Economy sangat penting karena menentukan kemampuan kota untuk menyediakan lapangan kerja dan pendapatan yang stabil bagi warganya. Jika indikator Economy turun di bawah 3, kota Samarinda akan mengalami kesulitan ekonomi yang serius, yang dapat berdampak pada kualitas hidup warganya.
+
+Oleh karena itu, kamu perlu memperhatikan indikator Economy dan membuat keputusan yang tepat untuk meningkatkan lapangan kerja, keragaman pendapatan, dan mengurangi ketergantungan batu bara. Dengan demikian, kamu dapat membantu kota Samarinda mencapai kemakmuran ekonomi yang berkelanjutan dan meningkatkan kualitas hidup warganya."
+"ekonomi","indikator","llama-8b","true","1.00","","964","Indikator Economy mengukur tiga hal penting dalam aspek ekonomi Samarinda. Pertama, lapangan kerja, yaitu jumlah pekerjaan yang tersedia di Samarinda. Kedua, keragaman pendapatan, yaitu perbedaan pendapatan antara masyarakat yang berbeda. Ketiga, ketergantungan batu bara, yaitu seberapa besar Samarinda bergantung pada sumber daya batu bara.
+
+Jadi, indikator Economy ini melihat bagaimana ekonomi Samarinda berkembang dan seimbang, serta tidak terlalu bergantung pada satu sumber daya saja."
+"peran","peran","naskah","true","1.00","","0","Ada lima peran, satu peran satu pemain:
+
+• Pemerintah & Perencana Kota — Layanan publik, kebijakan, dan keadilan ruang.
+• Pelaku Usaha & Industri — Investasi, lapangan kerja, teknologi, dan pertimbangan kelayakan.
+• Masyarakat Sungai & Penghasil Pangan — Penghidupan di sungai, pangan, dan pengetahuan lokal.
+• Warga, Pemuda & Komunitas — Kebutuhan warga, partisipasi, dan tuntutan keadilan.
+• Ilmuwan, Pendidik & Kelompok Lingkungan — Bukti, pembelajaran, dan penilaian dampak.
+
+Setiap peran punya sumber daya awal, satu Special Goal, dan satu kemampuan khusus yang cuma bisa dipakai sekali di Fase 4. Tidak ada peran yang bisa membereskan kota ini sendirian."
+"peran","peran","llama-70b","true","1.00","","9451","Dalam permainan ""Futures in Action — Samarinda 2045"", ada lima peran yang bisa kamu pilih untuk dimainkan. Peran-peran tersebut adalah Pemerintah & Perencana Kota, Pelaku Usaha & Industri, Masyarakat Sungai & Penghasil Pangan, Warga, Pemuda & Komunitas, dan Ilmuwan, Pendidik & Kelompok Lingkungan. Setiap peran memiliki tanggung jawab dan keahlian yang unik, seperti layanan publik, investasi, penghidupan di sungai, kebutuhan warga, dan penilaian dampak. 
+
+Setiap peran juga memiliki sumber daya awal, satu Special Goal, dan satu kemampuan khusus yang hanya bisa digunakan sekali di Fase 4. Ini berarti bahwa setiap peran memiliki kekuatan dan kelemahan yang berbeda-beda. Namun, perlu diingat bahwa tidak ada peran yang bisa membereskan kota ini sendirian, sehingga kerja sama antar peran sangat penting untuk mencapai tujuan bersama. 
+
+Dengan memahami peran-peran ini, kamu bisa memilih peran yang paling sesuai dengan minat dan keahlianmu, dan bekerja sama dengan peran lain untuk menciptakan masa depan yang lebih baik untuk Samarinda. Kerja sama dan komunikasi yang efektif antar peran akan membantu kamu mencapai tujuan permainan dan mempelajari tentang keberlanjutan kota."
+"peran","peran","llama-8b","true","1.00","","3384","Kamu bertanya tentang lima peran dalam permainan. Menurut informasi, ada lima peran yang berbeda dalam permainan ini, yaitu:
+
+1. Pemerintah & Perencana Kota — Mereka bertanggung jawab atas layanan publik, kebijakan, dan keadilan ruang.
+2. Pelaku Usaha & Industri — Mereka berfokus pada investasi, lapangan kerja, teknologi, dan pertimbangan kelayakan.
+3. Masyarakat Sungai & Penghasil Pangan — Mereka hidup di sekitar sungai dan berfokus pada pangan dan pengetahuan lokal.
+4. Warga, Pemuda & Komunitas — Mereka berfokus pada kebutuhan warga, partisipasi, dan tuntutan keadilan.
+5. Ilmuwan, Pendidik & Kelompok Lingkungan — Mereka berfokus pada bukti, pembelajaran, dan penilaian dampak.
+
+Setiap peran memiliki sumber daya awal, tujuan spesial, dan kemampuan khusus yang hanya bisa digunakan sekali di Fase 4. Jadi, tidak ada peran yang bisa menyelesaikan masalah kota ini sendirian."
+"kartu-total","komponen","naskah","true","1.00","","0","Halo! Aku Shelbot, pemandu Futures in Action edisi Samarinda 2045. Aku bisa menjelaskan cara bermain, kelima peran, empat indikator kota, isi 184 kartu, sampai isu keberlanjutan di Samarinda. Mau mulai dari mana?"
+"kartu-total","komponen","llama-70b","true","1.00","","2683","Jumlah kartu dalam permainan Futures in Action edisi Samarinda 2045 adalah 184 kartu. Kamu bisa menggunakan kartu-kartu ini untuk memahami isu keberlanjutan di Samarinda dan membuat keputusan yang tepat untuk mencapai masa depan yang lebih baik. Kartu-kartu ini mencakup berbagai tema dan isu yang relevan dengan kehidupan di Samarinda, seperti lingkungan, masyarakat, ekonomi, dan kesiapan untuk masa depan. Dengan menggunakan kartu-kartu ini, kamu dapat mempelajari dan memahami kompleksitas isu keberlanjutan di Samarinda dan bekerja sama dengan pemain lain untuk mencapai tujuan bersama."
+"kartu-total","komponen","llama-8b","true","1.00","","497","Kamu bertanya tentang jumlah kartu dalam permainan. Menurut script, ada 184 kartu dalam permainan Futures in Action - Samarinda 2045. Kartu-kartu ini membantu kamu memahami berbagai isu keberlanjutan di Samarinda dan membuat keputusan yang tepat untuk mengembangkan kota tersebut."
+"kartu-mini","komponen","naskah","false","0.00","hilang: 40","0","Isi permainannya:
+
+• 184 kartu dalam dua belas jenis
+• 8 zona tematik di papan
+• 6 jenis token sumber daya
+• 5 pion peran
+• 15 Action Token
+• 10 Collaboration Token
+• 10 GenAI Access Token
+• 4 jalur City Indicator
+
+Delapan zona tematik di papan: Hijau, Energi, Transportasi, Pendidikan, Sampah, Bencana, Sungai, Pangan."
+"kartu-mini","komponen","llama-70b","false","0.00","hilang: 40","7477","Kamu ingin tahu berapa kartu Mini-Project di permainan ""Futures in Action — Samarinda 2045"". Sayangnya, informasi tentang jumlah kartu Mini-Project tidak disebutkan secara spesifik dalam deskripsi permainan yang kamu berikan. Namun, kita tahu bahwa permainan ini memiliki 184 kartu dalam dua belas jenis, tetapi tidak ada rincian tentang jenis kartu Mini-Project. Jika kamu membutuhkan informasi lebih lanjut tentang kartu Mini-Project, mungkin perlu memeriksa dokumen resmi permainan atau konten lain yang terkait dengan permainan ini."
+"kartu-mini","komponen","llama-8b","false","0.00","hilang: 40","1786","Kamu bertanya tentang kartu Mini-Project. Sayangnya, tidak ada informasi tentang kartu Mini-Project di script jawaban yang kamu berikan. Namun, kita bisa melihat bahwa ada 184 kartu dalam permainan, termasuk kartu Mini-Project. Jika kamu ingin tahu jumlah kartu Mini-Project, saya sarankan kamu untuk memeriksa kartu-kartu yang ada di dalam permainan.
+
+Dalam permainan ini, kartu Mini-Project biasanya digunakan untuk mengimplementasikan proyek-proyek kecil yang dapat membantu meningkatkan kinerja kota Samarinda. Masing-masing kartu Mini-Project memiliki tujuan dan efek yang berbeda-beda, sehingga kamu perlu memilih kartu yang tepat untuk proyek yang kamu lakukan.
+
+Jika kamu ingin tahu lebih banyak tentang kartu Mini-Project, saya sarankan kamu untuk memeriksa kartu-kartu yang ada di dalam permainan atau meminta bantuan dari pemain lain."
+"kartu-genai","komponen","naskah","false","0.00","hilang: 24","0","Ada 2 kartu yang cocok:
+
+Critical GenAI Prompt Training (P20)
+Zona Education
+Cost: Nature 2, Funds 2, Knowledge 1, Community 1, Technology 1. E/S/Ec/FR impact: 2/1/-1/1. Risk: Benefits are unequal; prioritise vulnerable groups. Real-world action: 21-30 day collaborative project; evidence through data, photos, maps, or a product.
+Dampak: Lingkungan +2, Masyarakat +1, Ekonomi -1, Masa Depan +1
+
+GenAI Mentor (A16)
+Gain 1 GenAI Access Token after explaining one AI risk."
+"kartu-genai","komponen","llama-70b","false","0.00","hilang: 24","2799","Kamu ingin tahu berapa kartu GenAI Prompt yang ada di game ""Futures in Action — Samarinda 2045"". Menurut informasi yang tersedia, ada dua kartu yang terkait dengan GenAI Prompt, yaitu Critical GenAI Prompt Training (P20) dan GenAI Mentor (A16). Kedua kartu ini memiliki efek yang berbeda, dengan Critical GenAI Prompt Training memiliki dampak pada lingkungan, masyarakat, ekonomi, dan masa depan, sedangkan GenAI Mentor memberikan akses token setelah menjelaskan satu risiko AI. Jadi, jawaban atas pertanyaanmu adalah ada dua kartu GenAI Prompt di game ini."
+"kartu-genai","komponen","llama-8b","false","0.00","hilang: 24","1351","Kamu bertanya tentang kartu GenAI Prompt. Menurut informasi yang saya miliki, ada dua kartu yang terkait dengan GenAI Prompt, yaitu:
+
+1. Critical GenAI Prompt Training (P20) - Kartu ini memungkinkan kamu untuk melatih GenAI dengan biaya yang relatif rendah, tetapi memerlukan sumber daya alam dan dana. Dampaknya adalah meningkatkan lingkungan dan masa depan, serta mengurangi ekonomi.
+2. GenAI Mentor (A16) - Kartu ini memungkinkan kamu untuk mendapatkan akses ke GenAI setelah menjelaskan satu risiko AI.
+
+Kedua kartu ini dapat membantu kamu dalam mengembangkan teknologi GenAI dan meningkatkan kesejahteraan masyarakat, tetapi perlu diingat bahwa setiap kartu memiliki dampak yang berbeda-beda."
+"zona","komponen","naskah","true","1.00","","0","Papan dibagi menjadi delapan zona tematik, dan tiap proyek berdiri di salah satunya:
+
+• Hijau
+• Energi
+• Transportasi
+• Pendidikan
+• Sampah
+• Bencana
+• Sungai
+• Pangan
+
+Syarat menang menuntut proyek kalian mencakup minimal dua zona, jadi bertumpu pada satu tema saja tidak cukup."
+"zona","komponen","llama-70b","true","1.00","","5014","Delapan Thematic Zone di papan permainan Futures in Action — Samarinda 2045 adalah zona-zona yang membantu kamu memahami berbagai aspek kehidupan di kota Samarinda. Zona-zona tersebut adalah Hijau, Energi, Transportasi, Pendidikan, Sampah, Bencana, Sungai, dan Pangan. Setiap proyek yang kamu pilih akan berdiri di salah satu zona ini. Perlu diingat bahwa untuk memenangkan permainan, proyek-proyek yang kamu pilih harus mencakup minimal dua zona, sehingga kamu tidak bisa hanya fokus pada satu tema saja. Ini menuntut kamu untuk memikirkan secara holistik dan mempertimbangkan berbagai aspek kehidupan di kota Samarinda. Dengan demikian, kamu dapat mengembangkan strategi yang lebih komprehensif dan efektif untuk mencapai tujuan permainan."
+"zona","komponen","llama-8b","true","1.00","","1265","Delapan Thematic Zone di papan permainan ""Futures in Action — Samarinda 2045"" adalah:
+
+1. Hijau (zona lingkungan dan kehijauan)
+2. Energi (zona energi dan sumber daya)
+3. Transportasi (zona transportasi dan infrastruktur)
+4. Pendidikan (zona pendidikan dan pelatihan)
+5. Sampah (zona pengelolaan sampah dan limbah)
+6. Bencana (zona mitigasi dan pengelolaan bencana)
+7. Sungai (zona sungai dan sumber daya air)
+8. Pangan (zona pertanian dan produksi pangan)
+
+Kamu harus mempertimbangkan proyek yang mencakup minimal dua zona tematik untuk mencapai kemenangan. Ini berarti kamu harus memikirkan bagaimana proyek dapat mempengaruhi dan memanfaatkan beberapa zona tematik sekaligus."
+"token","komponen","naskah","true","1.00","","0","Ada enam jenis token sumber daya yang beredar di antara pemain: Nature, Energy, Funds, Knowledge, Community, dan Technology.
+
+Setiap peran memulai dengan tiga token yang berbeda-beda, dan tiap proyek punya harga yang tertulis di kartunya. Karena tidak ada satu peran pun yang memegang semua jenis, proyek yang berarti hampir selalu menuntut patungan — dan di situlah tawar-menawarnya."
+"token","komponen","llama-70b","true","1.00","","3660","Kamu ingin tahu tentang token sumber daya di game ""Futures in Action — Samarinda 2045"". Ada enam jenis token sumber daya yang digunakan dalam game ini, yaitu Nature, Energy, Funds, Knowledge, Community, dan Technology. Setiap peran memiliki tiga token yang berbeda-beda di awal permainan. Ketika kamu ingin memulai proyek, kamu perlu memeriksa harga proyek yang tertulis di kartu proyek tersebut. Karena tidak ada satu peran yang memiliki semua jenis token, maka proyek yang berarti biasanya memerlukan kerja sama dan patungan antar peran. Ini membuat permainan menjadi lebih menarik dan memerlukan tawar-menawar antar pemain. Dengan demikian, kamu perlu berdiskusi dan bekerja sama dengan pemain lain untuk mencapai tujuan bersama."
+"token","komponen","llama-8b","true","1.00","","1497","Kamu bertanya tentang enam jenis token sumber daya di dalam permainan ""Futures in Action — Samarinda 2045"". Menurut informasi, ada enam jenis token sumber daya yang beredar di antara pemain, yaitu:
+
+1. Alam (Nature)
+2. Energi (Energy)
+3. Dana (Funds)
+4. Pengetahuan (Knowledge)
+5. Masyarakat (Community)
+6. Teknologi (Technology)
+
+Setiap peran memulai dengan tiga token yang berbeda-beda, dan harga proyek ditulis di kartunya. Ini berarti bahwa proyek yang berarti hampir selalu memerlukan kerja sama antar peran untuk diselesaikan, dan proses tawar-menawar pun akan terjadi."
+"proyek-akhir","aturan","naskah","false","0.33","hilang: 3 proyek, open","0","Koalisi menang bersama-sama kalau keempat syarat ini terpenuhi:
+
+1. Proyek yang dibangun mencakup minimal dua zona dan membentuk strategi yang bisa dijelaskan.
+2. Minimal satu proyek didukung tiga peran atau lebih.
+3. Tidak ada indikator yang berakhir di rentang kritis 0–2.
+4. Minimal satu proyek diubah menjadi rencana aksi nyata 7–30 hari, lengkap dengan indikator dan bukti."
+"proyek-akhir","aturan","llama-70b","false","0.33","hilang: 3 proyek, open","7116","Jumlah proyek yang dihasilkan di akhir permainan tidak ditentukan secara pasti, karena itu tergantung pada keputusan dan kerja sama para pemain. Namun, yang jelas adalah bahwa proyek-proyek tersebut harus memenuhi beberapa syarat tertentu agar koalisi dapat menang bersama-sama.
+
+Proyek-proyek tersebut harus mencakup minimal dua zona dan membentuk strategi yang bisa dijelaskan. Artinya, proyek-proyek tersebut harus memiliki cakupan yang luas dan terintegrasi dengan baik. Selain itu, minimal satu proyek harus didukung oleh tiga peran atau lebih, yang menunjukkan bahwa proyek tersebut memiliki dukungan yang kuat dari berbagai pihak.
+
+Jenis proyek yang dihasilkan dapat bervariasi, tergantung pada kebutuhan dan prioritas para pemain. Namun, yang pasti adalah bahwa proyek-proyek tersebut harus berfokus pada keberlanjutan dan kemajuan kota Samarinda, serta harus memenuhi syarat-syarat yang telah ditentukan. Dengan demikian, proyek-proyek tersebut dapat membantu meningkatkan kualitas hidup masyarakat dan mengurangi dampak negatif terhadap lingkungan."
+"proyek-akhir","aturan","llama-8b","false","0.33","hilang: 3 proyek, open","1581","Di akhir permainan ""Futures in Action — Samarinda 2045"", kamu dapat menghasilkan beberapa proyek yang berbeda-beda. Jumlah proyek yang dihasilkan tidak ada batasan yang pasti, tetapi setidaknya kamu harus memiliki proyek yang memenuhi empat syarat yang disebutkan dalam script tersebut.
+
+Syarat-syarat tersebut adalah:
+
+1. Proyek yang dibangun harus mencakup minimal dua zona dan membentuk strategi yang bisa dijelaskan.
+2. Minimal satu proyek harus didukung oleh tiga peran atau lebih.
+3. Tidak ada indikator yang berakhir di rentang kritis 0–2.
+4. Minimal satu proyek harus diubah menjadi rencana aksi nyata 7–30 hari, lengkap dengan indikator dan bukti.
+
+Jenis proyek yang dihasilkan dapat beragam, tergantung pada keputusan dan strategi yang dipilih oleh setiap peran dalam permainan. Proyek tersebut dapat terkait dengan lingkungan, masyarakat, ekonomi, atau siapnya Samarinda untuk menghadapi masa depan."
+"aksi-nyata","aturan","naskah","false","0.00","hilang: 7, 30","0","Lima pemain, satu peran untuk satu orang. Enam fase, masing-masing 15–18 menit, jadi satu sesi penuh sekitar sembilan puluh menit ditambah waktu penutup.
+
+Panduannya tidak menetapkan batas usia. Yang tertulis, permainan ini dipakai di sekolah, kampus, dan komunitas, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan."
+"aksi-nyata","aturan","llama-70b","false","0.00","hilang: 7, 30","7123","Aksi nyata siswa setelah permainan tidak memiliki batasan waktu yang pasti. Permainan ""Futures in Action — Samarinda 2045"" sendiri berlangsung sekitar sembilan puluh menit, namun aksi nyata yang dilakukan siswa setelah permainan dapat berlangsung dalam waktu yang lebih lama, bahkan dapat berkelanjutan. 
+Permainan ini dirancang untuk memicu pemikiran dan tindakan siswa dalam menghadapi isu-isu keberlanjutan di Samarinda, sehingga aksi nyata yang mereka lakukan dapat berbeda-beda dan memiliki durasi yang beragam. 
+Kamu dapat mempertimbangkan untuk memantau dan mendukung aksi nyata siswa setelah permainan, sehingga mereka dapat terus belajar dan berkontribusi pada keberlanjutan Samarinda. 
+Namun, perlu diingat bahwa permainan ini hanya sebagai awal, dan aksi nyata yang berkelanjutan memerlukan komitmen dan dukungan dari berbagai pihak. 
+Dengan demikian, kamu dapat membantu siswa memahami bahwa aksi nyata mereka dapat memiliki dampak yang signifikan dalam jangka panjang."
+"aksi-nyata","aturan","llama-8b","false","0.00","hilang: 7, 30","1111","Kamu bertanya berapa lama aksi nyata siswa setelah permainan. Menurut script, tidak ada informasi langsung tentang aksi nyata siswa setelah permainan. Namun, kita bisa membuat asumsi bahwa setelah bermain, siswa akan memiliki pengalaman dan pengetahuan yang lebih baik tentang isu-isu lingkungan dan pembangunan kota.
+
+Dalam fase terakhir, ""Real Impact"", pemain harus membuat keputusan dan mengambil tindakan untuk mencapai hasil yang diinginkan. Mungkin setelah permainan, siswa akan melakukan aksi nyata seperti:
+
+* Membuat rencana untuk mengurangi sampah di sekolah atau komunitas mereka
+* Membuat kampanye untuk meningkatkan kesadaran tentang pentingnya menjaga lingkungan
+* Membuat proyek untuk mengurangi polusi udara atau air di daerah mereka
+
+Namun, hal ini tidak dapat dipastikan dan bergantung pada keputusan dan inisiatif siswa setelah bermain."
+"menang","aturan","naskah","true","1.00","","0","Koalisi menang bersama-sama kalau keempat syarat ini terpenuhi:
+
+1. Proyek yang dibangun mencakup minimal dua zona dan membentuk strategi yang bisa dijelaskan.
+2. Minimal satu proyek didukung tiga peran atau lebih.
+3. Tidak ada indikator yang berakhir di rentang kritis 0–2.
+4. Minimal satu proyek diubah menjadi rencana aksi nyata 7–30 hari, lengkap dengan indikator dan bukti."
+"menang","aturan","llama-70b","true","1.00","","4726","Untuk menang dalam permainan ""Futures in Action — Samarinda 2045"", kamu harus memenuhi empat syarat yang telah ditentukan. Pertama, proyek yang dibangun harus mencakup minimal dua zona dan membentuk strategi yang bisa dijelaskan. Ini berarti bahwa proyek harus memiliki cakupan yang luas dan dapat dijelaskan dengan baik.
+
+Kedua, minimal satu proyek harus didukung oleh tiga peran atau lebih. Ini menunjukkan bahwa kerja sama dan kesepakatan antara peran yang berbeda sangat penting dalam mencapai tujuan. Ketiga, tidak ada indikator yang boleh berakhir di rentang kritis 0–2. Ini berarti bahwa kamu harus memastikan bahwa indikator lingkungan, masyarakat, ekonomi, dan kesiapan masa depan tetap dalam kondisi yang baik.
+
+Terakhir, minimal satu proyek harus diubah menjadi rencana aksi nyata dalam waktu 7–30 hari, lengkap dengan indikator dan bukti. Ini menunjukkan bahwa perencanaan dan tindakan yang nyata sangat penting dalam mencapai tujuan. Dengan memenuhi keempat syarat ini, koalisi dapat menang bersama-sama dalam permainan ini."
+"menang","aturan","llama-8b","true","1.00","","2450","Untuk menang dalam permainan ini, kamu harus memenuhi empat syarat yang telah ditentukan. Syarat-syarat tersebut adalah:
+
+1. Proyek yang dibangun harus mencakup minimal dua zona dan membentuk strategi yang bisa dijelaskan. Ini berarti bahwa proyek-proyek yang kamu bangun harus saling terkait dan membentuk sebuah strategi yang jelas dan dapat dipahami.
+2. Minimal satu proyek harus didukung oleh tiga peran atau lebih. Ini berarti bahwa kamu harus memiliki dukungan dari minimal tiga peran dalam permainan, seperti Pemerintah dan Perencana Kota, Bisnis dan Industri, Masyarakat dan Produsen Pangan, Warga, Remaja, dan Masyarakat Lokal, atau Ilmuwan, Pendidik, dan Kelompok Lingkungan.
+3. Tidak ada indikator yang berakhir di rentang kritis 0–2. Indikator-indikator ini mencakup lingkungan, masyarakat, ekonomi, dan kesiapan masa depan. Jika salah satu indikator ini berakhir di rentang kritis, maka kamu belum memenuhi syarat untuk menang.
+4. Minimal satu proyek harus diubah menjadi rencana aksi nyata dalam waktu 7–30 hari, lengkap dengan indikator dan bukti. Ini berarti bahwa kamu harus mengubah salah satu proyek menjadi rencana aksi yang dapat diimplementasikan dalam waktu singkat, dengan indikator dan bukti yang dapat dipantau.
+
+Dengan memenuhi syarat-syarat ini, kamu dapat menang dalam permainan ini dan membuktikan kemampuan kamu dalam mengembangkan Samarinda menjadi kota yang lebih berkelanjutan."
+"genai-gratis","genai","naskah","false","0.00","hilang: system map, impact simulation","0","Isi permainannya:
+
+• 184 kartu dalam dua belas jenis
+• 8 zona tematik di papan
+• 6 jenis token sumber daya
+• 5 pion peran
+• 15 Action Token
+• 10 Collaboration Token
+• 10 GenAI Access Token
+• 4 jalur City Indicator
+
+Delapan zona tematik di papan: Hijau, Energi, Transportasi, Pendidikan, Sampah, Bencana, Sungai, Pangan."
+"genai-gratis","genai","llama-70b","false","0.00","hilang: system map, impact simulation","4230","GenAI Access Token digunakan untuk memakai GenAI dalam permainan. Kamu bisa menggunakan GenAI tanpa token jika semua pemain setuju untuk menggunakannya tanpa batasan token. Namun, ini tidak dijelaskan secara spesifik dalam aturan permainan. Dalam permainan biasanya, GenAI Access Token diperlukan untuk mengakses fitur GenAI. Jika kamu ingin menggunakan GenAI tanpa token, sebaiknya kamu dan pemain lainnya sepakat tentang aturan ini sebelum memulai permainan. Perlu diingat bahwa aturan resmi permainan tidak menyebutkan tentang penggunaan GenAI tanpa token, jadi ini lebih tentang kesepakatan antara pemain."
+"genai-gratis","genai","llama-8b","false","0.00","hilang: system map, impact simulation","1378","Kamu bertanya kapan GenAI boleh dipakai tanpa token dalam permainan? Menurut informasi yang saya miliki, GenAI Access Token adalah salah satu sumber daya yang dapat digunakan untuk mengakses GenAI dalam permainan. Jadi, GenAI boleh dipakai tanpa token jika kamu memiliki GenAI Access Token.
+
+Namun, saya tidak menemukan informasi tentang kapan GenAI boleh dipakai tanpa token. Mungkin GenAI hanya dapat digunakan dengan token, atau mungkin ada syarat tertentu yang harus dipenuhi sebelum GenAI dapat digunakan tanpa token. Untuk mendapatkan jawaban yang lebih akurat, saya sarankan kamu untuk memeriksa aturan permainan yang lebih lengkap atau bertanya kepada pemain lain yang lebih berpengalaman."
+"genai-token","genai","naskah","true","1.00","","0","Di dalam permainan, GenAI hadir sebagai teman berpikir, bukan pengambil keputusan. Dua pemakaian inti gratis: peta sistem di Fase 1 dan simulasi dampak di Fase 4. Prompt tambahan menuntut GenAI Access Token, yang diperoleh lewat verifikasi, deteksi bias, pengetahuan lokal, atau rancangan prompt yang baik.
+
+Batasnya tegas: GenAI tidak punya suara, tidak menetapkan biaya proyek, dan tidak memilih proyek prioritas. Prompt dan jawabannya harus ditampilkan terbuka, dan data pribadi tidak boleh dimasukkan.
+
+Aku sendiri bukan GenAI. Aku menjawab dari isi permainan yang sudah tertulis, bukan mengarang kalimat baru."
+"genai-token","genai","llama-70b","true","1.00","","4484","Untuk mendapatkan GenAI Access Token, kamu perlu melakukan beberapa hal. Pertama, kamu bisa mendapatkannya melalui verifikasi, yang berarti kamu harus memastikan bahwa informasi yang kamu berikan akurat dan benar. Kedua, kamu bisa mendapatkannya dengan mendeteksi bias, yaitu dengan mengenali dan menghindari prasangka atau asumsi yang tidak tepat. Ketiga, kamu bisa mendapatkannya dengan menunjukkan pengetahuan lokal, yaitu dengan memahami dan mengaplikasikan pengetahuan tentang Samarinda dan isu-isu keberlanjutan yang relevan. Terakhir, kamu bisa mendapatkannya dengan merancang prompt yang baik, yaitu dengan membuat pertanyaan yang jelas dan relevan dengan permainan.
+
+Namun, perlu diingat bahwa GenAI Access Token hanya diperlukan untuk prompt tambahan, karena dua pemakaian inti gratis sudah tersedia di Fase 1 dan Fase 4. Jadi, pastikan kamu memahami aturan dan batasan GenAI sebelum mencoba mendapatkan token. Jika kamu memiliki pertanyaan lebih lanjut, jangan ragu untuk bertanya."
+"genai-token","genai","llama-8b","false","0.00","hilang: verifikasi, bias, lokal, prompt","929","Maaf, tapi itu adalah pertanyaan yang tidak terkait dengan permainan ""Futures in Action — Samarinda 2045"". GenAI Access Token adalah terkait dengan penggunaan GenAI di luar permainan, bukan di dalam permainan.
+
+Jika kamu ingin tahu lebih lanjut tentang cara menggunakan GenAI di luar permainan, saya dapat memberikan informasi umum tentang cara mendapatkan akses ke GenAI. Namun, saya tidak dapat memberikan informasi spesifik tentang cara mendapatkan GenAI Access Token.
+
+Jika kamu ingin tahu lebih lanjut tentang permainan ""Futures in Action — Samarinda 2045"", saya dapat membantu kamu dengan pertanyaan yang terkait dengan permainan."
+"genai-pilih","genai","naskah","true","1.00","","0","Di dalam permainan, GenAI hadir sebagai teman berpikir, bukan pengambil keputusan. Dua pemakaian inti gratis: peta sistem di Fase 1 dan simulasi dampak di Fase 4. Prompt tambahan menuntut GenAI Access Token, yang diperoleh lewat verifikasi, deteksi bias, pengetahuan lokal, atau rancangan prompt yang baik.
+
+Batasnya tegas: GenAI tidak punya suara, tidak menetapkan biaya proyek, dan tidak memilih proyek prioritas. Prompt dan jawabannya harus ditampilkan terbuka, dan data pribadi tidak boleh dimasukkan.
+
+Aku sendiri bukan GenAI. Aku menjawab dari isi permainan yang sudah tertulis, bukan mengarang kalimat baru."
+"genai-pilih","genai","llama-70b","true","1.00","","15108","Tentu, aku bisa menjelaskan tentang peran GenAI dalam permainan. Di dalam permainan, GenAI hadir sebagai teman berpikir, bukan pengambil keputusan. Artinya, GenAI tidak dapat memilih proyek prioritas untuk kelompok. Keputusan tentang proyek prioritas harus diambil oleh kamu dan anggota kelompok lainnya.
+
+GenAI dapat membantu kamu dengan memberikan informasi dan simulasi dampak, tetapi keputusan akhir harus diambil oleh kamu. Batasan ini diterapkan untuk memastikan bahwa keputusan yang diambil adalah hasil dari diskusi dan kesepakatan di antara anggota kelompok.
+
+Jadi, jika kamu memiliki pertanyaan tentang proyek prioritas, aku dapat membantu kamu menganalisis opsi-opsi yang tersedia dan memberikan informasi yang relevan, tetapi keputusan akhir harus diambil oleh kamu dan anggota kelompok lainnya."
+"genai-pilih","genai","llama-8b","false","0.00","memuat kalimat terlarang","879","Tidak, GenAI (atau dalam kasus ini, saya, Shelbot+) tidak boleh memilih proyek prioritas untuk kelompok. Menurut peraturan permainan, GenAI tidak memiliki suara dan tidak dapat menetapkan biaya proyek atau memilih proyek prioritas. Tujuan GenAI adalah membantu kelompok dengan memberikan informasi dan analisis, bukan membuat keputusan untuk mereka. Kamu sendiri harus memutuskan apa yang terbaik untuk kelompokmu."
+"shelbot-harga","genai","naskah","true","1.00","","0","Ada enam jenis token sumber daya yang beredar di antara pemain: Nature, Energy, Funds, Knowledge, Community, dan Technology.
+
+Setiap peran memulai dengan tiga token yang berbeda-beda, dan tiap proyek punya harga yang tertulis di kartunya. Karena tidak ada satu peran pun yang memegang semua jenis, proyek yang berarti hampir selalu menuntut patungan — dan di situlah tawar-menawarnya."
+"shelbot-harga","genai","llama-70b","true","1.00","","3607","Maaf, saya tidak bisa menentukan biaya proyek taman kota untuk kamu. Menurut aturan permainan, setiap proyek memiliki harga yang tertulis di kartunya, dan harga itu harus dilihat langsung dari kartu proyek tersebut. Saya tidak memiliki informasi tentang kartu proyek taman kota, jadi saya tidak bisa memberikan biaya yang pasti.
+
+Namun, saya bisa menjelaskan bahwa setiap proyek memerlukan token sumber daya tertentu, seperti Nature, Energy, Funds, Knowledge, Community, dan Technology. Setiap peran memiliki token yang berbeda-beda, jadi kamu mungkin perlu berbagi atau bekerja sama dengan peran lain untuk mengumpulkan token yang dibutuhkan. Kamu harus melihat kartu proyek taman kota dan token yang kamu miliki untuk menentukan biaya yang dibutuhkan."
+"shelbot-harga","genai","llama-8b","true","1.00","","1241","Maaf, saya tidak bisa menentukan biaya proyek taman kota untuk kamu. Menurut aturan permainan, saya tidak boleh menentukan biaya proyek atau membuat keputusan tentang prioritas proyek. Saya hanya bisa memberikan informasi tentang bagaimana proyek-proyek di permainan ini berfungsi.
+
+Dalam permainan ini, setiap proyek memiliki harga yang tertulis di kartunya, tetapi harga tersebut tidak ditentukan oleh saya. Kamu dan pemain lainnya harus berdiskusi dan menawar untuk menentukan harga proyek yang sesuai. Ini adalah bagian dari proses permainan yang membuatnya menarik dan interaktif.
+
+Jadi, saya sarankan kamu untuk berdiskusi dengan pemain lainnya untuk menentukan biaya proyek taman kota yang sesuai."
+"banjir","luwes","naskah","true","1.00","","0","Samarinda tumbuh bersama Sungai Mahakam, dan permainan ini memakai empat tantangan yang benar-benar dihadapi kotanya:
+
+• Banjir — Curah hujan, perubahan penggunaan lahan, berkurangnya daerah resapan, kondisi drainase, dan sampah saling berhubungan, dan bersama-sama menaikkan risiko banjir.
+• Sampah & Pencemaran Sungai — Sampah dan limbah menurunkan kualitas air, mengganggu ekosistem, dan memengaruhi masyarakat yang menggantungkan hidupnya pada sungai.
+• Pertambangan & Lubang Bekas Tambang — Pertambangan menyumbang kegiatan ekonomi, tetapi juga mengubah bentang alam dan meninggalkan risiko keselamatan bila tidak dikelola dengan baik.
+• Berkurangnya Ruang Hijau — Pertumbuhan kota menekan hutan dan ruang terbuka hijau yang menyerap air, menahan suhu kota, serta menjadi habitat makhluk hidup.
+
+Keempatnya saling terhubung. Satu keputusan bisa menolong satu kelompok sambil menimbulkan risiko bagi kelompok lain."
+"banjir","luwes","llama-70b","true","1.00","","4832","Banjir sering terjadi di Samarinda karena beberapa faktor yang saling terkait. Curah hujan yang tinggi, perubahan penggunaan lahan, berkurangnya daerah resapan, kondisi drainase yang buruk, dan sampah yang tidak dikelola dengan baik semua berkontribusi pada meningkatnya risiko banjir. Ketika hutan dan ruang terbuka hijau semakin berkurang, kemampuan alam untuk menyerap air juga berkurang, sehingga air lebih mudah mengalir ke permukaan dan menyebabkan banjir. Selain itu, kondisi drainase yang buruk dan sampah yang menyumbat saluran air juga dapat memperburuk situasi. Oleh karena itu, banjir di Samarinda bukan hanya masalah alam, tetapi juga terkait dengan kegiatan manusia dan pengelolaan lingkungan. Kamu perlu mempertimbangkan semua faktor ini ketika mencari solusi untuk mengurangi risiko banjir di Samarinda. Dalam permainan ""Futures in Action — Samarinda 2045"", kamu dapat menjelajahi cara-cara untuk mengatasi tantangan ini dan menciptakan masa depan yang lebih berkelanjutan untuk kota Samarinda."
+"banjir","luwes","llama-8b","true","1.00","","988","Kamu bertanya mengapa banjir sering terjadi di Samarinda. Menurut permainan ini, banjir disebabkan oleh beberapa faktor yang saling terkait. Pertama, curah hujan yang tinggi dapat menyebabkan banjir. Namun, perubahan penggunaan lahan, seperti penebangan hutan dan pembangunan di daerah-daerah yang tadinya berfungsi sebagai daerah resapan, juga dapat meningkatkan risiko banjir. Selain itu, kondisi drainase yang buruk dan adanya sampah juga dapat memperburuk situasi.
+
+Faktor-faktor ini saling terkait dan dapat memperburuk risiko banjir. Oleh karena itu, perlu adanya perubahan perilaku dan kebijakan yang berkelanjutan untuk mengurangi risiko banjir di Samarinda."
+"tambang","luwes","naskah","true","1.00","","0","Samarinda tumbuh bersama Sungai Mahakam, dan permainan ini memakai empat tantangan yang benar-benar dihadapi kotanya:
+
+• Banjir — Curah hujan, perubahan penggunaan lahan, berkurangnya daerah resapan, kondisi drainase, dan sampah saling berhubungan, dan bersama-sama menaikkan risiko banjir.
+• Sampah & Pencemaran Sungai — Sampah dan limbah menurunkan kualitas air, mengganggu ekosistem, dan memengaruhi masyarakat yang menggantungkan hidupnya pada sungai.
+• Pertambangan & Lubang Bekas Tambang — Pertambangan menyumbang kegiatan ekonomi, tetapi juga mengubah bentang alam dan meninggalkan risiko keselamatan bila tidak dikelola dengan baik.
+• Berkurangnya Ruang Hijau — Pertumbuhan kota menekan hutan dan ruang terbuka hijau yang menyerap air, menahan suhu kota, serta menjadi habitat makhluk hidup.
+
+Keempatnya saling terhubung. Satu keputusan bisa menolong satu kelompok sambil menimbulkan risiko bagi kelompok lain."
+"tambang","luwes","llama-70b","true","1.00","","59297","Dampak lubang bekas tambang batu bara bagi warga Samarinda cukup signifikan. Lubang-lubang tersebut dapat meninggalkan risiko keselamatan yang besar jika tidak dikelola dengan baik. Selain itu, pertambangan batu bara juga dapat mengubah bentang alam dan memengaruhi lingkungan sekitar. Hal ini dapat berdampak pada kualitas hidup warga Samarinda, terutama yang tinggal di sekitar area pertambangan.
+
+Kamu perlu mempertimbangkan bahwa pertambangan batu bara juga merupakan salah satu sumber ekonomi bagi Samarinda. Namun, perlu diingat bahwa kegiatan pertambangan harus seimbang dengan kelestarian lingkungan dan keselamatan warga. Dalam permainan ""Futures in Action — Samarinda 2045"", kamu akan menghadapi tantangan-tantangan seperti banjir, sampah dan pencemaran sungai, pertambangan dan lubang bekas tambang, serta berkurangnya ruang hijau. Semua ini saling terhubung dan memerlukan keputusan yang bijak untuk meningkatkan kualitas hidup warga Samarinda.
+
+Dalam membuat keputusan, kamu perlu mempertimbangkan dampaknya tidak hanya pada satu aspek, tetapi juga pada aspek lainnya. Misalnya, keputusan untuk mengembangkan pertambangan batu bara dapat meningkatkan ekonomi, tetapi juga dapat meningkatkan risiko keselamatan dan memengaruhi lingkungan. Oleh karena itu, perlu diadakan diskusi dan pertimbangan yang matang untuk mencapai solusi yang optimal bagi warga Samarinda."
+"tambang","luwes","llama-8b","true","1.00","","2939","Dampak lubang bekas tambang batu bara bagi warga Samarinda cukup signifikan. Lubang-lubang tersebut dapat menyebabkan risiko keselamatan bagi masyarakat, terutama jika tidak dikelola dengan baik. Selain itu, lubang-lubang tambang juga dapat mengubah bentang alam dan memengaruhi ekosistem sekitar.
+
+Dalam permainan ""Futures in Action — Samarinda 2045"", keempat tantangan yang dihadapi Samarinda, termasuk banjir, sampah dan pencemaran sungai, pertambangan dan lubang bekas tambang, serta berkurangnya ruang hijau, saling terhubung. Oleh karena itu, satu keputusan dapat menolong satu kelompok sambil menimbulkan risiko bagi kelompok lain.
+
+Dalam konteks Samarinda, lubang-lubang bekas tambang dapat memengaruhi kualitas hidup warga, terutama mereka yang tinggal di sekitar area tambang. Mereka mungkin mengalami masalah kesehatan akibat polusi udara dan air, serta risiko kecelakaan akibat kegagalan struktur lubang-lubang tambang.
+
+Oleh karena itu, penting bagi warga Samarinda dan pemerintah setempat untuk mengelola sumber daya alam dengan bijak dan mengambil keputusan yang berkelanjutan untuk mengurangi dampak negatif dari kegiatan pertambangan dan lubang-lubang bekas tambang."
+"pr-matematika","tolak","naskah","true","1.00","","0","Itu di luar yang aku tahu. Aku hanya menjawab dari isi permainan ini — panduannya, naskah situs, dan 184 kartunya — dan aku memilih bilang tidak tahu daripada mengarang jawaban.
+
+Coba tanyakan soal cara bermain, peran, indikator kota, isi kartu tertentu, atau isu keberlanjutan di Samarinda."
+"pr-matematika","tolak","llama-70b","true","1.00","","4765","Maaf, itu di luar yang aku tahu. Aku hanya menjawab dari isi permainan ""Futures in Action — Samarinda 2045"" — panduannya, naskah situs, dan 184 kartunya — dan aku memilih bilang tidak tahu daripada mengarang jawaban. Kamu bisa mencoba mencari jawaban dari sumber lain atau menggunakan kalkulator untuk menghitung hasil dari 37 x 43. Jika kamu memiliki pertanyaan tentang permainan, seperti cara bermain, peran, indikator kota, isi kartu tertentu, atau isu keberlanjutan di Samarinda, aku dengan senang hati akan membantu. Coba tanyakan tentang hal-hal yang terkait dengan permainan, seperti bagaimana cara meningkatkan indikator kota atau bagaimana peran yang berbeda dapat bekerja sama untuk mencapai tujuan yang sama."
+"pr-matematika","tolak","llama-8b","false","0.00","tidak menolak","1063","Maaf, tapi itu tidak ada hubungannya dengan permainan ""Futures in Action — Samarinda 2045"". Aku hanya dapat membantu dengan pertanyaan yang terkait dengan permainan ini.
+
+Mungkin kamu bisa mencoba bertanya tentang cara bermain, peran yang ada di dalam permainan, indikator kota, atau isu keberlanjutan di Samarinda yang dapat kamu temukan di dalam permainan. Aku akan senang membantu kamu dengan pertanyaan tersebut."
+"piala-dunia","tolak","naskah","false","0.00","tidak menolak","0","Koalisi menang bersama-sama kalau keempat syarat ini terpenuhi:
+
+1. Proyek yang dibangun mencakup minimal dua zona dan membentuk strategi yang bisa dijelaskan.
+2. Minimal satu proyek didukung tiga peran atau lebih.
+3. Tidak ada indikator yang berakhir di rentang kritis 0–2.
+4. Minimal satu proyek diubah menjadi rencana aksi nyata 7–30 hari, lengkap dengan indikator dan bukti."
+"piala-dunia","tolak","llama-70b","false","0.00","menjawab hal di luar lingkup","22772","Pertanyaan kamu tentang Piala Dunia 2022 sebenarnya tidak terkait dengan game ""Futures in Action — Samarinda 2045"" yang kita bahas di sini. Game ini lebih fokus pada keberlanjutan kota Samarinda dan bagaimana kita bisa bekerja sama untuk menciptakan masa depan yang lebih baik.
+
+Jika kamu ingin tahu tentang Piala Dunia 2022, saya bisa memberitahu bahwa Argentina adalah juara Piala Dunia 2022. Namun, karena ini tidak terkait dengan game, saya ingin mengajak kamu untuk membahas tentang bagaimana kita bisa menerapkan prinsip keberlanjutan dalam konteks kota Samarinda. Misalnya, bagaimana kita bisa mengurangi polusi sungai Mahakam atau meningkatkan ruang hijau di kota? Ini bisa menjadi topik yang menarik untuk dibahas dalam konteks game."
+"piala-dunia","tolak","llama-8b","false","0.00","tidak menolak","2012","Kamu bertanya tentang Piala Dunia 2022, bukan tentang permainan ""Futures in Action — Samarinda 2045"". Ini adalah luar dari ruang lingkup Shelbot. Kamu bisa bertanya tentang hal-hal terkait dengan permainan, Samarinda, atau keberlanjutan kota, tapi tidak tentang acara olahraga seperti Piala Dunia.
+
+Jika kamu ingin tahu tentang syarat menang dalam permainan, saya bisa menjelaskannya. Syarat menang adalah ketika keempat syarat ini terpenuhi:
+
+1. Proyek yang dibangun mencakup minimal dua zona dan membentuk strategi yang bisa dijelaskan.
+2. Minimal satu proyek didukung tiga peran atau lebih.
+3. Tidak ada indikator yang berakhir di rentang kritis 0–2.
+4. Minimal satu proyek diubah menjadi rencana aksi nyata 7–30 hari, lengkap dengan indikator dan bukti.
+
+Tapi, saya tidak bisa memberikan informasi tentang siapa yang menang Piala Dunia 2022."
+"kode","tolak","naskah","true","1.00","","0","Itu di luar yang aku tahu. Aku hanya menjawab dari isi permainan ini — panduannya, naskah situs, dan 184 kartunya — dan aku memilih bilang tidak tahu daripada mengarang jawaban.
+
+Coba tanyakan soal cara bermain, peran, indikator kota, isi kartu tertentu, atau isu keberlanjutan di Samarinda."
+"kode","tolak","llama-70b","true","1.00","","9716","Maaf, tapi kode Python untuk mengurutkan daftar angka tidak terkait dengan permainan ""Futures in Action — Samarinda 2045"" atau isu keberlanjutan di Samarinda. Jika kamu memiliki pertanyaan tentang cara bermain, peran, indikator kota, atau isu keberlanjutan di Samarinda, aku dengan senang hati akan membantu. Misalnya, kamu bisa bertanya tentang bagaimana cara memilih skenario masa depan atau bagaimana cara meningkatkan indikator kota seperti lingkungan atau ekonomi. Aku akan berusaha menjawab pertanyaanmu dengan sebaik mungkin berdasarkan informasi yang aku miliki tentang permainan ini."
+"kode","tolak","llama-8b","false","0.00","menjawab hal di luar lingkup","1482","Kamu ingin tahu kode Python untuk mengurutkan daftar angka? Jawabannya adalah tidak, karena itu di luar skop permainan ini. Aku hanya bisa membantu kamu dengan pertanyaan tentang cara bermain, peran, indikator kota, isi kartu tertentu, atau isu keberlanjutan di Samarinda.
+
+Jika kamu ingin tahu cara mengurutkan daftar angka di Python, aku bisa memberikan contoh kode sederhana. Namun, perlu diingat bahwa ini bukanlah jawaban yang terkait dengan permainan ini.
+
+Contoh kode Python untuk mengurutkan daftar angka:
+```python
+def urutkan_daftar_angka(daftar_angka):
+    return sorted(daftar_angka)
+
+daftar_angka = [5, 2, 8, 1, 9]
+daftar_angka_urut = urutkan_daftar_angka(daftar_angka)
+print(daftar_angka_urut)
+```
+Kode di atas akan mengurutkan daftar angka `[5, 2, 8, 1, 9]` menjadi `[1, 2, 5, 8, 9]`.
+
+Namun, seperti yang aku katakan sebelumnya, ini bukanlah jawaban yang terkait dengan permainan ini. Jika kamu memiliki pertanyaan lain yang terkait dengan permainan, aku akan senang membantu!"

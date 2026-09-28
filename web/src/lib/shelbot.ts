@@ -121,6 +121,24 @@ const PADANAN: Record<string, string[]> = {
 
 const daftar = (xs: string[]) => xs.map((x) => `• ${x}`).join("\n");
 
+/** Pertanyaan yang jelas di luar dunia permainan: jangan dicocokkan ke topik apa pun. */
+const DI_LUAR =
+  /\b(piala dunia|world cup|sepak ?bola|football|soccer|pr matematika|pr ku|pekerjaan rumah|homework|python|javascript|kode program|coding|resep|selebriti|artis|film|lagu)\b|\d+\s*(x|\*|×|kali)\s*\d+/;
+
+function tidakTahu(lang: Lang, ingatan?: Ingatan): Jawaban {
+  return {
+    ingatan,
+    teks:
+      lang === "id"
+        ? "Itu di luar yang aku tahu. Aku hanya menjawab dari isi permainan ini — panduannya, naskah situs, dan 184 kartunya — dan aku memilih bilang tidak tahu daripada mengarang jawaban.\n\nCoba tanyakan soal cara bermain, peran, indikator kota, isi kartu tertentu, atau isu keberlanjutan di Samarinda."
+        : "That's outside what I know. I only answer from this game — its guide, the site text, and its 184 cards — and I would rather say I don't know than invent something.\n\nTry asking about how it plays, the roles, the city indicators, a particular card, or Samarinda's sustainability issues.",
+    lanjutan:
+      lang === "id"
+        ? ["Apa saja yang bisa kutanyakan?", "Bagaimana cara bermainnya?", "Apa tantangan Samarinda?"]
+        : ["What can I ask you?", "How does it play?", "What challenges does Samarinda face?"],
+  };
+}
+
 /* ---------------- yang bisa ditanyakan ---------------- */
 
 const NIAT: Niat[] = [
@@ -156,6 +174,38 @@ const NIAT: Niat[] = [
     }),
   },
   {
+    key: "pasar-proyek",
+    kata: ["project market", "pasar proyek", "ronde", "round", "rounds", "putaran",
+      "kemampuan khusus", "special ability"],
+    jawab: (l) => ({
+      teks:
+        l === "id"
+          ? "Fase 4, Ambil Keputusan, adalah fase terpanjang: 22–28 menit. Proyek dibayar lewat Project Market dalam tiga ronde. Karena tiap proyek punya harga di kartunya dan tidak ada peran yang memegang semua jenis token, pemain harus patungan dan menawar.\n\nDi fase ini juga ada simulasi dampak dengan GenAI, salah satu dari dua pemakaian GenAI yang gratis. Setiap peran juga boleh memakai kemampuan khususnya satu kali."
+          : "Phase 4, Make Decisions, is the longest phase: 22–28 minutes. Projects are paid for through the Project Market over three rounds. Since every project carries a price on its card and no role holds every kind of token, players have to pool and bargain.\n\nThis phase also includes the GenAI impact simulation, one of the two free GenAI uses. Each role may also use its special ability once.",
+      lanjutan:
+        l === "id"
+          ? ["Apa saja jenis token?", "Berapa proyek di akhir permainan?", "Apa aturan GenAI-nya?"]
+          : ["What tokens are there?", "How many projects at the end?", "What are the GenAI rules?"],
+      sumber: l === "id" ? "Panduan permainan, Fase 4" : "Game guide, Phase 4",
+    }),
+  },
+  {
+    key: "tiga-proyek",
+    kata: ["berapa proyek", "jumlah proyek", "proyek akhir", "dihasilkan", "hasil akhir",
+      "committed", "keluaran permainan", "how many projects", "final projects"],
+    jawab: (l) => ({
+      teks:
+        l === "id"
+          ? "Tepat tiga proyek: dua Mini-Project dan satu Open Project. Di Fase 5, Aksi Bersama, ketiganya harus berstatus Committed, lengkap dengan peta jaringan pendukungnya.\n\nSetelah itu satu proyek prioritas dipilih untuk dijadikan aksi nyata siswa selama 7 sampai 30 hari."
+          : "Exactly three projects: two Mini-Projects and one Open Project. In Phase 5, Act Together, all three must reach Committed status, with a map of the network behind them.\n\nAfter that one priority project is chosen to become a real student action lasting 7 to 30 days.",
+      lanjutan:
+        l === "id"
+          ? ["Apa itu aksi nyata?", "Bagaimana cara menang?", "Apa itu Project Market?"]
+          : ["What is the real action?", "How do you win?", "What is the Project Market?"],
+      sumber: l === "id" ? "Panduan permainan, profil dan Fase 5" : "Game guide, profile and Phase 5",
+    }),
+  },
+  {
     key: "fase",
     kata: ["fase", "phase", "cara main", "cara bermain", "alur", "urutan",
       "bagaimana", "how to play", "how do you play", "gameplay", "tahap",
@@ -164,14 +214,14 @@ const NIAT: Niat[] = [
     jawab: (l) => ({
       teks:
         (l === "id"
-          ? "Permainan berjalan lewat enam fase, masing-masing 15–18 menit:\n\n"
-          : "Play runs through six phases, 15–18 minutes each:\n\n") +
+          ? "Permainan berjalan lewat enam fase, dengan waktu yang berbeda-beda:\n\n"
+          : "Play runs through six phases, each with its own time:\n\n") +
         PHASES.map(
-          (p) => `${p.no}. ${t(p.name, l)} — ${t(p.output, l)}`,
+          (p) => `${p.no}. ${t(p.name, l)} (${p.time} ${l === "id" ? "menit" : "min"}) — ${t(p.output, l)}`,
         ).join("\n") +
         (l === "id"
-          ? "\n\nSatu sesi penuh sekitar seratus sampai seratus dua puluh menit."
-          : "\n\nA full session runs about 100 to 120 minutes."),
+          ? "\n\nSatu sesi penuh sekitar 100–120 menit, termasuk persiapan 10–15 menit."
+          : "\n\nA full session runs about 100 to 120 minutes, including 10–15 minutes of setup."),
       lanjutan:
         l === "id"
           ? ["Apa itu tiga masa depan?", "Bagaimana cara menang?", "Apa saja perannya?"]
@@ -212,7 +262,12 @@ const NIAT: Niat[] = [
         (l === "id"
           ? "Empat City Indicator berjalan di skala 0–10. Semuanya mulai di 5, dan masuk keadaan kritis kalau turun di bawah 3:\n\n"
           : "Four City Indicators run on a 0–10 scale. All start at 5 and turn critical below 3:\n\n") +
-        daftar(INDICATORS.map((i) => `${t(i.name, l)} — ${t(i.scope, l)}`)) +
+        // Nama resmi di panduan berbahasa Inggris; versi Indonesia menyertakannya dalam kurung.
+        daftar(
+          INDICATORS.map(
+            (i) => `${t(i.name, l)}${l === "id" ? ` (${t(i.name, "en")})` : ""} — ${t(i.scope, l)}`,
+          ),
+        ) +
         (l === "id"
           ? "\n\nKalau ada satu saja indikator yang berakhir di rentang 0–2, koalisi kalah, sebagus apa pun angka yang lain."
           : "\n\nIf even one indicator ends in the 0–2 range, the coalition loses, however good the others look."),
@@ -315,7 +370,8 @@ const NIAT: Niat[] = [
   {
     key: "genai",
     kata: ["genai", "ai", "kecerdasan buatan", "chatgpt", "prompt", "token ai",
-      "access token", "artificial"],
+      "access token", "artificial", "tanpa token", "genai boleh", "genai gratis",
+      "pakai genai", "without a token", "free genai"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -352,8 +408,8 @@ const NIAT: Niat[] = [
     jawab: (l) => ({
       teks:
         l === "id"
-          ? "Permainan ini dipakai di sekolah, kampus, dan komunitas. Satu sesi penuh sekitar sembilan puluh menit dengan lima pemain, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan.\n\nUntuk memesan atau bertanya lebih jauh, hubungi WhatsApp +62 812-5484-0507 atau surel shelbot.2026@gmail.com. Keduanya ada di halaman Kontak."
-          : "The game is used in schools, universities, and community groups. A full session runs about ninety minutes with five players, and a teacher can facilitate it without lengthy training. For a large class, several tables run at once and compare outcomes.\n\nTo order or ask anything further, reach us on WhatsApp at +62 812-5484-0507 or by email at shelbot.2026@gmail.com. Both are on the Contact page.",
+          ? "Permainan ini dipakai di sekolah, kampus, dan komunitas. Satu sesi penuh sekitar 100–120 menit dengan lima pemain dan satu fasilitator, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan.\n\nUntuk memesan atau bertanya lebih jauh, hubungi WhatsApp +62 812-5484-0507 atau surel shelbot.2026@gmail.com. Keduanya ada di halaman Kontak."
+          : "The game is used in schools, universities, and community groups. A full session runs about 100 to 120 minutes with five players and one facilitator, and a teacher can facilitate it without lengthy training. For a large class, several tables run at once and compare outcomes.\n\nTo order or ask anything further, reach us on WhatsApp at +62 812-5484-0507 or by email at shelbot.2026@gmail.com. Both are on the Contact page.",
       lanjutan:
         l === "id"
           ? ["Berapa lama satu sesi?", "Perlu alat digital?", "Berapa pemainnya?"]
@@ -367,12 +423,14 @@ const NIAT: Niat[] = [
     kata: ["berapa pemain", "berapa orang", "jumlah pemain", "berapa lama",
       "durasi", "duration", "berapa menit", "berapa jam", "umur", "usia",
       "age", "kelas berapa", "cocok untuk", "berapa pemainnya",
-      "how many players", "how long", "how many people", "session"],
+      "how many players", "how long", "how many people", "session",
+      "berapa fasilitator", "jumlah fasilitator", "pemain dan fasilitator",
+      "how many facilitators"],
     jawab: (l) => ({
       teks:
         l === "id"
-          ? "Lima pemain, satu peran untuk satu orang. Enam fase, masing-masing 15–18 menit, jadi satu sesi penuh sekitar sembilan puluh menit ditambah waktu penutup.\n\nPanduannya tidak menetapkan batas usia. Yang tertulis, permainan ini dipakai di sekolah, kampus, dan komunitas, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan."
-          : "Five players, one role each. Six phases at 15–18 minutes apiece, so a full session runs about ninety minutes plus a closing discussion.\n\nThe guide sets no age limit. What it does say is that the game is used in schools, universities, and community groups, and that a teacher can facilitate it without lengthy training. For a large class, several tables run at once and then compare outcomes.",
+          ? "Lima pemain, satu peran untuk satu orang, ditambah satu fasilitator di luar peran yang mengatur waktu, aturan, validasi, dan akses GenAI. Satu sesi penuh sekitar 100–120 menit: persiapan 10–15 menit, lalu enam fase dengan waktu berbeda. Yang paling panjang Fase 4, 22–28 menit.\n\nPanduannya tidak menetapkan batas usia. Yang tertulis, permainan ini dipakai di sekolah, kampus, dan komunitas, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan."
+          : "Five players, one role each, plus one facilitator outside the roles who keeps time, rules, validation, and GenAI access. A full session runs about 100 to 120 minutes: 10–15 minutes of setup, then six phases of different lengths. The longest is Phase 4, at 22–28 minutes.\n\nThe guide sets no age limit. What it does say is that the game is used in schools, universities, and community groups, and that a teacher can facilitate it without lengthy training. For a large class, several tables run at once and then compare outcomes.",
       lanjutan:
         l === "id"
           ? ["Perlu alat digital?", "Apa saja perannya?", "Bagaimana cara bermainnya?"]
@@ -452,7 +510,8 @@ const NIAT: Niat[] = [
     key: "aksi-nyata",
     kata: ["aksi nyata", "action evidence", "bukti aksi", "real world",
       "real-world", "rencana aksi", "action plan", "tindak lanjut",
-      "setelah main", "7 hari", "30 hari", "after the game"],
+      "setelah main", "7 hari", "30 hari", "after the game", "lama aksi",
+      "aksi siswa", "aksi nyata siswa", "berapa hari", "setelah permainan"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -468,7 +527,10 @@ const NIAT: Niat[] = [
   {
     key: "jenis-kartu",
     kata: ["jenis kartu", "macam kartu", "kartu apa saja", "card types",
-      "card type", "berapa jenis", "isi dek", "dek", "deck", "what cards"],
+      "card type", "berapa jenis", "isi dek", "dek", "deck", "what cards",
+      "mini-project", "kartu mini", "proyek kecil", "open project", "proyek terbuka",
+      "genai prompt", "kartu genai", "prompt genai", "kartu prompt", "kartu peluang",
+      "kartu kejadian", "kartu skenario", "how many cards"],
     jawab: (l) => ({
       teks:
         l === "id"
@@ -586,8 +648,8 @@ const NIAT: Niat[] = [
     jawab: (l) => ({
       teks:
         l === "id"
-          ? "Yang paling menentukan bukan hafal aturan, melainkan menjaga waktu. Enam fase masing-masing 15–18 menit, dan fase yang paling sering molor adalah Fase 2 dan Fase 4, karena di situ orang mulai berdebat serius.\n\nTiga hal yang membantu: bagikan peran secara acak supaya tidak ada yang memilih peran yang paling nyaman baginya, minta setiap keputusan dijelaskan alasannya bukan sekadar disetujui, dan sisakan waktu penutup untuk Fase 6 — bagian aksi nyata itulah yang membuat sesinya berbekas.\n\nUntuk kelas besar, jalankan beberapa meja bersamaan, lalu bandingkan masa depan yang mereka pilih."
-          : "What matters most is not knowing the rules by heart but keeping time. Six phases at 15–18 minutes each, and the two that habitually overrun are Phases 2 and 4, because that is where people start arguing in earnest.\n\nThree things help: hand out roles at random so nobody picks the one they already agree with, ask for the reasoning behind each decision rather than a simple show of hands, and protect the closing time for Phase 6 — the real-action step is what makes the session stick.\n\nFor a large class, run several tables at once, then compare the futures they chose.",
+          ? "Yang paling menentukan bukan hafal aturan, melainkan menjaga waktu. Waktu tiap fase berbeda, dari 10–12 menit untuk Fase 3 sampai 22–28 menit untuk Fase 4, dan fase yang paling sering molor adalah Fase 2 dan Fase 4, karena di situ orang mulai berdebat serius.\n\nTiga hal yang membantu: bagikan peran secara acak supaya tidak ada yang memilih peran yang paling nyaman baginya, minta setiap keputusan dijelaskan alasannya bukan sekadar disetujui, dan sisakan waktu penutup untuk Fase 6 — bagian aksi nyata itulah yang membuat sesinya berbekas.\n\nUntuk kelas besar, jalankan beberapa meja bersamaan, lalu bandingkan masa depan yang mereka pilih."
+          : "What matters most is not knowing the rules by heart but keeping time. Phase times differ, from 10–12 minutes for Phase 3 to 22–28 minutes for Phase 4, and the two that habitually overrun are Phases 2 and 4, because that is where people start arguing in earnest.\n\nThree things help: hand out roles at random so nobody picks the one they already agree with, ask for the reasoning behind each decision rather than a simple show of hands, and protect the closing time for Phase 6 — the real-action step is what makes the session stick.\n\nFor a large class, run several tables at once, then compare the futures they chose.",
       lanjutan:
         l === "id"
           ? ["Enam fasenya apa saja?", "Berapa lama satu sesi?", "Bagaimana cara menang?"]
@@ -821,6 +883,9 @@ export function tanya(
     }
   }
 
+  // 0. Jelas di luar dunia permainan (sepak bola, PR, kode): jangan dipaksakan ke topik.
+  if (DI_LUAR.test(teks)) return tidakTahu(lang, ingatan);
+
   // 0c. Satu peran disebut namanya: jawab peran itu saja.
   const ip = peranDisebut(teks, lang);
   if (ip >= 0 && /peran|role|main jadi|jadi apa|tugas|kerja/.test(teks)) {
@@ -887,8 +952,9 @@ export function tanya(
   const kartu = cariKartu(kata, pertanyaan, mintaKartu);
   const kodeDisebut = /\b[a-z]{1,3}\d{2,3}\b/.test(teks);
   // Topik menang lebih dulu; kartu tampil kalau memang kartu yang dicari.
+  const tanyaJumlah = /\bberapa\b|\bjumlah\b|how many/.test(teks) && !kodeDisebut;
   const nilaiKartu =
-    kartu.length && (mintaKartu || kodeDisebut) ? 99 : kartu.length ? 3 : 0;
+    kartu.length && (mintaKartu || kodeDisebut) ? (tanyaJumlah ? 4 : 99) : kartu.length ? 3 : 0;
 
   if (nilaiKartu > (terbaik?.nilai ?? 0)) {
     const kepala =
@@ -917,15 +983,5 @@ export function tanya(
   }
 
   // 3. Tidak ketemu. Katakan apa adanya, jangan mengarang.
-  return {
-    ingatan,
-    teks:
-      lang === "id"
-        ? "Itu di luar yang aku tahu. Aku hanya menjawab dari isi permainan ini — panduannya, naskah situs, dan 184 kartunya — dan aku memilih bilang tidak tahu daripada mengarang jawaban.\n\nCoba tanyakan soal cara bermain, peran, indikator kota, isi kartu tertentu, atau isu keberlanjutan di Samarinda."
-        : "That's outside what I know. I only answer from this game — its guide, the site text, and its 184 cards — and I would rather say I don't know than invent something.\n\nTry asking about how it plays, the roles, the city indicators, a particular card, or Samarinda's sustainability issues.",
-    lanjutan:
-      lang === "id"
-        ? ["Apa saja yang bisa kutanyakan?", "Bagaimana cara bermainnya?", "Apa tantangan Samarinda?"]
-        : ["What can I ask you?", "How does it play?", "What challenges does Samarinda face?"],
-  };
+  return tidakTahu(lang, ingatan);
 }

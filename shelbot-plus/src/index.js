@@ -7,6 +7,12 @@
  *   GET  /model                                         → { model: [...] }
  *   POST /sesi  { sandi }                               → { tiket, berlaku }
  *   POST /chat  { tiket, lang, pesan, naskah, model }   → { teks, model, ms }
+ *   POST /gambar { skenario, deskripsi, lang }          → { gambar (base64 JPEG), prompt }
+ *
+ * /gambar melayani Studio Fase 2: siswa menulis bayangan Samarinda 2045 untuk
+ * satu dari tiga skenario, lalu Flux menggambarnya. Teksnya diperiksa Llama
+ * Guard, lalu Llama kecil menyusunnya menjadi prompt ilustrasi berbahasa
+ * Inggris. Hasilnya selalu ilustrasi, bukan foto, dan tidak disimpan.
  *
  * "model" memilih otak: llama-70b, llama-8b, atau claude (hanya bila
  * secret ANTHROPIC_API_KEY terpasang). Tanpa "model", Llama besar dicoba
@@ -52,6 +58,64 @@ const namaClaude = (env) =>
     .replace(/\b(opus|sonnet|haiku|fable)\b/, (k) => k[0].toUpperCase() + k.slice(1));
 
 const JALUR_LLAMA = { "llama-70b": MODEL_UTAMA, "llama-8b": MODEL_CADANGAN };
+
+const MODEL_GAMBAR = "@cf/black-forest-labs/flux-1-schnell";
+const MODEL_PENJAGA = "@cf/meta/llama-guard-3-8b";
+const MAX_DESKRIPSI = 400;
+
+const SKENARIO = {
+  expected: "the Expected Future: today's habits and policies simply carry on",
+  alternative: "an Alternative Future: some things change, others stay the same",
+  transformative: "a Transformative Future: the city changes course in a deep way",
+};
+
+/** True bila Llama Guard menilai teks aman. Kalau penjaga gagal, anggap tidak aman. */
+async function aman(env, teks) {
+  try {
+    const out = await env.AI.run(MODEL_PENJAGA, { messages: [{ role: "user", content: teks }] });
+    const r = out?.response;
+    if (r && typeof r === "object" && "safe" in r) return Boolean(r.safe);
+    return String(r ?? "").trim().toLowerCase().startsWith("safe");
+  } catch {
+    return false;
+  }
+}
+
+/** Susun prompt Flux. Mengembalikan "" bila permintaan tidak cocok untuk digambar. */
+async function susunPrompt(env, skenario, deskripsi) {
+  const system = `You write prompts for an image model. A secondary-school student describes how Samarinda (a river city on the Mahakam River, East Kalimantan, Indonesia) might look in 2045 under ${SKENARIO[skenario]}.
+Write ONE English prompt of at most 50 words describing the CONTENT of that scene (the painting style is added later; never mention photos, cameras or realism): the river, the city, its people seen from a distance, and the details the student asked for.
+Rules: no text, letters or logos in the image; no real, named or famous people; no violence, weapons, or anything unsuitable for a school.
+If the student's text is not a description of a city scene, or is unsuitable for a school, reply with exactly: TOLAK
+The student usually writes in Indonesian. Your prompt MUST be in English; translate every detail.
+Reply with the prompt only.`;
+  // Deskripsi dibungkus sebagai kutipan dengan perintah berbahasa Inggris; kalau
+  // tidak, Llama membalas dalam bahasa siswa dan Flux salah paham.
+  const tanya = async (isi) => {
+    const out = await env.AI.run(MODEL_UTAMA, {
+      messages: [
+        { role: "system", content: system },
+        { role: "user", content: isi },
+      ],
+      max_tokens: 160,
+      temperature: 0.3,
+    });
+    return String(out?.response ?? "").trim().replace(/^"|"$/g, "");
+  };
+  let teks = await tanya(
+    `Student's description (may be in Indonesian):\n"""${deskripsi || "(no details given)"}"""\n\nNow write the image prompt in ENGLISH.`,
+  );
+  if (!teks || /^TOLAK\b/i.test(teks)) return "";
+  // Masih berbahasa Indonesia? Minta terjemahan sekali lagi.
+  if (/\b(yang|dan|dengan|di|ke|dari|untuk|telah)\b/i.test(teks)) {
+    teks = await tanya(`Translate this image prompt into natural English. Reply with the English prompt only:\n"""${teks}"""`);
+    if (!teks || /^TOLAK\b/i.test(teks)) return "";
+  }
+  // Flux schnell tidak punya prompt negatif, jadi larangan teks ditulis di awal dan di akhir.
+  // Gaya ditaruh paling depan karena Flux paling menurut pada awal prompt:
+  // hasilnya harus jelas lukisan, tidak boleh bisa disangka foto Samarinda.
+  return `Hand-painted watercolour and ink illustration in a storybook style, visible brush strokes, simplified shapes, not photorealistic, wordless. ${teks} Painted illustration, soft washes of colour, calm palette. No letters, no numbers, no signature, no watermark, no brand logos, not a photograph.`;
+}
 
 async function jawabLlama(env, jalur, messages) {
   const hasil = await env.AI.run(jalur, { messages, max_tokens: 700, temperature: 0.4 });
@@ -112,11 +176,21 @@ THE GAME
 - Five roles: Government & City Planners; Business & Industry; River Communities & Food Producers; Residents, Youth & Local Communities; Scientists, Educators & Environmental Groups.
 - Six phases: Observe the Present, Imagine Futures, Choose a Future, Make Decisions, Act Together, Real Impact.
 - Phase 2 always produces three scenarios: Expected Future, Alternative Future, Transformative Future. Phase 3 picks one; it needs support from at least 4 of the 5 roles.
-- Four City Indicators, scale 0-10, all start at 5, critical below 3: Environment, Society, Economy, Future Readiness.
-- 184 cards, 8 thematic zones on the board. Setting: Samarinda, East Kalimantan, on the Mahakam River.
+- Four City Indicators, scale 0-10, all start at 5, critical below 3: Environment, Society, Economy, Future Readiness. Always use these four official names; in Indonesian you may add a translation in brackets, but never call Future Readiness just "Masa Depan".
+
+OFFICIAL FACTS FROM THE GAME GUIDE (use them exactly; do not guess other numbers)
+- Players: 5 stakeholders, one role each, plus 1 facilitator outside the roles who manages time, rules, validation and GenAI access. A session takes about 100-120 minutes.
+- Phase times: setup 10-15 min; Phase 1 Observe the Present 12-15 (output: a System Map and one priority problem statement); Phase 2 Imagine Futures 15-18 (three scenarios and a 2030-2040-2045 timeline); Phase 3 Choose a Future 10-12 (one Preferred Future); Phase 4 Make Decisions 22-28 (projects are paid for through the Project Market in 3 rounds; each role may use its special ability once); Phase 5 Act Together 15-18 (three projects reach Committed status, plus a network map); Phase 6 Real Impact 15-18 (a simulated impact profile and a real-action commitment).
+- Outcome: exactly 3 projects, 2 Mini-Projects and 1 Open Project. One priority project becomes a real student action lasting 7-30 days.
+- Winning: projects cover at least two zones and form an explainable strategy; at least one project is backed by three or more roles; no indicator ends in the critical range 0-2; at least one project becomes a 7-30 day real action plan with an indicator and evidence.
+- 184 cards: 5 Role, 5 Objective (Special Goal), 12 Scenario, 36 Factor/Driver/Uncertainty, 40 Mini-Project, 10 Open Project, 24 Opportunity, 18 Event, 24 GenAI Prompt, 10 Action Evidence.
+- 8 Thematic Zones: Green, Energy, Transport, Education, Waste, Disaster, River, Food. 6 resource tokens: Nature, Energy, Funds, Knowledge, Community, Technology. Also 5 pawns, 15 Action Tokens, 1 D6 bonus die, 10 Collaboration Tokens, 10 GenAI Access Tokens, 4 City Indicator tracks.
+- GenAI in the game: two core uses are free, the System Map in Phase 1 and the Impact Simulation in Phase 4. Further prompts cost a GenAI Access Token, earned through verification, bias detection, local knowledge, or a well-designed prompt. Student personal data must not be sent; prompts and outputs are shown openly.
+- Setting: Samarinda, East Kalimantan, on the Mahakam River. The game is a playtesting prototype, not a final commercial product.
+If a question is about the game and the answer is not in these facts or the script answer, say you do not know it from the guide. Never invent a rule.
 
 SCOPE
-Stay inside the game's world, but be flexible within it. Welcome: the rules, phases, roles, cards and indicators; and the real issues the game is about — the Mahakam river, flooding, waste and river pollution, coal mining and abandoned mining pits, green space, energy, food, transport, health, education, jobs, and how a city like Samarinda could change by 2045. If a question has nothing to do with the game, Samarinda, or city sustainability (for example homework in another subject, celebrities, coding), say briefly that it is outside Shelbot's scope and suggest a related question you can help with.
+Stay inside the game's world, but be flexible within it. Welcome: the rules, phases, roles, cards and indicators; and the real issues the game is about — the Mahakam river, flooding, waste and river pollution, coal mining and abandoned mining pits, green space, energy, food, transport, health, education, jobs, and how a city like Samarinda could change by 2045. If a question has nothing to do with the game, Samarinda, or city sustainability (for example homework in another subject, sports results, celebrities, coding), decline in one or two sentences and suggest a related question you can help with. When you decline, do NOT answer the question anyway: no result, no number, no code, not even "by the way".
 
 HARD LIMITS, FROM THE GAME'S OWN RULES
 - You hold no vote. Never decide for the group, never set the cost of a project, never choose the priority project. If asked to decide, lay out the considerations and hand the decision back to the players.
@@ -239,6 +313,34 @@ export default {
         return balas(401, { galat: "Kata sandi salah." });
       }
       return balas(200, await buatTiket(env));
+    }
+
+    if (pathname === "/gambar") {
+      if (!ASAL_DIIZINKAN.includes(asal)) return balas(403, { galat: "Asal halaman tidak dikenal." });
+      if (env.MODE_TERBUKA !== "1" && !(await tiketSah(env, badan?.tiket))) {
+        return balas(401, { galat: "Sesi fasilitator tidak aktif." });
+      }
+      const ip = request.headers.get("cf-connecting-ip") || "tanpa-ip";
+      if (env.BATAS_GAMBAR) {
+        const { success } = await env.BATAS_GAMBAR.limit({ key: ip });
+        if (!success) return balas(429, { galat: "Terlalu banyak gambar. Coba lagi sebentar." });
+      }
+      const skenario = SKENARIO[badan?.skenario] ? badan.skenario : "alternative";
+      const deskripsi = String(badan?.deskripsi ?? "").slice(0, MAX_DESKRIPSI).trim();
+      if (deskripsi && !(await aman(env, deskripsi))) {
+        return balas(422, { galat: "Deskripsi ini tidak bisa digambar. Coba tulis bayangan kotamu dengan cara lain." });
+      }
+      try {
+        const prompt = await susunPrompt(env, skenario, deskripsi);
+        if (!prompt) {
+          return balas(422, { galat: "Tulis bayangan tentang kota Samarinda di 2045, misalnya sungainya, jalannya, atau kampungnya." });
+        }
+        const out = await env.AI.run(MODEL_GAMBAR, { prompt, steps: 4 });
+        if (!out?.image) throw new Error("kosong");
+        return balas(200, { gambar: out.image, prompt });
+      } catch {
+        return balas(503, { galat: "Studio gambar sedang tidak bisa dipakai. Jatah harian mungkin sudah habis." });
+      }
     }
 
     if (pathname === "/chat") {

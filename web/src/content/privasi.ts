@@ -7,8 +7,9 @@ import type { T, TL } from "@/lib/i18n";
    obrolan. Isinya hanya menyatakan apa yang benar-benar dilakukan
    kode di repositori ini, dan sudah diperiksa satu per satu:
 
-   - satu-satunya permintaan jaringan di src/ ada di Shelbot.tsx, dan
-     saat Shelbot+ menyala (ke Worker shelbot-plus; menyala sejak awal di
+   - permintaan jaringan di src/ hanya ada di dua tempat, keduanya ke Worker
+     shelbot-plus: StudioFase2.tsx (hanya saat tombol gambar ditekan) dan
+     Shelbot.tsx, saat Shelbot+ menyala (ke Worker shelbot-plus; menyala sejak awal di
      mode terbuka, bisa dimatikan dengan memilih "Naskah"; pilihan Claude,
      bila tersedia, diteruskan Worker ke Anthropic);
      mode biasa menjawab dari isi situs, dihitung di peramban
@@ -76,6 +77,14 @@ export const PRIVASI = {
       } as T,
     },
     {
+      jenis: "catatan",
+      judul: { id: "Studio gambar Fase 2", en: "The Phase 2 image studio" } as T,
+      isi: {
+        id: "Saat kamu menekan \u201cGambar bayanganku\u201d, skenario yang dipilih dan tulisanmu dikirim ke layanan kami di Cloudflare. Tulisan itu diperiksa oleh Llama Guard, disusun menjadi prompt oleh model Llama, lalu digambar oleh model Flux (semuanya Cloudflare Workers AI). Gambar dan tulisanmu tidak disimpan. Jumlah gambar dihitung per alamat IP selama satu menit, tanpa disimpan. Gambar selalu bertanda buatan AI dan bukan foto Samarinda.",
+        en: "When you press \u201cDraw my vision\u201d, the chosen scenario and your text are sent to our service on Cloudflare. The text is checked by Llama Guard, turned into a prompt by a Llama model, then drawn by the Flux model (all Cloudflare Workers AI). Neither the image nor your text is stored. Images are counted per IP address over one minute, without being stored. Images are always marked as AI-made and are not photos of Samarinda.",
+      } as T,
+    },
+    {
       jenis: "ya",
       judul: { id: "Skor mini game", en: "Your mini game score" } as T,
       isi: {
@@ -124,13 +133,13 @@ export const PRIVASI = {
     id: [
       "Tidak ada akun dan tidak ada borang.",
       "Tidak ada pengukur kunjungan dan tidak ada kuki iklan.",
-      "Skor dihitung di peramban kamu. Shelbot+ mengirim pertanyaan ke Cloudflare; pilih \u201cNaskah\u201d untuk menjawab di peramban.",
+      "Skor dihitung di peramban kamu. Shelbot+ dan studio gambar Fase 2 mengirim tulisanmu ke Cloudflare; di Shelbot, pilih \u201cNaskah\u201d untuk menjawab di peramban.",
       "Yang disimpan hanya pilihan tema.",
     ],
     en: [
       "No accounts and no forms.",
       "No analytics and no advertising cookies.",
-      "The score is computed in your browser. Shelbot+ sends questions to Cloudflare; choose \u201cScript\u201d to answer in your browser.",
+      "The score is computed in your browser. Shelbot+ and the Phase 2 image studio send your text to Cloudflare; in Shelbot, choose \u201cScript\u201d to answer in your browser.",
       "The only stored thing is your theme choice.",
     ],
   } as TL,

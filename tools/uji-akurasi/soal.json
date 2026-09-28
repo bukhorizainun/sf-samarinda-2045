@@ -1,0 +1,520 @@
+{
+  "sumber": "docs/02-ringkasan-panduan-permainan.md (dari NEW_Futures-in-Action-Complete-Game-Guide.pdf)",
+  "cara_nilai": "Tiap soal punya beberapa kelompok fakta. Satu kelompok dianggap muncul bila salah satu kata kuncinya ada di jawaban (huruf kecil, tanpa aksen). Skor soal = kelompok yang muncul / semua kelompok. Soal 'tolak' lulus bila jawaban menolak dengan sopan. Soal 'luwes' lulus bila jawaban TIDAK menolak dan menyebut salah satu kata kunci.",
+  "soal": [
+    {
+      "id": "durasi",
+      "kategori": "profil",
+      "tanya": "Berapa lama satu sesi permainan?",
+      "fakta": [
+        [
+          "100"
+        ],
+        [
+          "120"
+        ]
+      ]
+    },
+    {
+      "id": "pemain",
+      "kategori": "profil",
+      "tanya": "Berapa pemain dan berapa fasilitator dalam satu permainan?",
+      "fakta": [
+        [
+          "re:\\b(5|lima)\\s+(pemain|peran|orang|pemangku)"
+        ],
+        [
+          "re:\\b(1|satu|seorang)\\s+(orang\\s+)?fasilitator",
+          "re:fasilitator[^.]{0,25}\\b(1|satu|seorang)\\b"
+        ]
+      ]
+    },
+    {
+      "id": "fase",
+      "kategori": "fase",
+      "tanya": "Sebutkan enam fase permainan.",
+      "fakta": [
+        [
+          "observe",
+          "amati masa kini"
+        ],
+        [
+          "imagine",
+          "bayangkan masa depan"
+        ],
+        [
+          "choose",
+          "pilih masa depan"
+        ],
+        [
+          "make decisions",
+          "decide",
+          "ambil keputusan"
+        ],
+        [
+          "act together",
+          "aksi bersama",
+          "berkolaborasi"
+        ],
+        [
+          "real impact",
+          "dampak nyata"
+        ]
+      ]
+    },
+    {
+      "id": "skenario",
+      "kategori": "fase",
+      "tanya": "Apa tiga skenario yang dihasilkan di Fase 2?",
+      "fakta": [
+        [
+          "expected"
+        ],
+        [
+          "alternative"
+        ],
+        [
+          "transformative"
+        ]
+      ]
+    },
+    {
+      "id": "setuju-f3",
+      "kategori": "fase",
+      "tanya": "Kapan Preferred Future di Fase 3 dianggap disetujui?",
+      "fakta": [
+        [
+          "4 dari 5",
+          "empat dari lima",
+          "minimal 4",
+          "minimal empat",
+          "4 of 5"
+        ]
+      ]
+    },
+    {
+      "id": "ronde-f4",
+      "kategori": "fase",
+      "tanya": "Berapa ronde Project Market di Fase 4?",
+      "fakta": [
+        [
+          "3 ronde",
+          "tiga ronde",
+          "3 putaran",
+          "tiga putaran",
+          "3 rounds"
+        ]
+      ]
+    },
+    {
+      "id": "keluaran-f1",
+      "kategori": "fase",
+      "tanya": "Apa keluaran Fase 1 Observe the Present?",
+      "fakta": [
+        [
+          "system map",
+          "peta sistem",
+          "memetakan sistem"
+        ],
+        [
+          "masalah prioritas",
+          "pernyataan masalah",
+          "problem statement",
+          "masalah"
+        ]
+      ]
+    },
+    {
+      "id": "indikator",
+      "kategori": "indikator",
+      "tanya": "Apa saja empat City Indicator?",
+      "fakta": [
+        [
+          "environment",
+          "lingkungan"
+        ],
+        [
+          "society",
+          "masyarakat",
+          "sosial"
+        ],
+        [
+          "economy",
+          "ekonomi"
+        ],
+        [
+          "future readiness",
+          "kesiapan masa depan",
+          "kesiapan menghadapi masa depan"
+        ]
+      ]
+    },
+    {
+      "id": "skala",
+      "kategori": "indikator",
+      "tanya": "Berapa skala City Indicator, mulai dari nilai berapa, dan kapan dianggap kritis?",
+      "fakta": [
+        [
+          "re:\\b0\\s*(-|–|sampai|hingga|s\\.d\\.|to)\\s*10\\b"
+        ],
+        [
+          "re:(mulai|dimulai|awal|start)[^.]{0,30}\\b5\\b"
+        ],
+        [
+          "re:(bawah|kurang dari|<|below)\\s*(nilai\\s*)?3\\b",
+          "re:\\b0\\s*[-–]\\s*2\\b"
+        ]
+      ]
+    },
+    {
+      "id": "ekonomi",
+      "kategori": "indikator",
+      "tanya": "Apa yang diukur indikator Economy?",
+      "fakta": [
+        [
+          "lapangan kerja",
+          "pekerjaan",
+          "jobs",
+          "employment"
+        ],
+        [
+          "pendapatan",
+          "income"
+        ],
+        [
+          "batu bara",
+          "batubara",
+          "coal"
+        ]
+      ]
+    },
+    {
+      "id": "peran",
+      "kategori": "peran",
+      "tanya": "Sebutkan lima peran dalam permainan.",
+      "fakta": [
+        [
+          "government",
+          "pemerintah"
+        ],
+        [
+          "business",
+          "bisnis",
+          "industri"
+        ],
+        [
+          "river communities",
+          "komunitas sungai",
+          "masyarakat sungai"
+        ],
+        [
+          "residents",
+          "warga",
+          "youth",
+          "pemuda"
+        ],
+        [
+          "scientists",
+          "ilmuwan",
+          "educators",
+          "pendidik"
+        ]
+      ]
+    },
+    {
+      "id": "kartu-total",
+      "kategori": "komponen",
+      "tanya": "Berapa jumlah kartu dalam permainan?",
+      "fakta": [
+        [
+          "184"
+        ]
+      ]
+    },
+    {
+      "id": "kartu-mini",
+      "kategori": "komponen",
+      "tanya": "Ada berapa kartu Mini-Project?",
+      "fakta": [
+        [
+          "40"
+        ]
+      ]
+    },
+    {
+      "id": "kartu-genai",
+      "kategori": "komponen",
+      "tanya": "Ada berapa kartu GenAI Prompt?",
+      "fakta": [
+        [
+          "24"
+        ]
+      ]
+    },
+    {
+      "id": "zona",
+      "kategori": "komponen",
+      "tanya": "Sebutkan delapan Thematic Zone di papan.",
+      "fakta": [
+        [
+          "green",
+          "hijau"
+        ],
+        [
+          "energy",
+          "energi"
+        ],
+        [
+          "transport"
+        ],
+        [
+          "education",
+          "pendidikan"
+        ],
+        [
+          "waste",
+          "sampah",
+          "limbah"
+        ],
+        [
+          "disaster",
+          "bencana"
+        ],
+        [
+          "river",
+          "sungai"
+        ],
+        [
+          "food",
+          "pangan"
+        ]
+      ]
+    },
+    {
+      "id": "token",
+      "kategori": "komponen",
+      "tanya": "Apa saja enam jenis token sumber daya?",
+      "fakta": [
+        [
+          "nature",
+          "alam"
+        ],
+        [
+          "energy",
+          "energi"
+        ],
+        [
+          "funds",
+          "dana"
+        ],
+        [
+          "knowledge",
+          "pengetahuan"
+        ],
+        [
+          "community",
+          "komunitas"
+        ],
+        [
+          "technology",
+          "teknologi"
+        ]
+      ]
+    },
+    {
+      "id": "proyek-akhir",
+      "kategori": "aturan",
+      "tanya": "Berapa proyek yang dihasilkan di akhir permainan, dan apa jenisnya?",
+      "fakta": [
+        [
+          "3 proyek",
+          "tiga proyek",
+          "3 project"
+        ],
+        [
+          "mini"
+        ],
+        [
+          "open"
+        ]
+      ]
+    },
+    {
+      "id": "aksi-nyata",
+      "kategori": "aturan",
+      "tanya": "Berapa lama aksi nyata siswa setelah permainan?",
+      "fakta": [
+        [
+          "7"
+        ],
+        [
+          "30"
+        ]
+      ]
+    },
+    {
+      "id": "menang",
+      "kategori": "aturan",
+      "tanya": "Apa syarat menang dalam permainan ini?",
+      "fakta": [
+        [
+          "dua zona",
+          "2 zona",
+          "two zones",
+          "2 zone",
+          "dua zone"
+        ],
+        [
+          "tiga peran",
+          "3 peran",
+          "three roles",
+          "3 roles"
+        ],
+        [
+          "kritis",
+          "critical"
+        ],
+        [
+          "7",
+          "30",
+          "aksi nyata"
+        ]
+      ]
+    },
+    {
+      "id": "genai-gratis",
+      "kategori": "genai",
+      "tanya": "Kapan GenAI boleh dipakai tanpa token dalam permainan?",
+      "fakta": [
+        [
+          "system map",
+          "fase 1",
+          "phase 1"
+        ],
+        [
+          "impact simulation",
+          "simulasi dampak",
+          "fase 4",
+          "phase 4"
+        ]
+      ]
+    },
+    {
+      "id": "genai-token",
+      "kategori": "genai",
+      "tanya": "Bagaimana cara mendapatkan GenAI Access Token?",
+      "fakta": [
+        [
+          "verifikasi",
+          "verification",
+          "memverifikasi"
+        ],
+        [
+          "bias"
+        ],
+        [
+          "lokal",
+          "local"
+        ],
+        [
+          "prompt"
+        ]
+      ]
+    },
+    {
+      "id": "genai-pilih",
+      "kategori": "genai",
+      "tanya": "Apakah GenAI boleh memilih proyek prioritas untuk kelompok?",
+      "fakta": [
+        [
+          "tidak",
+          "no",
+          "bukan"
+        ]
+      ],
+      "terlarang": [
+        "ya, genai boleh",
+        "genai boleh memilih proyek prioritas"
+      ]
+    },
+    {
+      "id": "shelbot-harga",
+      "kategori": "genai",
+      "tanya": "Shelbot, tolong tentukan biaya proyek taman kota untuk kami.",
+      "fakta": [
+        [
+          "tidak",
+          "bukan",
+          "keputusan",
+          "kelompok",
+          "pemain"
+        ]
+      ],
+      "terlarang": [
+        "biayanya adalah",
+        "biaya proyek ini adalah"
+      ]
+    },
+    {
+      "id": "banjir",
+      "kategori": "luwes",
+      "jenis": "luwes",
+      "tanya": "Kenapa banjir sering terjadi di Samarinda?",
+      "kata": [
+        "sungai",
+        "mahakam",
+        "hujan",
+        "drainase",
+        "tambang",
+        "resapan",
+        "hutan"
+      ]
+    },
+    {
+      "id": "tambang",
+      "kategori": "luwes",
+      "jenis": "luwes",
+      "tanya": "Apa dampak lubang bekas tambang batu bara bagi warga Samarinda?",
+      "kata": [
+        "air",
+        "genangan",
+        "keselamatan",
+        "tenggelam",
+        "lingkungan",
+        "lubang",
+        "reklamasi"
+      ]
+    },
+    {
+      "id": "pr-matematika",
+      "kategori": "tolak",
+      "jenis": "tolak",
+      "tanya": "Tolong kerjakan PR matematikaku: berapa 37 x 43?",
+      "terlarang": [
+        "1591",
+        "1.591"
+      ]
+    },
+    {
+      "id": "piala-dunia",
+      "kategori": "tolak",
+      "jenis": "tolak",
+      "tanya": "Siapa yang menang Piala Dunia 2022?",
+      "terlarang": [
+        "argentina"
+      ]
+    },
+    {
+      "id": "kode",
+      "kategori": "tolak",
+      "jenis": "tolak",
+      "tanya": "Buatkan kode Python untuk mengurutkan daftar angka.",
+      "terlarang": [
+        "def ",
+        "sorted(",
+        ".sort("
+      ]
+    }
+  ],
+  "catatan_rubrik": "Revisi 1: nama fase dan tiga indikator versi Indonesia di situs diterima; Future Readiness tetap harus disebut sesuai panduan; penolakan sopan dikenali lebih luas; larangan genai-pilih dipersempit."
+}

@@ -3,6 +3,7 @@ import { Container, Section } from "@/components/Section";
 import { Halaman } from "@/components/Halaman";
 import { KepalaHalaman } from "@/components/KepalaHalaman";
 import { Shelbot } from "@/components/Shelbot";
+import { StudioFase2 } from "@/components/StudioFase2";
 import { Tilt } from "@/components/Tilt";
 import { INDICATORS, LAB, PHASES, ROLES } from "@/content/site";
 import cards from "@/content/cards.json";
@@ -97,6 +98,12 @@ export default async function HalamanShelbot({
           </aside>
         </div>
       </Section>
+
+      {process.env.NEXT_PUBLIC_SHELBOT_API && (
+        <Section className="border-t rule !pt-14">
+          <StudioFase2 lang={lang} />
+        </Section>
+      )}
     </Halaman>
   );
 }

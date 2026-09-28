@@ -1,0 +1,146 @@
+# Uji akurasi Shelbot, 2026-09-28
+
+Bank soal: 10 pertanyaan dari docs/02-ringkasan-panduan-permainan.md (dari NEW_Futures-in-Action-Complete-Game-Guide.pdf).
+Tiap model menerima jawaban naskah sebagai pijakan, sama seperti di situs.
+
+Tiap soal punya beberapa kelompok fakta. Satu kelompok dianggap muncul bila salah satu kata kuncinya ada di jawaban (huruf kecil, tanpa aksen). Skor soal = kelompok yang muncul / semua kelompok. Soal 'tolak' lulus bila jawaban menolak dengan sopan. Soal 'luwes' lulus bila jawaban TIDAK menolak dan menyebut salah satu kata kunci.
+
+| Otak | Fakta tercakup | Soal fakta lulus penuh | Menolak soal di luar lingkup | Menjawab isu Samarinda | Rata-rata waktu |
+|---|---|---|---|---|---|
+| naskah | 100% | 9/9 | 100% | 0% | di peramban |
+| llama-70b | 100% | 9/9 | 100% | 0% | 6.7 s |
+
+## Rincian per soal
+
+| Soal | naskah | llama-70b |
+|---|---|---|
+| durasi: Berapa lama satu sesi permainan? | lulus 100% | lulus 100% |
+| pemain: Berapa pemain dan berapa fasilitator dalam satu permainan? | lulus 100% | lulus 100% |
+| ronde-f4: Berapa ronde Project Market di Fase 4? | lulus 100% | lulus 100% |
+| indikator: Apa saja empat City Indicator? | lulus 100% | lulus 100% |
+| kartu-mini: Ada berapa kartu Mini-Project? | lulus 100% | lulus 100% |
+| kartu-genai: Ada berapa kartu GenAI Prompt? | lulus 100% | lulus 100% |
+| proyek-akhir: Berapa proyek yang dihasilkan di akhir permainan, dan apa jenisnya? | lulus 100% | lulus 100% |
+| aksi-nyata: Berapa lama aksi nyata siswa setelah permainan? | lulus 100% | lulus 100% |
+| genai-gratis: Kapan GenAI boleh dipakai tanpa token dalam permainan? | lulus 100% | lulus 100% |
+| piala-dunia: Siapa yang menang Piala Dunia 2022? | lulus 100% | lulus 100% |
+
+## Jawaban lengkap
+
+### durasi: Berapa lama satu sesi permainan?
+
+**naskah** (lulus)
+
+> Lima pemain, satu peran untuk satu orang, ditambah satu fasilitator di luar peran yang mengatur waktu, aturan, validasi, dan akses GenAI. Satu sesi penuh sekitar 100–120 menit: persiapan 10–15 menit, lalu enam fase dengan waktu berbeda. Yang paling panjang Fase 4, 22–28 menit.
+> Panduannya tidak menetapkan batas usia. Yang tertulis, permainan ini dipakai di sekolah, kampus, dan komunitas, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan.
+
+**llama-70b** (lulus)
+
+> Satu sesi permainan "Futures in Action — Samarinda 2045" memakan waktu sekitar 100-120 menit. Waktu ini termasuk persiapan yang memakan waktu 10-15 menit, lalu enam fase dengan waktu yang berbeda-beda. Fase yang paling lama adalah Fase 4, yaitu 22-28 menit. Jadi, kamu bisa mengharapkan sesi permainan yang cukup panjang, tapi pasti menyenangkan dan interaktif. Permainan ini bisa dimainkan oleh siapa saja, tanpa batas usia, dan bisa difasilitasi oleh guru atau fasilitator lainnya.
+
+### pemain: Berapa pemain dan berapa fasilitator dalam satu permainan?
+
+**naskah** (lulus)
+
+> Lima pemain, satu peran untuk satu orang, ditambah satu fasilitator di luar peran yang mengatur waktu, aturan, validasi, dan akses GenAI. Satu sesi penuh sekitar 100–120 menit: persiapan 10–15 menit, lalu enam fase dengan waktu berbeda. Yang paling panjang Fase 4, 22–28 menit.
+> Panduannya tidak menetapkan batas usia. Yang tertulis, permainan ini dipakai di sekolah, kampus, dan komunitas, dan bisa difasilitasi guru tanpa pelatihan panjang. Untuk kelas besar, beberapa meja berjalan bersamaan lalu hasilnya dibandingkan.
+
+**llama-70b** (lulus)
+
+> Dalam satu permainan, ada lima pemain dan satu fasilitator. Setiap pemain memainkan satu peran yang berbeda, sedangkan fasilitator bertanggung jawab untuk mengatur waktu, aturan, validasi, dan akses GenAI. Dengan demikian, total ada enam orang yang terlibat dalam satu sesi permainan. Sesi ini biasanya berlangsung sekitar 100-120 menit, termasuk waktu persiapan dan enam fase yang berbeda. Fase yang paling panjang adalah Fase 4, yang memakan waktu sekitar 22-28 menit. Permainan ini dapat dimainkan oleh berbagai kalangan, termasuk siswa sekolah, mahasiswa, dan masyarakat umum, dan dapat difasilitasi oleh guru atau fasilitator lainnya.
+
+### ronde-f4: Berapa ronde Project Market di Fase 4?
+
+**naskah** (lulus)
+
+> Fase 4, Ambil Keputusan, adalah fase terpanjang: 22–28 menit. Proyek dibayar lewat Project Market dalam tiga ronde. Karena tiap proyek punya harga di kartunya dan tidak ada peran yang memegang semua jenis token, pemain harus patungan dan menawar.
+> Di fase ini juga ada simulasi dampak dengan GenAI, salah satu dari dua pemakaian GenAI yang gratis. Setiap peran juga boleh memakai kemampuan khususnya satu kali.
+
+**llama-70b** (lulus)
+
+> Di Fase 4, yaitu Ambil Keputusan, ada tiga ronde Project Market. Pemain harus bekerja sama dan menawar untuk membeli proyek karena setiap proyek memiliki harga yang tercantum di kartunya dan tidak ada peran yang memiliki semua jenis token. Ini membuat pemain harus berbagi dan bernegosiasi untuk mencapai tujuan mereka. Selain itu, di fase ini juga terdapat simulasi dampak dengan menggunakan GenAI, yang merupakan salah satu dari dua pemakaian GenAI yang gratis. Setiap peran juga memiliki kesempatan untuk menggunakan kemampuan khususnya satu kali selama fase ini.
+
+### indikator: Apa saja empat City Indicator?
+
+**naskah** (lulus)
+
+> Empat City Indicator berjalan di skala 0–10. Semuanya mulai di 5, dan masuk keadaan kritis kalau turun di bawah 3:
+> • Lingkungan (Environment) — Air, udara, banjir, hutan, polusi, dan emisi.
+> • Masyarakat (Society) — Kesetaraan, kesehatan, layanan, partisipasi, dan kelompok rentan.
+> • Ekonomi (Economy) — Lapangan kerja, keragaman pendapatan, dan ketergantungan batu bara.
+> • Masa Depan (Future Readiness) — Kesiapan menghadapi ketidakpastian, perencanaan jangka panjang, dan adaptasi.
+> Kalau ada satu saja indikator yang berakhir di rentang 0–2, koalisi kalah, sebagus apa pun angka yang lain.
+
+**llama-70b** (lulus)
+
+> Empat City Indicator dalam permainan Futures in Action — Samarinda 2045 adalah Lingkungan (Environment), Masyarakat (Society), Ekonomi (Economy), dan Masa Depan (Future Readiness). Semua indikator ini berjalan di skala 0-10 dan mulai dari nilai 5. Jika salah satu indikator turun di bawah 3, maka kondisinya menjadi kritis. 
+> Lingkungan mencakup aspek seperti air, udara, banjir, hutan, polusi, dan emisi. Masyarakat terkait dengan kesetaraan, kesehatan, layanan, partisipasi, dan kelompok rentan. Ekonomi meliputi lapangan kerja, keragaman pendapatan, dan ketergantungan batu bara. Sementara itu, Masa Depan berfokus pada kesiapan menghadapi ketidakpastian, perencanaan jangka panjang, dan adaptasi.
+> Penting untuk memantau dan memelihara semua indikator ini agar koalisi dapat mencapai tujuannya dan menghindari kekalahan jika salah satu indikator berakhir di rentang 0-2. Kamu perlu memastikan bahwa semua indikator tetap seimbang dan tidak ada yang terlalu rendah, sehingga kamu dapat mencapai kemenangan dalam permainan ini.
+
+### kartu-mini: Ada berapa kartu Mini-Project?
+
+**naskah** (lulus)
+
+> Deknya 184 kartu dalam dua belas jenis: 5 Peran, 5 Tujuan Khusus, 12 Skenario Samarinda, 36 Faktor Masalah, Pendorong, dan Ketidakpastian, 40 Proyek Kecil, 10 Proyek Terbuka, 24 Peluang, 18 Kejadian, 24 Prompt GenAI, dan 10 Bukti Aksi.
+> Semuanya bisa dibaca di halaman Katalog Kartu situs ini, dan aku bisa membacakan satu per satu — sebut judulnya atau kodenya, misalnya P01.
+
+**llama-70b** (lulus)
+
+> Kamu ingin tahu tentang kartu Mini-Project di game "Futures in Action — Samarinda 2045". Menurut informasi yang ada, terdapat 40 kartu Mini-Project dalam game ini. Ini berarti kamu memiliki banyak pilihan untuk memilih proyek kecil yang ingin kamu jalankan dalam game. Jika kamu ingin tahu lebih banyak tentang kartu-kartu ini, kamu bisa membaca katalog kartu di situs ini atau aku bisa membacakan satu per satu jika kamu menyebutkan judul atau kodenya.
+
+### kartu-genai: Ada berapa kartu GenAI Prompt?
+
+**naskah** (lulus)
+
+> Deknya 184 kartu dalam dua belas jenis: 5 Peran, 5 Tujuan Khusus, 12 Skenario Samarinda, 36 Faktor Masalah, Pendorong, dan Ketidakpastian, 40 Proyek Kecil, 10 Proyek Terbuka, 24 Peluang, 18 Kejadian, 24 Prompt GenAI, dan 10 Bukti Aksi.
+> Semuanya bisa dibaca di halaman Katalog Kartu situs ini, dan aku bisa membacakan satu per satu — sebut judulnya atau kodenya, misalnya P01.
+
+**llama-70b** (lulus)
+
+> Kamu ingin tahu tentang kartu GenAI Prompt. Menurut informasi yang ada, ada 24 kartu GenAI Prompt dalam permainan "Futures in Action — Samarinda 2045". Kartu-kartu ini merupakan bagian dari dek yang terdiri dari 184 kartu dalam dua belas jenis yang berbeda. Jika kamu ingin tahu lebih lanjut tentang kartu-kartu lainnya, kamu bisa membaca katalog kartu di situs ini atau aku bisa membacakan satu per satu jika kamu menyebutkan judul atau kodenya.
+
+### proyek-akhir: Berapa proyek yang dihasilkan di akhir permainan, dan apa jenisnya?
+
+**naskah** (lulus)
+
+> Tepat tiga proyek: dua Mini-Project dan satu Open Project. Di Fase 5, Aksi Bersama, ketiganya harus berstatus Committed, lengkap dengan peta jaringan pendukungnya.
+> Setelah itu satu proyek prioritas dipilih untuk dijadikan aksi nyata siswa selama 7 sampai 30 hari.
+
+**llama-70b** (lulus)
+
+> Di akhir permainan, ada tiga proyek yang dihasilkan. Dua di antaranya adalah Mini-Project, dan satu lagi adalah Open Project. Ketiga proyek ini harus mencapai status Committed di Fase 5, Aksi Bersama, dan juga harus memiliki peta jaringan pendukungnya. Salah satu dari ketiga proyek ini kemudian dipilih sebagai proyek prioritas dan dijadikan aksi nyata yang akan dilakukan oleh siswa selama 7 sampai 30 hari. Ini menunjukkan bahwa permainan tidak hanya berhenti pada perencanaan, tetapi juga melibatkan aksi nyata yang dapat membawa dampak positif. Kamu dapat melihat bahwa proses ini membutuhkan kerja sama dan komitmen dari semua pihak yang terlibat dalam permainan.
+
+### aksi-nyata: Berapa lama aksi nyata siswa setelah permainan?
+
+**naskah** (lulus)
+
+> Ini bagian yang membedakan permainan ini dari simulasi biasa. Di Fase 6, minimal satu proyek yang kalian bangun di atas meja harus diubah menjadi rencana aksi nyata berdurasi 7 sampai 30 hari, lengkap dengan indikator yang bisa diukur dan bukti yang bisa ditunjukkan.
+> Sepuluh kartu Action Evidence menjelaskan bentuk buktinya: data, foto, peta, atau produk. Tanpa langkah ini, syarat menang tidak terpenuhi — jadi permainannya baru selesai setelah ada yang benar-benar dikerjakan di luar meja.
+
+**llama-70b** (lulus)
+
+> Lama aksi nyata siswa setelah permainan adalah antara 7 sampai 30 hari. Ini berarti bahwa setelah kamu selesai bermain, kamu harus mewujudkan minimal satu proyek yang telah kamu bangun di atas meja menjadi aksi nyata yang berlangsung selama 7 sampai 30 hari. Aksi nyata ini harus memiliki indikator yang bisa diukur dan bukti yang bisa ditunjukkan, seperti data, foto, peta, atau produk. Dengan demikian, permainan ini tidak hanya berhenti di atas meja, tetapi juga memiliki dampak nyata di luar meja.
+
+### genai-gratis: Kapan GenAI boleh dipakai tanpa token dalam permainan?
+
+**naskah** (lulus)
+
+> Di dalam permainan, GenAI hadir sebagai teman berpikir, bukan pengambil keputusan. Dua pemakaian inti gratis: peta sistem di Fase 1 dan simulasi dampak di Fase 4. Prompt tambahan menuntut GenAI Access Token, yang diperoleh lewat verifikasi, deteksi bias, pengetahuan lokal, atau rancangan prompt yang baik.
+> Batasnya tegas: GenAI tidak punya suara, tidak menetapkan biaya proyek, dan tidak memilih proyek prioritas. Prompt dan jawabannya harus ditampilkan terbuka, dan data pribadi tidak boleh dimasukkan.
+> Aku sendiri bukan GenAI. Aku menjawab dari isi permainan yang sudah tertulis, bukan mengarang kalimat baru.
+
+**llama-70b** (lulus)
+
+> Kamu bisa menggunakan GenAI tanpa token dalam dua kesempatan, yaitu saat membuat peta sistem di Fase 1 dan saat melakukan simulasi dampak di Fase 4. Dalam kedua kesempatan ini, GenAI dapat digunakan secara gratis tanpa memerlukan GenAI Access Token. Namun, jika kamu ingin menggunakan GenAI lebih dari itu, maka kamu perlu memiliki GenAI Access Token yang dapat diperoleh melalui verifikasi, deteksi bias, pengetahuan lokal, atau rancangan prompt yang baik. Perlu diingat bahwa GenAI hanya berfungsi sebagai teman berpikir dan tidak dapat mengambil keputusan atau menetapkan biaya proyek.
+
+### piala-dunia: Siapa yang menang Piala Dunia 2022?
+
+**naskah** (lulus)
+
+> Itu di luar yang aku tahu. Aku hanya menjawab dari isi permainan ini — panduannya, naskah situs, dan 184 kartunya — dan aku memilih bilang tidak tahu daripada mengarang jawaban.
+> Coba tanyakan soal cara bermain, peran, indikator kota, isi kartu tertentu, atau isu keberlanjutan di Samarinda.
+
+**llama-70b** (lulus)
+
+> Pertanyaanmu tentang Piala Dunia 2022 tidak terkait dengan permainan "Futures in Action — Samarinda 2045" atau isu keberlanjutan di Samarinda. Aku tidak memiliki informasi tentang hasil Piala Dunia 2022 karena itu di luar cakupan pengetahuanku.
+> Jika kamu ingin tahu lebih tentang permainan, seperti cara bermain, peran yang ada, atau indikator kota, aku dengan senang hati membantu. Atau, jika kamu memiliki pertanyaan tentang isu keberlanjutan di Samarinda, seperti polusi sungai, pengelolaan limbah, atau energi terbarukan, aku juga siap membantu. Coba tanyakan pertanyaan yang terkait dengan permainan atau isu keberlanjutan di Samarinda, dan aku akan berusaha menjawabnya dengan sebaik mungkin.
